@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Online Exam Portal</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+
+        <div class="logo">
+            <span>🎓</span>
+            Online Exam Portal
+        </div>
+
+    </header>
+
+
+    <!-- LOGIN AREA -->
+    <main class="auth-container">
+
+        <section class="auth-card">
+
+            <div class="auth-icon" id="authIcon">
+                🔐
+            </div>
+
+            <h1 id="loginTitle">
+                Login
+            </h1>
+
+            <p id="loginSubtitle">
+                Enter your login details
+            </p>
+
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- MESSAGE -->
+            <div
+                id="loginMessage"
+                class="login-message"
+            ></div>
+
+
+            <!-- BACK -->
+            <a
+                href="index.html"
+                class="back-link"
+            >
+                ← Back to Home
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FIREBASE / APPLICATION -->
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+        import {
+            getAuth,
+            signInWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+        import {
+            getFirestore,
+            doc,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+        /*
+        =====================================================
+        FIREBASE CONFIGURATION
+        =====================================================
+
+        Replace these values with your Firebase project
+        configuration.
+
+        You will receive these values from:
+
+        Firebase Console
+        →
+        Project Settings
+        →
+        Your Apps
+        →
+        Web App
+        */
+
+        const firebaseConfig = {
+
+            apiKey: "YOUR_API_KEY",
+
+            authDomain:
+                "YOUR_PROJECT.firebaseapp.com",
+
+            projectId:
+                "YOUR_PROJECT_ID",
+
+            storageBucket:
+                "YOUR_PROJECT.firebasestorage.app",
+
+            messagingSenderId:
+                "YOUR_MESSAGING_SENDER_ID",
+
+            appId:
+                "YOUR_APP_ID"
+
+        };
+
+
+        // Initialize Firebase
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const auth =
+            getAuth(app);
+
+        const db =
+            getFirestore(app);
+
+
+        /*
+        =====================================================
+        DETERMINE LOGIN TYPE
+        =====================================================
+        */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const selectedRole =
+            urlParams.get("role") || "student";
+
+
+        /*
+        =====================================================
+        CHANGE PAGE ACCORDING TO ROLE
+        =====================================================
+        */
+
+        const loginTitle =
+            document.getElementById("loginTitle");
+
+        const loginSubtitle =
+            document.getElementById("loginSubtitle");
+
+        const authIcon =
+            document.getElementById("authIcon");
+
+
+        if (selectedRole === "admin") {
+
+            loginTitle.textContent =
+                "Admin Login";
+
+            loginSubtitle.textContent =
+                "Login to manage students, exams and results.";
+
+            authIcon.textContent =
+                "👨‍💼";
+
+        } else {
+
+            loginTitle.textContent =
+                "Student Login";
+
+            loginSubtitle.textContent =
+                "Login to view your exams and results.";
+
+            authIcon.textContent =
+                "👨‍🎓";
+
+        }
+
+
+        /*
+        =====================================================
+        LOGIN
+        =====================================================
+        */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                loginMessage.textContent =
+                    "Checking login...";
+
+                loginMessage.className =
+                    "login-message loading";
+
+                loginButton.disabled =
+                    true;
+
+
+                try {
+
+                    /*
+                    Login with Firebase
+                    */
+
+                    const userCredential =
+                        await signInWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        );
+
+
+                    const user =
+                        userCredential.user;
+
+
+                    /*
+                    Get user information
+                    */
+
+                    const userRef =
+                        doc(
+                            db,
+                            "users",
+                            user.uid
+                        );
+
+
+                    const userSnapshot =
+                        await getDoc(userRef);
+
+
+                    if (!userSnapshot.exists()) {
+
+                        throw new Error(
+                            "User profile was not found."
+                        );
+
+                    }
+
+
+                    const userData =
+                        userSnapshot.data();
+
+
+                    /*
+                    Check requested role
+                    */
+
+                    if (
+                        selectedRole === "admin" &&
+                        userData.role !== "admin"
+                    ) {
+
+                        throw new Error(
+                            "This account is not an Admin account."
+                        );
+
+                    }
+
+
+                    if (
+                        selectedRole === "student" &&
+                        userData.role !== "student"
+                    ) {
+
+                        throw new Error(
+                            "This account is not a Student account."
+                        );
+
+                    }
+
+
+                    /*
+                    Login successful
+                    */
+
+                    loginMessage.textContent =
+                        "Login successful. Redirecting...";
+
+                    loginMessage.className =
+                        "login-message success";
+
+
+                    /*
+                    Redirect
+                    */
+
+                    if (
+                        userData.role === "admin"
+                    ) {
+
+                        window.location.href =
+                            "admin.html";
+
+                    } else {
+
+                        window.location.href =
+                            "student.html";
+
+                    }
+
+                }
+
+                catch (error) {
+
+                    console.error(error);
+
+
+                    let message =
+                        "Login failed.";
+
+
+                    if (
+                        error.code ===
+                        "auth/invalid-credential"
+                    ) {
+
+                        message =
+                            "Invalid email or password.";
+
+                    }
+
+                    else if (
+                        error.code ===
+                        "auth/user-not-found"
+                    ) {
+
+                        message =
+                            "No account found with this email.";
+
+                    }
+
+                    else if (
+                        error.code ===
+                        "auth/wrong-password"
+                    ) {
+
+                        message =
+                            "Incorrect password.";
+
+                    }
+
+                    else if (
+                        error.code ===
+                        "auth/invalid-email"
+                    ) {
+
+                        message =
+                            "Please enter a valid email.";
+
+                    }
+
+                    else if (
+                        error.code ===
+                        "auth/too-many-requests"
+                    ) {
+
+                        message =
+                            "Too many login attempts. Please try again later.";
+
+                    }
+
+                    else {
+
+                        message =
+                            error.message;
+
+                    }
+
+
+                    loginMessage.textContent =
+                        message;
+
+                    loginMessage.className =
+                        "login-message error";
+
+
+                    loginButton.disabled =
+                        false;
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
