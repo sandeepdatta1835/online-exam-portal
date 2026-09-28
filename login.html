@@ -1,1026 +1,994 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
+<meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  >
+>
 
-  <title>Online Exam Portal - Login</title>
+<title>Login | Online Exam Portal</title>
 
-  <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-    }
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-      background:
-        linear-gradient(
-          135deg,
-          #eef4ff,
-          #f8fbff
-        );
-    }
+* {
+    box-sizing: border-box;
+}
 
-    .login-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 25px;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(
+        135deg,
+        #eef4ff,
+        #f8fafc
+    );
+}
+
+
+/* MAIN */
+
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+/* LOGIN CARD */
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.10);
+}
+
+
+/* LOGO */
+
+.login-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 18px;
+}
+
+
+.login-title {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #111827;
+    font-size: 26px;
+}
+
+
+.login-subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+
+/* ROLE SWITCH */
+
+.role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 25px;
+    background: #f3f4f6;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+.role-btn {
+    border: none;
+    padding: 11px;
+    border-radius: 7px;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+
+.role-btn.active {
+    background: white;
+    color: #2563eb;
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.08);
+}
+
+
+/* FORM */
+
+.login-form-group {
+    margin-bottom: 18px;
+}
+
+
+.login-form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #374151;
+}
+
+
+.login-form-group input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 15px;
+    outline: none;
+}
+
+
+.login-form-group input:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
+}
+
+
+/* LOGIN BUTTON */
+
+.login-button {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 9px;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+
+.login-button:hover {
+    background: #1d4ed8;
+}
+
+
+.login-button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+
+/* ALERT */
+
+.login-alert {
+    display: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+.login-alert.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+.login-alert.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* FOOTER */
+
+.login-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+
+/* HELP */
+
+.login-help {
+    margin-top: 20px;
+    padding: 13px;
+    background: #f8fafc;
+    border-radius: 9px;
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
 
     .login-wrapper {
-      width: 100%;
-      max-width: 1050px;
-      min-height: 600px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      background: white;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.12);
+        padding: 15px;
     }
 
-    /* LEFT SIDE */
-
-    .login-left {
-      background:
-        linear-gradient(
-          145deg,
-          #173b7a,
-          #2563eb
-        );
-
-      color: white;
-
-      padding: 55px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .login-card {
+        padding: 25px 20px;
     }
 
-    .brand-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 18px;
-
-      background: rgba(255,255,255,0.15);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 34px;
-
-      margin-bottom: 25px;
+    .login-title {
+        font-size: 23px;
     }
 
-    .login-left h1 {
-      font-size: 40px;
-      margin: 0 0 18px;
-      line-height: 1.15;
-    }
+}
 
-    .login-left p {
-      font-size: 17px;
-      line-height: 1.7;
-      opacity: 0.9;
-      max-width: 430px;
-    }
-
-    .feature-list {
-      margin-top: 30px;
-    }
-
-    .feature {
-      display: flex;
-      align-items: center;
-      margin-bottom: 18px;
-      font-size: 15px;
-    }
-
-    .feature-icon {
-      width: 32px;
-      height: 32px;
-
-      border-radius: 50%;
-
-      background: rgba(255,255,255,0.15);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      margin-right: 12px;
-    }
-
-
-    /* RIGHT SIDE */
-
-    .login-right {
-      padding: 55px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .login-heading {
-      margin-bottom: 30px;
-    }
-
-    .login-heading h2 {
-      margin: 0 0 8px;
-      font-size: 30px;
-      color: #172033;
-    }
-
-    .login-heading p {
-      margin: 0;
-      color: #667085;
-    }
-
-
-    /* ROLE SWITCH */
-
-    .role-switch {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-
-      background: #f2f4f7;
-
-      padding: 5px;
-
-      border-radius: 12px;
-
-      margin-bottom: 28px;
-    }
-
-    .role-btn {
-      border: none;
-      background: transparent;
-
-      padding: 12px;
-
-      border-radius: 9px;
-
-      font-size: 15px;
-      font-weight: 600;
-
-      cursor: pointer;
-
-      color: #667085;
-    }
-
-    .role-btn.active {
-      background: white;
-      color: #2563eb;
-
-      box-shadow:
-        0 2px 8px rgba(0,0,0,0.08);
-    }
-
-
-    /* FORM */
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-group label {
-      display: block;
-
-      margin-bottom: 8px;
-
-      font-weight: 600;
-
-      color: #344054;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .input-icon {
-      position: absolute;
-
-      left: 15px;
-      top: 50%;
-
-      transform: translateY(-50%);
-
-      color: #98a2b3;
-    }
-
-    .form-group input {
-      width: 100%;
-
-      padding: 14px 15px 14px 45px;
-
-      border: 1px solid #d0d5dd;
-
-      border-radius: 10px;
-
-      font-size: 15px;
-
-      outline: none;
-
-      transition: 0.2s;
-    }
-
-    .form-group input:focus {
-      border-color: #2563eb;
-
-      box-shadow:
-        0 0 0 3px rgba(37,99,235,0.1);
-    }
-
-    .login-button {
-      width: 100%;
-
-      border: none;
-
-      padding: 15px;
-
-      border-radius: 10px;
-
-      background: #2563eb;
-
-      color: white;
-
-      font-size: 16px;
-
-      font-weight: 600;
-
-      cursor: pointer;
-
-      transition: 0.2s;
-    }
-
-    .login-button:hover {
-      background: #1d4ed8;
-    }
-
-    .login-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-
-    /* MESSAGE */
-
-    #message {
-      margin-top: 18px;
-
-      padding: 12px;
-
-      border-radius: 8px;
-
-      display: none;
-
-      font-size: 14px;
-    }
-
-    .message-error {
-      display: block !important;
-
-      background: #fef3f2;
-
-      color: #b42318;
-    }
-
-    .message-success {
-      display: block !important;
-
-      background: #ecfdf3;
-
-      color: #027a48;
-    }
-
-
-    .footer-text {
-      text-align: center;
-
-      margin-top: 25px;
-
-      font-size: 13px;
-
-      color: #98a2b3;
-    }
-
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      .login-wrapper {
-        grid-template-columns: 1fr;
-
-        max-width: 500px;
-      }
-
-      .login-left {
-        padding: 35px;
-
-        min-height: 300px;
-      }
-
-      .login-left h1 {
-        font-size: 30px;
-      }
-
-      .feature-list {
-        display: none;
-      }
-
-      .login-right {
-        padding: 35px 25px;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
 
 <body>
 
-<div class="login-page">
 
-  <div class="login-wrapper">
+<div class="login-wrapper">
 
-
-    <!-- LEFT PANEL -->
-
-    <div class="login-left">
-
-      <div class="brand-icon">
-        📝
-      </div>
-
-      <h1>
-        Online Exam Portal
-      </h1>
-
-      <p>
-        A simple and secure platform for
-        managing examinations, question papers,
-        answer sheets and results.
-      </p>
+    <div class="login-card">
 
 
-      <div class="feature-list">
+        <!-- LOGO -->
 
-        <div class="feature">
-
-          <div class="feature-icon">
-            ✓
-          </div>
-
-          Online Exam Management
-
+        <div class="login-logo">
+            📚
         </div>
 
 
-        <div class="feature">
-
-          <div class="feature-icon">
-            ✓
-          </div>
-
-          Digital Question Papers
-
-        </div>
+        <h1 class="login-title">
+            Online Exam Portal
+        </h1>
 
 
-        <div class="feature">
-
-          <div class="feature-icon">
-            ✓
-          </div>
-
-          Answer Sheet Submission
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            ✓
-          </div>
-
-          Marks & Results
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- RIGHT PANEL -->
-
-    <div class="login-right">
-
-
-      <div class="login-heading">
-
-        <h2 id="loginTitle">
-          Student Login
-        </h2>
-
-        <p id="loginSubtitle">
-          Login to access your examination portal.
+        <p class="login-subtitle">
+            Secure Examination Management System
         </p>
 
-      </div>
 
+        <!-- ROLE SELECTOR -->
 
-      <!-- ROLE -->
+        <div class="role-selector">
 
-      <div class="role-switch">
-
-        <button
-          type="button"
-          id="studentRole"
-          class="role-btn active">
-
-          Student
-
-        </button>
-
-
-        <button
-          type="button"
-          id="adminRole"
-          class="role-btn">
-
-          Admin
-
-        </button>
-
-      </div>
-
-
-      <!-- LOGIN FORM -->
-
-      <form id="loginForm">
-
-
-        <div class="form-group">
-
-          <label id="idLabel">
-            Student ID
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              👤
-            </span>
-
-            <input
-              type="text"
-              id="loginId"
-              placeholder="Enter Student ID"
-              autocomplete="username"
-              required
+            <button
+                type="button"
+                class="role-btn active"
+                id="studentRoleBtn"
+                onclick="selectRole('student')"
             >
+                👨‍🎓 Student
+            </button>
 
-          </div>
+
+            <button
+                type="button"
+                class="role-btn"
+                id="adminRoleBtn"
+                onclick="selectRole('admin')"
+            >
+                👨‍💼 Admin
+            </button>
 
         </div>
 
 
-        <div class="form-group">
+        <!-- ALERT -->
 
-          <label>
-            Password
-          </label>
+        <div
+            id="loginAlert"
+            class="login-alert"
+        ></div>
 
-          <div class="input-wrapper">
 
-            <span class="input-icon">
-              🔒
-            </span>
+        <!-- LOGIN FORM -->
 
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter Password"
-              autocomplete="current-password"
-              required
+        <form id="loginForm">
+
+
+            <div class="login-form-group">
+
+                <label id="idLabel">
+                    Student ID
+                </label>
+
+
+                <input
+                    type="text"
+                    id="userId"
+                    placeholder="Enter Student ID"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-form-group">
+
+                <label>
+                    Password
+                </label>
+
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+                id="loginButton"
             >
+                🔐 Login
+            </button>
 
-          </div>
+
+        </form>
+
+
+        <!-- HELP -->
+
+        <div
+            class="login-help"
+            id="loginHelp"
+        >
+
+            <strong>Student Login</strong><br>
+
+            Enter your Student ID and password provided by the administrator.
+
+            <br><br>
+
+            Example:
+            <strong>STU001</strong>
 
         </div>
 
 
-        <button
-          type="submit"
-          class="login-button"
-          id="loginButton">
+        <!-- FOOTER -->
 
-          Login
+        <div class="login-footer">
 
-        </button>
+            Online Exam Portal<br>
 
+            Secure Student Examination System
 
-      </form>
-
-
-      <div id="message"></div>
-
-
-      <div class="footer-text">
-
-        Online Exam Portal
-
-      </div>
+        </div>
 
 
     </div>
-
-  </div>
 
 </div>
 
 
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
 <script type="module">
 
-
-/* =====================================================
-   FIREBASE
-   ===================================================== */
-
 import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-app.js";
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 
 import {
-  getAuth,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-auth.js";
+    getAuth,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 import {
-  getFirestore,
-  doc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-firestore.js";
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =====================================================
    FIREBASE CONFIG
-   ===================================================== */
+===================================================== */
 
 const firebaseConfig = {
 
-  apiKey:
-    "YOUR_API_KEY",
+    apiKey:
+        "YOUR_API_KEY",
 
-  authDomain:
-    "YOUR_PROJECT.firebaseapp.com",
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
 
-  projectId:
-    "YOUR_PROJECT_ID",
+    projectId:
+        "YOUR_PROJECT_ID",
 
-  storageBucket:
-    "YOUR_PROJECT.firebasestorage.app",
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
 
-  messagingSenderId:
-    "YOUR_MESSAGING_SENDER_ID",
+    messagingSenderId:
+        "YOUR_MESSAGING_SENDER_ID",
 
-  appId:
-    "YOUR_APP_ID"
+    appId:
+        "YOUR_APP_ID"
 
 };
 
 
 /* =====================================================
-   INITIALIZE
-   ===================================================== */
+   INITIALIZE FIREBASE
+===================================================== */
 
 const app =
-  initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
+
 
 const auth =
-  getAuth(app);
+    getAuth(app);
+
 
 const db =
-  getFirestore(app);
+    getFirestore(app);
 
 
 /* =====================================================
-   VARIABLES
-   ===================================================== */
+   CURRENT ROLE
+===================================================== */
 
-let selectedRole =
-  "student";
-
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const studentRole =
-  document.getElementById(
-    "studentRole"
-  );
-
-const adminRole =
-  document.getElementById(
-    "adminRole"
-  );
-
-const loginTitle =
-  document.getElementById(
-    "loginTitle"
-  );
-
-const loginSubtitle =
-  document.getElementById(
-    "loginSubtitle"
-  );
-
-const idLabel =
-  document.getElementById(
-    "idLabel"
-  );
-
-const loginId =
-  document.getElementById(
-    "loginId"
-  );
-
-const loginForm =
-  document.getElementById(
-    "loginForm"
-  );
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-const message =
-  document.getElementById(
-    "message"
-  );
+let currentRole = "student";
 
 
 /* =====================================================
-   ROLE SWITCH
-   ===================================================== */
+   CHECK URL ROLE
+===================================================== */
 
-studentRole.addEventListener(
-  "click",
-  () => {
-
-    selectedRole =
-      "student";
-
-    studentRole.classList.add(
-      "active"
+const urlParams =
+    new URLSearchParams(
+        window.location.search
     );
 
-    adminRole.classList.remove(
-      "active"
+
+const requestedRole =
+    urlParams.get("role");
+
+
+if (
+    requestedRole === "admin"
+) {
+
+    selectRole("admin");
+
+} else {
+
+    selectRole("student");
+
+}
+
+
+/* =====================================================
+   ROLE SELECTION
+===================================================== */
+
+window.selectRole =
+function(role) {
+
+    currentRole =
+        role;
+
+
+    const studentBtn =
+        document.getElementById(
+            "studentRoleBtn"
+        );
+
+
+    const adminBtn =
+        document.getElementById(
+            "adminRoleBtn"
+        );
+
+
+    const idLabel =
+        document.getElementById(
+            "idLabel"
+        );
+
+
+    const userId =
+        document.getElementById(
+            "userId"
+        );
+
+
+    const help =
+        document.getElementById(
+            "loginHelp"
+        );
+
+
+    studentBtn.classList.remove(
+        "active"
     );
 
-    loginTitle.textContent =
-      "Student Login";
 
-    loginSubtitle.textContent =
-      "Login to access your examination portal.";
-
-    idLabel.textContent =
-      "Student ID";
-
-    loginId.placeholder =
-      "Enter Student ID";
-
-    loginId.value = "";
-
-    clearMessage();
-
-  }
-);
-
-
-adminRole.addEventListener(
-  "click",
-  () => {
-
-    selectedRole =
-      "admin";
-
-    adminRole.classList.add(
-      "active"
+    adminBtn.classList.remove(
+        "active"
     );
 
-    studentRole.classList.remove(
-      "active"
-    );
 
-    loginTitle.textContent =
-      "Admin Login";
+    if (role === "student") {
 
-    loginSubtitle.textContent =
-      "Login to manage students, exams and results.";
+        studentBtn.classList.add(
+            "active"
+        );
 
-    idLabel.textContent =
-      "Admin ID";
 
-    loginId.placeholder =
-      "Enter Admin ID";
+        idLabel.textContent =
+            "Student ID";
 
-    loginId.value = "";
 
-    clearMessage();
+        userId.placeholder =
+            "Enter Student ID";
 
-  }
-);
+
+        help.innerHTML = `
+
+            <strong>Student Login</strong><br>
+
+            Enter your Student ID and password
+            provided by the administrator.
+
+            <br><br>
+
+            Example:
+            <strong>STU001</strong>
+
+        `;
+
+    } else {
+
+        adminBtn.classList.add(
+            "active"
+        );
+
+
+        idLabel.textContent =
+            "Admin ID";
+
+
+        userId.placeholder =
+            "Enter Admin ID";
+
+
+        help.innerHTML = `
+
+            <strong>Admin Login</strong><br>
+
+            Enter your Admin ID and administrator password.
+
+            <br><br>
+
+            Example:
+            <strong>ADMIN</strong>
+
+        `;
+
+    }
+
+
+    userId.value = "";
+
+    hideAlert();
+
+};
 
 
 /* =====================================================
    LOGIN
-   ===================================================== */
+===================================================== */
 
-loginForm.addEventListener(
-  "submit",
-  async (event) => {
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
 
-    event.preventDefault();
+            event.preventDefault();
 
 
-    const id =
-      loginId.value.trim();
+            const enteredId =
+                document
+                    .getElementById(
+                        "userId"
+                    )
+                    .value
+                    .trim();
 
-    const password =
-      document.getElementById(
-        "password"
-      ).value;
 
+            const password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
 
-    if (!id || !password) {
 
-      showMessage(
-        "Please enter your ID and password.",
-        "error"
-      );
+            if (!enteredId) {
 
-      return;
+                showAlert(
+                    "Please enter your " +
+                    (
+                        currentRole === "admin"
+                        ? "Admin ID."
+                        : "Student ID."
+                    ),
+                    "error"
+                );
 
-    }
+                return;
 
+            }
 
-    loginButton.disabled =
-      true;
 
-    loginButton.textContent =
-      "Logging in...";
+            if (!password) {
 
+                showAlert(
+                    "Please enter your password.",
+                    "error"
+                );
 
-    try {
+                return;
 
+            }
 
-      /*
-       * Firebase Authentication
-       *
-       * The ID is converted into
-       * an internal Firebase email.
-       */
 
-      const firebaseEmail =
-        id.toLowerCase() +
-        "@onlineexamportal.local";
+            const loginButton =
+                document.getElementById(
+                    "loginButton"
+                );
 
 
-      const userCredential =
-        await signInWithEmailAndPassword(
-          auth,
-          firebaseEmail,
-          password
-        );
+            loginButton.disabled =
+                true;
 
 
-      const user =
-        userCredential.user;
+            loginButton.textContent =
+                "Logging in...";
 
 
-      /* Get user profile */
+            try {
 
-      const userRef =
-        doc(
-          db,
-          "users",
-          user.uid
-        );
 
+                /* =====================================
+                   CREATE INTERNAL FIREBASE EMAIL
+                ===================================== */
 
-      const userSnap =
-        await getDoc(
-          userRef
-        );
+                let internalEmail;
 
 
-      if (!userSnap.exists()) {
+                if (
+                    currentRole ===
+                    "admin"
+                ) {
 
-        await auth.signOut();
+                    /*
+                     * Admin account:
+                     *
+                     * ADMIN
+                     *
+                     * becomes:
+                     *
+                     * admin@onlineexam.local
+                     */
 
-        throw new Error(
-          "User profile not found."
-        );
+                    internalEmail =
+                        enteredId
+                            .toLowerCase() +
+                        "@onlineexam.local";
 
-      }
+                } else {
 
+                    /*
+                     * Student account:
+                     *
+                     * STU001
+                     *
+                     * becomes:
+                     *
+                     * stu001@students.onlineexam.local
+                     */
 
-      const userData =
-        userSnap.data();
+                    internalEmail =
+                        enteredId
+                            .toLowerCase() +
+                        "@students.onlineexam.local";
 
+                }
 
-      /* Check role */
 
-      if (
-        selectedRole === "admin" &&
-        userData.role !== "admin"
-      ) {
+                /* =====================================
+                   FIREBASE LOGIN
+                ===================================== */
 
-        await auth.signOut();
+                const credential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        internalEmail,
+                        password
+                    );
 
-        throw new Error(
-          "This account is not an admin account."
-        );
 
-      }
+                const uid =
+                    credential.user.uid;
 
 
-      if (
-        selectedRole === "student" &&
-        userData.role !== "student"
-      ) {
+                /* =====================================
+                   CHECK FIRESTORE PROFILE
+                ===================================== */
 
-        await auth.signOut();
+                const userRef =
+                    doc(
+                        db,
+                        "users",
+                        uid
+                    );
 
-        throw new Error(
-          "This account is not a student account."
-        );
 
-      }
+                const userSnap =
+                    await getDoc(
+                        userRef
+                    );
 
 
-      showMessage(
-        "Login successful. Opening portal...",
-        "success"
-      );
+                if (!userSnap.exists()) {
 
+                    showAlert(
+                        "User account exists, but the profile was not found.",
+                        "error"
+                    );
 
-      setTimeout(
-        () => {
+                    return;
 
-          if (
-            userData.role === "admin"
-          ) {
+                }
 
-            window.location.href =
-              "admin.html";
 
-          } else {
+                const userData =
+                    userSnap.data();
 
-            window.location.href =
-              "student.html";
 
-          }
+                /* =====================================
+                   CHECK ROLE
+                ===================================== */
 
-        },
-        700
-      );
+                if (
+                    userData.role !==
+                    currentRole
+                ) {
 
+                    showAlert(
+                        "This account does not have permission for this login.",
+                        "error"
+                    );
 
-    } catch (error) {
 
-      console.error(error);
+                    await auth.signOut();
 
+                    return;
 
-      let errorMessage =
-        "Login failed.";
+                }
 
 
-      if (
-        error.code ===
-        "auth/invalid-credential"
-      ) {
+                /* =====================================
+                   SUCCESS
+                ===================================== */
 
-        errorMessage =
-          "Invalid ID or password.";
+                showAlert(
+                    "Login successful. Opening dashboard...",
+                    "success"
+                );
 
-      }
 
+                setTimeout(
+                    () => {
 
-      else if (
-        error.code ===
-        "auth/user-not-found"
-      ) {
+                        if (
+                            currentRole ===
+                            "admin"
+                        ) {
 
-        errorMessage =
-          "ID not found.";
+                            window.location.href =
+                                "admin.html";
 
-      }
+                        } else {
 
+                            window.location.href =
+                                "student.html";
 
-      else if (
-        error.code ===
-        "auth/wrong-password"
-      ) {
+                        }
 
-        errorMessage =
-          "Incorrect password.";
+                    },
+                    500
+                );
 
-      }
 
+            } catch (error) {
 
-      else if (
-        error.message
-      ) {
+                console.error(
+                    "Login error:",
+                    error
+                );
 
-        errorMessage =
-          error.message;
 
-      }
+                let message =
+                    "Unable to login.";
 
 
-      showMessage(
-        errorMessage,
-        "error"
-      );
+                switch (
+                    error.code
+                ) {
 
+                    case
+                    "auth/invalid-credential":
 
-      loginButton.disabled =
-        false;
+                        message =
+                            "Incorrect ID or password.";
 
-      loginButton.textContent =
-        "Login";
+                        break;
 
-    }
 
-  }
-);
+                    case
+                    "auth/user-not-found":
+
+                        message =
+                            "Account not found. Please check your ID.";
+
+                        break;
+
+
+                    case
+                    "auth/wrong-password":
+
+                        message =
+                            "Incorrect password.";
+
+                        break;
+
+
+                    case
+                    "auth/too-many-requests":
+
+                        message =
+                            "Too many login attempts. Please try again later.";
+
+                        break;
+
+
+                    case
+                    "auth/network-request-failed":
+
+                        message =
+                            "Network error. Please check your internet connection.";
+
+                        break;
+
+
+                    default:
+
+                        message =
+                            error.message ||
+                            "Login failed.";
+
+                }
+
+
+                showAlert(
+                    message,
+                    "error"
+                );
+
+
+            } finally {
+
+                loginButton.disabled =
+                    false;
+
+
+                loginButton.textContent =
+                    "🔐 Login";
+
+            }
+
+        }
+    );
 
 
 /* =====================================================
-   MESSAGE
-   ===================================================== */
+   ALERT
+===================================================== */
 
-function showMessage(
-  text,
-  type
+function showAlert(
+    message,
+    type
 ) {
 
-  message.textContent =
-    text;
-
-  message.className = "";
-
-  message.classList.add(
-    type === "success"
-      ? "message-success"
-      : "message-error"
-  );
-
-}
+    const alert =
+        document.getElementById(
+            "loginAlert"
+        );
 
 
-function clearMessage() {
+    alert.textContent =
+        message;
 
-  message.textContent =
-    "";
 
-  message.className =
-    "";
+    alert.className =
+        "login-alert " +
+        type;
+
+
+    alert.style.display =
+        "block";
 
 }
 
+
+/* =====================================================
+   HIDE ALERT
+===================================================== */
+
+function hideAlert() {
+
+    const alert =
+        document.getElementById(
+            "loginAlert"
+        );
+
+
+    alert.style.display =
+        "none";
+
+}
 
 </script>
 
 </body>
-
 </html>
