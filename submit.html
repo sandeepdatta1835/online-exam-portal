@@ -1,1254 +1,1701 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Upload Answer Sheet</title>
+<meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles.css">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-  <style>
-    .upload-box {
-      border: 2px dashed #aaa;
-      padding: 25px;
-      text-align: center;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      background: #fafafa;
+<title>Submit Answer Sheet | Online Exam Portal</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+.page {
+    max-width: 1000px;
+    margin: auto;
+    padding: 25px 18px 50px;
+}
+
+.header {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.header h1 {
+    margin: 0 0 6px;
+    font-size: 25px;
+}
+
+.header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.exam-info {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.exam-info h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.info-box {
+    background: #f8fafc;
+    padding: 13px;
+    border-radius: 9px;
+}
+
+.info-box strong {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 5px;
+}
+
+.info-box span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.upload-box {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.upload-box h2 {
+    margin-top: 0;
+}
+
+.instructions {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 13px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.upload-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.upload-button {
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    background: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+}
+
+.upload-button:hover {
+    background: #f8fafc;
+}
+
+.upload-button.camera {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.page-count {
+    margin-top: 18px;
+    font-weight: 700;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.preview-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.page-number {
+    padding: 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.remove-page {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #dc2626;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit-section {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+}
+
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #16a34a;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.submit-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.progress-container {
+    display: none;
+    margin-top: 18px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #2563eb;
+    transition: width .2s;
+}
+
+.progress-text {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.alert {
+    display: none;
+    padding: 13px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.alert.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.alert.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 15px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+@media(max-width:600px) {
+
+    .upload-buttons {
+        grid-template-columns: 1fr;
     }
 
-    .upload-box input {
-      margin-top: 15px;
+    .preview-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
+}
 
-    .photo-card {
-      position: relative;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 8px;
-      background: white;
-    }
+</style>
 
-    .photo-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 7px;
-    }
-
-    .page-number {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 5px;
-    }
-
-    .remove-btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      border: none;
-      background: #dc3545;
-      color: white;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-    }
-
-    .progress-box {
-      margin-top: 20px;
-      display: none;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 20px;
-      background: #ddd;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: #198754;
-      transition: width 0.3s;
-    }
-
-    .info-box {
-      background: #eef6ff;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    .warning-box {
-      background: #fff3cd;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-  </style>
 </head>
 
 <body>
 
-<div class="dashboard">
+<div class="page">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="logo">
-      <h2>Online Exam</h2>
-    </div>
-
-    <nav>
-
-      <a href="student.html">
-        Dashboard
-      </a>
-
-      <a href="student.html">
-        My Exams
-      </a>
-
-      <a href="student.html">
-        My Submissions
-      </a>
-
-      <a href="student.html">
-        My Results
-      </a>
-
-      <a href="#" id="logoutBtn">
-        Logout
-      </a>
-
-    </nav>
-
-  </aside>
+    <a
+        href="student.html"
+        class="back-button"
+    >
+        ← Back to Student Dashboard
+    </a>
 
 
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
+    <div class="header">
 
-    <div class="topbar">
+        <h1>
+            Submit Answer Sheet
+        </h1>
 
-      <h1>Upload Answer Sheet</h1>
+        <p>
+            Upload clear photos of your handwritten answer sheet.
+        </p>
 
     </div>
 
 
-    <div class="card">
+    <div
+        id="alert"
+        class="alert"
+    ></div>
 
-      <div id="loading">
-        Loading exam information...
-      </div>
+
+    <!-- EXAM INFORMATION -->
+
+    <div class="exam-info">
+
+        <h2>
+            Exam Information
+        </h2>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <strong>Student</strong>
+                <span id="studentName">Loading...</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Student ID</strong>
+                <span id="studentId">Loading...</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Exam</strong>
+                <span id="examName">Loading...</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Subject</strong>
+                <span id="subjectName">Loading...</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Total Marks</strong>
+                <span id="totalMarks">-</span>
+            </div>
+
+        </div>
+
+    </div>
 
 
-      <div id="examContent" style="display:none;">
+    <!-- UPLOAD -->
 
-        <div class="info-box">
+    <div class="upload-box">
 
-          <h2 id="examName">
-            Exam
-          </h2>
+        <h2>
+            Upload Answer Sheet
+        </h2>
 
-          <p>
-            <strong>Subject:</strong>
-            <span id="subjectName">-</span>
-          </p>
 
-          <p>
-            <strong>Total Marks:</strong>
-            <span id="totalMarks">-</span>
-          </p>
+        <div class="instructions">
+
+            <strong>Instructions:</strong>
+
+            <br>
+
+            • Upload clear photos of every answer-sheet page.
+
+            <br>
+
+            • You can upload multiple pages.
+
+            <br>
+
+            • 20+ pages are supported.
+
+            <br>
+
+            • Make sure all pages are readable.
+
+            <br>
+
+            • Arrange pages in the correct order before submitting.
 
         </div>
 
 
-        <div class="warning-box">
+        <div class="upload-buttons">
 
-          <strong>Important:</strong>
+            <label
+                for="cameraInput"
+                class="upload-button camera"
+            >
+                📷 Take Photos
+            </label>
 
-          <ul>
-            <li>Upload all answer-sheet pages in correct order.</li>
-            <li>You can upload up to 30 pages.</li>
-            <li>Minimum 20 pages are supported.</li>
-            <li>Make sure every page is clear and readable.</li>
-            <li>Do not close this page while uploading.</li>
-          </ul>
+
+            <label
+                for="galleryInput"
+                class="upload-button"
+            >
+                🖼️ Choose Photos
+            </label>
 
         </div>
 
 
-        <div class="upload-box">
-
-          <h3>Select Answer-Sheet Photos</h3>
-
-          <p>
-            You can select multiple photos at once.
-          </p>
-
-          <input
+        <input
             type="file"
-            id="photoInput"
+            id="cameraInput"
             accept="image/*"
             capture="environment"
             multiple
-          >
+        >
 
+
+        <input
+            type="file"
+            id="galleryInput"
+            accept="image/*"
+            multiple
+        >
+
+
+        <div
+            class="page-count"
+            id="pageCount"
+        >
+            Pages selected: 0
         </div>
 
 
-        <div>
+        <div
+            id="previewGrid"
+            class="preview-grid"
+        ></div>
 
-          <strong>
-            Selected Pages:
-            <span id="pageCount">0</span> / 30
-          </strong>
-
-        </div>
+    </div>
 
 
-        <div id="photoGrid" class="photo-grid"></div>
+    <!-- SUBMIT -->
 
-
-        <div class="progress-box" id="progressBox">
-
-          <p id="progressText">
-            Uploading...
-          </p>
-
-          <div class="progress-bar">
-
-            <div
-              class="progress-fill"
-              id="progressFill">
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <br>
-
+    <div class="submit-section">
 
         <button
-          class="btn btn-primary"
-          id="submitBtn"
-          disabled>
-
-          Submit Answer Sheet
-
-        </button>
-
-
-        <button
-          class="btn"
-          id="backBtn">
-
-          Back
-
+            id="submitButton"
+            class="submit-button"
+            disabled
+        >
+            📤 Submit Answer Sheet
         </button>
 
 
         <div
-          id="message"
-          style="margin-top:20px;">
+            id="progressContainer"
+            class="progress-container"
+        >
+
+            <div class="progress-bar-bg">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                ></div>
+
+            </div>
+
+            <div
+                id="progressText"
+                class="progress-text"
+            >
+                Preparing upload...
+            </div>
+
         </div>
 
-      </div>
-
     </div>
-
-  </main>
 
 </div>
 
 
 <script type="module">
 
-import {
-  initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-app.js";
+/* =====================================================
+   FIREBASE
+===================================================== */
 
 import {
-  getAuth,
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-auth.js";
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
 
 import {
-  getFirestore,
-  doc,
-  getDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-firestore.js";
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    addDoc,
+    collection,
+    serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =====================================================
    FIREBASE CONFIG
-   ===================================================== */
+===================================================== */
 
 const firebaseConfig = {
 
-  apiKey: "YOUR_API_KEY",
+    apiKey:
+        "YOUR_API_KEY",
 
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
 
-  projectId: "YOUR_PROJECT_ID",
+    projectId:
+        "YOUR_PROJECT_ID",
 
-  storageBucket: "YOUR_PROJECT.firebasestorage.app",
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
 
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    messagingSenderId:
+        "YOUR_MESSAGING_SENDER_ID",
 
-  appId: "YOUR_APP_ID"
+    appId:
+        "YOUR_APP_ID"
 
 };
 
 
 /* =====================================================
-   GOOGLE APPS SCRIPT URL
-   ===================================================== */
+   FIREBASE INITIALIZATION
+===================================================== */
 
-const GOOGLE_UPLOAD_URL =
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   GOOGLE APPS SCRIPT URL
+===================================================== */
+
+const APPS_SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
 /* =====================================================
-   FIREBASE INITIALIZE
-   ===================================================== */
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-
-/* =====================================================
-   VARIABLES
-   ===================================================== */
-
-const urlParams =
-new URLSearchParams(window.location.search);
-
-const examId =
-urlParams.get("id");
+   GLOBAL VARIABLES
+===================================================== */
 
 let currentUser = null;
 
+let userData = null;
+
 let examData = null;
-
-let paperData = null;
-
-let studentData = null;
 
 let selectedFiles = [];
 
 
 /* =====================================================
-   ELEMENTS
-   ===================================================== */
+   GET EXAM ID
+===================================================== */
 
-const loading =
-document.getElementById("loading");
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
 
-const examContent =
-document.getElementById("examContent");
 
-const examName =
-document.getElementById("examName");
+const examId =
+    urlParams.get("id");
 
-const subjectName =
-document.getElementById("subjectName");
 
-const totalMarks =
-document.getElementById("totalMarks");
+if (!examId) {
 
-const photoInput =
-document.getElementById("photoInput");
+    showAlert(
+        "Exam ID is missing.",
+        "error"
+    );
 
-const photoGrid =
-document.getElementById("photoGrid");
-
-const pageCount =
-document.getElementById("pageCount");
-
-const submitBtn =
-document.getElementById("submitBtn");
-
-const progressBox =
-document.getElementById("progressBox");
-
-const progressText =
-document.getElementById("progressText");
-
-const progressFill =
-document.getElementById("progressFill");
-
-const message =
-document.getElementById("message");
+}
 
 
 /* =====================================================
    AUTH CHECK
-   ===================================================== */
+===================================================== */
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+    auth,
+    async user => {
 
-  if (!user) {
+        if (!user) {
 
-    window.location.href =
-      "login.html?role=student";
+            window.location.href =
+                "login.html?role=student";
 
-    return;
-  }
+            return;
 
-  currentUser = user;
-
-  await loadExam();
-
-});
+        }
 
 
-/* =====================================================
-   LOAD EXAM
-   ===================================================== */
-
-async function loadExam() {
-
-  try {
-
-    if (!examId) {
-
-      loading.innerHTML =
-        "<p>Invalid exam.</p>";
-
-      return;
-    }
+        currentUser =
+            user;
 
 
-    /* Student */
+        try {
 
-    const userRef =
-      doc(db, "users", currentUser.uid);
+            await loadStudent();
 
-    const userSnap =
-      await getDoc(userRef);
+            await loadExam();
 
+        } catch (error) {
 
-    if (!userSnap.exists()) {
+            console.error(error);
 
-      loading.innerHTML =
-        "<p>Student account not found.</p>";
+            showAlert(
+                "Unable to load exam information.",
+                "error"
+            );
 
-      return;
-    }
-
-
-    studentData =
-      userSnap.data();
-
-
-    /* Exam */
-
-    const examRef =
-      doc(db, "exams", examId);
-
-    const examSnap =
-      await getDoc(examRef);
-
-
-    if (!examSnap.exists()) {
-
-      loading.innerHTML =
-        "<p>Exam not found.</p>";
-
-      return;
-    }
-
-
-    examData =
-      examSnap.data();
-
-
-    /* Check student */
-
-    if (
-      examData.studentId !==
-      currentUser.uid
-    ) {
-
-      loading.innerHTML =
-        "<p>You are not assigned to this exam.</p>";
-
-      return;
-    }
-
-
-    /* Paper */
-
-    const paperRef =
-      doc(db, "papers", examData.paperId);
-
-    const paperSnap =
-      await getDoc(paperRef);
-
-
-    if (paperSnap.exists()) {
-
-      paperData =
-        paperSnap.data();
+        }
 
     }
-
-
-    /* Display */
-
-    examName.textContent =
-      paperData?.title ||
-      "Exam";
-
-    subjectName.textContent =
-      paperData?.subjectName ||
-      paperData?.subjectId ||
-      "-";
-
-    totalMarks.textContent =
-      paperData?.totalMarks ||
-      "-";
-
-
-    /* Check existing submission */
-
-    const submissionQuery =
-      query(
-        collection(db, "submissions"),
-        where(
-          "examId",
-          "==",
-          examId
-        ),
-        where(
-          "studentId",
-          "==",
-          currentUser.uid
-        )
-      );
-
-
-    const submissionSnap =
-      await getDocs(submissionQuery);
-
-
-    if (!submissionSnap.empty) {
-
-      loading.innerHTML =
-        "<p><strong>Answer sheet already submitted.</strong></p>";
-
-      return;
-    }
-
-
-    loading.style.display =
-      "none";
-
-    examContent.style.display =
-      "block";
-
-
-  } catch (error) {
-
-    console.error(error);
-
-    loading.innerHTML =
-      "<p>Error loading exam.</p>";
-
-  }
-
-}
-
-
-/* =====================================================
-   SELECT PHOTOS
-   ===================================================== */
-
-photoInput.addEventListener(
-  "change",
-  function(event) {
-
-    const files =
-      Array.from(event.target.files);
-
-
-    if (!files.length) {
-      return;
-    }
-
-
-    if (
-      selectedFiles.length +
-      files.length >
-      30
-    ) {
-
-      showMessage(
-        "Maximum 30 pages are allowed.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    files.forEach(file => {
-
-      if (!file.type.startsWith("image/")) {
-        return;
-      }
-
-      selectedFiles.push(file);
-
-    });
-
-
-    renderPhotos();
-
-    photoInput.value = "";
-
-  }
 );
 
 
 /* =====================================================
-   RENDER PHOTOS
-   ===================================================== */
+   LOAD STUDENT
+===================================================== */
 
-function renderPhotos() {
+async function loadStudent() {
 
-  photoGrid.innerHTML = "";
-
-
-  selectedFiles.forEach(
-    (file, index) => {
-
-      const card =
-        document.createElement("div");
-
-      card.className =
-        "photo-card";
-
-
-      const img =
-        document.createElement("img");
-
-      img.src =
-        URL.createObjectURL(file);
-
-
-      const number =
-        document.createElement("div");
-
-      number.className =
-        "page-number";
-
-      number.textContent =
-        "Page " + (index + 1);
-
-
-      const remove =
-        document.createElement("button");
-
-      remove.className =
-        "remove-btn";
-
-      remove.textContent =
-        "×";
-
-      remove.type =
-        "button";
-
-
-      remove.onclick = () => {
-
-        selectedFiles.splice(
-          index,
-          1
+    const userRef =
+        doc(
+            db,
+            "users",
+            currentUser.uid
         );
 
-        renderPhotos();
 
-      };
+    const snapshot =
+        await getDoc(
+            userRef
+        );
 
 
-      card.appendChild(img);
+    if (!snapshot.exists()) {
 
-      card.appendChild(number);
-
-      card.appendChild(remove);
-
-      photoGrid.appendChild(card);
+        throw new Error(
+            "Student profile not found."
+        );
 
     }
-  );
 
 
-  pageCount.textContent =
-    selectedFiles.length;
+    userData =
+        snapshot.data();
 
 
-  submitBtn.disabled =
-    selectedFiles.length === 0;
+    if (
+        userData.role !==
+        "student"
+    ) {
+
+        await auth.signOut();
+
+        window.location.href =
+            "login.html?role=student";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        userData.name || "Student";
+
+
+    document.getElementById(
+        "studentId"
+    ).textContent =
+        userData.studentId || "-";
 
 }
 
 
 /* =====================================================
-   COMPRESS IMAGE
-   ===================================================== */
+   LOAD EXAM
+===================================================== */
 
-function compressImage(file) {
+async function loadExam() {
 
-  return new Promise(
-    (resolve, reject) => {
-
-      const img =
-        new Image();
-
-      const reader =
-        new FileReader();
+    const examRef =
+        doc(
+            db,
+            "exams",
+            examId
+        );
 
 
-      reader.onload =
-        function(event) {
-
-          img.onload =
-            function() {
-
-              const maxWidth =
-                1600;
-
-              const maxHeight =
-                2200;
+    const snapshot =
+        await getDoc(
+            examRef
+        );
 
 
-              let width =
-                img.width;
+    if (!snapshot.exists()) {
 
-              let height =
-                img.height;
-
-
-              if (
-                width > maxWidth
-              ) {
-
-                height =
-                  height *
-                  maxWidth /
-                  width;
-
-                width =
-                  maxWidth;
-
-              }
-
-
-              if (
-                height > maxHeight
-              ) {
-
-                width =
-                  width *
-                  maxHeight /
-                  height;
-
-                height =
-                  maxHeight;
-
-              }
-
-
-              const canvas =
-                document.createElement(
-                  "canvas"
-                );
-
-
-              canvas.width =
-                width;
-
-              canvas.height =
-                height;
-
-
-              const ctx =
-                canvas.getContext(
-                  "2d"
-                );
-
-
-              ctx.drawImage(
-                img,
-                0,
-                0,
-                width,
-                height
-              );
-
-
-              canvas.toBlob(
-                blob => {
-
-                  if (blob) {
-
-                    resolve(blob);
-
-                  } else {
-
-                    reject(
-                      new Error(
-                        "Image compression failed."
-                      )
-                    );
-
-                  }
-
-                },
-                "image/jpeg",
-                0.75
-              );
-
-            };
-
-
-          img.onerror =
-            reject;
-
-          img.src =
-            event.target.result;
-
-        };
-
-
-      reader.onerror =
-        reject;
-
-      reader.readAsDataURL(file);
+        throw new Error(
+            "Exam not found."
+        );
 
     }
-  );
+
+
+    examData =
+        snapshot.data();
+
+
+    /*
+     * SECURITY CHECK
+     *
+     * This exam must belong
+     * to the logged-in student.
+     */
+
+    if (
+        examData.studentId !==
+        currentUser.uid
+    ) {
+
+        throw new Error(
+            "This exam is not assigned to you."
+        );
+
+    }
+
+
+    document.getElementById(
+        "examName"
+    ).textContent =
+        examData.examName ||
+        examData.title ||
+        "Exam";
+
+
+    document.getElementById(
+        "subjectName"
+    ).textContent =
+        examData.subjectName ||
+        examData.subject ||
+        "-";
+
+
+    document.getElementById(
+        "totalMarks"
+    ).textContent =
+        examData.totalMarks ||
+        "-";
+
+}
+
+
+/* =====================================================
+   FILE INPUTS
+===================================================== */
+
+document
+    .getElementById("cameraInput")
+    .addEventListener(
+        "change",
+        event => {
+
+            addFiles(
+                event.target.files
+            );
+
+            event.target.value = "";
+
+        }
+    );
+
+
+document
+    .getElementById("galleryInput")
+    .addEventListener(
+        "change",
+        event => {
+
+            addFiles(
+                event.target.files
+            );
+
+            event.target.value = "";
+
+        }
+    );
+
+
+/* =====================================================
+   ADD FILES
+===================================================== */
+
+function addFiles(files) {
+
+    if (!files || !files.length) {
+        return;
+    }
+
+
+    for (
+        const file of files
+    ) {
+
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            continue;
+
+        }
+
+
+        selectedFiles.push(
+            file
+        );
+
+    }
+
+
+    renderPreviews();
+
+}
+
+
+/* =====================================================
+   RENDER PREVIEWS
+===================================================== */
+
+function renderPreviews() {
+
+    const grid =
+        document.getElementById(
+            "previewGrid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    document.getElementById(
+        "pageCount"
+    ).textContent =
+        "Pages selected: " +
+        selectedFiles.length;
+
+
+    selectedFiles.forEach(
+        (file, index) => {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "preview-card";
+
+
+            const img =
+                document.createElement(
+                    "img"
+                );
+
+
+            img.src =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            const pageNumber =
+                document.createElement(
+                    "div"
+                );
+
+
+            pageNumber.className =
+                "page-number";
+
+
+            pageNumber.textContent =
+                "Page " +
+                (index + 1);
+
+
+            const removeButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            removeButton.className =
+                "remove-page";
+
+
+            removeButton.textContent =
+                "×";
+
+
+            removeButton.title =
+                "Remove page";
+
+
+            removeButton.onclick =
+                () => {
+
+                    selectedFiles.splice(
+                        index,
+                        1
+                    );
+
+
+                    renderPreviews();
+
+                };
+
+
+            card.appendChild(
+                img
+            );
+
+
+            card.appendChild(
+                pageNumber
+            );
+
+
+            card.appendChild(
+                removeButton
+            );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    document.getElementById(
+        "submitButton"
+    ).disabled =
+        selectedFiles.length === 0;
+
+}
+
+
+/* =====================================================
+   IMAGE COMPRESSION
+===================================================== */
+
+function compressImage(
+    file
+) {
+
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                event => {
+
+                    const img =
+                        new Image();
+
+
+                    img.onload =
+                        () => {
+
+                            const maxWidth =
+                                1600;
+
+
+                            const maxHeight =
+                                2200;
+
+
+                            let width =
+                                img.width;
+
+
+                            let height =
+                                img.height;
+
+
+                            if (
+                                width >
+                                maxWidth
+                            ) {
+
+                                height =
+                                    height *
+                                    (
+                                        maxWidth /
+                                        width
+                                    );
+
+                                width =
+                                    maxWidth;
+
+                            }
+
+
+                            if (
+                                height >
+                                maxHeight
+                            ) {
+
+                                width =
+                                    width *
+                                    (
+                                        maxHeight /
+                                        height
+                                    );
+
+                                height =
+                                    maxHeight;
+
+                            }
+
+
+                            const canvas =
+                                document.createElement(
+                                    "canvas"
+                                );
+
+
+                            canvas.width =
+                                width;
+
+
+                            canvas.height =
+                                height;
+
+
+                            const ctx =
+                                canvas.getContext(
+                                    "2d"
+                                );
+
+
+                            ctx.drawImage(
+                                img,
+                                0,
+                                0,
+                                width,
+                                height
+                            );
+
+
+                            canvas.toBlob(
+                                blob => {
+
+                                    if (!blob) {
+
+                                        reject(
+                                            new Error(
+                                                "Image compression failed."
+                                            )
+                                        );
+
+                                        return;
+
+                                    }
+
+
+                                    resolve(
+                                        blob
+                                    );
+
+                                },
+                                "image/jpeg",
+                                0.78
+                            );
+
+                        };
+
+
+                    img.onerror =
+                        reject;
+
+
+                    img.src =
+                        event.target.result;
+
+                };
+
+
+            reader.onerror =
+                reject;
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
 
 }
 
 
 /* =====================================================
    BLOB TO BASE64
-   ===================================================== */
+===================================================== */
 
-function blobToBase64(blob) {
+function blobToBase64(
+    blob
+) {
 
-  return new Promise(
-    (resolve, reject) => {
+    return new Promise(
+        (
+            resolve,
+            reject
+        ) => {
 
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        () => {
-
-          const result =
-            reader.result;
-
-          const base64 =
-            result.split(",")[1];
-
-          resolve(base64);
-
-        };
+            const reader =
+                new FileReader();
 
 
-      reader.onerror =
-        reject;
+            reader.onload =
+                () => {
 
-      reader.readAsDataURL(blob);
+                    const result =
+                        reader.result;
 
-    }
-  );
+
+                    const base64 =
+                        result.split(
+                            ","
+                        )[1];
+
+
+                    resolve(
+                        base64
+                    );
+
+                };
+
+
+            reader.onerror =
+                reject;
+
+
+            reader.readAsDataURL(
+                blob
+            );
+
+        }
+    );
 
 }
 
 
 /* =====================================================
-   UPLOAD ONE PHOTO
-   ===================================================== */
+   UPLOAD ONE PAGE
+===================================================== */
 
-async function uploadPhoto(
-  file,
-  pageNumber
+async function uploadPage(
+    file,
+    pageNumber
 ) {
 
-  const compressed =
-    await compressImage(file);
+    const compressed =
+        await compressImage(
+            file
+        );
 
 
-  const base64 =
-    await blobToBase64(
-      compressed
-    );
+    const base64 =
+        await blobToBase64(
+            compressed
+        );
 
 
-  const safeName =
-    "page_" +
-    String(pageNumber)
-      .padStart(2, "0") +
-    "_" +
-    Date.now() +
-    ".jpg";
+    const safeStudentName =
+        (
+            userData.name ||
+            "Student"
+        )
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
 
 
-  const data = {
-
-    studentId:
-      currentUser.uid,
-
-    studentName:
-      studentData.name ||
-      currentUser.email,
-
-    examId:
-      examId,
-
-    examName:
-      paperData?.title ||
-      "Exam",
-
-    fileName:
-      safeName,
-
-    mimeType:
-      "image/jpeg",
-
-    fileData:
-      base64
-
-  };
+    const safeExamName =
+        (
+            examData.examName ||
+            examData.title ||
+            "Exam"
+        )
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
 
 
-  const response =
-    await fetch(
-      GOOGLE_UPLOAD_URL,
-      {
-
-        method: "POST",
-
-        body:
-          JSON.stringify(data)
-
-      }
-    );
+    const studentId =
+        userData.studentId ||
+        currentUser.uid;
 
 
-  const result =
-    await response.json();
+    const fileName =
+        studentId +
+        "_" +
+        safeExamName +
+        "_Page_" +
+        pageNumber +
+        ".jpg";
 
 
-  if (!result.success) {
+    const payload = {
 
-    throw new Error(
-      result.message ||
-      "Upload failed."
-    );
+        type: "answer",
 
-  }
+        studentId:
+            currentUser.uid,
+
+        studentName:
+            userData.name || "Student",
+
+        examId:
+            examId,
+
+        examName:
+            examData.examName ||
+            examData.title ||
+            "Exam",
+
+        fileName:
+            fileName,
+
+        mimeType:
+            "image/jpeg",
+
+        fileData:
+            base64
+
+    };
 
 
-  return result.fileUrl;
+    const response =
+        await fetch(
+            APPS_SCRIPT_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+            }
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Upload failed for page " +
+            pageNumber
+        );
+
+    }
+
+
+    const result =
+        await response.json();
+
+
+    if (!result.success) {
+
+        throw new Error(
+            result.message ||
+            "Google Drive upload failed."
+        );
+
+    }
+
+
+    return {
+
+        pageNumber:
+            pageNumber,
+
+        fileId:
+            result.fileId || "",
+
+        fileUrl:
+            result.fileUrl || "",
+
+        downloadUrl:
+            result.downloadUrl || "",
+
+        fileName:
+            result.fileName ||
+            fileName
+
+    };
 
 }
 
 
 /* =====================================================
    SUBMIT ANSWER SHEET
-   ===================================================== */
+===================================================== */
 
-submitBtn.addEventListener(
-  "click",
-  async function() {
+document
+    .getElementById(
+        "submitButton"
+    )
+    .addEventListener(
+        "click",
+        submitAnswerSheet
+    );
+
+
+async function submitAnswerSheet() {
 
     if (
-      selectedFiles.length === 0
+        selectedFiles.length === 0
     ) {
 
-      showMessage(
-        "Please select answer-sheet photos.",
-        "error"
-      );
+        showAlert(
+            "Please select at least one answer-sheet page.",
+            "error"
+        );
 
-      return;
+        return;
+
     }
 
 
-    if (
-      selectedFiles.length < 20
-    ) {
+    if (!currentUser) {
 
-      const confirmSubmit =
-        confirm(
-          "You selected only " +
-          selectedFiles.length +
-          " pages.\n\n" +
-          "Normally at least 20 pages are expected.\n\n" +
-          "Do you want to continue?"
+        showAlert(
+            "Student login session is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (!examData) {
+
+        showAlert(
+            "Exam information is not loaded.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const submitButton =
+        document.getElementById(
+            "submitButton"
         );
 
 
-      if (!confirmSubmit) {
-        return;
-      }
-
-    }
-
-
-    submitBtn.disabled =
-      true;
-
-    progressBox.style.display =
-      "block";
+    const progressContainer =
+        document.getElementById(
+            "progressContainer"
+        );
 
 
-    const photoUrls = [];
+    const progressBar =
+        document.getElementById(
+            "progressBar"
+        );
+
+
+    const progressText =
+        document.getElementById(
+            "progressText"
+        );
+
+
+    submitButton.disabled =
+        true;
+
+
+    progressContainer.style.display =
+        "block";
+
+
+    hideAlert();
+
+
+    const uploadedPages = [];
 
 
     try {
 
-      for (
-        let i = 0;
-        i < selectedFiles.length;
-        i++
-      ) {
 
-        const pageNumber =
-          i + 1;
+        /* =========================================
+           UPLOAD EACH PAGE
+        ========================================= */
+
+        for (
+            let i = 0;
+            i < selectedFiles.length;
+            i++
+        ) {
+
+            const pageNumber =
+                i + 1;
+
+
+            progressText.textContent =
+                "Uploading page " +
+                pageNumber +
+                " of " +
+                selectedFiles.length +
+                "...";
+
+
+            const result =
+                await uploadPage(
+                    selectedFiles[i],
+                    pageNumber
+                );
+
+
+            uploadedPages.push(
+                result
+            );
+
+
+            const percentage =
+                Math.round(
+                    (
+                        (
+                            i + 1
+                        ) /
+                        selectedFiles.length
+                    ) * 100
+                );
+
+
+            progressBar.style.width =
+                percentage + "%";
+
+        }
+
+
+        /* =========================================
+           SAVE COMPLETE SUBMISSION
+        ========================================= */
+
+        progressText.textContent =
+            "Saving submission...";
+
+
+        const submissionData = {
+
+            studentId:
+                currentUser.uid,
+
+            studentCode:
+                userData.studentId ||
+                "",
+
+            studentName:
+                userData.name ||
+                "Student",
+
+            examId:
+                examId,
+
+            examName:
+                examData.examName ||
+                examData.title ||
+                "Exam",
+
+            subjectId:
+                examData.subjectId ||
+                "",
+
+            subjectName:
+                examData.subjectName ||
+                examData.subject ||
+                "",
+
+            totalMarks:
+                examData.totalMarks ||
+                0,
+
+            pageCount:
+                uploadedPages.length,
+
+            photoUrls:
+                uploadedPages.map(
+                    page =>
+                        page.fileUrl
+                ),
+
+            downloadUrls:
+                uploadedPages.map(
+                    page =>
+                        page.downloadUrl
+                ),
+
+            fileIds:
+                uploadedPages.map(
+                    page =>
+                        page.fileId
+                ),
+
+            fileNames:
+                uploadedPages.map(
+                    page =>
+                        page.fileName
+                ),
+
+            status:
+                "Submitted",
+
+            submittedAt:
+                serverTimestamp()
+
+        };
+
+
+        const submissionRef =
+            await addDoc(
+                collection(
+                    db,
+                    "submissions"
+                ),
+                submissionData
+            );
+
+
+        /* =========================================
+           SUCCESS
+        ========================================= */
+
+        progressBar.style.width =
+            "100%";
 
 
         progressText.textContent =
-          "Uploading page " +
-          pageNumber +
-          " of " +
-          selectedFiles.length +
-          "...";
+            "Submission completed successfully.";
 
 
-        const percentage =
-          Math.round(
-            (i /
-              selectedFiles.length) *
-              100
-          );
-
-
-        progressFill.style.width =
-          percentage + "%";
-
-
-        const fileUrl =
-          await uploadPhoto(
-            selectedFiles[i],
-            pageNumber
-          );
-
-
-        photoUrls.push(
-          fileUrl
+        showAlert(
+            "Answer sheet submitted successfully. Submission ID: " +
+            submissionRef.id,
+            "success"
         );
 
-      }
+
+        selectedFiles = [];
+
+        renderPreviews();
 
 
-      progressFill.style.width =
-        "100%";
+        setTimeout(
+            () => {
 
+                window.location.href =
+                    "student.html";
 
-      progressText.textContent =
-        "Saving submission...";
-
-
-      /* Save submission information in Firestore */
-
-      const submissionData = {
-
-        studentId:
-          currentUser.uid,
-
-        studentName:
-          studentData.name ||
-          currentUser.email,
-
-        examId:
-          examId,
-
-        paperId:
-          examData.paperId,
-
-        photoUrls:
-          photoUrls,
-
-        pageCount:
-          photoUrls.length,
-
-        status:
-          "submitted",
-
-        submittedAt:
-          serverTimestamp(),
-
-        marks:
-          null,
-
-        remarks:
-          "",
-
-        checkedAt:
-          null
-
-      };
-
-
-      await addDoc(
-        collection(
-          db,
-          "submissions"
-        ),
-        submissionData
-      );
-
-
-      showMessage(
-        "Answer sheet submitted successfully.",
-        "success"
-      );
-
-
-      submitBtn.style.display =
-        "none";
-
-
-      setTimeout(
-        () => {
-
-          window.location.href =
-            "student.html";
-
-        },
-        2000
-      );
+            },
+            2500
+        );
 
 
     } catch (error) {
 
-      console.error(error);
-
-      submitBtn.disabled =
-        false;
-
-      progressBox.style.display =
-        "none";
+        console.error(
+            "Submission error:",
+            error
+        );
 
 
-      showMessage(
-        "Upload failed: " +
-        error.message,
-        "error"
-      );
+        showAlert(
+            "Submission failed: " +
+            (
+                error.message ||
+                "Please try again."
+            ),
+            "error"
+        );
+
+
+        submitButton.disabled =
+            false;
 
     }
-
-  }
-);
-
-
-/* =====================================================
-   MESSAGE
-   ===================================================== */
-
-function showMessage(
-  text,
-  type
-) {
-
-  message.textContent =
-    text;
-
-
-  if (type === "success") {
-
-    message.style.color =
-      "green";
-
-  } else {
-
-    message.style.color =
-      "red";
-
-  }
 
 }
 
 
 /* =====================================================
-   BACK
-   ===================================================== */
+   ALERT
+===================================================== */
 
-document
-  .getElementById("backBtn")
-  .addEventListener(
-    "click",
-    () => {
+function showAlert(
+    message,
+    type
+) {
 
-      window.location.href =
-        "student.html";
-
-    }
-  );
+    const alert =
+        document.getElementById(
+            "alert"
+        );
 
 
-/* =====================================================
-   LOGOUT
-   ===================================================== */
+    alert.textContent =
+        message;
 
-document
-  .getElementById("logoutBtn")
-  .addEventListener(
-    "click",
-    async (event) => {
 
-      event.preventDefault();
+    alert.className =
+        "alert " +
+        type;
 
-      await signOut(auth);
 
-      window.location.href =
-        "login.html?role=student";
+    alert.style.display =
+        "block";
 
-    }
-  );
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+function hideAlert() {
+
+    const alert =
+        document.getElementById(
+            "alert"
+        );
+
+
+    alert.style.display =
+        "none";
+
+}
 
 </script>
 
