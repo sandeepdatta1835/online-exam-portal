@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Student Panel - Online Exam Portal</title>
+<title>Student Dashboard - Online Exam Portal</title>
 
 <style>
 * {
@@ -13,252 +13,238 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f3f6fa;
   color: #222;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 .header {
-  height: 64px;
-  background: #1f4e78;
+  min-height: 70px;
+  background: linear-gradient(135deg,#092b68,#1769e0);
   color: white;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  position: fixed;
+  padding: 12px 25px;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  z-index: 100;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
 }
 
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  width: 42px;
-  height: 42px;
-  background: white;
-  color: #1f4e78;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.student-badge {
-  background: white;
-  color: #1f4e78;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.header-right {
+.header-left {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.student-name {
-  font-size: 14px;
+.logo {
+  width: 43px;
+  height: 43px;
+  border-radius: 11px;
+  background: white;
+  color: #1769e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.header-title {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  opacity: .8;
+  margin-top: 3px;
 }
 
 .logout-btn {
-  background: #d9534f;
-  border: none;
+  border: 1px solid rgba(255,255,255,.5);
+  background: rgba(255,255,255,.12);
   color: white;
-  padding: 9px 15px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .logout-btn:hover {
-  background: #c9302c;
+  background: rgba(255,255,255,.22);
 }
 
-/* ================= SIDEBAR ================= */
 
-.sidebar {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  bottom: 0;
-  width: 220px;
-  background: white;
-  border-right: 1px solid #ddd;
-  padding-top: 15px;
-}
+/* MAIN */
 
-.nav-btn {
+.container {
   width: 100%;
+  max-width: 1150px;
+  margin: auto;
+  padding: 25px;
+}
+
+
+/* WELCOME */
+
+.welcome {
+  background: linear-gradient(135deg,#ffffff,#f7faff);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.06);
+  border-left: 5px solid #1769e0;
+}
+
+.welcome h2 {
+  margin: 0 0 7px;
+  font-size: 24px;
+}
+
+.welcome p {
+  margin: 0;
+  color: #777;
+}
+
+
+/* TABS */
+
+.tabs {
+  display: flex;
+  gap: 7px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.06);
+}
+
+.tab-btn {
+  flex: 1;
   border: none;
   background: transparent;
-  text-align: left;
-  padding: 14px 20px;
+  padding: 12px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  color: #444;
-  font-size: 14px;
-}
-
-.nav-btn:hover,
-.nav-btn.active {
-  background: #eaf2f8;
-  color: #1f4e78;
   font-weight: bold;
+  color: #666;
 }
 
-/* ================= MAIN ================= */
-
-.main {
-  margin-left: 220px;
-  padding: 90px 25px 30px;
+.tab-btn.active {
+  background: #1769e0;
+  color: white;
 }
 
-.page {
+
+/* SECTIONS */
+
+.section {
   display: none;
 }
 
-.page.active {
+.section.active {
   display: block;
 }
 
-.page-title {
-  margin-top: 0;
-  color: #1f4e78;
-}
 
-/* ================= CARDS ================= */
+/* CARD */
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.stat-card {
+.card {
   background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.stat-title {
-  color: #777;
-  font-size: 13px;
-}
-
-.stat-number {
-  font-size: 28px;
-  color: #1f4e78;
-  font-weight: bold;
-  margin-top: 8px;
-}
-
-/* ================= PANEL ================= */
-
-.panel {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 15px;
+  padding: 22px;
   margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.06);
 }
 
-.panel h3 {
+.card h3 {
   margin-top: 0;
-  color: #1f4e78;
 }
 
-/* ================= SUBJECT CARDS ================= */
 
-.subject-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-.subject-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 18px;
-  background: #fff;
-}
-
-.subject-card h3 {
-  margin: 0 0 8px;
-  color: #1f4e78;
-}
-
-.subject-code {
-  color: #777;
-  font-size: 13px;
-}
-
-/* ================= PAPER CARDS ================= */
-
-.paper-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
+/* PAPER */
 
 .paper-card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: 1px solid #e0e6ed;
+  border-radius: 13px;
   padding: 18px;
+  margin-bottom: 14px;
+  transition: .2s;
 }
 
-.paper-card h3 {
-  margin-top: 0;
-  color: #1f4e78;
+.paper-card:hover {
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
+  border-color: #b8cdf0;
 }
 
-.paper-info {
+.paper-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.paper-details {
+  color: #777;
   font-size: 13px;
-  color: #666;
   line-height: 1.7;
 }
 
-.paper-btn {
-  display: inline-block;
-  text-decoration: none;
-  background: #1f4e78;
-  color: white;
-  padding: 9px 14px;
-  border-radius: 6px;
-  margin-top: 10px;
-  font-size: 13px;
+.paper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
 }
 
-/* ================= UPLOAD ================= */
+
+/* BUTTONS */
+
+.btn {
+  border: none;
+  padding: 11px 17px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #1769e0;
+  color: white;
+}
+
+.btn-success {
+  background: #198754;
+  color: white;
+}
+
+.btn-secondary {
+  background: #e9edf2;
+  color: #333;
+}
+
+.btn:hover {
+  opacity: .9;
+}
+
+
+/* FILE UPLOAD */
 
 .upload-box {
-  border: 2px dashed #aaa;
-  border-radius: 10px;
-  padding: 25px;
+  border: 2px dashed #c9d3df;
+  border-radius: 12px;
+  padding: 20px;
   text-align: center;
-  background: #fafafa;
+  margin-top: 15px;
+  background: #fafcff;
 }
 
 .upload-box input {
-  margin-top: 15px;
   max-width: 100%;
 }
 
@@ -267,549 +253,401 @@ body {
   text-align: left;
 }
 
-.file-item {
+.file-row {
   background: white;
-  border: 1px solid #ddd;
-  padding: 8px;
+  border: 1px solid #e2e7ed;
+  padding: 9px;
+  border-radius: 7px;
   margin: 5px 0;
-  border-radius: 5px;
   font-size: 13px;
 }
 
-.primary-btn {
-  border: none;
-  background: #1f4e78;
-  color: white;
-  padding: 11px 18px;
-  border-radius: 6px;
-  cursor: pointer;
+
+/* SUBMISSION */
+
+.submission-box {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #e8f7ed;
+  color: #18733b;
+  font-size: 12px;
   font-weight: bold;
 }
 
-.primary-btn:hover {
-  background: #163a5b;
+
+/* RESULTS */
+
+.result-card {
+  border: 1px solid #e0e6ed;
+  border-radius: 12px;
+  padding: 17px;
+  margin-bottom: 12px;
 }
 
-.primary-btn:disabled {
-  background: #999;
-  cursor: not-allowed;
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-/* ================= MESSAGE ================= */
+.result-pass {
+  color: #16803c;
+  font-weight: bold;
+}
+
+.result-fail {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.result-info {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.result-info div {
+  background: #f6f8fb;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.result-label {
+  display: block;
+  color: #777;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.result-value {
+  font-weight: bold;
+}
+
+
+/* MESSAGE */
 
 .message {
   display: none;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 15px;
+  font-size: 13px;
 }
 
 .message.success {
   display: block;
-  background: #e8f7ee;
-  color: #18733a;
+  background: #e8f7ed;
+  color: #176b38;
 }
 
 .message.error {
   display: block;
   background: #fdeaea;
-  color: #b52b27;
+  color: #b42318;
 }
 
-/* ================= TABLE ================= */
 
-.table-wrapper {
-  overflow-x: auto;
-}
+/* LOADING */
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 600px;
-}
-
-th,
-td {
-  padding: 11px;
-  border-bottom: 1px solid #eee;
-  font-size: 13px;
-  text-align: left;
-}
-
-th {
-  background: #f1f5f8;
-  color: #1f4e78;
-}
-
-/* ================= BADGES ================= */
-
-.badge {
-  display: inline-block;
-  padding: 5px 9px;
-  border-radius: 15px;
-  font-size: 11px;
+.loading {
+  display: none;
+  text-align: center;
+  padding: 15px;
+  color: #1769e0;
   font-weight: bold;
 }
 
-.badge-blue {
-  background: #e8f1fb;
-  color: #1f4e78;
+
+/* EMPTY */
+
+.empty {
+  text-align: center;
+  padding: 35px 15px;
+  color: #888;
 }
 
-.badge-green {
-  background: #e9f7ef;
-  color: #218838;
-}
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 
-.mobile-menu {
-  display: none;
-  border: none;
-  background: none;
-  color: white;
-  font-size: 25px;
-}
+@media(max-width:700px) {
 
-@media(max-width: 900px) {
-
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
+  .header {
+    padding: 10px 12px;
   }
 
-  .subject-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .header-title {
+    font-size: 16px;
   }
 
-  .paper-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media(max-width: 700px) {
-
-  .mobile-menu {
-    display: block;
-  }
-
-  .sidebar {
-    transform: translateX(-100%);
-    transition: 0.2s;
-    z-index: 1100;
-  }
-
-  .sidebar.show {
-    transform: translateX(0);
-  }
-
-  .main {
-    margin-left: 0;
-    padding: 85px 12px 25px;
-  }
-
-  .student-badge {
+  .header-subtitle {
     display: none;
   }
 
-  .student-name {
-    display: none;
+  .logout-btn {
+    padding: 8px 11px;
+    font-size: 12px;
   }
 
-  .subject-grid {
+  .container {
+    padding: 12px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    min-width: 120px;
+    flex: none;
+  }
+
+  .result-info {
     grid-template-columns: 1fr;
   }
 
-  .stats {
-    grid-template-columns: 1fr;
+  .welcome h2 {
+    font-size: 21px;
   }
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- ================= HEADER ================= -->
+
+<!-- =================================================
+     HEADER
+================================================== -->
 
 <header class="header">
 
-  <div class="logo-area">
-
-    <button
-      class="mobile-menu"
-      onclick="toggleSidebar()"
-    >
-      ☰
-    </button>
+  <div class="header-left">
 
     <div class="logo">
       🎓
     </div>
 
-    <div class="title">
-      Online Exam Portal
-    </div>
+    <div>
 
-    <div class="student-badge">
-      STUDENT
+      <div class="header-title">
+        Online Exam Portal
+      </div>
+
+      <div class="header-subtitle">
+        Student Examination Dashboard
+      </div>
+
     </div>
 
   </div>
 
-  <div class="header-right">
 
-    <span
-      class="student-name"
-      id="headerStudentName"
-    >
-      Student
-    </span>
+  <button
+    class="logout-btn"
+    onclick="logout()">
 
-    <button
-      class="logout-btn"
-      onclick="logout()"
-    >
-      Logout
-    </button>
+    ⇥ Logout
 
-  </div>
+  </button>
 
 </header>
 
 
-<!-- ================= SIDEBAR ================= -->
+<div class="container">
 
-<aside
-  class="sidebar"
-  id="sidebar"
->
+
+<!-- =================================================
+     WELCOME
+================================================== -->
+
+<div class="welcome">
+
+  <h2>
+    Welcome, <span id="studentName">Student</span>
+  </h2>
+
+  <p>
+    Student ID:
+    <strong id="studentIdDisplay"></strong>
+  </p>
+
+</div>
+
+
+<!-- =================================================
+     MESSAGE
+================================================== -->
+
+<div
+  id="message"
+  class="message">
+</div>
+
+
+<div
+  id="loading"
+  class="loading">
+
+  Loading...
+
+</div>
+
+
+<!-- =================================================
+     TABS
+================================================== -->
+
+<div class="tabs">
 
   <button
-    class="nav-btn active"
-    onclick="showPage('dashboard', this)"
-  >
-    🏠 Dashboard
+    class="tab-btn active"
+    onclick="showSection('papers',this)">
+
+    Question Papers
+
   </button>
 
   <button
-    class="nav-btn"
-    onclick="showPage('subjects', this)"
-  >
-    📚 My Subjects
+    class="tab-btn"
+    onclick="showSection('submissions',this)">
+
+    My Submissions
+
   </button>
 
   <button
-    class="nav-btn"
-    onclick="showPage('papers', this)"
-  >
-    📄 Question Papers
+    class="tab-btn"
+    onclick="showSection('results',this)">
+
+    My Results
+
   </button>
 
-  <button
-    class="nav-btn"
-    onclick="showPage('submission', this)"
-  >
-    📷 Submit Answer Sheet
-  </button>
-
-</aside>
+</div>
 
 
-<!-- ================= MAIN ================= -->
+<!-- =================================================
+     QUESTION PAPERS
+================================================== -->
 
-<main class="main">
+<section
+  id="papers"
+  class="section active">
 
-  <!-- ================= DASHBOARD ================= -->
+  <div class="card">
 
-  <section
-    id="dashboard"
-    class="page active"
-  >
+    <h3>
+      Available Question Papers
+    </h3>
 
-    <h1 class="page-title">
-      Student Dashboard
-    </h1>
+    <p style="color:#777;font-size:13px;">
+      Only question papers assigned to your subjects
+      are displayed here.
+    </p>
 
-    <div
-      id="dashboardMessage"
-      class="message"
-    ></div>
-
-
-    <div class="stats">
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          Student ID
-        </div>
-
-        <div
-          class="stat-number"
-          id="studentIdDisplay"
-          style="font-size:20px;"
-        >
-          -
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          Assigned Subjects
-        </div>
-
-        <div
-          class="stat-number"
-          id="subjectCount"
-        >
-          0
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-title">
-          Question Papers
-        </div>
-
-        <div
-          class="stat-number"
-          id="paperCount"
-        >
-          0
-        </div>
-
-      </div>
-
+    <div id="papersList">
     </div>
 
+  </div>
 
-    <div class="panel">
+</section>
 
-      <h3>
-        Welcome
-      </h3>
 
-      <p>
-        Welcome,
-        <strong id="welcomeStudentName">
-          Student
-        </strong>.
-      </p>
+<!-- =================================================
+     SUBMISSIONS
+================================================== -->
 
-      <p>
-        You can access only the subjects and question
-        papers assigned to your Student ID.
-      </p>
+<section
+  id="submissions"
+  class="section">
 
+  <div class="card">
+
+    <h3>
+      My Answer Sheet Submissions
+    </h3>
+
+    <div id="submissionsList">
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- ================= SUBJECTS ================= -->
+<!-- =================================================
+     RESULTS
+================================================== -->
 
-  <section
-    id="subjects"
-    class="page"
-  >
+<section
+  id="results"
+  class="section">
 
-    <h1 class="page-title">
-      My Subjects
-    </h1>
+  <div class="card">
 
+    <h3>
+      My Examination Results
+    </h3>
 
-    <div class="panel">
-
-      <h3>
-        Assigned Subjects
-      </h3>
-
-      <div
-        class="subject-grid"
-        id="subjectGrid"
-      >
-
-      </div>
-
+    <div id="resultsList">
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- ================= PAPERS ================= -->
-
-  <section
-    id="papers"
-    class="page"
-  >
-
-    <h1 class="page-title">
-      Question Papers
-    </h1>
+</div>
 
 
-    <div
-      id="paperMessage"
-      class="message"
-    ></div>
-
-
-    <div class="panel">
-
-      <p>
-        These question papers are available because
-        the corresponding subjects have been assigned
-        to your Student ID.
-      </p>
-
-      <div
-        class="paper-grid"
-        id="paperGrid"
-      >
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ================= SUBMISSION ================= -->
-
-  <section
-    id="submission"
-    class="page"
-  >
-
-    <h1 class="page-title">
-      Submit Answer Sheet
-    </h1>
-
-
-    <div
-      id="submissionMessage"
-      class="message"
-    ></div>
-
-
-    <div class="panel">
-
-      <h3>
-        Upload Answer-Sheet Photos
-      </h3>
-
-      <p>
-        Select all pages/photos of your answer sheet.
-        You can upload multiple pages together.
-      </p>
-
-      <div class="upload-box">
-
-        <div>
-          📷 Select Answer-Sheet Photos
-        </div>
-
-        <input
-          type="file"
-          id="answerFiles"
-          accept="image/*"
-          multiple
-        >
-
-        <div
-          id="selectedFiles"
-          class="selected-files"
-        ></div>
-
-      </div>
-
-
-      <br>
-
-
-      <div class="form-group">
-
-        <label>
-          Exam / Paper
-        </label>
-
-        <select id="submissionPaper">
-
-          <option value="">
-            -- Select Question Paper --
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <br>
-
-
-      <button
-        id="submitAnswerBtn"
-        class="primary-btn"
-        onclick="submitAnswerSheet()"
-      >
-        📤 Submit Answer Sheet
-      </button>
-
-    </div>
-
-
-    <div class="panel">
-
-      <h3>
-        Submission Information
-      </h3>
-
-      <p>
-        After successful submission, your answer-sheet
-        photos are stored securely in the exam portal.
-      </p>
-
-    </div>
-
-  </section>
-
-</main>
-
+<!-- =================================================
+     JAVASCRIPT
+================================================== -->
 
 <script>
 
-/*******************************************************
- * API
- *******************************************************/
+
+/* =====================================================
+   API
+===================================================== */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
-/*******************************************************
- * STUDENT SESSION
- *******************************************************/
+/* =====================================================
+   STUDENT SESSION
+===================================================== */
 
-let studentSession =
-  JSON.parse(
-    sessionStorage.getItem(
-      "studentSession"
-    ) || "null"
-  );
+const STUDENT_ID =
+sessionStorage.getItem(
+  "examStudentId"
+);
 
+const STUDENT_PASSWORD =
+sessionStorage.getItem(
+  "examStudentPassword"
+);
 
-/*******************************************************
- * CHECK LOGIN
- *******************************************************/
+const STUDENT_NAME =
+sessionStorage.getItem(
+  "examStudentName"
+);
+
 
 if (
-  !studentSession ||
-  !studentSession.studentId
+  !STUDENT_ID ||
+  !STUDENT_PASSWORD
 ) {
 
   window.location.href =
@@ -818,132 +656,77 @@ if (
 }
 
 
-/*******************************************************
- * API POST
- *******************************************************/
+/* =====================================================
+   DISPLAY STUDENT
+===================================================== */
 
-async function apiPost(data) {
+document.getElementById(
+  "studentName"
+).textContent =
+  STUDENT_NAME || "Student";
+
+
+document.getElementById(
+  "studentIdDisplay"
+).textContent =
+  STUDENT_ID || "";
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let DATA = {
+
+  papers: [],
+
+  submissions: [],
+
+  results: []
+
+};
+
+
+let selectedPaper = null;
+
+let selectedFiles = [];
+
+
+/* =====================================================
+   API REQUEST
+===================================================== */
+
+async function apiRequest(data) {
 
   const response =
     await fetch(
       API_URL,
       {
         method: "POST",
+
         headers: {
           "Content-Type":
             "text/plain;charset=utf-8"
         },
+
         body:
           JSON.stringify(data)
       }
     );
 
 
-  return await response.json();
+  const text =
+    await response.text();
 
-}
-
-
-/*******************************************************
- * LOAD STUDENT DATA
- *******************************************************/
-
-async function loadStudentData() {
 
   try {
 
-    const data =
-      await apiPost({
-
-        action:
-          "questionPaper",
-
-        studentId:
-          studentSession.studentId
-
-      });
-
-
-    if (!data.success) {
-
-      showMessage(
-        "dashboardMessage",
-        data.message ||
-          "Unable to load student data.",
-        false
-      );
-
-      return;
-
-    }
-
-
-    const studentName =
-      studentSession.studentName ||
-      "Student";
-
-
-    document.getElementById(
-      "headerStudentName"
-    ).textContent =
-      studentName;
-
-
-    document.getElementById(
-      "welcomeStudentName"
-    ).textContent =
-      studentName;
-
-
-    document.getElementById(
-      "studentIdDisplay"
-    ).textContent =
-      studentSession.studentId;
-
-
-    const subjects =
-      data.subjects || [];
-
-
-    const papers =
-      data.papers || [];
-
-
-    document.getElementById(
-      "subjectCount"
-    ).textContent =
-      subjects.length;
-
-
-    document.getElementById(
-      "paperCount"
-    ).textContent =
-      papers.length;
-
-
-    renderSubjects(
-      subjects
-    );
-
-
-    renderPapers(
-      papers
-    );
-
-
-    populateSubmissionPapers(
-      papers
-    );
-
+    return JSON.parse(text);
 
   } catch (error) {
 
-    console.error(error);
-
-    showMessage(
-      "dashboardMessage",
-      "Unable to connect to the exam server.",
-      false
+    throw new Error(
+      "Invalid response from server."
     );
 
   }
@@ -951,20 +734,180 @@ async function loadStudentData() {
 }
 
 
-/*******************************************************
- * SHOW PAGE
- *******************************************************/
+/* =====================================================
+   MESSAGE
+===================================================== */
 
-function showPage(
-  pageId,
+function showMessage(
+  message,
+  type
+) {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent =
+    message;
+
+  box.className =
+    "message " + type;
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+function clearMessage() {
+
+  const box =
+    document.getElementById(
+      "message"
+    );
+
+  box.textContent =
+    "";
+
+  box.className =
+    "message";
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+function setLoading(status) {
+
+  document.getElementById(
+    "loading"
+  ).style.display =
+    status
+      ? "block"
+      : "none";
+
+}
+
+
+/* =====================================================
+   LOAD DATA
+===================================================== */
+
+async function loadData() {
+
+  setLoading(true);
+
+  clearMessage();
+
+
+  try {
+
+    const papers =
+      await apiRequest({
+
+        action:
+          "getPapers",
+
+        studentId:
+          STUDENT_ID,
+
+        password:
+          STUDENT_PASSWORD
+
+      });
+
+
+    if (!papers.success) {
+
+      showMessage(
+        papers.message ||
+        "Unable to load question papers.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    DATA.papers =
+      papers.papers || [];
+
+
+    const results =
+      await apiRequest({
+
+        action:
+          "getStudentResults",
+
+        studentId:
+          STUDENT_ID,
+
+        password:
+          STUDENT_PASSWORD
+
+      });
+
+
+    if (results.success) {
+
+      DATA.results =
+        results.results || [];
+
+    }
+
+
+    renderPapers();
+
+    renderResults();
+
+
+    /*
+      Submissions are not returned by the
+      current student API, so they will be
+      shown locally after submission.
+    */
+
+    renderSubmissions();
+
+
+  } catch (error) {
+
+    showMessage(
+      error.message ||
+      "Unable to connect to server.",
+      "error"
+    );
+
+  } finally {
+
+    setLoading(false);
+
+  }
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function showSection(
+  sectionId,
   button
 ) {
 
   document
-    .querySelectorAll(".page")
-    .forEach(function(page) {
+    .querySelectorAll(".section")
+    .forEach(function(section) {
 
-      page.classList.remove(
+      section.classList.remove(
         "active"
       );
 
@@ -972,14 +915,7 @@ function showPage(
 
 
   document
-    .getElementById(pageId)
-    .classList.add(
-      "active"
-    );
-
-
-  document
-    .querySelectorAll(".nav-btn")
+    .querySelectorAll(".tab-btn")
     .forEach(function(btn) {
 
       btn.classList.remove(
@@ -989,313 +925,228 @@ function showPage(
     });
 
 
-  if (button) {
-
-    button.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .getElementById("sidebar")
-    .classList.remove(
-      "show"
-    );
-
-}
-
-
-/*******************************************************
- * MOBILE SIDEBAR
- *******************************************************/
-
-function toggleSidebar() {
-
-  document
-    .getElementById("sidebar")
-    .classList.toggle(
-      "show"
-    );
-
-}
-
-
-/*******************************************************
- * LOGOUT
- *******************************************************/
-
-function logout() {
-
-  sessionStorage.removeItem(
-    "studentSession"
+  document.getElementById(
+    sectionId
+  ).classList.add(
+    "active"
   );
 
-  window.location.href =
-    "index.html";
+
+  button.classList.add(
+    "active"
+  );
 
 }
 
 
-/*******************************************************
- * RENDER SUBJECTS
- *******************************************************/
+/* =====================================================
+   PAPERS
+===================================================== */
 
-function renderSubjects(
-  subjects
-) {
+function renderPapers() {
 
   const container =
     document.getElementById(
-      "subjectGrid"
+      "papersList"
     );
 
 
-  container.innerHTML = "";
+  if (!DATA.papers.length) {
 
+    container.innerHTML = `
+      <div class="empty">
 
-  if (
-    !subjects ||
-    subjects.length === 0
-  ) {
+        <div style="font-size:40px;">
+          📄
+        </div>
 
-    container.innerHTML =
-      `<p>
-        No subjects have been assigned to you yet.
-      </p>`;
+        <p>
+          No question papers are currently
+          assigned to you.
+        </p>
 
-    return;
-
-  }
-
-
-  subjects.forEach(function(subject) {
-
-    const card =
-      document.createElement(
-        "div"
-      );
-
-
-    card.className =
-      "subject-card";
-
-
-    card.innerHTML = `
-
-      <h3>
-        ${escapeHTML(
-          subject.subjectName
-        )}
-      </h3>
-
-      <div class="subject-code">
-        Subject Code:
-        <strong>
-          ${escapeHTML(
-            subject.subjectCode || "-"
-          )}
-        </strong>
       </div>
-
-      <br>
-
-      <span class="badge badge-blue">
-        Assigned
-      </span>
-
     `;
 
-
-    container.appendChild(
-      card
-    );
-
-  });
-
-}
-
-
-/*******************************************************
- * RENDER PAPERS
- *******************************************************/
-
-function renderPapers(
-  papers
-) {
-
-  const container =
-    document.getElementById(
-      "paperGrid"
-    );
-
-
-  container.innerHTML = "";
-
-
-  if (
-    !papers ||
-    papers.length === 0
-  ) {
-
-    container.innerHTML =
-      `<p>
-        No question papers are currently available.
-      </p>`;
-
     return;
 
   }
 
 
-  papers.forEach(function(paper) {
+  container.innerHTML =
+    DATA.papers
+      .map(function(paper) {
 
-    const card =
-      document.createElement(
-        "div"
-      );
+        return `
 
+          <div class="paper-card">
 
-    card.className =
-      "paper-card";
+            <div class="paper-title">
 
+              📘
+              ${escapeHtml(
+                paper.paperTitle
+              )}
 
-    card.innerHTML = `
-
-      <h3>
-        ${escapeHTML(
-          paper.title
-        )}
-      </h3>
-
-      <div class="paper-info">
-
-        <strong>
-          Subject:
-        </strong>
-
-        ${escapeHTML(
-          paper.subjectName || "-"
-        )}
-
-        <br>
-
-        <strong>
-          Code:
-        </strong>
-
-        ${escapeHTML(
-          paper.subjectCode || "-"
-        )}
-
-        <br>
-
-        <strong>
-          Total Marks:
-        </strong>
-
-        ${escapeHTML(
-          paper.totalMarks || "-"
-        )}
-
-        <br>
-
-        <strong>
-          File:
-        </strong>
-
-        ${escapeHTML(
-          paper.fileName || ""
-        )}
-
-      </div>
+            </div>
 
 
-      ${
-        paper.fileUrl
+            <div class="paper-details">
 
-        ? `<a
-            href="${escapeAttribute(
-              paper.fileUrl
-            )}"
-            target="_blank"
-            class="paper-btn"
-          >
-            📄 View Question Paper
-          </a>`
+              <strong>
+                File:
+              </strong>
 
-        : ""
+              ${escapeHtml(
+                paper.fileName
+              )}
+
+              <br>
+
+              <strong>
+                Total Marks:
+              </strong>
+
+              ${escapeHtml(
+                paper.totalMarks
+              )}
+
+            </div>
+
+
+            <div class="paper-actions">
+
+              <a
+                class="btn btn-primary"
+                href="${escapeAttr(paper.fileUrl)}"
+                target="_blank">
+
+                📄 Open Question Paper
+
+              </a>
+
+
+              <button
+                class="btn btn-success"
+                onclick="openAnswerUpload('${escapeAttr(paper.paperId)}')">
+
+                📷 Submit Answer Sheet
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   OPEN ANSWER UPLOAD
+===================================================== */
+
+function openAnswerUpload(
+  paperId
+) {
+
+  const paper =
+    DATA.papers.find(
+      function(item) {
+
+        return item.paperId
+          === paperId;
+
       }
-
-    `;
-
-
-    container.appendChild(
-      card
     );
 
+
+  if (!paper) {
+
+    showMessage(
+      "Question paper not found.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  selectedPaper =
+    paper;
+
+
+  selectedFiles = [];
+
+
+  document.getElementById(
+    "uploadPaperTitle"
+  ).textContent =
+    paper.paperTitle;
+
+
+  document.getElementById(
+    "uploadPaperMarks"
+  ).textContent =
+    "Total Marks: " +
+    paper.totalMarks;
+
+
+  document.getElementById(
+    "answerFiles"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "selectedFiles"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "uploadPanel"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "uploadPanel"
+  ).scrollIntoView({
+    behavior: "smooth"
   });
 
 }
 
 
-/*******************************************************
- * POPULATE SUBMISSION PAPERS
- *******************************************************/
+/* =====================================================
+   CLOSE UPLOAD
+===================================================== */
 
-function populateSubmissionPapers(
-  papers
-) {
+function closeUpload() {
 
-  const select =
-    document.getElementById(
-      "submissionPaper"
-    );
+  document.getElementById(
+    "uploadPanel"
+  ).style.display =
+    "none";
 
 
-  select.innerHTML =
-    `<option value="">
-      -- Select Question Paper --
-    </option>`;
+  selectedPaper =
+    null;
 
-
-  papers.forEach(function(paper) {
-
-    const option =
-      document.createElement(
-        "option"
-      );
-
-
-    option.value =
-      paper.paperId;
-
-
-    option.textContent =
-      paper.title +
-      " - " +
-      (
-        paper.subjectName || ""
-      );
-
-
-    option.dataset.title =
-      paper.title;
-
-
-    select.appendChild(
-      option
-    );
-
-  });
+  selectedFiles = [];
 
 }
 
 
-/*******************************************************
- * SHOW SELECTED FILES
- *******************************************************/
+/* =====================================================
+   FILE SELECTION
+===================================================== */
 
 document
   .getElementById(
@@ -1305,90 +1156,88 @@ document
     "change",
     function() {
 
-      const files =
+      selectedFiles =
         Array.from(
           this.files
         );
 
 
-      const container =
-        document.getElementById(
-          "selectedFiles"
-        );
-
-
-      container.innerHTML = "";
-
-
-      if (!files.length) {
-        return;
-      }
-
-
-      files.forEach(function(file, index) {
-
-        const div =
-          document.createElement(
-            "div"
-          );
-
-
-        div.className =
-          "file-item";
-
-
-        div.textContent =
-          (
-            index + 1
-          ) +
-          ". " +
-          file.name;
-
-
-        container.appendChild(
-          div
-        );
-
-      });
+      renderSelectedFiles();
 
     }
   );
 
 
-/*******************************************************
- * SUBMIT ANSWER SHEET
- *******************************************************/
+function renderSelectedFiles() {
+
+  const container =
+    document.getElementById(
+      "selectedFiles"
+    );
+
+
+  if (!selectedFiles.length) {
+
+    container.innerHTML =
+      "";
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <strong>
+      Selected Pages:
+      ${selectedFiles.length}
+    </strong>
+
+  `;
+
+
+  selectedFiles.forEach(
+    function(file,index) {
+
+      container.innerHTML += `
+
+        <div class="file-row">
+
+          📄 Page ${index + 1}:
+
+          ${escapeHtml(
+            file.name
+          )}
+
+          -
+
+          ${(file.size / 1024 / 1024)
+            .toFixed(2)} MB
+
+        </div>
+
+      `;
+
+    }
+  );
+
+}
+
+
+/* =====================================================
+   SUBMIT ANSWER SHEET
+===================================================== */
 
 async function submitAnswerSheet() {
 
-  const fileInput =
-    document.getElementById(
-      "answerFiles"
-    );
+  clearMessage();
 
 
-  const files =
-    Array.from(
-      fileInput.files
-    );
-
-
-  const paperSelect =
-    document.getElementById(
-      "submissionPaper"
-    );
-
-
-  const paperId =
-    paperSelect.value;
-
-
-  if (files.length === 0) {
+  if (!selectedPaper) {
 
     showMessage(
-      "submissionMessage",
-      "Please select answer-sheet photos.",
-      false
+      "Please select a question paper.",
+      "error"
     );
 
     return;
@@ -1396,12 +1245,11 @@ async function submitAnswerSheet() {
   }
 
 
-  if (!paperId) {
+  if (!selectedFiles.length) {
 
     showMessage(
-      "submissionMessage",
-      "Please select the question paper.",
-      false
+      "Please select at least one answer-sheet page.",
+      "error"
     );
 
     return;
@@ -1409,44 +1257,36 @@ async function submitAnswerSheet() {
   }
 
 
-  const selectedOption =
-    paperSelect.options[
-      paperSelect.selectedIndex
-    ];
-
-
-  const examName =
-    selectedOption.dataset.title ||
-    selectedOption.textContent;
-
-
-  const button =
+  const submitButton =
     document.getElementById(
-      "submitAnswerBtn"
+      "submitAnswerButton"
     );
 
 
-  button.disabled =
+  submitButton.disabled =
     true;
 
 
-  button.textContent =
-    "Uploading...";
+  setLoading(true);
 
 
   try {
 
-    const encodedFiles = [];
+    const uploadedUrls = [];
 
+
+    /*
+      Upload every selected page.
+    */
 
     for (
       let i = 0;
-      i < files.length;
+      i < selectedFiles.length;
       i++
     ) {
 
       const file =
-        files[i];
+        selectedFiles[i];
 
 
       if (
@@ -1455,7 +1295,10 @@ async function submitAnswerSheet() {
         )
       ) {
 
-        continue;
+        throw new Error(
+          file.name +
+          " is not an image file."
+        );
 
       }
 
@@ -1466,117 +1309,424 @@ async function submitAnswerSheet() {
         );
 
 
-      encodedFiles.push({
+      const result =
+        await apiRequest({
 
-        fileName:
-          file.name,
+          action:
+            "uploadAnswerPhoto",
 
-        mimeType:
-          file.type,
+          studentId:
+            STUDENT_ID,
 
-        base64:
-          base64
+          password:
+            STUDENT_PASSWORD,
 
-      });
+          paperId:
+            selectedPaper.paperId,
 
-    }
+          fileName:
+            "Answer_" +
+            STUDENT_ID +
+            "_" +
+            selectedPaper.paperId +
+            "_Page_" +
+            (i + 1) +
+            ".jpg",
+
+          base64:
+            base64
+
+        });
 
 
-    if (
-      encodedFiles.length === 0
-    ) {
+      if (!result.success) {
 
-      throw new Error(
-        "No valid image files selected."
+        throw new Error(
+          result.message ||
+          "Unable to upload page " +
+          (i + 1)
+        );
+
+      }
+
+
+      uploadedUrls.push(
+        result.fileUrl
       );
 
     }
 
 
-    const data =
-      await apiPost({
+    /*
+      Save submission.
+    */
+
+    const submission =
+      await apiRequest({
 
         action:
-          "answer",
+          "submitAnswer",
 
         studentId:
-          studentSession.studentId,
+          STUDENT_ID,
 
-        studentName:
-          studentSession.studentName ||
-          "",
-
-        examId:
-          "",
-
-        examName:
-          examName,
+        password:
+          STUDENT_PASSWORD,
 
         paperId:
-          paperId,
+          selectedPaper.paperId,
 
-        files:
-          encodedFiles
+        examName:
+          "Online Examination",
+
+        photoUrls:
+          uploadedUrls.join(",")
 
       });
 
 
-    showMessage(
-      "submissionMessage",
-      data.message ||
-        "Submission completed.",
-      data.success
-    );
+    if (!submission.success) {
 
-
-    if (data.success) {
-
-      fileInput.value =
-        "";
-
-      document.getElementById(
-        "selectedFiles"
-      ).innerHTML =
-        "";
-
-      paperSelect.value =
-        "";
+      throw new Error(
+        submission.message ||
+        "Unable to submit answer sheet."
+      );
 
     }
 
-  } catch (error) {
 
-    console.error(error);
+    /*
+      Save local submission display.
+    */
 
-    showMessage(
-      "submissionMessage",
-      error.message ||
-        "Answer-sheet upload failed.",
-      false
+    const localSubmission = {
+
+      submissionId:
+        submission.submissionId,
+
+      paperId:
+        selectedPaper.paperId,
+
+      paperTitle:
+        selectedPaper.paperTitle,
+
+      pages:
+        selectedFiles.length,
+
+      submittedAt:
+        new Date(),
+
+      status:
+        "Submitted"
+
+    };
+
+
+    const previous =
+      JSON.parse(
+        sessionStorage.getItem(
+          "myExamSubmissions"
+        ) || "[]"
+      );
+
+
+    previous.unshift(
+      localSubmission
     );
 
+
+    sessionStorage.setItem(
+      "myExamSubmissions",
+      JSON.stringify(previous)
+    );
+
+
+    closeUpload();
+
+    renderSubmissions();
+
+
+    showMessage(
+      "Answer sheet submitted successfully.",
+      "success"
+    );
+
+
+    showSection(
+      "submissions",
+      document.querySelectorAll(
+        ".tab-btn"
+      )[1]
+    );
+
+
+  } catch (error) {
+
+    showMessage(
+      error.message ||
+      "Unable to submit answer sheet.",
+      "error"
+    );
+
+  } finally {
+
+    setLoading(false);
+
+    submitButton.disabled =
+      false;
+
   }
-
-
-  button.disabled =
-    false;
-
-  button.textContent =
-    "📤 Submit Answer Sheet";
 
 }
 
 
-/*******************************************************
- * FILE TO BASE64
- *******************************************************/
+/* =====================================================
+   SUBMISSIONS
+===================================================== */
 
-function fileToBase64(
-  file
-) {
+function renderSubmissions() {
+
+  const container =
+    document.getElementById(
+      "submissionsList"
+    );
+
+
+  const submissions =
+    JSON.parse(
+      sessionStorage.getItem(
+        "myExamSubmissions"
+      ) || "[]"
+    );
+
+
+  if (!submissions.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <div style="font-size:40px;">
+          📤
+        </div>
+
+        <p>
+          You have not submitted any answer sheet
+          during this browser session.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    submissions
+      .map(function(item) {
+
+        return `
+
+          <div class="submission-box">
+
+            <strong>
+              ${escapeHtml(
+                item.paperTitle
+              )}
+            </strong>
+
+            <br><br>
+
+            Pages Submitted:
+            <strong>
+              ${item.pages}
+            </strong>
+
+            <br>
+
+            Submitted:
+            ${formatDate(
+              item.submittedAt
+            )}
+
+            <br><br>
+
+            <span class="status">
+              ✓ ${escapeHtml(
+                item.status
+              )}
+            </span>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
+
+function renderResults() {
+
+  const container =
+    document.getElementById(
+      "resultsList"
+    );
+
+
+  if (!DATA.results.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+
+        <div style="font-size:40px;">
+          🏆
+        </div>
+
+        <p>
+          No results have been published yet.
+        </p>
+
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    DATA.results
+      .map(function(result) {
+
+        const pass =
+          String(result.result)
+            .toLowerCase()
+            === "pass";
+
+
+        return `
+
+          <div class="result-card">
+
+            <div class="result-header">
+
+              <strong>
+                Examination Result
+              </strong>
+
+              <span
+                class="${
+                  pass
+                    ? "result-pass"
+                    : "result-fail"
+                }">
+
+                ${escapeHtml(
+                  result.result
+                )}
+
+              </span>
+
+            </div>
+
+
+            <div class="result-info">
+
+              <div>
+
+                <span class="result-label">
+                  Marks Obtained
+                </span>
+
+                <span class="result-value">
+                  ${escapeHtml(
+                    result.marksObtained
+                  )}
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <span class="result-label">
+                  Total Marks
+                </span>
+
+                <span class="result-value">
+                  ${escapeHtml(
+                    result.totalMarks
+                  )}
+                </span>
+
+              </div>
+
+
+              <div>
+
+                <span class="result-label">
+                  Percentage
+                </span>
+
+                <span class="result-value">
+                  ${escapeHtml(
+                    result.percentage
+                  )}%
+                </span>
+
+              </div>
+
+            </div>
+
+
+            ${
+              result.remarks
+                ? `
+                  <div
+                    style="
+                      margin-top:12px;
+                      color:#666;
+                      font-size:13px;
+                    ">
+
+                    <strong>
+                      Remarks:
+                    </strong>
+
+                    ${escapeHtml(
+                      result.remarks
+                    )}
+
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   FILE TO BASE64
+===================================================== */
+
+function fileToBase64(file) {
 
   return new Promise(
-    function(resolve, reject) {
+    function(resolve,reject) {
 
       const reader =
         new FileReader();
@@ -1593,24 +1743,24 @@ function fileToBase64(
             result.split(",")[1];
 
 
-          resolve(
-            base64
-          );
+          resolve(base64);
 
         };
 
 
       reader.onerror =
-        function(error) {
+        function() {
 
-          reject(error);
+          reject(
+            new Error(
+              "Unable to read image."
+            )
+          );
 
         };
 
 
-      reader.readAsDataURL(
-        file
-      );
+      reader.readAsDataURL(file);
 
     }
   );
@@ -1618,111 +1768,244 @@ function fileToBase64(
 }
 
 
-/*******************************************************
- * MESSAGE
- *******************************************************/
+/* =====================================================
+   DATE
+===================================================== */
 
-function showMessage(
-  elementId,
-  message,
-  success
-) {
+function formatDate(value) {
 
-  const element =
-    document.getElementById(
-      elementId
-    );
+  if (!value) {
+    return "-";
+  }
 
 
-  element.className =
-    "message " +
-    (
-      success
-        ? "success"
-        : "error"
-    );
+  try {
+
+    const date =
+      new Date(value);
 
 
-  element.textContent =
-    message;
+    if (
+      isNaN(
+        date.getTime()
+      )
+    ) {
+
+      return String(value);
+
+    }
 
 
-  setTimeout(function() {
+    return date.toLocaleString();
 
-    element.className =
-      "message";
+  } catch (e) {
 
-  }, 6000);
+    return String(value);
+
+  }
 
 }
 
 
-/*******************************************************
- * HTML SECURITY
- *******************************************************/
+/* =====================================================
+   SECURITY
+===================================================== */
 
-function escapeHTML(
-  value
-) {
+function escapeHtml(value) {
+
+  return String(
+    value === undefined ||
+    value === null
+      ? ""
+      : value
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttr(value) {
+
+  return escapeHtml(value);
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
 
   if (
-    value === null ||
-    value === undefined
+    !confirm(
+      "Are you sure you want to logout?"
+    )
   ) {
 
-    return "";
+    return;
 
   }
 
 
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttribute(
-  value
-) {
-
-  return escapeHTML(
-    value
+  sessionStorage.removeItem(
+    "examStudentId"
   );
 
+  sessionStorage.removeItem(
+    "examStudentPassword"
+  );
+
+  sessionStorage.removeItem(
+    "examStudentName"
+  );
+
+  sessionStorage.removeItem(
+    "myExamSubmissions"
+  );
+
+
+  window.location.href =
+    "index.html";
+
 }
 
 
-/*******************************************************
- * START
- *******************************************************/
+/* =====================================================
+   UPLOAD PANEL HTML
+===================================================== */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function() {
+const uploadPanel =
+document.createElement("div");
 
-    loadStudentData();
 
-  }
-);
+uploadPanel.id =
+"uploadPanel";
+
+uploadPanel.style.display =
+"none";
+
+uploadPanel.innerHTML = `
+
+  <div class="card">
+
+    <h3>
+      Submit Answer Sheet
+    </h3>
+
+    <div
+      style="
+        background:#f1f6ff;
+        padding:14px;
+        border-radius:9px;
+        margin-bottom:15px;
+      ">
+
+      <strong
+        id="uploadPaperTitle">
+      </strong>
+
+      <br>
+
+      <span
+        id="uploadPaperMarks"
+        style="
+          color:#666;
+          font-size:13px;
+        ">
+      </span>
+
+    </div>
+
+
+    <div class="upload-box">
+
+      <div
+        style="
+          font-size:30px;
+          margin-bottom:10px;
+        ">
+
+        📷
+
+      </div>
+
+      <strong>
+        Select Answer Sheet Pages
+      </strong>
+
+      <p
+        style="
+          color:#777;
+          font-size:12px;
+        ">
+
+        You can select multiple image pages.
+
+      </p>
+
+
+      <input
+        type="file"
+        id="answerFiles"
+        accept="image/*"
+        multiple>
+
+
+      <div
+        id="selectedFiles"
+        class="selected-files">
+      </div>
+
+    </div>
+
+
+    <div
+      style="
+        display:flex;
+        gap:8px;
+        margin-top:15px;
+      ">
+
+      <button
+        class="btn btn-success"
+        id="submitAnswerButton"
+        onclick="submitAnswerSheet()">
+
+        Submit Answer Sheet
+
+      </button>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="closeUpload()">
+
+        Cancel
+
+      </button>
+
+    </div>
+
+  </div>
+
+`;
+
+
+document
+  .getElementById("papers")
+  .appendChild(uploadPanel);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadData();
 
 </script>
 
