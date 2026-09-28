@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -9,15 +10,9 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Login | Online Exam Portal</title>
-
-<link rel="stylesheet" href="styles.css">
+<title>Online Exam Portal - Login</title>
 
 <style>
-
-/* =====================================================
-   LOGIN PAGE
-===================================================== */
 
 * {
     box-sizing: border-box;
@@ -27,43 +22,25 @@ body {
     margin: 0;
     min-height: 100vh;
     font-family: Arial, sans-serif;
-    background: linear-gradient(
-        135deg,
-        #eef4ff,
-        #f8fafc
-    );
-}
-
-
-/* MAIN */
-
-.login-wrapper {
-    min-height: 100vh;
+    background: #f1f5f9;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
-
-
-/* LOGIN CARD */
 
 .login-card {
     width: 100%;
-    max-width: 430px;
+    max-width: 420px;
     background: white;
+    padding: 30px;
     border-radius: 18px;
-    padding: 35px;
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.10);
+    box-shadow: 0 10px 35px rgba(0,0,0,.10);
 }
 
-
-/* LOGO */
-
-.login-logo {
+.logo {
     width: 70px;
     height: 70px;
+    margin: auto;
     border-radius: 18px;
     background: #2563eb;
     color: white;
@@ -71,183 +48,109 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 32px;
-    margin: 0 auto 18px;
 }
 
-
-.login-title {
+h1 {
     text-align: center;
-    margin-bottom: 5px;
-    color: #111827;
-    font-size: 26px;
+    margin: 15px 0 5px;
 }
 
-
-.login-subtitle {
+.subtitle {
     text-align: center;
     color: #6b7280;
     font-size: 14px;
-    margin-bottom: 28px;
+    margin-bottom: 25px;
 }
 
+/* ROLE BUTTONS */
 
-/* ROLE SWITCH */
-
-.role-selector {
+.role-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-bottom: 25px;
-    background: #f3f4f6;
-    padding: 5px;
-    border-radius: 10px;
 }
 
-
-.role-btn {
-    border: none;
-    padding: 11px;
-    border-radius: 7px;
-    background: transparent;
+.role-button {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #f8fafc;
     cursor: pointer;
-    font-weight: 600;
-    color: #6b7280;
+    font-weight: bold;
 }
 
-
-.role-btn.active {
-    background: white;
-    color: #2563eb;
-    box-shadow:
-        0 2px 7px rgba(0,0,0,.08);
+.role-button.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
 }
 
-
-/* FORM */
-
-.login-form-group {
-    margin-bottom: 18px;
-}
-
-
-.login-form-group label {
+label {
     display: block;
-    margin-bottom: 7px;
-    font-weight: 600;
+    font-weight: bold;
     font-size: 14px;
-    color: #374151;
+    margin-bottom: 7px;
 }
 
-
-.login-form-group input {
+input {
     width: 100%;
-    padding: 13px 14px;
+    padding: 13px;
     border: 1px solid #d1d5db;
     border-radius: 9px;
     font-size: 15px;
+    margin-bottom: 18px;
     outline: none;
 }
 
-
-.login-form-group input:focus {
+input:focus {
     border-color: #2563eb;
-    box-shadow:
-        0 0 0 3px rgba(37,99,235,.10);
 }
-
-
-/* LOGIN BUTTON */
 
 .login-button {
     width: 100%;
-    border: none;
     padding: 14px;
+    border: none;
     border-radius: 9px;
     background: #2563eb;
     color: white;
+    font-weight: bold;
     font-size: 15px;
-    font-weight: 700;
     cursor: pointer;
-    margin-top: 5px;
 }
-
-
-.login-button:hover {
-    background: #1d4ed8;
-}
-
 
 .login-button:disabled {
-    opacity: .7;
-    cursor: not-allowed;
+    opacity: .6;
 }
 
-
-/* ALERT */
-
-.login-alert {
+.message {
     display: none;
+    margin-bottom: 18px;
     padding: 12px;
     border-radius: 8px;
-    margin-bottom: 18px;
     font-size: 13px;
-    line-height: 1.5;
 }
 
-
-.login-alert.error {
+.error {
     display: block;
     background: #fee2e2;
     color: #991b1b;
 }
 
-
-.login-alert.success {
+.success {
     display: block;
     background: #dcfce7;
     color: #166534;
 }
 
-
-/* FOOTER */
-
-.login-footer {
-    text-align: center;
-    margin-top: 25px;
-    font-size: 12px;
-    color: #9ca3af;
-}
-
-
-/* HELP */
-
-.login-help {
+.help {
     margin-top: 20px;
-    padding: 13px;
+    padding: 12px;
     background: #f8fafc;
-    border-radius: 9px;
+    border-radius: 8px;
     font-size: 12px;
     color: #6b7280;
     line-height: 1.6;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
-
-    .login-wrapper {
-        padding: 15px;
-    }
-
-    .login-card {
-        padding: 25px 20px;
-    }
-
-    .login-title {
-        font-size: 23px;
-    }
-
 }
 
 </style>
@@ -258,173 +161,134 @@ body {
 <body>
 
 
-<div class="login-wrapper">
+<div class="login-card">
 
-    <div class="login-card">
+    <div class="logo">
+        📚
+    </div>
 
+    <h1>
+        Online Exam Portal
+    </h1>
 
-        <!-- LOGO -->
-
-        <div class="login-logo">
-            📚
-        </div>
-
-
-        <h1 class="login-title">
-            Online Exam Portal
-        </h1>
+    <div class="subtitle">
+        Secure Examination Management System
+    </div>
 
 
-        <p class="login-subtitle">
-            Secure Examination Management System
-        </p>
+    <!-- ROLE SELECTION -->
+
+    <div class="role-buttons">
+
+        <button
+            type="button"
+            id="studentButton"
+            class="role-button"
+        >
+            👨‍🎓 Student Login
+        </button>
+
+        <button
+            type="button"
+            id="adminButton"
+            class="role-button"
+        >
+            👨‍💼 Admin Login
+        </button>
+
+    </div>
 
 
-        <!-- ROLE SELECTOR -->
+    <!-- MESSAGE -->
 
-        <div class="role-selector">
-
-            <button
-                type="button"
-                class="role-btn active"
-                id="studentRoleBtn"
-                onclick="selectRole('student')"
-            >
-                👨‍🎓 Student
-            </button>
+    <div
+        id="message"
+        class="message"
+    ></div>
 
 
-            <button
-                type="button"
-                class="role-btn"
-                id="adminRoleBtn"
-                onclick="selectRole('admin')"
-            >
-                👨‍💼 Admin
-            </button>
+    <!-- LOGIN FORM -->
 
-        </div>
+    <form id="loginForm">
 
+        <label id="idLabel">
+            Student ID
+        </label>
 
-        <!-- ALERT -->
-
-        <div
-            id="loginAlert"
-            class="login-alert"
-        ></div>
-
-
-        <!-- LOGIN FORM -->
-
-        <form id="loginForm">
-
-
-            <div class="login-form-group">
-
-                <label id="idLabel">
-                    Student ID
-                </label>
-
-
-                <input
-                    type="text"
-                    id="userId"
-                    placeholder="Enter Student ID"
-                    autocomplete="username"
-                    required
-                >
-
-            </div>
-
-
-            <div class="login-form-group">
-
-                <label>
-                    Password
-                </label>
-
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    autocomplete="current-password"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="login-button"
-                id="loginButton"
-            >
-                🔐 Login
-            </button>
-
-
-        </form>
-
-
-        <!-- HELP -->
-
-        <div
-            class="login-help"
-            id="loginHelp"
+        <input
+            type="text"
+            id="userId"
+            placeholder="Enter Student ID"
+            required
         >
 
-            <strong>Student Login</strong><br>
 
-            Enter your Student ID and password provided by the administrator.
+        <label>
+            Password
+        </label>
 
-            <br><br>
-
-            Example:
-            <strong>STU001</strong>
-
-        </div>
-
-
-        <!-- FOOTER -->
-
-        <div class="login-footer">
-
-            Online Exam Portal<br>
-
-            Secure Student Examination System
-
-        </div>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            required
+        >
 
 
+        <button
+            type="submit"
+            id="loginButton"
+            class="login-button"
+        >
+            Login
+        </button>
+
+    </form>
+
+
+    <div
+        id="helpText"
+        class="help"
+    >
+        <strong>Student Login</strong><br>
+        Enter the Student ID and password given by the administrator.
+        <br><br>
+        Example: <strong>STU001</strong>
     </div>
 
 </div>
 
 
 
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
-
 <script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
 
 import {
     initializeApp
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 
 import {
     getAuth,
-    signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+    signInWithEmailAndPassword,
+    signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
 import {
     getFirestore,
     doc,
     getDoc
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+}
+from
+"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 
 /* =====================================================
@@ -455,11 +319,13 @@ const firebaseConfig = {
 
 
 /* =====================================================
-   INITIALIZE FIREBASE
+   INITIALIZE
 ===================================================== */
 
 const app =
-    initializeApp(firebaseConfig);
+    initializeApp(
+        firebaseConfig
+    );
 
 
 const auth =
@@ -478,148 +344,124 @@ let currentRole = "student";
 
 
 /* =====================================================
-   CHECK URL ROLE
+   ELEMENTS
 ===================================================== */
 
-const urlParams =
-    new URLSearchParams(
-        window.location.search
+const studentButton =
+    document.getElementById(
+        "studentButton"
     );
 
+const adminButton =
+    document.getElementById(
+        "adminButton"
+    );
 
-const requestedRole =
-    urlParams.get("role");
+const idLabel =
+    document.getElementById(
+        "idLabel"
+    );
 
+const userId =
+    document.getElementById(
+        "userId"
+    );
 
-if (
-    requestedRole === "admin"
-) {
+const helpText =
+    document.getElementById(
+        "helpText"
+    );
 
-    selectRole("admin");
-
-} else {
-
-    selectRole("student");
-
-}
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
 
 
 /* =====================================================
-   ROLE SELECTION
+   STUDENT LOGIN BUTTON
 ===================================================== */
 
-window.selectRole =
-function(role) {
+studentButton.onclick =
+function() {
 
     currentRole =
-        role;
+        "student";
 
-
-    const studentBtn =
-        document.getElementById(
-            "studentRoleBtn"
-        );
-
-
-    const adminBtn =
-        document.getElementById(
-            "adminRoleBtn"
-        );
-
-
-    const idLabel =
-        document.getElementById(
-            "idLabel"
-        );
-
-
-    const userId =
-        document.getElementById(
-            "userId"
-        );
-
-
-    const help =
-        document.getElementById(
-            "loginHelp"
-        );
-
-
-    studentBtn.classList.remove(
+    studentButton.classList.add(
         "active"
     );
 
-
-    adminBtn.classList.remove(
+    adminButton.classList.remove(
         "active"
     );
 
+    idLabel.textContent =
+        "Student ID";
 
-    if (role === "student") {
+    userId.placeholder =
+        "Enter Student ID";
 
-        studentBtn.classList.add(
-            "active"
-        );
-
-
-        idLabel.textContent =
-            "Student ID";
-
-
-        userId.placeholder =
-            "Enter Student ID";
-
-
-        help.innerHTML = `
-
-            <strong>Student Login</strong><br>
-
-            Enter your Student ID and password
-            provided by the administrator.
-
-            <br><br>
-
-            Example:
-            <strong>STU001</strong>
-
-        `;
-
-    } else {
-
-        adminBtn.classList.add(
-            "active"
-        );
-
-
-        idLabel.textContent =
-            "Admin ID";
-
-
-        userId.placeholder =
-            "Enter Admin ID";
-
-
-        help.innerHTML = `
-
-            <strong>Admin Login</strong><br>
-
-            Enter your Admin ID and administrator password.
-
-            <br><br>
-
-            Example:
-            <strong>ADMIN</strong>
-
-        `;
-
-    }
-
+    helpText.innerHTML = `
+        <strong>Student Login</strong><br>
+        Enter the Student ID and password
+        given by the administrator.
+        <br><br>
+        Example: <strong>STU001</strong>
+    `;
 
     userId.value = "";
 
-    hideAlert();
+    clearMessage();
 
 };
+
+
+/* =====================================================
+   ADMIN LOGIN BUTTON
+===================================================== */
+
+adminButton.onclick =
+function() {
+
+    currentRole =
+        "admin";
+
+    adminButton.classList.add(
+        "active"
+    );
+
+    studentButton.classList.remove(
+        "active"
+    );
+
+    idLabel.textContent =
+        "Admin ID";
+
+    userId.placeholder =
+        "Enter Admin ID";
+
+    helpText.innerHTML = `
+        <strong>Admin Login</strong><br>
+        Enter the administrator ID and password.
+        <br><br>
+        Admin ID: <strong>ADMIN</strong>
+    `;
+
+    userId.value = "";
+
+    clearMessage();
+
+};
+
+
+/* =====================================================
+   DEFAULT
+===================================================== */
+
+studentButton.classList.add(
+    "active"
+);
 
 
 /* =====================================================
@@ -627,7 +469,9 @@ function(role) {
 ===================================================== */
 
 document
-    .getElementById("loginForm")
+    .getElementById(
+        "loginForm"
+    )
     .addEventListener(
         "submit",
         async function(event) {
@@ -636,12 +480,9 @@ document
 
 
             const enteredId =
-                document
-                    .getElementById(
-                        "userId"
-                    )
-                    .value
-                    .trim();
+                userId.value
+                    .trim()
+                    .toUpperCase();
 
 
             const password =
@@ -654,7 +495,7 @@ document
 
             if (!enteredId) {
 
-                showAlert(
+                showMessage(
                     "Please enter your " +
                     (
                         currentRole === "admin"
@@ -669,27 +510,8 @@ document
             }
 
 
-            if (!password) {
-
-                showAlert(
-                    "Please enter your password.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            const loginButton =
-                document.getElementById(
-                    "loginButton"
-                );
-
-
             loginButton.disabled =
                 true;
-
 
             loginButton.textContent =
                 "Logging in...";
@@ -697,62 +519,57 @@ document
 
             try {
 
+                let firebaseEmail;
 
-                /* =====================================
-                   CREATE INTERNAL FIREBASE EMAIL
-                ===================================== */
 
-                let internalEmail;
-
+                /* =================================
+                   ADMIN
+                ================================= */
 
                 if (
                     currentRole ===
                     "admin"
                 ) {
 
-                    /*
-                     * Admin account:
-                     *
-                     * ADMIN
-                     *
-                     * becomes:
-                     *
-                     * admin@onlineexam.local
-                     */
+                    if (
+                        enteredId !==
+                        "ADMIN"
+                    ) {
 
-                    internalEmail =
-                        enteredId
-                            .toLowerCase() +
-                        "@onlineexam.local";
+                        throw new Error(
+                            "Please use ADMIN as the Admin ID."
+                        );
 
-                } else {
+                    }
 
-                    /*
-                     * Student account:
-                     *
-                     * STU001
-                     *
-                     * becomes:
-                     *
-                     * stu001@students.onlineexam.local
-                     */
 
-                    internalEmail =
-                        enteredId
-                            .toLowerCase() +
+                    firebaseEmail =
+                        "admin@onlineexam.local";
+
+                }
+
+
+                /* =================================
+                   STUDENT
+                ================================= */
+
+                else {
+
+                    firebaseEmail =
+                        enteredId.toLowerCase() +
                         "@students.onlineexam.local";
 
                 }
 
 
-                /* =====================================
-                   FIREBASE LOGIN
-                ===================================== */
+                /* =================================
+                   FIREBASE AUTH
+                ================================= */
 
                 const credential =
                     await signInWithEmailAndPassword(
                         auth,
-                        internalEmail,
+                        firebaseEmail,
                         password
                     );
 
@@ -761,9 +578,9 @@ document
                     credential.user.uid;
 
 
-                /* =====================================
-                   CHECK FIRESTORE PROFILE
-                ===================================== */
+                /* =================================
+                   FIRESTORE USER
+                ================================= */
 
                 const userRef =
                     doc(
@@ -773,62 +590,59 @@ document
                     );
 
 
-                const userSnap =
+                const userSnapshot =
                     await getDoc(
                         userRef
                     );
 
 
-                if (!userSnap.exists()) {
+                if (
+                    !userSnapshot.exists()
+                ) {
 
-                    showAlert(
-                        "User account exists, but the profile was not found.",
-                        "error"
+                    await signOut(auth);
+
+                    throw new Error(
+                        "User profile not found in Firestore."
                     );
-
-                    return;
 
                 }
 
 
-                const userData =
-                    userSnap.data();
+                const data =
+                    userSnapshot.data();
 
 
-                /* =====================================
-                   CHECK ROLE
-                ===================================== */
+                /* =================================
+                   ROLE CHECK
+                ================================= */
 
                 if (
-                    userData.role !==
+                    data.role !==
                     currentRole
                 ) {
 
-                    showAlert(
-                        "This account does not have permission for this login.",
-                        "error"
+                    await signOut(auth);
+
+                    throw new Error(
+                        "This account does not have the correct login permission."
                     );
-
-
-                    await auth.signOut();
-
-                    return;
 
                 }
 
 
-                /* =====================================
+                /* =================================
                    SUCCESS
-                ===================================== */
+                ================================= */
 
-                showAlert(
-                    "Login successful. Opening dashboard...",
+                showMessage(
+                    "Login successful...",
                     "success"
                 );
 
 
                 setTimeout(
-                    () => {
+                    function() {
 
                         if (
                             currentRole ===
@@ -846,82 +660,56 @@ document
                         }
 
                     },
-                    500
+                    700
                 );
 
 
-            } catch (error) {
+            } catch(error) {
 
                 console.error(
-                    "Login error:",
                     error
                 );
 
 
-                let message =
-                    "Unable to login.";
+                let errorMessage =
+                    error.message;
 
 
-                switch (
-                    error.code
+                if (
+                    error.code ===
+                    "auth/invalid-credential"
                 ) {
 
-                    case
-                    "auth/invalid-credential":
-
-                        message =
-                            "Incorrect ID or password.";
-
-                        break;
-
-
-                    case
-                    "auth/user-not-found":
-
-                        message =
-                            "Account not found. Please check your ID.";
-
-                        break;
-
-
-                    case
-                    "auth/wrong-password":
-
-                        message =
-                            "Incorrect password.";
-
-                        break;
-
-
-                    case
-                    "auth/too-many-requests":
-
-                        message =
-                            "Too many login attempts. Please try again later.";
-
-                        break;
-
-
-                    case
-                    "auth/network-request-failed":
-
-                        message =
-                            "Network error. Please check your internet connection.";
-
-                        break;
-
-
-                    default:
-
-                        message =
-                            error.message ||
-                            "Login failed.";
+                    errorMessage =
+                        "Incorrect ID or password.";
 
                 }
 
 
-                showAlert(
-                    message,
+                if (
+                    error.code ===
+                    "auth/user-not-found"
+                ) {
+
+                    errorMessage =
+                        "Account not found.";
+
+                }
+
+
+                if (
+                    error.code ===
+                    "auth/wrong-password"
+                ) {
+
+                    errorMessage =
+                        "Incorrect password.";
+
+                }
+
+
+                showMessage(
+                    errorMessage,
                     "error"
                 );
 
@@ -931,9 +719,8 @@ document
                 loginButton.disabled =
                     false;
 
-
                 loginButton.textContent =
-                    "🔐 Login";
+                    "Login";
 
             }
 
@@ -942,53 +729,46 @@ document
 
 
 /* =====================================================
-   ALERT
+   MESSAGE
 ===================================================== */
 
-function showAlert(
+function showMessage(
     message,
     type
 ) {
 
-    const alert =
+    const box =
         document.getElementById(
-            "loginAlert"
+            "message"
         );
 
-
-    alert.textContent =
+    box.textContent =
         message;
 
-
-    alert.className =
-        "login-alert " +
+    box.className =
+        "message " +
         type;
-
-
-    alert.style.display =
-        "block";
 
 }
 
 
-/* =====================================================
-   HIDE ALERT
-===================================================== */
+function clearMessage() {
 
-function hideAlert() {
-
-    const alert =
+    const box =
         document.getElementById(
-            "loginAlert"
+            "message"
         );
 
+    box.textContent =
+        "";
 
-    alert.style.display =
-        "none";
+    box.className =
+        "message";
 
 }
 
 </script>
 
 </body>
+
 </html>
