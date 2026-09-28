@@ -1,0 +1,3356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - Online Exam Portal</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="dashboard-header">
+
+    <div class="logo">
+        🎓 Online Exam Portal
+    </div>
+
+    <div class="header-right">
+
+        <span class="user-role">
+            👨‍💼 ADMIN
+        </span>
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<div class="dashboard-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            ADMIN PANEL
+        </div>
+
+
+        <button
+            class="sidebar-link active"
+            data-section="dashboardSection"
+        >
+            🏠 Dashboard
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="studentsSection"
+        >
+            👨‍🎓 Students
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="subjectsSection"
+        >
+            📚 Subjects
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="papersSection"
+        >
+            📄 Question Papers
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="examsSection"
+        >
+            📝 Exams
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="submissionsSection"
+        >
+            📷 Submissions
+        </button>
+
+
+        <button
+            class="sidebar-link"
+            data-section="resultsSection"
+        >
+            📊 Results
+        </button>
+
+    </aside>
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================= -->
+
+    <main class="dashboard-content">
+
+
+        <!-- =============================================
+             DASHBOARD SECTION
+        ============================================== -->
+
+        <section
+            id="dashboardSection"
+            class="dashboard-section active-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Admin Dashboard
+                    </h1>
+
+                    <p>
+                        Manage students, exams, question papers and results.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Students
+                        </span>
+
+                        <strong id="studentCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Subjects
+                        </span>
+
+                        <strong id="subjectCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📄
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Question Papers
+                        </span>
+
+                        <strong id="paperCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📝
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Exams
+                        </span>
+
+                        <strong id="examCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📷
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Submissions
+                        </span>
+
+                        <strong id="submissionCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        📊
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Results
+                        </span>
+
+                        <strong id="resultCount">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="card">
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <div class="quick-actions">
+
+                    <button
+                        class="quick-button"
+                        onclick="openSection('studentsSection')"
+                    >
+                        👨‍🎓
+                        <span>
+                            Create Student
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        onclick="openSection('papersSection')"
+                    >
+                        📄
+                        <span>
+                            Upload Question Paper
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        onclick="openSection('examsSection')"
+                    >
+                        📝
+                        <span>
+                            Create Exam
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="quick-button"
+                        onclick="openSection('submissionsSection')"
+                    >
+                        📷
+                        <span>
+                            Check Answer Sheets
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             STUDENTS SECTION
+        ============================================== -->
+
+        <section
+            id="studentsSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Student Management
+                    </h1>
+
+                    <p>
+                        Create and manage student accounts.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Create New Student
+                </h2>
+
+
+                <form id="studentForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="studentName"
+                                placeholder="Enter student name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Student Email
+                            </label>
+
+                            <input
+                                type="email"
+                                id="studentEmail"
+                                placeholder="student@example.com"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Temporary Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="studentPassword"
+                                placeholder="Create password"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        ➕ Create Student
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="studentMessage"
+                    class="form-message"
+                ></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Student List
+                </h2>
+
+                <div
+                    id="studentsTable"
+                    class="table-container"
+                >
+                    Loading students...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             SUBJECTS SECTION
+        ============================================== -->
+
+        <section
+            id="subjectsSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Subjects
+                    </h1>
+
+                    <p>
+                        Add subjects for examinations.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Add Subject
+                </h2>
+
+
+                <form id="subjectForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Subject Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subjectName"
+                                placeholder="Business Studies"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Subject Code
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subjectCode"
+                                placeholder="215"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        ➕ Add Subject
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="subjectMessage"
+                    class="form-message"
+                ></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Subject List
+                </h2>
+
+                <div
+                    id="subjectsTable"
+                    class="table-container"
+                >
+                    Loading subjects...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             QUESTION PAPERS
+        ============================================== -->
+
+        <section
+            id="papersSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Question Papers
+                    </h1>
+
+                    <p>
+                        Upload question papers for students.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Upload Question Paper
+                </h2>
+
+
+                <form id="paperForm">
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Paper Title
+                            </label>
+
+                            <input
+                                type="text"
+                                id="paperTitle"
+                                placeholder="Transport Services"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Select Subject
+                            </label>
+
+                            <select
+                                id="paperSubject"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Subject
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Total Marks
+                            </label>
+
+                            <input
+                                type="number"
+                                id="paperMarks"
+                                min="1"
+                                placeholder="20"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Question Paper PDF
+                            </label>
+
+                            <input
+                                type="file"
+                                id="paperFile"
+                                accept=".pdf,application/pdf"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="file-info">
+
+                        📄
+                        Only PDF question papers are allowed.
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        📤 Upload Question Paper
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="paperMessage"
+                    class="form-message"
+                ></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Uploaded Question Papers
+                </h2>
+
+                <div
+                    id="papersTable"
+                    class="table-container"
+                >
+                    Loading papers...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             EXAMS
+        ============================================== -->
+
+        <section
+            id="examsSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Exam Management
+                    </h1>
+
+                    <p>
+                        Schedule an examination and assign it to students.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Create / Schedule Exam
+                </h2>
+
+
+                <form id="examForm">
+
+                    <div class="form-grid">
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Select Student
+                            </label>
+
+                            <select
+                                id="examStudent"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Student
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Select Question Paper
+                            </label>
+
+                            <select
+                                id="examPaper"
+                                required
+                            >
+
+                                <option value="">
+                                    Select Question Paper
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Exam Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="examDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Start Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="examStartTime"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                End Time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="examEndTime"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="schedule-preview">
+
+                        <strong>
+                            Exam Flow
+                        </strong>
+
+                        <p>
+                            Student Login →
+                            Download Question Paper →
+                            Solve Paper →
+                            Upload Answer Sheet →
+                            Submit
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        📝 Schedule Exam
+                    </button>
+
+                </form>
+
+
+                <div
+                    id="examMessage"
+                    class="form-message"
+                ></div>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    Scheduled Exams
+                </h2>
+
+                <div
+                    id="examsTable"
+                    class="table-container"
+                >
+                    Loading exams...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             SUBMISSIONS
+        ============================================== -->
+
+        <section
+            id="submissionsSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Answer Sheet Submissions
+                    </h1>
+
+                    <p>
+                        Check student answer sheets and enter marks.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div
+                    id="submissionsTable"
+                    class="table-container"
+                >
+                    Loading submissions...
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             RESULTS
+        ============================================== -->
+
+        <section
+            id="resultsSection"
+            class="dashboard-section"
+        >
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h1>
+                        Results
+                    </h1>
+
+                    <p>
+                        View saved examination results.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div
+                    id="resultsTable"
+                    class="table-container"
+                >
+                    Loading results...
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     FIREBASE APPLICATION
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    setDoc,
+    getDoc,
+    getDocs,
+    doc,
+    query,
+    where,
+    serverTimestamp,
+    orderBy
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "YOUR_API_KEY",
+
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
+
+    projectId:
+        "YOUR_PROJECT_ID",
+
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
+
+    messagingSenderId:
+        "YOUR_MESSAGING_SENDER_ID",
+
+    appId:
+        "YOUR_APP_ID"
+
+};
+
+
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const auth =
+    getAuth(app);
+
+const db =
+    getFirestore(app);
+
+const storage =
+    getStorage(app);
+
+
+/* =====================================================
+   GLOBAL DATA
+===================================================== */
+
+let students = [];
+let subjects = [];
+let papers = [];
+let exams = [];
+let submissions = [];
+let results = [];
+
+
+
+/* =====================================================
+   CHECK ADMIN
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async function(user) {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html?role=admin";
+
+            return;
+
+        }
+
+
+        try {
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+            const userSnapshot =
+                await getDoc(userRef);
+
+
+            if (
+                !userSnapshot.exists()
+            ) {
+
+                alert(
+                    "Admin profile not found."
+                );
+
+                await signOut(auth);
+
+                return;
+
+            }
+
+
+            const userData =
+                userSnapshot.data();
+
+
+            if (
+                userData.role !== "admin"
+            ) {
+
+                alert(
+                    "You do not have Admin access."
+                );
+
+                await signOut(auth);
+
+                return;
+
+            }
+
+
+            /* Load dashboard */
+
+            await loadAllData();
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Unable to load admin dashboard."
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   LOAD ALL DATA
+===================================================== */
+
+async function loadAllData() {
+
+    await Promise.all([
+
+        loadStudents(),
+
+        loadSubjects(),
+
+        loadPapers(),
+
+        loadExams(),
+
+        loadSubmissions(),
+
+        loadResults()
+
+    ]);
+
+    updateDashboard();
+
+}
+
+
+
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
+
+async function loadStudents() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "users"
+            )
+        );
+
+
+    students =
+        snapshot.docs
+
+            .map(
+                item => ({
+                    id: item.id,
+                    ...item.data()
+                })
+            )
+
+            .filter(
+                item =>
+                    item.role === "student"
+            );
+
+
+    renderStudents();
+
+    fillStudentSelect();
+
+}
+
+
+
+/* =====================================================
+   LOAD SUBJECTS
+===================================================== */
+
+async function loadSubjects() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "subjects"
+            )
+        );
+
+
+    subjects =
+        snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+
+    renderSubjects();
+
+    fillSubjectSelect();
+
+}
+
+
+
+/* =====================================================
+   LOAD PAPERS
+===================================================== */
+
+async function loadPapers() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "papers"
+            )
+        );
+
+
+    papers =
+        snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+
+    renderPapers();
+
+    fillPaperSelect();
+
+}
+
+
+
+/* =====================================================
+   LOAD EXAMS
+===================================================== */
+
+async function loadExams() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "exams"
+            )
+        );
+
+
+    exams =
+        snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+
+    renderExams();
+
+}
+
+
+
+/* =====================================================
+   LOAD SUBMISSIONS
+===================================================== */
+
+async function loadSubmissions() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "submissions"
+            )
+        );
+
+
+    submissions =
+        snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+
+    renderSubmissions();
+
+}
+
+
+
+/* =====================================================
+   LOAD RESULTS
+===================================================== */
+
+async function loadResults() {
+
+    const snapshot =
+        await getDocs(
+            collection(
+                db,
+                "results"
+            )
+        );
+
+
+    results =
+        snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+
+    renderResults();
+
+}
+
+
+
+/* =====================================================
+   CREATE STUDENT
+===================================================== */
+
+document
+    .getElementById("studentForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById("studentName")
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById("studentEmail")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("studentPassword")
+                    .value;
+
+
+            const message =
+                document
+                    .getElementById(
+                        "studentMessage"
+                    );
+
+
+            message.textContent =
+                "Creating student...";
+
+
+            try {
+
+                /*
+                NOTE:
+                Firebase client-side user creation
+                changes the current Auth session.
+
+                We will improve this later with
+                Firebase Cloud Functions/Admin SDK.
+                */
+
+                const credential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                await setDoc(
+                    doc(
+                        db,
+                        "users",
+                        credential.user.uid
+                    ),
+                    {
+
+                        name: name,
+
+                        email: email,
+
+                        role: "student",
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                message.textContent =
+                    "Student created successfully.";
+
+                message.className =
+                    "form-message success";
+
+
+                document
+                    .getElementById(
+                        "studentForm"
+                    )
+                    .reset();
+
+
+                alert(
+                    "Student created successfully.\n\nStudent UID:\n" +
+                    credential.user.uid
+                );
+
+
+                /*
+                Reload page because the
+                newly-created account becomes
+                the Firebase client session.
+                */
+
+                window.location.reload();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "form-message error";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   CREATE SUBJECT
+===================================================== */
+
+document
+    .getElementById("subjectForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById(
+                        "subjectName"
+                    )
+                    .value
+                    .trim();
+
+
+            const code =
+                document
+                    .getElementById(
+                        "subjectCode"
+                    )
+                    .value
+                    .trim();
+
+
+            const message =
+                document
+                    .getElementById(
+                        "subjectMessage"
+                    );
+
+
+            try {
+
+                await addDoc(
+                    collection(
+                        db,
+                        "subjects"
+                    ),
+                    {
+
+                        name: name,
+
+                        code: code,
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                message.textContent =
+                    "Subject added successfully.";
+
+                message.className =
+                    "form-message success";
+
+
+                event.target.reset();
+
+
+                await loadSubjects();
+
+                updateDashboard();
+
+            }
+
+            catch (error) {
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "form-message error";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   UPLOAD QUESTION PAPER
+===================================================== */
+
+document
+    .getElementById("paperForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const title =
+                document
+                    .getElementById(
+                        "paperTitle"
+                    )
+                    .value
+                    .trim();
+
+
+            const subjectId =
+                document
+                    .getElementById(
+                        "paperSubject"
+                    )
+                    .value;
+
+
+            const totalMarks =
+                Number(
+                    document
+                        .getElementById(
+                            "paperMarks"
+                        )
+                        .value
+                );
+
+
+            const file =
+                document
+                    .getElementById(
+                        "paperFile"
+                    )
+                    .files[0];
+
+
+            const message =
+                document
+                    .getElementById(
+                        "paperMessage"
+                    );
+
+
+            if (!file) {
+
+                message.textContent =
+                    "Please select a PDF.";
+
+                message.className =
+                    "form-message error";
+
+                return;
+
+            }
+
+
+            if (
+                file.type !==
+                "application/pdf"
+            ) {
+
+                message.textContent =
+                    "Only PDF files are allowed.";
+
+                message.className =
+                    "form-message error";
+
+                return;
+
+            }
+
+
+            try {
+
+                message.textContent =
+                    "Uploading question paper...";
+
+
+                /*
+                Upload PDF to Firebase Storage
+                */
+
+                const storagePath =
+                    "question-papers/" +
+                    Date.now() +
+                    "_" +
+                    file.name;
+
+
+                const storageRef =
+                    ref(
+                        storage,
+                        storagePath
+                    );
+
+
+                await uploadBytes(
+                    storageRef,
+                    file
+                );
+
+
+                const downloadURL =
+                    await getDownloadURL(
+                        storageRef
+                    );
+
+
+                /*
+                Save paper information
+                */
+
+                await addDoc(
+                    collection(
+                        db,
+                        "papers"
+                    ),
+                    {
+
+                        title: title,
+
+                        subjectId:
+                            subjectId,
+
+                        totalMarks:
+                            totalMarks,
+
+                        fileName:
+                            file.name,
+
+                        fileUrl:
+                            downloadURL,
+
+                        storagePath:
+                            storagePath,
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                message.textContent =
+                    "Question paper uploaded successfully.";
+
+                message.className =
+                    "form-message success";
+
+
+                event.target.reset();
+
+
+                await loadPapers();
+
+                updateDashboard();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "form-message error";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   CREATE / SCHEDULE EXAM
+===================================================== */
+
+document
+    .getElementById("examForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const studentId =
+                document
+                    .getElementById(
+                        "examStudent"
+                    )
+                    .value;
+
+
+            const paperId =
+                document
+                    .getElementById(
+                        "examPaper"
+                    )
+                    .value;
+
+
+            const date =
+                document
+                    .getElementById(
+                        "examDate"
+                    )
+                    .value;
+
+
+            const startTime =
+                document
+                    .getElementById(
+                        "examStartTime"
+                    )
+                    .value;
+
+
+            const endTime =
+                document
+                    .getElementById(
+                        "examEndTime"
+                    )
+                    .value;
+
+
+            const message =
+                document
+                    .getElementById(
+                        "examMessage"
+                    );
+
+
+            if (
+                !studentId ||
+                !paperId ||
+                !date ||
+                !startTime ||
+                !endTime
+            ) {
+
+                message.textContent =
+                    "Please fill all exam details.";
+
+                message.className =
+                    "form-message error";
+
+                return;
+
+            }
+
+
+            const startDate =
+                new Date(
+                    date +
+                    "T" +
+                    startTime
+                );
+
+
+            const endDate =
+                new Date(
+                    date +
+                    "T" +
+                    endTime
+                );
+
+
+            if (
+                endDate <= startDate
+            ) {
+
+                message.textContent =
+                    "End time must be after start time.";
+
+                message.className =
+                    "form-message error";
+
+                return;
+
+            }
+
+
+            try {
+
+                await addDoc(
+                    collection(
+                        db,
+                        "exams"
+                    ),
+                    {
+
+                        studentId:
+                            studentId,
+
+                        paperId:
+                            paperId,
+
+                        examDate:
+                            date,
+
+                        startTime:
+                            startTime,
+
+                        endTime:
+                            endTime,
+
+                        start:
+                            startDate,
+
+                        end:
+                            endDate,
+
+                        status:
+                            "scheduled",
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                message.textContent =
+                    "Exam scheduled successfully.";
+
+                message.className =
+                    "form-message success";
+
+
+                event.target.reset();
+
+
+                await loadExams();
+
+                updateDashboard();
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "form-message error";
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   RENDER STUDENTS
+===================================================== */
+
+function renderStudents() {
+
+    const container =
+        document.getElementById(
+            "studentsTable"
+        );
+
+
+    if (!students.length) {
+
+        container.innerHTML =
+            "<p>No students found.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Student ID</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    students.forEach(
+        student => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(student.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(student.email)}
+                    </td>
+
+                    <td>
+                        <small>
+                            ${student.id}
+                        </small>
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   RENDER SUBJECTS
+===================================================== */
+
+function renderSubjects() {
+
+    const container =
+        document.getElementById(
+            "subjectsTable"
+        );
+
+
+    if (!subjects.length) {
+
+        container.innerHTML =
+            "<p>No subjects found.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Subject</th>
+
+                    <th>Code</th>
+
+                    <th>ID</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    subjects.forEach(
+        subject => {
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(subject.name)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(subject.code || "-")}
+                    </td>
+
+                    <td>
+                        <small>
+                            ${subject.id}
+                        </small>
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   RENDER PAPERS
+===================================================== */
+
+function renderPapers() {
+
+    const container =
+        document.getElementById(
+            "papersTable"
+        );
+
+
+    if (!papers.length) {
+
+        container.innerHTML =
+            "<p>No question papers found.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Paper</th>
+
+                    <th>Subject</th>
+
+                    <th>Marks</th>
+
+                    <th>PDF</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    papers.forEach(
+        paper => {
+
+            const subject =
+                subjects.find(
+                    item =>
+                        item.id ===
+                        paper.subjectId
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(paper.title)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            subject
+                                ? subject.name
+                                : "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${paper.totalMarks || "-"}
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="${paper.fileUrl}"
+                            target="_blank"
+                            class="small-button"
+                        >
+                            📄 View PDF
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   RENDER EXAMS
+===================================================== */
+
+function renderExams() {
+
+    const container =
+        document.getElementById(
+            "examsTable"
+        );
+
+
+    if (!exams.length) {
+
+        container.innerHTML =
+            "<p>No exams scheduled.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Question Paper</th>
+
+                    <th>Date</th>
+
+                    <th>Time</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    exams.forEach(
+        exam => {
+
+            const student =
+                students.find(
+                    item =>
+                        item.id ===
+                        exam.studentId
+                );
+
+
+            const paper =
+                papers.find(
+                    item =>
+                        item.id ===
+                        exam.paperId
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(
+                            student
+                                ? student.name
+                                : exam.studentId
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            paper
+                                ? paper.title
+                                : exam.paperId
+                        )}
+                    </td>
+
+                    <td>
+                        ${exam.examDate || "-"}
+                    </td>
+
+                    <td>
+                        ${exam.startTime || "-"}
+                        -
+                        ${exam.endTime || "-"}
+                    </td>
+
+                    <td>
+                        <span class="status-badge">
+                            ${exam.status || "scheduled"}
+                        </span>
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   RENDER SUBMISSIONS
+===================================================== */
+
+function renderSubmissions() {
+
+    const container =
+        document.getElementById(
+            "submissionsTable"
+        );
+
+
+    if (!submissions.length) {
+
+        container.innerHTML =
+            "<p>No answer sheets submitted yet.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Exam</th>
+
+                    <th>Pages</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    submissions.forEach(
+        submission => {
+
+            const student =
+                students.find(
+                    item =>
+                        item.id ===
+                        submission.studentId
+                );
+
+
+            const exam =
+                exams.find(
+                    item =>
+                        item.id ===
+                        submission.examId
+                );
+
+
+            const pages =
+                submission.photoUrls
+                    ? submission.photoUrls.length
+                    : 0;
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(
+                            student
+                                ? student.name
+                                : submission.studentId
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            exam
+                                ? exam.id
+                                : submission.examId
+                        )}
+                    </td>
+
+                    <td>
+                        ${pages}
+                    </td>
+
+                    <td>
+                        <span class="status-badge">
+                            ${submission.status || "submitted"}
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="small-button"
+                            onclick="viewSubmission('${submission.id}')"
+                        >
+                            📷 Check
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   RENDER RESULTS
+===================================================== */
+
+function renderResults() {
+
+    const container =
+        document.getElementById(
+            "resultsTable"
+        );
+
+
+    if (!results.length) {
+
+        container.innerHTML =
+            "<p>No results available.</p>";
+
+        return;
+
+    }
+
+
+    let html = `
+
+        <table class="data-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Student</th>
+
+                    <th>Exam</th>
+
+                    <th>Marks</th>
+
+                    <th>Percentage</th>
+
+                    <th>Remarks</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    results.forEach(
+        result => {
+
+            const student =
+                students.find(
+                    item =>
+                        item.id ===
+                        result.studentId
+                );
+
+
+            const percentage =
+                result.totalMarks
+                    ? (
+                        result.marks /
+                        result.totalMarks *
+                        100
+                    ).toFixed(2)
+                    : "-";
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(
+                            student
+                                ? student.name
+                                : result.studentId
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            result.examId
+                        )}
+                    </td>
+
+                    <td>
+                        ${result.marks || 0}
+                        /
+                        ${result.totalMarks || "-"}
+                    </td>
+
+                    <td>
+                        ${percentage}%
+                    </td>
+
+                    <td>
+                        ${escapeHTML(
+                            result.remarks || "-"
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+            </tbody>
+        </table>
+    `;
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+
+/* =====================================================
+   SELECT OPTIONS
+===================================================== */
+
+function fillStudentSelect() {
+
+    const select =
+        document.getElementById(
+            "examStudent"
+        );
+
+
+    select.innerHTML =
+        `<option value="">
+            Select Student
+        </option>`;
+
+
+    students.forEach(
+        student => {
+
+            select.innerHTML += `
+
+                <option value="${student.id}">
+
+                    ${escapeHTML(
+                        student.name
+                    )}
+                    -
+                    ${escapeHTML(
+                        student.email
+                    )}
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SUBJECT SELECT
+===================================================== */
+
+function fillSubjectSelect() {
+
+    const select =
+        document.getElementById(
+            "paperSubject"
+        );
+
+
+    select.innerHTML =
+        `<option value="">
+            Select Subject
+        </option>`;
+
+
+    subjects.forEach(
+        subject => {
+
+            select.innerHTML += `
+
+                <option value="${subject.id}">
+
+                    ${escapeHTML(
+                        subject.name
+                    )}
+
+                    ${
+                        subject.code
+                            ? " (" +
+                              escapeHTML(
+                                  subject.code
+                              ) +
+                              ")"
+                            : ""
+                    }
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   PAPER SELECT
+===================================================== */
+
+function fillPaperSelect() {
+
+    const select =
+        document.getElementById(
+            "examPaper"
+        );
+
+
+    select.innerHTML =
+        `<option value="">
+            Select Question Paper
+        </option>`;
+
+
+    papers.forEach(
+        paper => {
+
+            select.innerHTML += `
+
+                <option value="${paper.id}">
+
+                    ${escapeHTML(
+                        paper.title
+                    )}
+
+                    -
+                    ${paper.totalMarks || "-"}
+                    Marks
+
+                </option>
+
+            `;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   DASHBOARD COUNTERS
+===================================================== */
+
+function updateDashboard() {
+
+    document.getElementById(
+        "studentCount"
+    ).textContent =
+        students.length;
+
+
+    document.getElementById(
+        "subjectCount"
+    ).textContent =
+        subjects.length;
+
+
+    document.getElementById(
+        "paperCount"
+    ).textContent =
+        papers.length;
+
+
+    document.getElementById(
+        "examCount"
+    ).textContent =
+        exams.length;
+
+
+    document.getElementById(
+        "submissionCount"
+    ).textContent =
+        submissions.length;
+
+
+    document.getElementById(
+        "resultCount"
+    ).textContent =
+        results.length;
+
+}
+
+
+
+/* =====================================================
+   VIEW SUBMISSION
+===================================================== */
+
+window.viewSubmission =
+    async function(id) {
+
+        const submission =
+            submissions.find(
+                item =>
+                    item.id === id
+            );
+
+
+        if (!submission) {
+
+            alert(
+                "Submission not found."
+            );
+
+            return;
+
+        }
+
+
+        let photos =
+            submission.photoUrls || [];
+
+
+        let photoWindow =
+            window.open(
+                "",
+                "_blank"
+            );
+
+
+        let html = `
+
+            <html>
+
+            <head>
+
+                <title>
+                    Answer Sheet
+                </title>
+
+                <style>
+
+                    body {
+                        font-family: Arial;
+                        padding: 20px;
+                        background: #f5f6fa;
+                    }
+
+                    img {
+                        max-width: 100%;
+                        display: block;
+                        margin: 20px auto;
+                        border: 1px solid #ccc;
+                    }
+
+                    .check-box {
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                    }
+
+                    input, textarea {
+                        width: 100%;
+                        padding: 10px;
+                        margin: 8px 0;
+                    }
+
+                    button {
+                        padding: 12px 20px;
+                        background: #1769e0;
+                        color: white;
+                        border: 0;
+                        border-radius: 6px;
+                    }
+
+                </style>
+
+            </head>
+
+            <body>
+
+                <div class="check-box">
+
+                    <h1>
+                        Check Answer Sheet
+                    </h1>
+
+                    <label>
+                        Marks
+                    </label>
+
+                    <input
+                        id="marks"
+                        type="number"
+                        min="0"
+                    >
+
+                    <label>
+                        Remarks
+                    </label>
+
+                    <textarea
+                        id="remarks"
+                        rows="4"
+                        placeholder="Enter remarks"
+                    ></textarea>
+
+                    <button
+                        onclick="saveResult()"
+                    >
+                        Save Result
+                    </button>
+
+                </div>
+
+        `;
+
+
+        photos.forEach(
+            (url, index) => {
+
+                html += `
+
+                    <div>
+
+                        <h3>
+                            Page ${index + 1}
+                        </h3>
+
+                        <img
+                            src="${url}"
+                            alt="Answer Sheet Page ${index + 1}"
+                        >
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+
+        html += `
+
+            <script>
+
+                function saveResult() {
+
+                    const marks =
+                        document
+                            .getElementById("marks")
+                            .value;
+
+                    const remarks =
+                        document
+                            .getElementById("remarks")
+                            .value;
+
+                    window.opener.postMessage({
+
+                        type: "SAVE_RESULT",
+
+                        submissionId:
+                            "${id}",
+
+                        marks:
+                            Number(marks),
+
+                        remarks:
+                            remarks
+
+                    }, "*");
+
+                }
+
+            <\/script>
+
+            </body>
+
+            </html>
+
+        `;
+
+
+        photoWindow.document.write(
+            html
+        );
+
+    };
+
+
+
+/* =====================================================
+   SAVE RESULT FROM CHECKING WINDOW
+===================================================== */
+
+window.addEventListener(
+    "message",
+    async function(event) {
+
+        if (
+            !event.data ||
+            event.data.type !==
+            "SAVE_RESULT"
+        ) {
+
+            return;
+
+        }
+
+
+        const submissionId =
+            event.data.submissionId;
+
+
+        const submission =
+            submissions.find(
+                item =>
+                    item.id ===
+                    submissionId
+            );
+
+
+        if (!submission) {
+
+            alert(
+                "Submission not found."
+            );
+
+            return;
+
+        }
+
+
+        const exam =
+            exams.find(
+                item =>
+                    item.id ===
+                    submission.examId
+            );
+
+
+        const paper =
+            exam
+                ? papers.find(
+                    item =>
+                        item.id ===
+                        exam.paperId
+                )
+                : null;
+
+
+        const marks =
+            Number(
+                event.data.marks
+            );
+
+
+        const remarks =
+            event.data.remarks || "";
+
+
+        const totalMarks =
+            paper
+                ? Number(
+                    paper.totalMarks
+                )
+                : 0;
+
+
+        const percentage =
+            totalMarks > 0
+                ? (
+                    marks /
+                    totalMarks *
+                    100
+                ).toFixed(2)
+                : 0;
+
+
+        try {
+
+            /*
+            Save result
+            */
+
+            await addDoc(
+                collection(
+                    db,
+                    "results"
+                ),
+                {
+
+                    studentId:
+                        submission.studentId,
+
+                    examId:
+                        submission.examId,
+
+                    submissionId:
+                        submission.id,
+
+                    marks:
+                        marks,
+
+                    totalMarks:
+                        totalMarks,
+
+                    percentage:
+                        Number(
+                            percentage
+                        ),
+
+                    remarks:
+                        remarks,
+
+                    status:
+                        "published",
+
+                    checkedAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            alert(
+                "Result saved successfully."
+            );
+
+
+            await loadResults();
+
+            updateDashboard();
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Unable to save result: " +
+                error.message
+            );
+
+        }
+
+    });
+
+
+
+/* =====================================================
+   SIDEBAR NAVIGATION
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".sidebar-link"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    openSection(
+                        this.dataset.section
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+window.openSection =
+    function(sectionId) {
+
+        document
+            .querySelectorAll(
+                ".dashboard-section"
+            )
+            .forEach(
+                section => {
+
+                    section.classList.remove(
+                        "active-section"
+                    );
+
+                }
+            );
+
+
+        const section =
+            document.getElementById(
+                sectionId
+            );
+
+
+        if (section) {
+
+            section.classList.add(
+                "active-section"
+            );
+
+        }
+
+
+        document
+            .querySelectorAll(
+                ".sidebar-link"
+            )
+            .forEach(
+                button => {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+
+                    if (
+                        button.dataset.section ===
+                        sectionId
+                    ) {
+
+                        button.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+    };
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        async function() {
+
+            await signOut(auth);
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
+
+/* =====================================================
+   HTML SECURITY
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
