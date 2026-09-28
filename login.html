@@ -1,159 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
+  <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
->
+  >
 
-<title>Online Exam Portal - Login</title>
+  <title>Login - Online Exam Portal</title>
 
-<style>
 
-* {
-    box-sizing: border-box;
-}
+  <style>
 
-body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.login-card {
-    width: 100%;
-    max-width: 420px;
-    background: white;
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0 10px 35px rgba(0,0,0,.10);
-}
 
-.logo {
-    width: 70px;
-    height: 70px;
-    margin: auto;
-    border-radius: 18px;
-    background: #2563eb;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(
+        135deg,
+        #eef4ff,
+        #f8fbff
+      );
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #1f2937;
+    }
 
-h1 {
-    text-align: center;
-    margin: 15px 0 5px;
-}
 
-.subtitle {
-    text-align: center;
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 25px;
-}
+    .login-container {
+      width: 100%;
+      max-width: 450px;
+    }
 
-/* ROLE BUTTONS */
 
-.role-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 25px;
-}
+    .login-card {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.10);
+    }
 
-.role-button {
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
-    background: #f8fafc;
-    cursor: pointer;
-    font-weight: bold;
-}
 
-.role-button.active {
-    background: #2563eb;
-    color: white;
-    border-color: #2563eb;
-}
+    .logo {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      border-radius: 18px;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
 
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 7px;
-}
 
-input {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
-    font-size: 15px;
-    margin-bottom: 18px;
-    outline: none;
-}
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #111827;
+    }
 
-input:focus {
-    border-color: #2563eb;
-}
 
-.login-button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 9px;
-    background: #2563eb;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-}
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
 
-.login-button:disabled {
-    opacity: .6;
-}
 
-.message {
-    display: none;
-    margin-bottom: 18px;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 13px;
-}
+    /* LOGIN TYPE */
 
-.error {
-    display: block;
-    background: #fee2e2;
-    color: #991b1b;
-}
+    .login-types {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
 
-.success {
-    display: block;
-    background: #dcfce7;
-    color: #166534;
-}
 
-.help {
-    margin-top: 20px;
-    padding: 12px;
-    background: #f8fafc;
-    border-radius: 8px;
-    font-size: 12px;
-    color: #6b7280;
-    line-height: 1.6;
-}
+    .type-button {
+      border: 1px solid #dbe3f0;
+      background: #f8fafc;
+      padding: 13px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      color: #475569;
+      transition: 0.2s;
+    }
 
-</style>
+
+    .type-button:hover {
+      background: #eef4ff;
+    }
+
+
+    .type-button.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+
+
+    /* FORM */
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #374151;
+    }
+
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+    }
+
+
+    .password-wrapper {
+      position: relative;
+    }
+
+
+    .password-wrapper input {
+      padding-right: 55px;
+    }
+
+
+    .show-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+
+    /* LOGIN BUTTON */
+
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+      transition: 0.2s;
+    }
+
+
+    .login-button:hover {
+      background: #1d4ed8;
+    }
+
+
+    .login-button:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+    }
+
+
+    /* MESSAGE */
+
+    .message {
+      display: none;
+      padding: 12px;
+      border-radius: 9px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+
+    .message.error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+
+    .message.success {
+      display: block;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+
+    .help-text {
+      margin-top: 18px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #2563eb;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+
+    .back-home:hover {
+      text-decoration: underline;
+    }
+
+
+    .portal-status {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 480px) {
+
+      body {
+        padding: 12px;
+      }
+
+      .login-card {
+        padding: 25px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .login-types {
+        gap: 8px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
@@ -161,614 +294,642 @@ input:focus {
 <body>
 
 
-<div class="login-card">
+  <div class="login-container">
 
-    <div class="logo">
+    <div class="login-card">
+
+
+      <div class="logo">
         📚
-    </div>
+      </div>
 
-    <h1>
+
+      <h1>
         Online Exam Portal
-    </h1>
-
-    <div class="subtitle">
-        Secure Examination Management System
-    </div>
+      </h1>
 
 
-    <!-- ROLE SELECTION -->
+      <p class="subtitle">
+        Examination Management System
+      </p>
 
-    <div class="role-buttons">
 
-        <button
-            type="button"
-            id="studentButton"
-            class="role-button"
-        >
-            👨‍🎓 Student Login
-        </button>
+      <!-- LOGIN TYPE -->
+
+      <div class="login-types">
 
         <button
-            type="button"
-            id="adminButton"
-            class="role-button"
+          type="button"
+          id="studentTypeButton"
+          class="type-button active"
+          onclick="selectLoginType('student')"
         >
-            👨‍💼 Admin Login
+          👨‍🎓 Student Login
         </button>
 
-    </div>
+
+        <button
+          type="button"
+          id="adminTypeButton"
+          class="type-button"
+          onclick="selectLoginType('admin')"
+        >
+          👨‍💼 Admin Login
+        </button>
+
+      </div>
 
 
-    <!-- MESSAGE -->
+      <!-- MESSAGE -->
 
-    <div
+      <div
         id="message"
         class="message"
-    ></div>
+      ></div>
 
 
-    <!-- LOGIN FORM -->
+      <!-- LOGIN FORM -->
 
-    <form id="loginForm">
+      <form id="loginForm">
 
-        <label id="idLabel">
+
+        <div class="form-group">
+
+          <label id="userIdLabel">
             Student ID
-        </label>
+          </label>
 
-        <input
+          <input
             type="text"
             id="userId"
             placeholder="Enter Student ID"
+            autocomplete="username"
             required
-        >
+          >
+
+        </div>
 
 
-        <label>
+        <div class="form-group">
+
+          <label>
             Password
-        </label>
+          </label>
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            required
-        >
+
+          <div class="password-wrapper">
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter Password"
+              autocomplete="current-password"
+              required
+            >
+
+
+            <button
+              type="button"
+              class="show-password"
+              onclick="togglePassword()"
+            >
+              Show
+            </button>
+
+          </div>
+
+        </div>
 
 
         <button
-            type="submit"
-            id="loginButton"
-            class="login-button"
+          type="submit"
+          id="loginButton"
+          class="login-button"
         >
-            Login
+          Student Login
         </button>
 
-    </form>
+
+      </form>
 
 
-    <div
+      <div
         id="helpText"
-        class="help"
-    >
-        <strong>Student Login</strong><br>
-        Enter the Student ID and password given by the administrator.
-        <br><br>
-        Example: <strong>STU001</strong>
+        class="help-text"
+      >
+        Enter your Student ID and password to continue.
+      </div>
+
+
+      <a
+        href="index.html"
+        class="back-home"
+      >
+        ← Back to Home
+      </a>
+
+
+      <div class="portal-status">
+        Online Exam Portal
+      </div>
+
+
     </div>
 
-</div>
+  </div>
 
 
 
-<script type="module">
-
-/* =====================================================
-   FIREBASE
-===================================================== */
-
-import {
-    initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+<script>
 
 
-import {
-    getAuth,
-    signInWithEmailAndPassword,
-    signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+/* =========================================================
+   GOOGLE APPS SCRIPT URL
+========================================================= */
+
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
-import {
-    getFirestore,
-    doc,
-    getDoc
-}
-from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+/* =========================================================
+   CURRENT LOGIN TYPE
+========================================================= */
+
+let loginType = "student";
 
 
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
+/* =========================================================
+   SELECT LOGIN TYPE
+========================================================= */
 
-const firebaseConfig = {
+function selectLoginType(type) {
 
-    apiKey:
-        "YOUR_API_KEY",
-
-    authDomain:
-        "YOUR_PROJECT.firebaseapp.com",
-
-    projectId:
-        "YOUR_PROJECT_ID",
-
-    storageBucket:
-        "YOUR_PROJECT.firebasestorage.app",
-
-    messagingSenderId:
-        "YOUR_MESSAGING_SENDER_ID",
-
-    appId:
-        "YOUR_APP_ID"
-
-};
+  loginType = type;
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
-const app =
-    initializeApp(
-        firebaseConfig
-    );
-
-
-const auth =
-    getAuth(app);
-
-
-const db =
-    getFirestore(app);
-
-
-/* =====================================================
-   CURRENT ROLE
-===================================================== */
-
-let currentRole = "student";
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const studentButton =
+  const studentButton =
     document.getElementById(
-        "studentButton"
+      "studentTypeButton"
     );
 
-const adminButton =
+
+  const adminButton =
     document.getElementById(
-        "adminButton"
+      "adminTypeButton"
     );
 
-const idLabel =
+
+  const userIdLabel =
     document.getElementById(
-        "idLabel"
+      "userIdLabel"
     );
 
-const userId =
+
+  const userId =
     document.getElementById(
-        "userId"
+      "userId"
     );
 
-const helpText =
+
+  const loginButton =
     document.getElementById(
-        "helpText"
+      "loginButton"
     );
 
-const loginButton =
+
+  const helpText =
     document.getElementById(
-        "loginButton"
+      "helpText"
     );
 
 
-/* =====================================================
-   STUDENT LOGIN BUTTON
-===================================================== */
-
-studentButton.onclick =
-function() {
-
-    currentRole =
-        "student";
-
-    studentButton.classList.add(
-        "active"
-    );
-
-    adminButton.classList.remove(
-        "active"
-    );
-
-    idLabel.textContent =
-        "Student ID";
-
-    userId.placeholder =
-        "Enter Student ID";
-
-    helpText.innerHTML = `
-        <strong>Student Login</strong><br>
-        Enter the Student ID and password
-        given by the administrator.
-        <br><br>
-        Example: <strong>STU001</strong>
-    `;
-
-    userId.value = "";
-
-    clearMessage();
-
-};
+  clearMessage();
 
 
-/* =====================================================
-   ADMIN LOGIN BUTTON
-===================================================== */
-
-adminButton.onclick =
-function() {
-
-    currentRole =
-        "admin";
-
-    adminButton.classList.add(
-        "active"
-    );
+  if (type === "admin") {
 
     studentButton.classList.remove(
-        "active"
+      "active"
     );
 
-    idLabel.textContent =
-        "Admin ID";
+    adminButton.classList.add(
+      "active"
+    );
+
+
+    userIdLabel.textContent =
+      "Admin ID";
+
 
     userId.placeholder =
-        "Enter Admin ID";
+      "Enter Admin ID";
 
-    helpText.innerHTML = `
-        <strong>Admin Login</strong><br>
-        Enter the administrator ID and password.
-        <br><br>
-        Admin ID: <strong>ADMIN</strong>
-    `;
 
-    userId.value = "";
+    loginButton.textContent =
+      "Admin Login";
 
-    clearMessage();
 
-};
+    helpText.textContent =
+      "Enter your Admin ID and password to continue.";
 
+  }
 
-/* =====================================================
-   DEFAULT
-===================================================== */
 
-studentButton.classList.add(
-    "active"
-);
+  else {
 
+    adminButton.classList.remove(
+      "active"
+    );
 
-/* =====================================================
-   LOGIN
-===================================================== */
-
-document
-    .getElementById(
-        "loginForm"
-    )
-    .addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const enteredId =
-                userId.value
-                    .trim()
-                    .toUpperCase();
-
-
-            const password =
-                document
-                    .getElementById(
-                        "password"
-                    )
-                    .value;
-
-
-            if (!enteredId) {
-
-                showMessage(
-                    "Please enter your " +
-                    (
-                        currentRole === "admin"
-                        ? "Admin ID."
-                        : "Student ID."
-                    ),
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            loginButton.disabled =
-                true;
-
-            loginButton.textContent =
-                "Logging in...";
-
-
-            try {
-
-                let firebaseEmail;
-
-
-                /* =================================
-                   ADMIN
-                ================================= */
-
-                if (
-                    currentRole ===
-                    "admin"
-                ) {
-
-                    if (
-                        enteredId !==
-                        "ADMIN"
-                    ) {
-
-                        throw new Error(
-                            "Please use ADMIN as the Admin ID."
-                        );
-
-                    }
-
-
-                    firebaseEmail =
-                        "admin@onlineexam.local";
-
-                }
-
-
-                /* =================================
-                   STUDENT
-                ================================= */
-
-                else {
-
-                    firebaseEmail =
-                        enteredId.toLowerCase() +
-                        "@students.onlineexam.local";
-
-                }
-
-
-                /* =================================
-                   FIREBASE AUTH
-                ================================= */
-
-                const credential =
-                    await signInWithEmailAndPassword(
-                        auth,
-                        firebaseEmail,
-                        password
-                    );
-
-
-                const uid =
-                    credential.user.uid;
-
-
-                /* =================================
-                   FIRESTORE USER
-                ================================= */
-
-                const userRef =
-                    doc(
-                        db,
-                        "users",
-                        uid
-                    );
-
-
-                const userSnapshot =
-                    await getDoc(
-                        userRef
-                    );
-
-
-                if (
-                    !userSnapshot.exists()
-                ) {
-
-                    await signOut(auth);
-
-                    throw new Error(
-                        "User profile not found in Firestore."
-                    );
-
-                }
-
-
-                const data =
-                    userSnapshot.data();
-
-
-                /* =================================
-                   ROLE CHECK
-                ================================= */
-
-                if (
-                    data.role !==
-                    currentRole
-                ) {
-
-                    await signOut(auth);
-
-                    throw new Error(
-                        "This account does not have the correct login permission."
-                    );
-
-                }
-
-
-                /* =================================
-                   SUCCESS
-                ================================= */
-
-                showMessage(
-                    "Login successful...",
-                    "success"
-                );
-
-
-                setTimeout(
-                    function() {
-
-                        if (
-                            currentRole ===
-                            "admin"
-                        ) {
-
-                            window.location.href =
-                                "admin.html";
-
-                        } else {
-
-                            window.location.href =
-                                "student.html";
-
-                        }
-
-                    },
-                    700
-                );
-
-
-            } catch(error) {
-
-                console.error(
-                    error
-                );
-
-
-                let errorMessage =
-                    error.message;
-
-
-                if (
-                    error.code ===
-                    "auth/invalid-credential"
-                ) {
-
-                    errorMessage =
-                        "Incorrect ID or password.";
-
-                }
-
-
-                if (
-                    error.code ===
-                    "auth/user-not-found"
-                ) {
-
-                    errorMessage =
-                        "Account not found.";
-
-                }
-
-
-                if (
-                    error.code ===
-                    "auth/wrong-password"
-                ) {
-
-                    errorMessage =
-                        "Incorrect password.";
-
-                }
-
-
-                showMessage(
-                    errorMessage,
-                    "error"
-                );
-
-
-            } finally {
-
-                loginButton.disabled =
-                    false;
-
-                loginButton.textContent =
-                    "Login";
-
-            }
-
-        }
+    studentButton.classList.add(
+      "active"
     );
 
 
-/* =====================================================
-   MESSAGE
-===================================================== */
+    userIdLabel.textContent =
+      "Student ID";
 
-function showMessage(
-    message,
-    type
-) {
 
-    const box =
-        document.getElementById(
-            "message"
-        );
+    userId.placeholder =
+      "Enter Student ID";
 
-    box.textContent =
-        message;
 
-    box.className =
-        "message " +
-        type;
+    loginButton.textContent =
+      "Student Login";
+
+
+    helpText.textContent =
+      "Enter your Student ID and password to continue.";
+
+  }
 
 }
 
+
+/* =========================================================
+   PASSWORD SHOW / HIDE
+========================================================= */
+
+function togglePassword() {
+
+  const password =
+    document.getElementById(
+      "password"
+    );
+
+
+  const button =
+    document.querySelector(
+      ".show-password"
+    );
+
+
+  if (password.type === "password") {
+
+    password.type = "text";
+
+    button.textContent = "Hide";
+
+  }
+
+  else {
+
+    password.type = "password";
+
+    button.textContent = "Show";
+
+  }
+
+}
+
+
+/* =========================================================
+   SHOW MESSAGE
+========================================================= */
+
+function showMessage(
+  message,
+  type
+) {
+
+  const messageBox =
+    document.getElementById(
+      "message"
+    );
+
+
+  messageBox.textContent =
+    message;
+
+
+  messageBox.className =
+    "message " + type;
+
+}
+
+
+/* =========================================================
+   CLEAR MESSAGE
+========================================================= */
 
 function clearMessage() {
 
-    const box =
-        document.getElementById(
-            "message"
-        );
+  const messageBox =
+    document.getElementById(
+      "message"
+    );
 
-    box.textContent =
-        "";
 
-    box.className =
-        "message";
+  messageBox.textContent = "";
+
+  messageBox.className =
+    "message";
 
 }
 
+
+/* =========================================================
+   LOGIN FORM
+========================================================= */
+
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    async function(event) {
+
+      event.preventDefault();
+
+
+      clearMessage();
+
+
+      const userId =
+        document
+          .getElementById("userId")
+          .value
+          .trim()
+          .toUpperCase();
+
+
+      const password =
+        document
+          .getElementById("password")
+          .value;
+
+
+      const loginButton =
+        document.getElementById(
+          "loginButton"
+        );
+
+
+      if (!userId) {
+
+        showMessage(
+          "Please enter your User ID.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (!password) {
+
+        showMessage(
+          "Please enter your password.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /* Admin ID */
+
+      if (
+        loginType === "admin" &&
+        userId !== "ADMIN"
+      ) {
+
+        showMessage(
+          "Please enter the correct Admin ID.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /* Start loading */
+
+      loginButton.disabled = true;
+
+      loginButton.textContent =
+        "Checking...";
+
+
+      try {
+
+
+        const response =
+          await fetch(
+            SCRIPT_URL,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "text/plain;charset=utf-8"
+              },
+
+              body: JSON.stringify({
+
+                type: "login",
+
+                userId:
+                  userId,
+
+                password:
+                  password,
+
+                role:
+                  loginType
+
+              })
+
+            }
+          );
+
+
+        const result =
+          await response.json();
+
+
+        if (!result.success) {
+
+          showMessage(
+            result.message ||
+            "Login failed.",
+            "error"
+          );
+
+
+          loginButton.disabled =
+            false;
+
+
+          loginButton.textContent =
+            loginType === "admin"
+              ? "Admin Login"
+              : "Student Login";
+
+
+          return;
+
+        }
+
+
+        /* =================================================
+           LOGIN SUCCESS
+        ================================================= */
+
+
+        showMessage(
+          "Login successful. Opening dashboard...",
+          "success"
+        );
+
+
+        /*
+         Store login information locally.
+
+         This is NOT Firebase.
+         It is only used by the dashboard
+         to know which user logged in.
+        */
+
+        localStorage.setItem(
+          "examPortalUser",
+          JSON.stringify(
+            result.user
+          )
+        );
+
+
+        localStorage.setItem(
+          "examPortalLoggedIn",
+          "true"
+        );
+
+
+        localStorage.setItem(
+          "examPortalLoginTime",
+          new Date().toISOString()
+        );
+
+
+        /* Admin */
+
+        if (
+          result.user.role === "admin"
+        ) {
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "admin.html";
+
+            },
+            700
+          );
+
+
+          return;
+
+        }
+
+
+        /* Student */
+
+        if (
+          result.user.role === "student"
+        ) {
+
+          setTimeout(
+            function() {
+
+              window.location.href =
+                "student.html";
+
+            },
+            700
+          );
+
+
+          return;
+
+        }
+
+
+        /* Unknown role */
+
+        showMessage(
+          "Login successful, but user role is not configured correctly.",
+          "error"
+        );
+
+
+        loginButton.disabled =
+          false;
+
+
+        loginButton.textContent =
+          loginType === "admin"
+            ? "Admin Login"
+            : "Student Login";
+
+
+      }
+
+
+      catch (error) {
+
+        console.error(
+          "Login error:",
+          error
+        );
+
+
+        showMessage(
+          "Unable to connect to the login server. Please try again.",
+          "error"
+        );
+
+
+        loginButton.disabled =
+          false;
+
+
+        loginButton.textContent =
+          loginType === "admin"
+            ? "Admin Login"
+            : "Student Login";
+
+      }
+
+    }
+  );
+
+
 </script>
 
-</body>
 
+</body>
 </html>
