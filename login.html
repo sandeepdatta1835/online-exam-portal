@@ -1,478 +1,1026 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login - Online Exam Portal</title>
+  <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="styles.css">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Online Exam Portal - Login</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background:
+        linear-gradient(
+          135deg,
+          #eef4ff,
+          #f8fbff
+        );
+    }
+
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 1050px;
+      min-height: 600px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    /* LEFT SIDE */
+
+    .login-left {
+      background:
+        linear-gradient(
+          145deg,
+          #173b7a,
+          #2563eb
+        );
+
+      color: white;
+
+      padding: 55px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 18px;
+
+      background: rgba(255,255,255,0.15);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 34px;
+
+      margin-bottom: 25px;
+    }
+
+    .login-left h1 {
+      font-size: 40px;
+      margin: 0 0 18px;
+      line-height: 1.15;
+    }
+
+    .login-left p {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.9;
+      max-width: 430px;
+    }
+
+    .feature-list {
+      margin-top: 30px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 15px;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,0.15);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-right: 12px;
+    }
+
+
+    /* RIGHT SIDE */
+
+    .login-right {
+      padding: 55px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .login-heading {
+      margin-bottom: 30px;
+    }
+
+    .login-heading h2 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      color: #172033;
+    }
+
+    .login-heading p {
+      margin: 0;
+      color: #667085;
+    }
+
+
+    /* ROLE SWITCH */
+
+    .role-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      background: #f2f4f7;
+
+      padding: 5px;
+
+      border-radius: 12px;
+
+      margin-bottom: 28px;
+    }
+
+    .role-btn {
+      border: none;
+      background: transparent;
+
+      padding: 12px;
+
+      border-radius: 9px;
+
+      font-size: 15px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      color: #667085;
+    }
+
+    .role-btn.active {
+      background: white;
+      color: #2563eb;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+    }
+
+
+    /* FORM */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-weight: 600;
+
+      color: #344054;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: #98a2b3;
+    }
+
+    .form-group input {
+      width: 100%;
+
+      padding: 14px 15px 14px 45px;
+
+      border: 1px solid #d0d5dd;
+
+      border-radius: 10px;
+
+      font-size: 15px;
+
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: #2563eb;
+
+      box-shadow:
+        0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .login-button {
+      width: 100%;
+
+      border: none;
+
+      padding: 15px;
+
+      border-radius: 10px;
+
+      background: #2563eb;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .login-button:hover {
+      background: #1d4ed8;
+    }
+
+    .login-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+
+    /* MESSAGE */
+
+    #message {
+      margin-top: 18px;
+
+      padding: 12px;
+
+      border-radius: 8px;
+
+      display: none;
+
+      font-size: 14px;
+    }
+
+    .message-error {
+      display: block !important;
+
+      background: #fef3f2;
+
+      color: #b42318;
+    }
+
+    .message-success {
+      display: block !important;
+
+      background: #ecfdf3;
+
+      color: #027a48;
+    }
+
+
+    .footer-text {
+      text-align: center;
+
+      margin-top: 25px;
+
+      font-size: 13px;
+
+      color: #98a2b3;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .login-wrapper {
+        grid-template-columns: 1fr;
+
+        max-width: 500px;
+      }
+
+      .login-left {
+        padding: 35px;
+
+        min-height: 300px;
+      }
+
+      .login-left h1 {
+        font-size: 30px;
+      }
+
+      .feature-list {
+        display: none;
+      }
+
+      .login-right {
+        padding: 35px 25px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-    <!-- HEADER -->
-    <header class="main-header">
+<div class="login-page">
 
-        <div class="logo">
-            <span>🎓</span>
-            Online Exam Portal
+  <div class="login-wrapper">
+
+
+    <!-- LEFT PANEL -->
+
+    <div class="login-left">
+
+      <div class="brand-icon">
+        📝
+      </div>
+
+      <h1>
+        Online Exam Portal
+      </h1>
+
+      <p>
+        A simple and secure platform for
+        managing examinations, question papers,
+        answer sheets and results.
+      </p>
+
+
+      <div class="feature-list">
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            ✓
+          </div>
+
+          Online Exam Management
+
         </div>
 
-    </header>
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            ✓
+          </div>
+
+          Digital Question Papers
+
+        </div>
 
 
-    <!-- LOGIN AREA -->
-    <main class="auth-container">
+        <div class="feature">
 
-        <section class="auth-card">
+          <div class="feature-icon">
+            ✓
+          </div>
 
-            <div class="auth-icon" id="authIcon">
-                🔐
-            </div>
+          Answer Sheet Submission
 
-            <h1 id="loginTitle">
-                Login
-            </h1>
-
-            <p id="loginSubtitle">
-                Enter your login details
-            </p>
+        </div>
 
 
-            <!-- LOGIN FORM -->
-            <form id="loginForm">
+        <div class="feature">
 
-                <div class="form-group">
+          <div class="feature-icon">
+            ✓
+          </div>
 
-                    <label for="email">
-                        Email Address
-                    </label>
+          Marks & Results
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
+        </div>
 
-                </div>
+      </div>
+
+    </div>
 
 
-                <div class="form-group">
+    <!-- RIGHT PANEL -->
 
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
-
-                </div>
+    <div class="login-right">
 
 
-                <button
-                    type="submit"
-                    class="primary-button"
-                    id="loginButton"
-                >
-                    Login
-                </button>
+      <div class="login-heading">
 
-            </form>
+        <h2 id="loginTitle">
+          Student Login
+        </h2>
 
+        <p id="loginSubtitle">
+          Login to access your examination portal.
+        </p>
 
-            <!-- MESSAGE -->
-            <div
-                id="loginMessage"
-                class="login-message"
-            ></div>
+      </div>
 
 
-            <!-- BACK -->
-            <a
-                href="index.html"
-                class="back-link"
+      <!-- ROLE -->
+
+      <div class="role-switch">
+
+        <button
+          type="button"
+          id="studentRole"
+          class="role-btn active">
+
+          Student
+
+        </button>
+
+
+        <button
+          type="button"
+          id="adminRole"
+          class="role-btn">
+
+          Admin
+
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN FORM -->
+
+      <form id="loginForm">
+
+
+        <div class="form-group">
+
+          <label id="idLabel">
+            Student ID
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              👤
+            </span>
+
+            <input
+              type="text"
+              id="loginId"
+              placeholder="Enter Student ID"
+              autocomplete="username"
+              required
             >
-                ← Back to Home
-            </a>
 
-        </section>
+          </div>
 
-    </main>
+        </div>
 
 
-    <!-- FIREBASE / APPLICATION -->
-    <script type="module">
+        <div class="form-group">
 
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+          <label>
+            Password
+          </label>
 
-        import {
-            getAuth,
-            signInWithEmailAndPassword
-        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+          <div class="input-wrapper">
 
-        import {
-            getFirestore,
-            doc,
-            getDoc
-        } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+            <span class="input-icon">
+              🔒
+            </span>
 
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter Password"
+              autocomplete="current-password"
+              required
+            >
 
-        /*
-        =====================================================
-        FIREBASE CONFIGURATION
-        =====================================================
+          </div>
 
-        Replace these values with your Firebase project
-        configuration.
+        </div>
 
-        You will receive these values from:
 
-        Firebase Console
-        →
-        Project Settings
-        →
-        Your Apps
-        →
-        Web App
-        */
+        <button
+          type="submit"
+          class="login-button"
+          id="loginButton">
 
-        const firebaseConfig = {
+          Login
 
-            apiKey: "YOUR_API_KEY",
+        </button>
 
-            authDomain:
-                "YOUR_PROJECT.firebaseapp.com",
 
-            projectId:
-                "YOUR_PROJECT_ID",
+      </form>
 
-            storageBucket:
-                "YOUR_PROJECT.firebasestorage.app",
 
-            messagingSenderId:
-                "YOUR_MESSAGING_SENDER_ID",
+      <div id="message"></div>
 
-            appId:
-                "YOUR_APP_ID"
 
-        };
+      <div class="footer-text">
 
+        Online Exam Portal
 
-        // Initialize Firebase
+      </div>
 
-        const app =
-            initializeApp(firebaseConfig);
 
-        const auth =
-            getAuth(app);
+    </div>
 
-        const db =
-            getFirestore(app);
+  </div>
 
+</div>
 
-        /*
-        =====================================================
-        DETERMINE LOGIN TYPE
-        =====================================================
-        */
 
-        const urlParams =
-            new URLSearchParams(
-                window.location.search
-            );
+<script type="module">
 
-        const selectedRole =
-            urlParams.get("role") || "student";
 
+/* =====================================================
+   FIREBASE
+   ===================================================== */
 
-        /*
-        =====================================================
-        CHANGE PAGE ACCORDING TO ROLE
-        =====================================================
-        */
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-app.js";
 
-        const loginTitle =
-            document.getElementById("loginTitle");
 
-        const loginSubtitle =
-            document.getElementById("loginSubtitle");
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-auth.js";
 
-        const authIcon =
-            document.getElementById("authIcon");
 
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.2.2/firebase-firestore.js";
 
-        if (selectedRole === "admin") {
 
-            loginTitle.textContent =
-                "Admin Login";
+/* =====================================================
+   FIREBASE CONFIG
+   ===================================================== */
 
-            loginSubtitle.textContent =
-                "Login to manage students, exams and results.";
+const firebaseConfig = {
 
-            authIcon.textContent =
-                "👨‍💼";
+  apiKey:
+    "YOUR_API_KEY",
 
-        } else {
+  authDomain:
+    "YOUR_PROJECT.firebaseapp.com",
 
-            loginTitle.textContent =
-                "Student Login";
+  projectId:
+    "YOUR_PROJECT_ID",
 
-            loginSubtitle.textContent =
-                "Login to view your exams and results.";
+  storageBucket:
+    "YOUR_PROJECT.firebasestorage.app",
 
-            authIcon.textContent =
-                "👨‍🎓";
+  messagingSenderId:
+    "YOUR_MESSAGING_SENDER_ID",
 
-        }
+  appId:
+    "YOUR_APP_ID"
 
+};
 
-        /*
-        =====================================================
-        LOGIN
-        =====================================================
-        */
 
-        const loginForm =
-            document.getElementById("loginForm");
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
 
-        const loginMessage =
-            document.getElementById("loginMessage");
+const app =
+  initializeApp(firebaseConfig);
 
-        const loginButton =
-            document.getElementById("loginButton");
+const auth =
+  getAuth(app);
 
+const db =
+  getFirestore(app);
 
-        loginForm.addEventListener(
-            "submit",
-            async function(event) {
 
-                event.preventDefault();
+/* =====================================================
+   VARIABLES
+   ===================================================== */
 
+let selectedRole =
+  "student";
 
-                const email =
-                    document
-                        .getElementById("email")
-                        .value
-                        .trim();
 
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
 
-                const password =
-                    document
-                        .getElementById("password")
-                        .value;
+const studentRole =
+  document.getElementById(
+    "studentRole"
+  );
 
+const adminRole =
+  document.getElementById(
+    "adminRole"
+  );
 
-                loginMessage.textContent =
-                    "Checking login...";
+const loginTitle =
+  document.getElementById(
+    "loginTitle"
+  );
 
-                loginMessage.className =
-                    "login-message loading";
+const loginSubtitle =
+  document.getElementById(
+    "loginSubtitle"
+  );
 
-                loginButton.disabled =
-                    true;
+const idLabel =
+  document.getElementById(
+    "idLabel"
+  );
 
+const loginId =
+  document.getElementById(
+    "loginId"
+  );
 
-                try {
+const loginForm =
+  document.getElementById(
+    "loginForm"
+  );
 
-                    /*
-                    Login with Firebase
-                    */
+const loginButton =
+  document.getElementById(
+    "loginButton"
+  );
 
-                    const userCredential =
-                        await signInWithEmailAndPassword(
-                            auth,
-                            email,
-                            password
-                        );
+const message =
+  document.getElementById(
+    "message"
+  );
 
 
-                    const user =
-                        userCredential.user;
+/* =====================================================
+   ROLE SWITCH
+   ===================================================== */
 
+studentRole.addEventListener(
+  "click",
+  () => {
 
-                    /*
-                    Get user information
-                    */
+    selectedRole =
+      "student";
 
-                    const userRef =
-                        doc(
-                            db,
-                            "users",
-                            user.uid
-                        );
+    studentRole.classList.add(
+      "active"
+    );
 
+    adminRole.classList.remove(
+      "active"
+    );
 
-                    const userSnapshot =
-                        await getDoc(userRef);
+    loginTitle.textContent =
+      "Student Login";
 
+    loginSubtitle.textContent =
+      "Login to access your examination portal.";
 
-                    if (!userSnapshot.exists()) {
+    idLabel.textContent =
+      "Student ID";
 
-                        throw new Error(
-                            "User profile was not found."
-                        );
+    loginId.placeholder =
+      "Enter Student ID";
 
-                    }
+    loginId.value = "";
 
+    clearMessage();
 
-                    const userData =
-                        userSnapshot.data();
+  }
+);
 
 
-                    /*
-                    Check requested role
-                    */
+adminRole.addEventListener(
+  "click",
+  () => {
 
-                    if (
-                        selectedRole === "admin" &&
-                        userData.role !== "admin"
-                    ) {
+    selectedRole =
+      "admin";
 
-                        throw new Error(
-                            "This account is not an Admin account."
-                        );
+    adminRole.classList.add(
+      "active"
+    );
 
-                    }
+    studentRole.classList.remove(
+      "active"
+    );
 
+    loginTitle.textContent =
+      "Admin Login";
 
-                    if (
-                        selectedRole === "student" &&
-                        userData.role !== "student"
-                    ) {
+    loginSubtitle.textContent =
+      "Login to manage students, exams and results.";
 
-                        throw new Error(
-                            "This account is not a Student account."
-                        );
+    idLabel.textContent =
+      "Admin ID";
 
-                    }
+    loginId.placeholder =
+      "Enter Admin ID";
 
+    loginId.value = "";
 
-                    /*
-                    Login successful
-                    */
+    clearMessage();
 
-                    loginMessage.textContent =
-                        "Login successful. Redirecting...";
+  }
+);
 
-                    loginMessage.className =
-                        "login-message success";
 
+/* =====================================================
+   LOGIN
+   ===================================================== */
 
-                    /*
-                    Redirect
-                    */
+loginForm.addEventListener(
+  "submit",
+  async (event) => {
 
-                    if (
-                        userData.role === "admin"
-                    ) {
+    event.preventDefault();
 
-                        window.location.href =
-                            "admin.html";
 
-                    } else {
+    const id =
+      loginId.value.trim();
 
-                        window.location.href =
-                            "student.html";
+    const password =
+      document.getElementById(
+        "password"
+      ).value;
 
-                    }
 
-                }
+    if (!id || !password) {
 
-                catch (error) {
+      showMessage(
+        "Please enter your ID and password.",
+        "error"
+      );
 
-                    console.error(error);
+      return;
 
+    }
 
-                    let message =
-                        "Login failed.";
 
+    loginButton.disabled =
+      true;
 
-                    if (
-                        error.code ===
-                        "auth/invalid-credential"
-                    ) {
+    loginButton.textContent =
+      "Logging in...";
 
-                        message =
-                            "Invalid email or password.";
 
-                    }
+    try {
 
-                    else if (
-                        error.code ===
-                        "auth/user-not-found"
-                    ) {
 
-                        message =
-                            "No account found with this email.";
+      /*
+       * Firebase Authentication
+       *
+       * The ID is converted into
+       * an internal Firebase email.
+       */
 
-                    }
+      const firebaseEmail =
+        id.toLowerCase() +
+        "@onlineexamportal.local";
 
-                    else if (
-                        error.code ===
-                        "auth/wrong-password"
-                    ) {
 
-                        message =
-                            "Incorrect password.";
-
-                    }
-
-                    else if (
-                        error.code ===
-                        "auth/invalid-email"
-                    ) {
-
-                        message =
-                            "Please enter a valid email.";
-
-                    }
-
-                    else if (
-                        error.code ===
-                        "auth/too-many-requests"
-                    ) {
-
-                        message =
-                            "Too many login attempts. Please try again later.";
-
-                    }
-
-                    else {
-
-                        message =
-                            error.message;
-
-                    }
-
-
-                    loginMessage.textContent =
-                        message;
-
-                    loginMessage.className =
-                        "login-message error";
-
-
-                    loginButton.disabled =
-                        false;
-
-                }
-
-            }
+      const userCredential =
+        await signInWithEmailAndPassword(
+          auth,
+          firebaseEmail,
+          password
         );
 
-    </script>
+
+      const user =
+        userCredential.user;
+
+
+      /* Get user profile */
+
+      const userRef =
+        doc(
+          db,
+          "users",
+          user.uid
+        );
+
+
+      const userSnap =
+        await getDoc(
+          userRef
+        );
+
+
+      if (!userSnap.exists()) {
+
+        await auth.signOut();
+
+        throw new Error(
+          "User profile not found."
+        );
+
+      }
+
+
+      const userData =
+        userSnap.data();
+
+
+      /* Check role */
+
+      if (
+        selectedRole === "admin" &&
+        userData.role !== "admin"
+      ) {
+
+        await auth.signOut();
+
+        throw new Error(
+          "This account is not an admin account."
+        );
+
+      }
+
+
+      if (
+        selectedRole === "student" &&
+        userData.role !== "student"
+      ) {
+
+        await auth.signOut();
+
+        throw new Error(
+          "This account is not a student account."
+        );
+
+      }
+
+
+      showMessage(
+        "Login successful. Opening portal...",
+        "success"
+      );
+
+
+      setTimeout(
+        () => {
+
+          if (
+            userData.role === "admin"
+          ) {
+
+            window.location.href =
+              "admin.html";
+
+          } else {
+
+            window.location.href =
+              "student.html";
+
+          }
+
+        },
+        700
+      );
+
+
+    } catch (error) {
+
+      console.error(error);
+
+
+      let errorMessage =
+        "Login failed.";
+
+
+      if (
+        error.code ===
+        "auth/invalid-credential"
+      ) {
+
+        errorMessage =
+          "Invalid ID or password.";
+
+      }
+
+
+      else if (
+        error.code ===
+        "auth/user-not-found"
+      ) {
+
+        errorMessage =
+          "ID not found.";
+
+      }
+
+
+      else if (
+        error.code ===
+        "auth/wrong-password"
+      ) {
+
+        errorMessage =
+          "Incorrect password.";
+
+      }
+
+
+      else if (
+        error.message
+      ) {
+
+        errorMessage =
+          error.message;
+
+      }
+
+
+      showMessage(
+        errorMessage,
+        "error"
+      );
+
+
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "Login";
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function showMessage(
+  text,
+  type
+) {
+
+  message.textContent =
+    text;
+
+  message.className = "";
+
+  message.classList.add(
+    type === "success"
+      ? "message-success"
+      : "message-error"
+  );
+
+}
+
+
+function clearMessage() {
+
+  message.textContent =
+    "";
+
+  message.className =
+    "";
+
+}
+
+
+</script>
 
 </body>
+
 </html>
