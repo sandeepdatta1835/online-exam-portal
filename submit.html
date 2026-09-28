@@ -1,76 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Submit Answer Sheet</title>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"
+      href="styles.css">
 
 <style>
-body {
-    background: #f5f7fb;
-}
 
 .submit-container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
+    max-width: 950px;
+    margin: 25px auto;
+    padding: 15px;
 }
 
 .submit-card {
-    background: #fff;
+    background: white;
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.submit-card h1 {
-    margin-top: 0;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
 }
 
 .exam-info {
-    background: #f1f5f9;
+    background: #f8fafc;
+    border-radius: 10px;
     padding: 15px;
-    border-radius: 8px;
     margin: 20px 0;
 }
 
 .exam-info p {
-    margin: 7px 0;
+    margin: 8px 0;
 }
 
 .upload-box {
     border: 2px dashed #94a3b8;
     border-radius: 10px;
-    padding: 30px 15px;
+    padding: 25px;
     text-align: center;
+    background: #f8fafc;
     margin-top: 20px;
 }
 
-.upload-box input {
+.upload-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-top: 15px;
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.upload-label:hover {
+    background: #1d4ed8;
+}
+
+.upload-label.camera {
+    background: #16a34a;
+}
+
+.upload-label.camera:hover {
+    background: #15803d;
+}
+
+.hidden-input {
+    display: none;
+}
+
+.page-counter {
+    margin-top: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.page-counter span {
+    color: #2563eb;
 }
 
 .preview-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns:
+        repeat(auto-fill, minmax(170px, 1fr));
+
     gap: 15px;
     margin-top: 20px;
 }
 
 .preview-item {
-    background: #f8fafc;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 8px;
     position: relative;
+    background: #f8fafc;
+    border: 1px solid #dbe2ea;
+    border-radius: 9px;
+    padding: 8px;
 }
 
 .preview-item img {
     width: 100%;
-    height: 180px;
+    height: 190px;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -78,30 +119,38 @@ body {
 .page-number {
     text-align: center;
     font-weight: bold;
-    margin-top: 5px;
+    margin: 8px 0 5px;
 }
 
 .remove-btn {
     width: 100%;
-    margin-top: 7px;
+    padding: 7px;
     border: none;
+    border-radius: 5px;
     background: #dc2626;
     color: white;
-    padding: 7px;
-    border-radius: 5px;
     cursor: pointer;
 }
 
+.remove-btn:hover {
+    background: #b91c1c;
+}
+
 .submit-btn {
-    margin-top: 25px;
     width: 100%;
-    padding: 14px;
+    margin-top: 25px;
+    padding: 15px;
     border: none;
-    border-radius: 7px;
-    background: #2563eb;
+    border-radius: 8px;
+    background: #16a34a;
     color: white;
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: bold;
     cursor: pointer;
+}
+
+.submit-btn:hover {
+    background: #15803d;
 }
 
 .submit-btn:disabled {
@@ -109,38 +158,15 @@ body {
     cursor: not-allowed;
 }
 
-.back-btn {
-    display: inline-block;
-    margin-bottom: 15px;
-    text-decoration: none;
-}
-
-.status-message {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 7px;
-    display: none;
-}
-
-.success {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.error {
-    background: #fee2e2;
-    color: #991b1b;
-}
-
 .progress-box {
-    margin-top: 15px;
     display: none;
+    margin-top: 20px;
 }
 
 .progress-bar {
     width: 100%;
-    height: 10px;
-    background: #e5e7eb;
+    height: 12px;
+    background: #e2e8f0;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -149,109 +175,260 @@ body {
     height: 100%;
     width: 0%;
     background: #2563eb;
-    transition: width 0.3s;
+    transition: width 0.2s;
+}
+
+.status-message {
+    display: none;
+    padding: 13px;
+    border-radius: 7px;
+    margin-top: 15px;
+}
+
+.status-success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.limit-warning {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 10px;
+    border-radius: 7px;
+    margin-top: 12px;
+    display: none;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 15px;
 }
 
 @media(max-width:600px) {
 
     .submit-container {
-        margin: 10px auto;
         padding: 10px;
+        margin: 10px auto;
     }
 
     .submit-card {
-        padding: 18px;
+        padding: 17px;
     }
 
     .preview-container {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
     .preview-item img {
-        height: 140px;
+        height: 145px;
     }
+
 }
+
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="submit-container">
 
-    <a href="student.html" class="back-btn">
+    <a href="student.html"
+       class="back-btn">
+
         ← Back to Student Dashboard
+
     </a>
+
 
     <div class="submit-card">
 
-        <h1>Submit Answer Sheet</h1>
+        <h1>
+            Submit Answer Sheet
+        </h1>
 
         <p>
-            Upload clear photos of all pages of your answer sheet.
+            Upload clear photos of all pages of your handwritten answer sheet.
         </p>
+
+
+        <!-- =========================
+             EXAM INFORMATION
+        ========================== -->
 
         <div class="exam-info">
 
-            <h3>Exam Information</h3>
+            <h3>
+                Exam Information
+            </h3>
 
             <p>
                 <strong>Subject:</strong>
-                <span id="subjectName">Loading...</span>
+                <span id="subjectName">
+                    Loading...
+                </span>
             </p>
 
             <p>
                 <strong>Question Paper:</strong>
-                <span id="paperName">Loading...</span>
+                <span id="paperName">
+                    Loading...
+                </span>
             </p>
 
             <p>
                 <strong>Exam Date:</strong>
-                <span id="examDate">Loading...</span>
+                <span id="examDate">
+                    Loading...
+                </span>
             </p>
 
             <p>
                 <strong>Total Marks:</strong>
-                <span id="totalMarks">Loading...</span>
+                <span id="totalMarks">
+                    Loading...
+                </span>
             </p>
 
         </div>
+
+
+        <!-- =========================
+             UPLOAD AREA
+        ========================== -->
 
         <div class="upload-box">
 
-            <h3>📷 Upload Answer Sheet</h3>
+            <h3>
+                📷 Upload Answer Sheet Photos
+            </h3>
 
             <p>
-                Take photos of your answer-sheet pages using your phone camera
-                or select existing images.
+                You can upload up to <strong>30 pages</strong>.
             </p>
 
-            <input
-                type="file"
-                id="answerFiles"
-                accept="image/*"
-                capture="environment"
-                multiple
-            >
+            <p>
+                You can add photos in multiple batches.
+            </p>
+
+
+            <div class="upload-buttons">
+
+                <!-- CAMERA -->
+
+                <label
+                    for="cameraInput"
+                    class="upload-label camera">
+
+                    📷 Take Photo
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="cameraInput"
+                    class="hidden-input"
+                    accept="image/*"
+                    capture="environment"
+                >
+
+
+                <!-- GALLERY -->
+
+                <label
+                    for="galleryInput"
+                    class="upload-label">
+
+                    🖼️ Select Photos
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="galleryInput"
+                    class="hidden-input"
+                    accept="image/*"
+                    multiple
+                >
+
+            </div>
+
+
+            <div class="page-counter">
+
+                Pages selected:
+
+                <span id="pageCount">
+                    0
+                </span>
+
+                / 30
+
+            </div>
+
+
+            <div
+                id="limitWarning"
+                class="limit-warning">
+
+                Maximum 30 photos allowed.
+                Please remove some photos before adding more.
+
+            </div>
 
         </div>
 
-        <div id="previewContainer" class="preview-container"></div>
 
-        <div class="progress-box" id="progressBox">
+        <!-- =========================
+             PREVIEW
+        ========================== -->
+
+        <div
+            id="previewContainer"
+            class="preview-container">
+
+        </div>
+
+
+        <!-- =========================
+             PROGRESS
+        ========================== -->
+
+        <div
+            id="progressBox"
+            class="progress-box">
 
             <p id="progressText">
                 Uploading...
             </p>
 
             <div class="progress-bar">
+
                 <div
-                    class="progress-fill"
-                    id="progressFill">
+                    id="progressFill"
+                    class="progress-fill">
                 </div>
+
             </div>
 
         </div>
+
+
+        <!-- =========================
+             SUBMIT
+        ========================== -->
 
         <button
             id="submitBtn"
@@ -262,9 +439,11 @@ body {
 
         </button>
 
+
         <div
             id="statusMessage"
             class="status-message">
+
         </div>
 
     </div>
@@ -274,14 +453,21 @@ body {
 
 <script type="module">
 
+
+/* ========================================
+   FIREBASE
+======================================== */
+
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 
 import {
     getAuth,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
 
 import {
     getFirestore,
@@ -295,6 +481,7 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
 import {
     getStorage,
     ref,
@@ -303,13 +490,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 
-/* =========================
+/* ========================================
    FIREBASE CONFIG
-========================= */
+======================================== */
 
 const firebaseConfig = {
 
-    apiKey: "YOUR_API_KEY",
+    apiKey:
+        "YOUR_API_KEY",
 
     authDomain:
         "YOUR_PROJECT.firebaseapp.com",
@@ -325,134 +513,206 @@ const firebaseConfig = {
 
     appId:
         "YOUR_APP_ID"
+
 };
 
 
-/* =========================
-   INITIALIZE FIREBASE
-========================= */
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-const storage = getStorage(app);
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
 
-/* =========================
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+const storage =
+    getStorage(app);
+
+
+/* ========================================
+   SETTINGS
+======================================== */
+
+const MAX_PHOTOS = 30;
+
+
+/* ========================================
    VARIABLES
-========================= */
+======================================== */
 
 let currentUser = null;
 
 let examData = null;
 
-let paperData = null;
-
-let subjectData = null;
-
 let selectedFiles = [];
 
-const params = new URLSearchParams(
-    window.location.search
-);
-
-const examId = params.get("id");
+let submissionExists = false;
 
 
-/* =========================
-   HTML ELEMENTS
-========================= */
-
-const answerFiles =
-    document.getElementById("answerFiles");
-
-const previewContainer =
-    document.getElementById("previewContainer");
-
-const submitBtn =
-    document.getElementById("submitBtn");
-
-const statusMessage =
-    document.getElementById("statusMessage");
-
-const progressBox =
-    document.getElementById("progressBox");
-
-const progressFill =
-    document.getElementById("progressFill");
-
-const progressText =
-    document.getElementById("progressText");
-
-
-/* =========================
-   SHOW MESSAGE
-========================= */
-
-function showMessage(message, type) {
-
-    statusMessage.textContent = message;
-
-    statusMessage.className =
-        "status-message " + type;
-
-    statusMessage.style.display =
-        "block";
-}
-
-
-/* =========================
-   CHECK EXAM ID
-========================= */
-
-if (!examId) {
-
-    showMessage(
-        "Exam ID is missing.",
-        "error"
+const params =
+    new URLSearchParams(
+        window.location.search
     );
 
-    submitBtn.disabled = true;
+
+const examId =
+    params.get("id");
+
+
+/* ========================================
+   ELEMENTS
+======================================== */
+
+const cameraInput =
+    document.getElementById(
+        "cameraInput"
+    );
+
+
+const galleryInput =
+    document.getElementById(
+        "galleryInput"
+    );
+
+
+const previewContainer =
+    document.getElementById(
+        "previewContainer"
+    );
+
+
+const pageCount =
+    document.getElementById(
+        "pageCount"
+    );
+
+
+const submitBtn =
+    document.getElementById(
+        "submitBtn"
+    );
+
+
+const statusMessage =
+    document.getElementById(
+        "statusMessage"
+    );
+
+
+const limitWarning =
+    document.getElementById(
+        "limitWarning"
+    );
+
+
+const progressBox =
+    document.getElementById(
+        "progressBox"
+    );
+
+
+const progressFill =
+    document.getElementById(
+        "progressFill"
+    );
+
+
+const progressText =
+    document.getElementById(
+        "progressText"
+    );
+
+
+/* ========================================
+   MESSAGE
+======================================== */
+
+function showMessage(
+    message,
+    type
+) {
+
+    statusMessage.textContent =
+        message;
+
+    statusMessage.className =
+        "status-message " +
+        (
+            type === "success"
+                ? "status-success"
+                : "status-error"
+        );
+
 }
 
 
-/* =========================
-   AUTH CHECK
-========================= */
+/* ========================================
+   AUTH
+======================================== */
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(
+    auth,
+    async (user) => {
 
-    if (!user) {
+        if (!user) {
 
-        window.location.href =
-            "login.html?role=student";
+            window.location.href =
+                "login.html?role=student";
 
-        return;
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        if (!examId) {
+
+            showMessage(
+                "Exam ID is missing.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        await loadExam();
+
     }
-
-    currentUser = user;
-
-    await loadExam();
-
-});
+);
 
 
-/* =========================
+/* ========================================
    LOAD EXAM
-========================= */
+======================================== */
 
 async function loadExam() {
 
     try {
 
         const examRef =
-            doc(db, "exams", examId);
+            doc(
+                db,
+                "exams",
+                examId
+            );
+
 
         const examSnap =
-            await getDoc(examRef);
+            await getDoc(
+                examRef
+            );
+
 
         if (!examSnap.exists()) {
 
@@ -461,21 +721,27 @@ async function loadExam() {
                 "error"
             );
 
+            submitBtn.disabled =
+                true;
+
             return;
+
         }
+
 
         examData = {
 
-            id: examSnap.id,
+            id:
+                examSnap.id,
 
             ...examSnap.data()
 
         };
 
 
-        /* =====================
+        /* =========================
            CHECK STUDENT
-        ===================== */
+        ========================== */
 
         if (
             examData.studentId !==
@@ -488,12 +754,13 @@ async function loadExam() {
             );
 
             return;
+
         }
 
 
-        /* =====================
+        /* =========================
            LOAD PAPER
-        ===================== */
+        ========================== */
 
         const paperRef =
             doc(
@@ -502,55 +769,64 @@ async function loadExam() {
                 examData.paperId
             );
 
+
         const paperSnap =
-            await getDoc(paperRef);
+            await getDoc(
+                paperRef
+            );
 
-        if (paperSnap.exists()) {
 
-            paperData = {
+        if (
+            paperSnap.exists()
+        ) {
 
-                id: paperSnap.id,
+            const paper =
+                paperSnap.data();
 
-                ...paperSnap.data()
-
-            };
 
             document.getElementById(
                 "paperName"
             ).textContent =
-                paperData.title || "-";
+                paper.title || "-";
+
 
             document.getElementById(
                 "totalMarks"
             ).textContent =
-                paperData.totalMarks || "-";
+                paper.totalMarks || "-";
 
 
-            /* =================
-               LOAD SUBJECT
-            ================= */
+            /* =====================
+               SUBJECT
+            ===================== */
 
-            if (paperData.subjectId) {
+            if (
+                paper.subjectId
+            ) {
 
                 const subjectRef =
                     doc(
                         db,
                         "subjects",
-                        paperData.subjectId
+                        paper.subjectId
                     );
 
+
                 const subjectSnap =
-                    await getDoc(subjectRef);
+                    await getDoc(
+                        subjectRef
+                    );
 
-                if (subjectSnap.exists()) {
 
-                    subjectData =
-                        subjectSnap.data();
+                if (
+                    subjectSnap.exists()
+                ) {
 
                     document.getElementById(
                         "subjectName"
                     ).textContent =
-                        subjectData.name || "-";
+                        subjectSnap.data().name ||
+                        "-";
 
                 }
 
@@ -559,9 +835,9 @@ async function loadExam() {
         }
 
 
-        /* =====================
+        /* =========================
            EXAM DATE
-        ===================== */
+        ========================== */
 
         document.getElementById(
             "examDate"
@@ -569,74 +845,113 @@ async function loadExam() {
             examData.examDate || "-";
 
 
-        /* =====================
+        /* =========================
            CHECK EXISTING SUBMISSION
-        ===================== */
+        ========================== */
 
         const submissionQuery =
             query(
-                collection(db, "submissions"),
+
+                collection(
+                    db,
+                    "submissions"
+                ),
+
                 where(
                     "examId",
                     "==",
                     examId
                 ),
+
                 where(
                     "studentId",
                     "==",
                     currentUser.uid
                 )
+
             );
 
-        const submissionSnap =
+
+        const submissionSnapshot =
             await getDocs(
                 submissionQuery
             );
 
-        if (!submissionSnap.empty) {
+
+        if (
+            !submissionSnapshot.empty
+        ) {
+
+            submissionExists =
+                true;
+
 
             showMessage(
-                "You have already submitted this answer sheet.",
+                "You have already submitted your answer sheet.",
                 "error"
             );
 
-            submitBtn.disabled = true;
 
-            answerFiles.disabled = true;
+            cameraInput.disabled =
+                true;
+
+
+            galleryInput.disabled =
+                true;
+
+
+            submitBtn.disabled =
+                true;
+
 
             return;
+
         }
 
 
-        /* =====================
-           CHECK EXAM TIME
-        ===================== */
+        /* =========================
+           CHECK TIME
+        ========================== */
 
-        if (!isExamActive()) {
+        if (
+            !isExamActive()
+        ) {
 
             showMessage(
                 "Answer-sheet submission is available only during the scheduled exam time.",
                 "error"
             );
 
-            answerFiles.disabled = true;
 
-            submitBtn.disabled = true;
+            cameraInput.disabled =
+                true;
+
+
+            galleryInput.disabled =
+                true;
+
+
+            submitBtn.disabled =
+                true;
+
 
             return;
+
         }
 
 
-        submitBtn.disabled =
-            selectedFiles.length === 0;
-
     }
+
     catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         showMessage(
-            "Unable to load exam details.",
+            "Unable to load exam: " +
+            error.message,
             "error"
         );
 
@@ -645,9 +960,9 @@ async function loadExam() {
 }
 
 
-/* =========================
-   CHECK EXAM ACTIVE
-========================= */
+/* ========================================
+   EXAM ACTIVE
+======================================== */
 
 function isExamActive() {
 
@@ -655,9 +970,13 @@ function isExamActive() {
         return false;
     }
 
-    const now = new Date();
+
+    const now =
+        new Date();
+
 
     let startDate;
+
     let endDate;
 
 
@@ -670,6 +989,7 @@ function isExamActive() {
             examData.start.toDate();
 
     }
+
     else {
 
         startDate =
@@ -689,6 +1009,7 @@ function isExamActive() {
             examData.end.toDate();
 
     }
+
     else {
 
         endDate =
@@ -703,14 +1024,15 @@ function isExamActive() {
         now >= startDate &&
         now <= endDate
     );
+
 }
 
 
-/* =========================
-   FILE SELECTION
-========================= */
+/* ========================================
+   CAMERA PHOTO
+======================================== */
 
-answerFiles.addEventListener(
+cameraInput.addEventListener(
     "change",
     function(event) {
 
@@ -719,145 +1041,284 @@ answerFiles.addEventListener(
                 event.target.files
             );
 
-        if (!files.length) {
-            return;
-        }
+
+        addFiles(files);
 
 
-        /* =====================
-           ONLY IMAGES
-        ===================== */
-
-        const imageFiles =
-            files.filter(
-                file =>
-                    file.type.startsWith(
-                        "image/"
-                    )
-            );
-
-
-        if (
-            imageFiles.length !==
-            files.length
-        ) {
-
-            showMessage(
-                "Only image files are allowed.",
-                "error"
-            );
-
-        }
-
-
-        /* =====================
-           ADD FILES
-        ===================== */
-
-        selectedFiles =
-            selectedFiles.concat(
-                imageFiles
-            );
-
-
-        renderPreviews();
-
-        submitBtn.disabled =
-            selectedFiles.length === 0;
-
-        /*
-         * Reset input so the same
-         * file can be selected again.
-         */
-
-        answerFiles.value = "";
+        cameraInput.value =
+            "";
 
     }
 );
 
 
-/* =========================
-   PREVIEW FILES
-========================= */
+/* ========================================
+   GALLERY PHOTOS
+======================================== */
+
+galleryInput.addEventListener(
+    "change",
+    function(event) {
+
+        const files =
+            Array.from(
+                event.target.files
+            );
+
+
+        addFiles(files);
+
+
+        galleryInput.value =
+            "";
+
+    }
+);
+
+
+/* ========================================
+   ADD FILES
+======================================== */
+
+function addFiles(files) {
+
+    if (!files.length) {
+        return;
+    }
+
+
+    /* =========================
+       CHECK LIMIT
+    ========================== */
+
+    const remaining =
+        MAX_PHOTOS -
+        selectedFiles.length;
+
+
+    if (
+        remaining <= 0
+    ) {
+
+        limitWarning.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    let imageFiles =
+        files.filter(
+            file =>
+                file.type.startsWith(
+                    "image/"
+                )
+        );
+
+
+    if (!imageFiles.length) {
+
+        showMessage(
+            "Please select image files only.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* =========================
+       LIMIT FILES
+    ========================== */
+
+    if (
+        imageFiles.length >
+        remaining
+    ) {
+
+        imageFiles =
+            imageFiles.slice(
+                0,
+                remaining
+            );
+
+
+        limitWarning.style.display =
+            "block";
+
+    }
+
+    else {
+
+        limitWarning.style.display =
+            "none";
+
+    }
+
+
+    /* =========================
+       ADD
+    ========================== */
+
+    selectedFiles =
+        selectedFiles.concat(
+            imageFiles
+        );
+
+
+    renderPreviews();
+
+}
+
+
+/* ========================================
+   RENDER PREVIEWS
+======================================== */
 
 function renderPreviews() {
 
-    previewContainer.innerHTML = "";
+    previewContainer.innerHTML =
+        "";
+
+
+    pageCount.textContent =
+        selectedFiles.length;
+
+
+    submitBtn.disabled =
+        selectedFiles.length === 0 ||
+        submissionExists;
 
 
     selectedFiles.forEach(
         (file, index) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "preview-item";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
 
             const reader =
                 new FileReader();
 
 
             reader.onload =
-                function(e) {
+                function(event) {
 
-                    const item =
-                        document.createElement(
-                            "div"
-                        );
-
-                    item.className =
-                        "preview-item";
-
-
-                    item.innerHTML = `
-
-                        <img
-                            src="${e.target.result}"
-                            alt="Answer Page ${index + 1}"
-                        >
-
-                        <div class="page-number">
-                            Page ${index + 1}
-                        </div>
-
-                        <button
-                            class="remove-btn"
-                            data-index="${index}">
-                            Remove
-                        </button>
-
-                    `;
-
-
-                    previewContainer.appendChild(
-                        item
-                    );
-
-
-                    item
-                        .querySelector(
-                            ".remove-btn"
-                        )
-                        .addEventListener(
-                            "click",
-                            function() {
-
-                                removeFile(
-                                    index
-                                );
-
-                            }
-                        );
+                    image.src =
+                        event.target.result;
 
                 };
 
 
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(
+                file
+            );
+
+
+            const pageLabel =
+                document.createElement(
+                    "div"
+                );
+
+
+            pageLabel.className =
+                "page-number";
+
+
+            pageLabel.textContent =
+                `Page ${index + 1}`;
+
+
+            const removeButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            removeButton.className =
+                "remove-btn";
+
+
+            removeButton.textContent =
+                "Remove";
+
+
+            removeButton.type =
+                "button";
+
+
+            removeButton.addEventListener(
+                "click",
+                function() {
+
+                    removeFile(
+                        index
+                    );
+
+                }
+            );
+
+
+            item.appendChild(
+                image
+            );
+
+
+            item.appendChild(
+                pageLabel
+            );
+
+
+            item.appendChild(
+                removeButton
+            );
+
+
+            previewContainer.appendChild(
+                item
+            );
 
         }
     );
 
+
+    if (
+        selectedFiles.length >=
+        MAX_PHOTOS
+    ) {
+
+        limitWarning.style.display =
+            "block";
+
+    }
+
+    else {
+
+        limitWarning.style.display =
+            "none";
+
+    }
+
 }
 
 
-/* =========================
+/* ========================================
    REMOVE FILE
-========================= */
+======================================== */
 
 function removeFile(index) {
 
@@ -866,45 +1327,51 @@ function removeFile(index) {
         1
     );
 
-    renderPreviews();
 
-    submitBtn.disabled =
-        selectedFiles.length === 0;
+    renderPreviews();
 
 }
 
 
-/* =========================
-   SUBMIT ANSWER SHEET
-========================= */
+/* ========================================
+   SUBMIT
+======================================== */
 
 submitBtn.addEventListener(
     "click",
     async function() {
 
-        if (!currentUser) {
+        if (
+            !selectedFiles.length
+        ) {
 
             showMessage(
-                "Please login again.",
+                "Please upload at least one answer-sheet photo.",
                 "error"
             );
 
             return;
+
         }
 
 
-        if (!selectedFiles.length) {
+        if (
+            submissionExists
+        ) {
 
             showMessage(
-                "Please upload at least one page.",
+                "This answer sheet has already been submitted.",
                 "error"
             );
 
             return;
+
         }
 
 
-        if (!isExamActive()) {
+        if (
+            !isExamActive()
+        ) {
 
             showMessage(
                 "The exam submission time has ended.",
@@ -912,26 +1379,38 @@ submitBtn.addEventListener(
             );
 
             return;
+
         }
 
 
-        const confirmSubmit =
+        const confirmation =
             confirm(
-                "Are you sure you want to submit your answer sheet? You cannot upload it again after submission."
+
+                `You are submitting ${selectedFiles.length} answer-sheet page(s). After submission, you cannot upload more pages. Continue?`
+
             );
 
 
-        if (!confirmSubmit) {
+        if (!confirmation) {
             return;
         }
 
 
-        submitBtn.disabled = true;
+        submitBtn.disabled =
+            true;
 
-        answerFiles.disabled = true;
+
+        cameraInput.disabled =
+            true;
+
+
+        galleryInput.disabled =
+            true;
+
 
         progressBox.style.display =
             "block";
+
 
         progressFill.style.width =
             "0%";
@@ -939,14 +1418,17 @@ submitBtn.addEventListener(
 
         try {
 
-            const photoUrls = [];
+            const photoUrls =
+                [];
 
-            const storagePaths = [];
+
+            const storagePaths =
+                [];
 
 
             /* =====================
-               UPLOAD EACH PAGE
-            ===================== */
+               UPLOAD EACH PHOTO
+            ====================== */
 
             for (
                 let i = 0;
@@ -962,16 +1444,21 @@ submitBtn.addEventListener(
                     `Uploading page ${i + 1} of ${selectedFiles.length}...`;
 
 
-                const safeFileName =
-                    file.name
-                        .replace(
-                            /[^a-zA-Z0-9.-]/g,
-                            "_"
-                        );
+                const safeName =
+                    file.name.replace(
+                        /[^a-zA-Z0-9.-]/g,
+                        "_"
+                    );
 
 
                 const storagePath =
-                    `answer-sheets/${currentUser.uid}/${examId}/page_${i + 1}_${Date.now()}_${safeFileName}`;
+
+                    `answer-sheets/` +
+                    `${currentUser.uid}/` +
+                    `${examId}/` +
+                    `page_${String(i + 1).padStart(2, "0")}_` +
+                    `${Date.now()}_` +
+                    `${safeName}`;
 
 
                 const storageRef =
@@ -1001,6 +1488,7 @@ submitBtn.addEventListener(
                             snapshot => {
 
                                 const pageProgress =
+
                                     (
                                         snapshot.bytesTransferred /
                                         snapshot.totalBytes
@@ -1008,8 +1496,11 @@ submitBtn.addEventListener(
 
 
                                 const overallProgress =
+
                                     (
-                                        (i * 100) +
+                                        (
+                                            i * 100
+                                        ) +
                                         pageProgress
                                     ) /
                                     selectedFiles.length;
@@ -1020,30 +1511,47 @@ submitBtn.addEventListener(
 
                             },
 
+
                             error => {
 
-                                reject(error);
+                                reject(
+                                    error
+                                );
 
                             },
 
+
                             async () => {
 
-                                const url =
-                                    await getDownloadURL(
-                                        uploadTask.snapshot.ref
+                                try {
+
+                                    const url =
+                                        await getDownloadURL(
+                                            uploadTask.snapshot.ref
+                                        );
+
+
+                                    photoUrls.push(
+                                        url
                                     );
 
 
-                                photoUrls.push(
-                                    url
-                                );
-
-                                storagePaths.push(
-                                    storagePath
-                                );
+                                    storagePaths.push(
+                                        storagePath
+                                    );
 
 
-                                resolve();
+                                    resolve();
+
+                                }
+
+                                catch (error) {
+
+                                    reject(
+                                        error
+                                    );
+
+                                }
 
                             }
 
@@ -1056,14 +1564,14 @@ submitBtn.addEventListener(
 
 
             /* =====================
-               SAVE SUBMISSION
-            ===================== */
+               SAVE FIRESTORE
+            ====================== */
 
             progressText.textContent =
                 "Saving submission...";
 
 
-            const submissionData = {
+            const submission = {
 
                 studentId:
                     currentUser.uid,
@@ -1093,7 +1601,10 @@ submitBtn.addEventListener(
                     null,
 
                 remarks:
-                    ""
+                    "",
+
+                checkedAt:
+                    null
 
             };
 
@@ -1103,46 +1614,62 @@ submitBtn.addEventListener(
                     db,
                     "submissions"
                 ),
-                submissionData
+                submission
             );
+
+
+            submissionExists =
+                true;
 
 
             progressFill.style.width =
                 "100%";
+
 
             progressText.textContent =
                 "Submission completed.";
 
 
             showMessage(
-                "Answer sheet submitted successfully.",
+                `Successfully submitted ${photoUrls.length} answer-sheet page(s).`,
                 "success"
             );
 
 
+            submitBtn.textContent =
+                "Submitted ✓";
+
+
             setTimeout(
-                () => {
+                function() {
 
                     window.location.href =
                         "student.html";
 
                 },
-                2000
+                2500
             );
 
-
         }
+
         catch (error) {
 
             console.error(
-                "Submission error:",
+                "Upload error:",
                 error
             );
 
 
-            submitBtn.disabled = false;
+            submitBtn.disabled =
+                false;
 
-            answerFiles.disabled = false;
+
+            cameraInput.disabled =
+                false;
+
+
+            galleryInput.disabled =
+                false;
 
 
             progressBox.style.display =
@@ -1150,7 +1677,7 @@ submitBtn.addEventListener(
 
 
             showMessage(
-                "Submission failed: " +
+                "Upload failed: " +
                 error.message,
                 "error"
             );
@@ -1163,4 +1690,5 @@ submitBtn.addEventListener(
 </script>
 
 </body>
+
 </html>
