@@ -1,2218 +1,1730 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Student Panel - Online Exam Portal</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    <title>
-        Student Dashboard - Online Exam Portal
-    </title>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  color: #222;
+}
 
-    <link
-        rel="stylesheet"
-        href="styles.css"
-    >
+/* ================= HEADER ================= */
 
+.header {
+  height: 64px;
+  background: #1f4e78;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  background: white;
+  color: #1f4e78;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.student-badge {
+  background: white;
+  color: #1f4e78;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.student-name {
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: #d9534f;
+  border: none;
+  color: white;
+  padding: 9px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.logout-btn:hover {
+  background: #c9302c;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  width: 220px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.nav-btn {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 14px 20px;
+  cursor: pointer;
+  color: #444;
+  font-size: 14px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  background: #eaf2f8;
+  color: #1f4e78;
+  font-weight: bold;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+  margin-left: 220px;
+  padding: 90px 25px 30px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page-title {
+  margin-top: 0;
+  color: #1f4e78;
+}
+
+/* ================= CARDS ================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.stat-title {
+  color: #777;
+  font-size: 13px;
+}
+
+.stat-number {
+  font-size: 28px;
+  color: #1f4e78;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* ================= PANEL ================= */
+
+.panel {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.panel h3 {
+  margin-top: 0;
+  color: #1f4e78;
+}
+
+/* ================= SUBJECT CARDS ================= */
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.subject-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 18px;
+  background: #fff;
+}
+
+.subject-card h3 {
+  margin: 0 0 8px;
+  color: #1f4e78;
+}
+
+.subject-code {
+  color: #777;
+  font-size: 13px;
+}
+
+/* ================= PAPER CARDS ================= */
+
+.paper-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.paper-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.paper-card h3 {
+  margin-top: 0;
+  color: #1f4e78;
+}
+
+.paper-info {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.7;
+}
+
+.paper-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: #1f4e78;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-box {
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  background: #fafafa;
+}
+
+.upload-box input {
+  margin-top: 15px;
+  max-width: 100%;
+}
+
+.selected-files {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.file-item {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.primary-btn {
+  border: none;
+  background: #1f4e78;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.primary-btn:hover {
+  background: #163a5b;
+}
+
+.primary-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* ================= MESSAGE ================= */
+
+.message {
+  display: none;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.message.success {
+  display: block;
+  background: #e8f7ee;
+  color: #18733a;
+}
+
+.message.error {
+  display: block;
+  background: #fdeaea;
+  color: #b52b27;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+th,
+td {
+  padding: 11px;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  text-align: left;
+}
+
+th {
+  background: #f1f5f8;
+  color: #1f4e78;
+}
+
+/* ================= BADGES ================= */
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.badge-blue {
+  background: #e8f1fb;
+  color: #1f4e78;
+}
+
+.badge-green {
+  background: #e9f7ef;
+  color: #218838;
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-menu {
+  display: none;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 25px;
+}
+
+@media(max-width: 900px) {
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .subject-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .paper-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width: 700px) {
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: 0.2s;
+    z-index: 1100;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 85px 12px 25px;
+  }
+
+  .student-badge {
+    display: none;
+  }
+
+  .student-name {
+    display: none;
+  }
+
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
+<!-- ================= HEADER ================= -->
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+<header class="header">
 
-<header class="dashboard-header">
+  <div class="logo-area">
+
+    <button
+      class="mobile-menu"
+      onclick="toggleSidebar()"
+    >
+      ☰
+    </button>
 
     <div class="logo">
-
-        🎓 Online Exam Portal
-
+      🎓
     </div>
 
-
-    <div class="header-right">
-
-        <span class="user-role">
-
-            👨‍🎓 STUDENT
-
-        </span>
-
-
-        <button
-            id="logoutButton"
-            class="logout-button"
-        >
-
-            Logout
-
-        </button>
-
+    <div class="title">
+      Online Exam Portal
     </div>
+
+    <div class="student-badge">
+      STUDENT
+    </div>
+
+  </div>
+
+  <div class="header-right">
+
+    <span
+      class="student-name"
+      id="headerStudentName"
+    >
+      Student
+    </span>
+
+    <button
+      class="logout-btn"
+      onclick="logout()"
+    >
+      Logout
+    </button>
+
+  </div>
 
 </header>
 
 
+<!-- ================= SIDEBAR ================= -->
 
-<!-- =====================================================
-     STUDENT DASHBOARD
-===================================================== -->
+<aside
+  class="sidebar"
+  id="sidebar"
+>
 
-<div class="student-layout">
+  <button
+    class="nav-btn active"
+    onclick="showPage('dashboard', this)"
+  >
+    🏠 Dashboard
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('subjects', this)"
+  >
+    📚 My Subjects
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('papers', this)"
+  >
+    📄 Question Papers
+  </button>
+
+  <button
+    class="nav-btn"
+    onclick="showPage('submission', this)"
+  >
+    📷 Submit Answer Sheet
+  </button>
+
+</aside>
 
 
-    <!-- SIDEBAR -->
+<!-- ================= MAIN ================= -->
 
-    <aside class="student-sidebar">
+<main class="main">
 
-        <div class="sidebar-title">
+  <!-- ================= DASHBOARD ================= -->
 
-            STUDENT PANEL
+  <section
+    id="dashboard"
+    class="page active"
+  >
 
+    <h1 class="page-title">
+      Student Dashboard
+    </h1>
+
+    <div
+      id="dashboardMessage"
+      class="message"
+    ></div>
+
+
+    <div class="stats">
+
+      <div class="stat-card">
+
+        <div class="stat-title">
+          Student ID
         </div>
 
+        <div
+          class="stat-number"
+          id="studentIdDisplay"
+          style="font-size:20px;"
+        >
+          -
+        </div>
 
-        <button
-            class="student-nav active"
-            data-section="studentDashboard"
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-title">
+          Assigned Subjects
+        </div>
+
+        <div
+          class="stat-number"
+          id="subjectCount"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-title">
+          Question Papers
+        </div>
+
+        <div
+          class="stat-number"
+          id="paperCount"
+        >
+          0
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="panel">
+
+      <h3>
+        Welcome
+      </h3>
+
+      <p>
+        Welcome,
+        <strong id="welcomeStudentName">
+          Student
+        </strong>.
+      </p>
+
+      <p>
+        You can access only the subjects and question
+        papers assigned to your Student ID.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= SUBJECTS ================= -->
+
+  <section
+    id="subjects"
+    class="page"
+  >
+
+    <h1 class="page-title">
+      My Subjects
+    </h1>
+
+
+    <div class="panel">
+
+      <h3>
+        Assigned Subjects
+      </h3>
+
+      <div
+        class="subject-grid"
+        id="subjectGrid"
+      >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= PAPERS ================= -->
+
+  <section
+    id="papers"
+    class="page"
+  >
+
+    <h1 class="page-title">
+      Question Papers
+    </h1>
+
+
+    <div
+      id="paperMessage"
+      class="message"
+    ></div>
+
+
+    <div class="panel">
+
+      <p>
+        These question papers are available because
+        the corresponding subjects have been assigned
+        to your Student ID.
+      </p>
+
+      <div
+        class="paper-grid"
+        id="paperGrid"
+      >
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= SUBMISSION ================= -->
+
+  <section
+    id="submission"
+    class="page"
+  >
+
+    <h1 class="page-title">
+      Submit Answer Sheet
+    </h1>
+
+
+    <div
+      id="submissionMessage"
+      class="message"
+    ></div>
+
+
+    <div class="panel">
+
+      <h3>
+        Upload Answer-Sheet Photos
+      </h3>
+
+      <p>
+        Select all pages/photos of your answer sheet.
+        You can upload multiple pages together.
+      </p>
+
+      <div class="upload-box">
+
+        <div>
+          📷 Select Answer-Sheet Photos
+        </div>
+
+        <input
+          type="file"
+          id="answerFiles"
+          accept="image/*"
+          multiple
         >
 
-            🏠 Dashboard
+        <div
+          id="selectedFiles"
+          class="selected-files"
+        ></div>
 
-        </button>
+      </div>
 
 
-        <button
-            class="student-nav"
-            data-section="myExams"
-        >
+      <br>
 
-            📝 My Exams
 
-        </button>
+      <div class="form-group">
 
+        <label>
+          Exam / Paper
+        </label>
 
-        <button
-            class="student-nav"
-            data-section="mySubmissions"
-        >
+        <select id="submissionPaper">
 
-            📷 My Submissions
+          <option value="">
+            -- Select Question Paper --
+          </option>
 
-        </button>
+        </select>
 
+      </div>
 
-        <button
-            class="student-nav"
-            data-section="myResults"
-        >
 
-            📊 My Results
+      <br>
 
-        </button>
 
-    </aside>
+      <button
+        id="submitAnswerBtn"
+        class="primary-btn"
+        onclick="submitAnswerSheet()"
+      >
+        📤 Submit Answer Sheet
+      </button>
 
+    </div>
 
 
-    <!-- =================================================
-         MAIN CONTENT
-    ================================================= -->
+    <div class="panel">
 
-    <main class="student-content">
+      <h3>
+        Submission Information
+      </h3>
 
+      <p>
+        After successful submission, your answer-sheet
+        photos are stored securely in the exam portal.
+      </p>
 
-        <!-- =============================================
-             DASHBOARD
-        ============================================== -->
+    </div>
 
-        <section
-            id="studentDashboard"
-            class="student-section active-section"
-        >
+  </section>
 
+</main>
 
-            <div class="page-heading">
 
-                <div>
+<script>
 
-                    <h1>
-                        Student Dashboard
-                    </h1>
+/*******************************************************
+ * API
+ *******************************************************/
 
-                    <p id="welcomeMessage">
-                        Welcome!
-                    </p>
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
-                </div>
 
-            </div>
+/*******************************************************
+ * STUDENT SESSION
+ *******************************************************/
 
+let studentSession =
+  JSON.parse(
+    sessionStorage.getItem(
+      "studentSession"
+    ) || "null"
+  );
 
 
-            <!-- STUDENT STATISTICS -->
+/*******************************************************
+ * CHECK LOGIN
+ *******************************************************/
 
-            <div class="stats-grid">
+if (
+  !studentSession ||
+  !studentSession.studentId
+) {
 
+  window.location.href =
+    "index.html";
 
-                <div class="stat-card">
+}
 
-                    <div class="stat-icon">
-                        📝
-                    </div>
 
-                    <div>
+/*******************************************************
+ * API POST
+ *******************************************************/
 
-                        <span>
-                            Assigned Exams
-                        </span>
-
-                        <strong
-                            id="assignedExamCount"
-                        >
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        📷
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Submissions
-                        </span>
-
-                        <strong
-                            id="studentSubmissionCount"
-                        >
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
-                        📊
-                    </div>
-
-                    <div>
-
-                        <span>
-                            Results
-                        </span>
-
-                        <strong
-                            id="studentResultCount"
-                        >
-                            0
-                        </strong>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- IMPORTANT NOTICE -->
-
-            <div class="student-notice">
-
-                <div class="notice-icon">
-                    ℹ️
-                </div>
-
-                <div>
-
-                    <strong>
-                        Examination Instructions
-                    </strong>
-
-                    <ul>
-
-                        <li>
-                            Download the question paper
-                            from your assigned exam.
-                        </li>
-
-                        <li>
-                            Solve the paper during the
-                            scheduled examination.
-                        </li>
-
-                        <li>
-                            Take clear photographs of
-                            every answer-sheet page.
-                        </li>
-
-                        <li>
-                            Upload all pages before
-                            submitting.
-                        </li>
-
-                        <li>
-                            Check your result after
-                            Admin evaluation.
-                        </li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- UPCOMING EXAMS -->
-
-            <div class="card">
-
-                <div class="card-heading">
-
-                    <h2>
-                        Upcoming / Active Exams
-                    </h2>
-
-                    <button
-                        class="small-button"
-                        onclick="openStudentSection('myExams')"
-                    >
-                        View All
-                    </button>
-
-                </div>
-
-
-                <div id="dashboardExams">
-
-                    Loading exams...
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =============================================
-             MY EXAMS
-        ============================================== -->
-
-        <section
-            id="myExams"
-            class="student-section"
-        >
-
-
-            <div class="page-heading">
-
-                <div>
-
-                    <h1>
-                        My Exams
-                    </h1>
-
-                    <p>
-                        View your assigned examinations.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="examList"
-                class="exam-list"
-            >
-
-                Loading exams...
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =============================================
-             MY SUBMISSIONS
-        ============================================== -->
-
-        <section
-            id="mySubmissions"
-            class="student-section"
-        >
-
-
-            <div class="page-heading">
-
-                <div>
-
-                    <h1>
-                        My Submissions
-                    </h1>
-
-                    <p>
-                        Check your answer-sheet submissions.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div
-                    id="submissionList"
-                    class="table-container"
-                >
-
-                    Loading submissions...
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =============================================
-             MY RESULTS
-        ============================================== -->
-
-        <section
-            id="myResults"
-            class="student-section"
-        >
-
-
-            <div class="page-heading">
-
-                <div>
-
-                    <h1>
-                        My Results
-                    </h1>
-
-                    <p>
-                        View your examination marks and remarks.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="resultList"
-                class="result-list"
-            >
-
-                Loading results...
-
-            </div>
-
-
-        </section>
-
-
-    </main>
-
-</div>
-
-
-
-<!-- =====================================================
-     FIREBASE
-===================================================== -->
-
-<script type="module">
-
-
-import {
-
-    initializeApp
-
-} from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-
-
-import {
-
-    getAuth,
-
-    onAuthStateChanged,
-
-    signOut
-
-} from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-
-
-import {
-
-    getFirestore,
-
-    collection,
-
-    getDocs,
-
-    getDoc,
-
-    doc,
-
-    query,
-
-    where
-
-} from
-"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-
-
-/* =====================================================
-   FIREBASE CONFIG
-===================================================== */
-
-
-const firebaseConfig = {
-
-    apiKey:
-        "YOUR_API_KEY",
-
-    authDomain:
-        "YOUR_PROJECT.firebaseapp.com",
-
-    projectId:
-        "YOUR_PROJECT_ID",
-
-    storageBucket:
-        "YOUR_PROJECT.firebasestorage.app",
-
-    messagingSenderId:
-        "YOUR_MESSAGING_SENDER_ID",
-
-    appId:
-        "YOUR_APP_ID"
-
-};
-
-
-
-/* =====================================================
-   INITIALIZE FIREBASE
-===================================================== */
-
-
-const app =
-    initializeApp(
-        firebaseConfig
+async function apiPost(data) {
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+        body:
+          JSON.stringify(data)
+      }
     );
 
 
-const auth =
-    getAuth(app);
+  return await response.json();
 
+}
 
-const db =
-    getFirestore(app);
 
-
-
-/* =====================================================
-   GLOBAL DATA
-===================================================== */
-
-
-let currentUser = null;
-
-let studentProfile = null;
-
-let exams = [];
-
-let papers = [];
-
-let subjects = [];
-
-let submissions = [];
-
-let results = [];
-
-
-
-/* =====================================================
-   AUTHENTICATION
-===================================================== */
-
-
-onAuthStateChanged(
-
-    auth,
-
-    async function(user) {
-
-
-        if (!user) {
-
-            window.location.href =
-                "login.html?role=student";
-
-            return;
-
-        }
-
-
-        currentUser = user;
-
-
-        try {
-
-
-            /* Get student profile */
-
-            const userRef =
-                doc(
-                    db,
-                    "users",
-                    user.uid
-                );
-
-
-            const userSnapshot =
-                await getDoc(
-                    userRef
-                );
-
-
-            if (
-                !userSnapshot.exists()
-            ) {
-
-                alert(
-                    "Student profile not found."
-                );
-
-                await signOut(
-                    auth
-                );
-
-                return;
-
-            }
-
-
-            studentProfile =
-                userSnapshot.data();
-
-
-            /* Check student role */
-
-            if (
-                studentProfile.role !==
-                "student"
-            ) {
-
-                alert(
-                    "This account is not a Student account."
-                );
-
-                await signOut(
-                    auth
-                );
-
-                return;
-
-            }
-
-
-            /* Welcome message */
-
-            document
-                .getElementById(
-                    "welcomeMessage"
-                )
-                .textContent =
-                "Welcome, " +
-                (
-                    studentProfile.name ||
-                    "Student"
-                ) +
-                "!";
-
-
-            /* Load dashboard */
-
-            await loadStudentData();
-
-
-        }
-
-        catch (error) {
-
-            console.error(
-                error
-            );
-
-            alert(
-                "Unable to load student dashboard."
-            );
-
-        }
-
-    }
-
-);
-
-
-
-/* =====================================================
-   LOAD STUDENT DATA
-===================================================== */
-
+/*******************************************************
+ * LOAD STUDENT DATA
+ *******************************************************/
 
 async function loadStudentData() {
 
+  try {
 
-    await Promise.all([
+    const data =
+      await apiPost({
 
-        loadAssignedExams(),
+        action:
+          "questionPaper",
 
-        loadPapers(),
+        studentId:
+          studentSession.studentId
 
-        loadSubjects(),
-
-        loadSubmissions(),
-
-        loadResults()
-
-    ]);
+      });
 
 
-    renderAll();
+    if (!data.success) {
 
-}
+      showMessage(
+        "dashboardMessage",
+        data.message ||
+          "Unable to load student data.",
+        false
+      );
 
+      return;
 
-
-/* =====================================================
-   LOAD ASSIGNED EXAMS
-===================================================== */
-
-
-async function loadAssignedExams() {
-
-
-    const examQuery =
-        query(
-
-            collection(
-                db,
-                "exams"
-            ),
-
-            where(
-                "studentId",
-                "==",
-                currentUser.uid
-            )
-
-        );
+    }
 
 
-    const snapshot =
-        await getDocs(
-            examQuery
-        );
+    const studentName =
+      studentSession.studentName ||
+      "Student";
 
 
-    exams =
-        snapshot.docs.map(
-
-            item => ({
-
-                id:
-                    item.id,
-
-                ...item.data()
-
-            })
-
-        );
-
-}
+    document.getElementById(
+      "headerStudentName"
+    ).textContent =
+      studentName;
 
 
-
-/* =====================================================
-   LOAD QUESTION PAPERS
-===================================================== */
-
-
-async function loadPapers() {
+    document.getElementById(
+      "welcomeStudentName"
+    ).textContent =
+      studentName;
 
 
-    const snapshot =
-        await getDocs(
-
-            collection(
-                db,
-                "papers"
-            )
-
-        );
+    document.getElementById(
+      "studentIdDisplay"
+    ).textContent =
+      studentSession.studentId;
 
 
-    papers =
-        snapshot.docs.map(
+    const subjects =
+      data.subjects || [];
 
-            item => ({
 
-                id:
-                    item.id,
+    const papers =
+      data.papers || [];
 
-                ...item.data()
 
-            })
+    document.getElementById(
+      "subjectCount"
+    ).textContent =
+      subjects.length;
 
-        );
+
+    document.getElementById(
+      "paperCount"
+    ).textContent =
+      papers.length;
+
+
+    renderSubjects(
+      subjects
+    );
+
+
+    renderPapers(
+      papers
+    );
+
+
+    populateSubmissionPapers(
+      papers
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      "dashboardMessage",
+      "Unable to connect to the exam server.",
+      false
+    );
+
+  }
 
 }
 
 
-
-/* =====================================================
-   LOAD SUBJECTS
-===================================================== */
-
-
-async function loadSubjects() {
-
-
-    const snapshot =
-        await getDocs(
-
-            collection(
-                db,
-                "subjects"
-            )
-
-        );
-
-
-    subjects =
-        snapshot.docs.map(
-
-            item => ({
-
-                id:
-                    item.id,
-
-                ...item.data()
-
-            })
-
-        );
-
-}
-
-
-
-/* =====================================================
-   LOAD SUBMISSIONS
-===================================================== */
-
-
-async function loadSubmissions() {
-
-
-    const submissionQuery =
-        query(
-
-            collection(
-                db,
-                "submissions"
-            ),
-
-            where(
-                "studentId",
-                "==",
-                currentUser.uid
-            )
-
-        );
-
-
-    const snapshot =
-        await getDocs(
-            submissionQuery
-        );
-
-
-    submissions =
-        snapshot.docs.map(
-
-            item => ({
-
-                id:
-                    item.id,
-
-                ...item.data()
-
-            })
-
-        );
-
-}
-
-
-
-/* =====================================================
-   LOAD RESULTS
-===================================================== */
-
-
-async function loadResults() {
-
-
-    const resultQuery =
-        query(
-
-            collection(
-                db,
-                "results"
-            ),
-
-            where(
-                "studentId",
-                "==",
-                currentUser.uid
-            )
-
-        );
-
-
-    const snapshot =
-        await getDocs(
-            resultQuery
-        );
-
-
-    results =
-        snapshot.docs.map(
-
-            item => ({
-
-                id:
-                    item.id,
-
-                ...item.data()
-
-            })
-
-        );
-
-}
-
-
-
-/* =====================================================
-   RENDER ALL
-===================================================== */
-
-
-function renderAll() {
-
-
-    document
-        .getElementById(
-            "assignedExamCount"
-        )
-        .textContent =
-        exams.length;
-
-
-    document
-        .getElementById(
-            "studentSubmissionCount"
-        )
-        .textContent =
-        submissions.length;
-
-
-    document
-        .getElementById(
-            "studentResultCount"
-        )
-        .textContent =
-        results.length;
-
-
-    renderDashboardExams();
-
-    renderExamList();
-
-    renderSubmissions();
-
-    renderResults();
-
-}
-
-
-
-/* =====================================================
-   GET PAPER
-===================================================== */
-
-
-function getPaper(
-    paperId
+/*******************************************************
+ * SHOW PAGE
+ *******************************************************/
+
+function showPage(
+  pageId,
+  button
 ) {
 
-    return papers.find(
+  document
+    .querySelectorAll(".page")
+    .forEach(function(page) {
 
-        paper =>
-            paper.id ===
-            paperId
+      page.classList.remove(
+        "active"
+      );
 
+    });
+
+
+  document
+    .getElementById(pageId)
+    .classList.add(
+      "active"
+    );
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(function(btn) {
+
+      btn.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .getElementById("sidebar")
+    .classList.remove(
+      "show"
     );
 
 }
 
 
+/*******************************************************
+ * MOBILE SIDEBAR
+ *******************************************************/
 
-/* =====================================================
-   GET SUBJECT
-===================================================== */
+function toggleSidebar() {
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle(
+      "show"
+    );
+
+}
 
 
-function getSubject(
-    subjectId
+/*******************************************************
+ * LOGOUT
+ *******************************************************/
+
+function logout() {
+
+  sessionStorage.removeItem(
+    "studentSession"
+  );
+
+  window.location.href =
+    "index.html";
+
+}
+
+
+/*******************************************************
+ * RENDER SUBJECTS
+ *******************************************************/
+
+function renderSubjects(
+  subjects
 ) {
 
-    return subjects.find(
-
-        subject =>
-            subject.id ===
-            subjectId
-
+  const container =
+    document.getElementById(
+      "subjectGrid"
     );
 
-}
+
+  container.innerHTML = "";
 
 
-
-/* =====================================================
-   RENDER DASHBOARD EXAMS
-===================================================== */
-
-
-function renderDashboardExams() {
-
-
-    const container =
-        document.getElementById(
-            "dashboardExams"
-        );
-
-
-    if (!exams.length) {
-
-        container.innerHTML = `
-
-            <div class="empty-state">
-
-                <div>
-                    📝
-                </div>
-
-                <p>
-                    No exams assigned yet.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    const recentExams =
-        exams.slice(0, 3);
-
-
-    let html = "";
-
-
-    recentExams.forEach(
-
-        exam => {
-
-
-            const paper =
-                getPaper(
-                    exam.paperId
-                );
-
-
-            const subject =
-                paper
-                    ? getSubject(
-                        paper.subjectId
-                    )
-                    : null;
-
-
-            const status =
-                getExamStatus(
-                    exam
-                );
-
-
-            html += `
-
-                <div class="exam-card">
-
-                    <div class="exam-card-icon">
-                        📝
-                    </div>
-
-                    <div class="exam-card-info">
-
-                        <h3>
-                            ${escapeHTML(
-                                paper
-                                    ? paper.title
-                                    : "Exam"
-                            )}
-                        </h3>
-
-                        <p>
-                            ${
-                                subject
-                                    ? escapeHTML(
-                                        subject.name
-                                    )
-                                    : "Subject"
-                            }
-                        </p>
-
-                        <small>
-
-                            📅
-                            ${exam.examDate || "-"}
-
-                            &nbsp;&nbsp;
-
-                            ⏰
-                            ${exam.startTime || "-"}
-                            -
-                            ${exam.endTime || "-"}
-
-                        </small>
-
-                    </div>
-
-                    <span class="
-                        status-badge
-                        ${status.className}
-                    ">
-
-                        ${status.text}
-
-                    </span>
-
-                </div>
-
-            `;
-
-        }
-
-    );
-
+  if (
+    !subjects ||
+    subjects.length === 0
+  ) {
 
     container.innerHTML =
-        html;
+      `<p>
+        No subjects have been assigned to you yet.
+      </p>`;
 
-}
+    return;
 
+  }
 
 
-/* =====================================================
-   RENDER EXAM LIST
-===================================================== */
+  subjects.forEach(function(subject) {
 
+    const card =
+      document.createElement(
+        "div"
+      );
 
-function renderExamList() {
 
+    card.className =
+      "subject-card";
 
-    const container =
-        document.getElementById(
-            "examList"
-        );
 
+    card.innerHTML = `
 
-    if (!exams.length) {
+      <h3>
+        ${escapeHTML(
+          subject.subjectName
+        )}
+      </h3>
 
-        container.innerHTML = `
+      <div class="subject-code">
+        Subject Code:
+        <strong>
+          ${escapeHTML(
+            subject.subjectCode || "-"
+          )}
+        </strong>
+      </div>
 
-            <div class="empty-state">
+      <br>
 
-                <div>
-                    📝
-                </div>
-
-                <h3>
-                    No Exams Assigned
-                </h3>
-
-                <p>
-                    Your assigned examinations
-                    will appear here.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    let html = "";
-
-
-    exams.forEach(
-
-        exam => {
-
-
-            const paper =
-                getPaper(
-                    exam.paperId
-                );
-
-
-            const subject =
-                paper
-                    ? getSubject(
-                        paper.subjectId
-                    )
-                    : null;
-
-
-            const status =
-                getExamStatus(
-                    exam
-                );
-
-
-            const submission =
-                submissions.find(
-
-                    item =>
-                        item.examId ===
-                        exam.id
-
-                );
-
-
-            html += `
-
-                <div class="full-exam-card">
-
-
-                    <div class="exam-header">
-
-
-                        <div>
-
-                            <span
-                                class="subject-label"
-                            >
-
-                                ${
-                                    subject
-                                        ? escapeHTML(
-                                            subject.name
-                                        )
-                                        : "Subject"
-                                }
-
-                            </span>
-
-
-                            <h2>
-
-                                ${
-                                    paper
-                                        ? escapeHTML(
-                                            paper.title
-                                        )
-                                        : "Exam"
-                                }
-
-                            </h2>
-
-                        </div>
-
-
-                        <span class="
-                            status-badge
-                            ${status.className}
-                        ">
-
-                            ${status.text}
-
-                        </span>
-
-
-                    </div>
-
-
-
-                    <div class="exam-details">
-
-
-                        <div>
-
-                            <span>
-                                📅 Exam Date
-                            </span>
-
-                            <strong>
-                                ${
-                                    exam.examDate ||
-                                    "-"
-                                }
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                ⏰ Exam Time
-                            </span>
-
-                            <strong>
-
-                                ${
-                                    exam.startTime ||
-                                    "-"
-                                }
-
-                                -
-
-                                ${
-                                    exam.endTime ||
-                                    "-"
-                                }
-
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                📊 Total Marks
-                            </span>
-
-                            <strong>
-
-                                ${
-                                    paper
-                                        ? paper.totalMarks
-                                        : "-"
-                                }
-
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                📄 Paper
-                            </span>
-
-                            <strong>
-                                PDF
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <div class="exam-actions">
-
-
-                        ${
-                            paper &&
-                            paper.fileUrl
-                                ? `
-
-                                    <a
-                                        href="${paper.fileUrl}"
-                                        target="_blank"
-                                        class="primary-button"
-                                    >
-
-                                        📄
-                                        Download Question Paper
-
-                                    </a>
-
-                                `
-                                : ""
-                        }
-
-
-
-                        ${
-                            !submission &&
-                            isExamAvailable(exam)
-                                ? `
-
-                                    <a
-                                        href="submit.html?id=${exam.id}"
-                                        class="secondary-button"
-                                    >
-
-                                        📷
-                                        Upload Answer Sheet
-
-                                    </a>
-
-                                `
-                                : ""
-                        }
-
-
-
-                        ${
-                            submission
-                                ? `
-
-                                    <span
-                                        class="submitted-label"
-                                    >
-
-                                        ✅
-                                        Answer Sheet Submitted
-
-                                    </span>
-
-                                `
-                                : ""
-                        }
-
-
-                    </div>
-
-
-                </div>
-
-            `;
-
-        }
-
-    );
-
-
-    container.innerHTML =
-        html;
-
-}
-
-
-
-/* =====================================================
-   RENDER SUBMISSIONS
-===================================================== */
-
-
-function renderSubmissions() {
-
-
-    const container =
-        document.getElementById(
-            "submissionList"
-        );
-
-
-    if (!submissions.length) {
-
-        container.innerHTML = `
-
-            <div class="empty-state">
-
-                <div>
-                    📷
-                </div>
-
-                <p>
-                    You have not submitted
-                    any answer sheets yet.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    let html = `
-
-        <table class="data-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Exam
-                    </th>
-
-                    <th>
-                        Pages
-                    </th>
-
-                    <th>
-                        Submitted
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
+      <span class="badge badge-blue">
+        Assigned
+      </span>
 
     `;
 
 
-    submissions.forEach(
+    container.appendChild(
+      card
+    );
 
-        submission => {
+  });
 
-
-            const exam =
-                exams.find(
-
-                    item =>
-                        item.id ===
-                        submission.examId
-
-                );
+}
 
 
-            const paper =
-                exam
-                    ? getPaper(
-                        exam.paperId
-                    )
-                    : null;
+/*******************************************************
+ * RENDER PAPERS
+ *******************************************************/
 
+function renderPapers(
+  papers
+) {
 
-            const pages =
-                submission.photoUrls
-                    ? submission.photoUrls.length
-                    : 0;
-
-
-            html += `
-
-                <tr>
-
-                    <td>
-
-                        ${
-                            paper
-                                ? escapeHTML(
-                                    paper.title
-                                )
-                                : "Exam"
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        ${pages}
-
-                    </td>
-
-
-                    <td>
-
-                        ${
-                            formatDate(
-                                submission.submittedAt
-                            )
-                        }
-
-                    </td>
-
-
-                    <td>
-
-                        <span class="
-                            status-badge
-                            status-submitted
-                        ">
-
-                            ${
-                                submission.status ||
-                                "Submitted"
-                            }
-
-                        </span>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-
+  const container =
+    document.getElementById(
+      "paperGrid"
     );
 
 
-    html += `
+  container.innerHTML = "";
 
-            </tbody>
 
-        </table>
+  if (
+    !papers ||
+    papers.length === 0
+  ) {
+
+    container.innerHTML =
+      `<p>
+        No question papers are currently available.
+      </p>`;
+
+    return;
+
+  }
+
+
+  papers.forEach(function(paper) {
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+
+    card.className =
+      "paper-card";
+
+
+    card.innerHTML = `
+
+      <h3>
+        ${escapeHTML(
+          paper.title
+        )}
+      </h3>
+
+      <div class="paper-info">
+
+        <strong>
+          Subject:
+        </strong>
+
+        ${escapeHTML(
+          paper.subjectName || "-"
+        )}
+
+        <br>
+
+        <strong>
+          Code:
+        </strong>
+
+        ${escapeHTML(
+          paper.subjectCode || "-"
+        )}
+
+        <br>
+
+        <strong>
+          Total Marks:
+        </strong>
+
+        ${escapeHTML(
+          paper.totalMarks || "-"
+        )}
+
+        <br>
+
+        <strong>
+          File:
+        </strong>
+
+        ${escapeHTML(
+          paper.fileName || ""
+        )}
+
+      </div>
+
+
+      ${
+        paper.fileUrl
+
+        ? `<a
+            href="${escapeAttribute(
+              paper.fileUrl
+            )}"
+            target="_blank"
+            class="paper-btn"
+          >
+            📄 View Question Paper
+          </a>`
+
+        : ""
+      }
 
     `;
 
 
-    container.innerHTML =
-        html;
+    container.appendChild(
+      card
+    );
+
+  });
 
 }
 
 
+/*******************************************************
+ * POPULATE SUBMISSION PAPERS
+ *******************************************************/
 
-/* =====================================================
-   RENDER RESULTS
-===================================================== */
+function populateSubmissionPapers(
+  papers
+) {
+
+  const select =
+    document.getElementById(
+      "submissionPaper"
+    );
 
 
-function renderResults() {
+  select.innerHTML =
+    `<option value="">
+      -- Select Question Paper --
+    </option>`;
 
 
-    const container =
+  papers.forEach(function(paper) {
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+
+    option.value =
+      paper.paperId;
+
+
+    option.textContent =
+      paper.title +
+      " - " +
+      (
+        paper.subjectName || ""
+      );
+
+
+    option.dataset.title =
+      paper.title;
+
+
+    select.appendChild(
+      option
+    );
+
+  });
+
+}
+
+
+/*******************************************************
+ * SHOW SELECTED FILES
+ *******************************************************/
+
+document
+  .getElementById(
+    "answerFiles"
+  )
+  .addEventListener(
+    "change",
+    function() {
+
+      const files =
+        Array.from(
+          this.files
+        );
+
+
+      const container =
         document.getElementById(
-            "resultList"
+          "selectedFiles"
         );
 
 
-    if (!results.length) {
+      container.innerHTML = "";
 
-        container.innerHTML = `
 
-            <div class="empty-state">
-
-                <div>
-                    📊
-                </div>
-
-                <h3>
-                    No Results Yet
-                </h3>
-
-                <p>
-                    Your result will appear here
-                    after Admin checks your answer sheet.
-                </p>
-
-            </div>
-
-        `;
-
+      if (!files.length) {
         return;
+      }
+
+
+      files.forEach(function(file, index) {
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "file-item";
+
+
+        div.textContent =
+          (
+            index + 1
+          ) +
+          ". " +
+          file.name;
+
+
+        container.appendChild(
+          div
+        );
+
+      });
+
+    }
+  );
+
+
+/*******************************************************
+ * SUBMIT ANSWER SHEET
+ *******************************************************/
+
+async function submitAnswerSheet() {
+
+  const fileInput =
+    document.getElementById(
+      "answerFiles"
+    );
+
+
+  const files =
+    Array.from(
+      fileInput.files
+    );
+
+
+  const paperSelect =
+    document.getElementById(
+      "submissionPaper"
+    );
+
+
+  const paperId =
+    paperSelect.value;
+
+
+  if (files.length === 0) {
+
+    showMessage(
+      "submissionMessage",
+      "Please select answer-sheet photos.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if (!paperId) {
+
+    showMessage(
+      "submissionMessage",
+      "Please select the question paper.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const selectedOption =
+    paperSelect.options[
+      paperSelect.selectedIndex
+    ];
+
+
+  const examName =
+    selectedOption.dataset.title ||
+    selectedOption.textContent;
+
+
+  const button =
+    document.getElementById(
+      "submitAnswerBtn"
+    );
+
+
+  button.disabled =
+    true;
+
+
+  button.textContent =
+    "Uploading...";
+
+
+  try {
+
+    const encodedFiles = [];
+
+
+    for (
+      let i = 0;
+      i < files.length;
+      i++
+    ) {
+
+      const file =
+        files[i];
+
+
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        continue;
+
+      }
+
+
+      const base64 =
+        await fileToBase64(
+          file
+        );
+
+
+      encodedFiles.push({
+
+        fileName:
+          file.name,
+
+        mimeType:
+          file.type,
+
+        base64:
+          base64
+
+      });
 
     }
 
 
-    let html = "";
+    if (
+      encodedFiles.length === 0
+    ) {
 
+      throw new Error(
+        "No valid image files selected."
+      );
 
-    results.forEach(
+    }
 
-        result => {
 
+    const data =
+      await apiPost({
 
-            const exam =
-                exams.find(
+        action:
+          "answer",
 
-                    item =>
-                        item.id ===
-                        result.examId
+        studentId:
+          studentSession.studentId,
 
-                );
+        studentName:
+          studentSession.studentName ||
+          "",
 
+        examId:
+          "",
 
-            const paper =
-                exam
-                    ? getPaper(
-                        exam.paperId
-                    )
-                    : null;
+        examName:
+          examName,
 
+        paperId:
+          paperId,
 
-            const percentage =
-                result.percentage !==
-                undefined
+        files:
+          encodedFiles
 
-                    ? result.percentage
+      });
 
-                    : (
-                        Number(
-                            result.marks || 0
-                        ) /
-                        Number(
-                            result.totalMarks || 1
-                        ) *
-                        100
-                    ).toFixed(2);
 
-
-            html += `
-
-                <div class="result-card">
-
-
-                    <div class="result-top">
-
-
-                        <div>
-
-                            <span class="subject-label">
-
-                                ${
-                                    paper
-                                        ? escapeHTML(
-                                            (
-                                                getSubject(
-                                                    paper.subjectId
-                                                ) || {}
-                                            ).name ||
-                                            "Subject"
-                                        )
-                                        : "Subject"
-                                }
-
-                            </span>
-
-
-                            <h2>
-
-                                ${
-                                    paper
-                                        ? escapeHTML(
-                                            paper.title
-                                        )
-                                        : "Exam"
-                                }
-
-                            </h2>
-
-                        </div>
-
-
-                        <div class="result-score">
-
-                            <strong>
-
-                                ${
-                                    result.marks ||
-                                    0
-                                }
-
-                            </strong>
-
-                            <span>
-
-                                /
-
-                                ${
-                                    result.totalMarks ||
-                                    "-"
-                                }
-
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <div class="result-details">
-
-
-                        <div>
-
-                            <span>
-                                Percentage
-                            </span>
-
-                            <strong>
-
-                                ${percentage}%
-
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                Status
-                            </span>
-
-                            <strong>
-
-                                ${
-                                    result.status ||
-                                    "Published"
-                                }
-
-                            </strong>
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <div class="remarks-box">
-
-                        <strong>
-                            Admin Remarks
-                        </strong>
-
-                        <p>
-
-                            ${
-                                escapeHTML(
-                                    result.remarks ||
-                                    "No remarks provided."
-                                )
-                            }
-
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-            `;
-
-        }
-
+    showMessage(
+      "submissionMessage",
+      data.message ||
+        "Submission completed.",
+      data.success
     );
 
 
-    container.innerHTML =
-        html;
+    if (data.success) {
+
+      fileInput.value =
+        "";
+
+      document.getElementById(
+        "selectedFiles"
+      ).innerHTML =
+        "";
+
+      paperSelect.value =
+        "";
+
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    showMessage(
+      "submissionMessage",
+      error.message ||
+        "Answer-sheet upload failed.",
+      false
+    );
+
+  }
+
+
+  button.disabled =
+    false;
+
+  button.textContent =
+    "📤 Submit Answer Sheet";
 
 }
 
 
+/*******************************************************
+ * FILE TO BASE64
+ *******************************************************/
 
-/* =====================================================
-   EXAM STATUS
-===================================================== */
-
-
-function getExamStatus(
-    exam
+function fileToBase64(
+  file
 ) {
 
+  return new Promise(
+    function(resolve, reject) {
 
-    const now =
-        new Date();
-
-
-    const start =
-        new Date(
-            exam.examDate +
-            "T" +
-            exam.startTime
-        );
+      const reader =
+        new FileReader();
 
 
-    const end =
-        new Date(
-            exam.examDate +
-            "T" +
-            exam.endTime
-        );
+      reader.onload =
+        function() {
+
+          const result =
+            reader.result;
 
 
-    if (
-        now < start
-    ) {
+          const base64 =
+            result.split(",")[1];
 
-        return {
 
-            text:
-                "Upcoming",
-
-            className:
-                "status-upcoming"
+          resolve(
+            base64
+          );
 
         };
 
-    }
 
+      reader.onerror =
+        function(error) {
 
-    if (
-        now >= start &&
-        now <= end
-    ) {
-
-        return {
-
-            text:
-                "Active",
-
-            className:
-                "status-active"
+          reject(error);
 
         };
 
+
+      reader.readAsDataURL(
+        file
+      );
+
     }
-
-
-    return {
-
-        text:
-            "Completed",
-
-        className:
-            "status-completed"
-
-    };
+  );
 
 }
 
 
+/*******************************************************
+ * MESSAGE
+ *******************************************************/
 
-/* =====================================================
-   CHECK EXAM AVAILABILITY
-===================================================== */
-
-
-function isExamAvailable(
-    exam
+function showMessage(
+  elementId,
+  message,
+  success
 ) {
 
-
-    const now =
-        new Date();
-
-
-    const start =
-        new Date(
-            exam.examDate +
-            "T" +
-            exam.startTime
-        );
-
-
-    const end =
-        new Date(
-            exam.examDate +
-            "T" +
-            exam.endTime
-        );
-
-
-    return (
-        now >= start &&
-        now <= end
+  const element =
+    document.getElementById(
+      elementId
     );
+
+
+  element.className =
+    "message " +
+    (
+      success
+        ? "success"
+        : "error"
+    );
+
+
+  element.textContent =
+    message;
+
+
+  setTimeout(function() {
+
+    element.className =
+      "message";
+
+  }, 6000);
 
 }
 
 
-
-/* =====================================================
-   FORMAT DATE
-===================================================== */
-
-
-function formatDate(
-    timestamp
-) {
-
-
-    if (
-        !timestamp
-    ) {
-
-        return "-";
-
-    }
-
-
-    try {
-
-        const date =
-            timestamp.toDate
-                ? timestamp.toDate()
-                : new Date(
-                    timestamp
-                );
-
-
-        return date.toLocaleString();
-
-    }
-
-    catch {
-
-        return "-";
-
-    }
-
-}
-
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-
-document
-    .querySelectorAll(
-        ".student-nav"
-    )
-    .forEach(
-
-        button => {
-
-
-            button.addEventListener(
-
-                "click",
-
-                function() {
-
-                    openStudentSection(
-                        this.dataset.section
-                    );
-
-                }
-
-            );
-
-        }
-
-    );
-
-
-
-window.openStudentSection =
-    function(sectionId) {
-
-
-        document
-            .querySelectorAll(
-                ".student-section"
-            )
-            .forEach(
-
-                section => {
-
-                    section.classList.remove(
-                        "active-section"
-                    );
-
-                }
-
-            );
-
-
-        const section =
-            document.getElementById(
-                sectionId
-            );
-
-
-        if (section) {
-
-            section.classList.add(
-                "active-section"
-            );
-
-        }
-
-
-        document
-            .querySelectorAll(
-                ".student-nav"
-            )
-            .forEach(
-
-                button => {
-
-
-                    button.classList.remove(
-                        "active"
-                    );
-
-
-                    if (
-                        button.dataset.section ===
-                        sectionId
-                    ) {
-
-                        button.classList.add(
-                            "active"
-                        );
-
-                    }
-
-                }
-
-            );
-
-    };
-
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-
-document
-    .getElementById(
-        "logoutButton"
-    )
-    .addEventListener(
-
-        "click",
-
-        async function() {
-
-
-            await signOut(
-                auth
-            );
-
-
-            window.location.href =
-                "index.html";
-
-        }
-
-    );
-
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
+/*******************************************************
+ * HTML SECURITY
+ *******************************************************/
 
 function escapeHTML(
-    value
+  value
 ) {
 
+  if (
+    value === null ||
+    value === undefined
+  ) {
 
-    return String(
-        value ?? ""
-    )
+    return "";
 
+  }
+
+
+  return String(value)
     .replace(
-        /&/g,
-        "&amp;"
+      /&/g,
+      "&amp;"
     )
-
     .replace(
-        /</g,
-        "&lt;"
+      /</g,
+      "&lt;"
     )
-
     .replace(
-        />/g,
-        "&gt;"
+      />/g,
+      "&gt;"
     )
-
     .replace(
-        /"/g,
-        "&quot;"
+      /"/g,
+      "&quot;"
     )
-
     .replace(
-        /'/g,
-        "&#039;"
+      /'/g,
+      "&#039;"
     );
 
 }
 
+
+function escapeAttribute(
+  value
+) {
+
+  return escapeHTML(
+    value
+  );
+
+}
+
+
+/*******************************************************
+ * START
+ *******************************************************/
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadStudentData();
+
+  }
+);
 
 </script>
 
-
 </body>
-
 </html>
