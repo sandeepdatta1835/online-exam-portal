@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>MCQ Examination</title>
+
+<link rel="stylesheet"
+      href="styles.css">
+
+<style>
+
+.exam-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.exam-header {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.exam-header h1 {
+    margin: 0 0 10px;
+}
+
+.exam-info {
+    display: grid;
+    grid-template-columns:
+        repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.info-box {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.info-box strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.timer {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.question-card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.question-number {
+    font-weight: bold;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.question-text {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.option {
+    display: block;
+    border: 1px solid #d1d5db;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.option:hover {
+    background: #f8fafc;
+}
+
+.option input {
+    width: auto;
+    margin-right: 8px;
+}
+
+.option.selected {
+    background: #dbeafe;
+    border-color: #2563eb;
+}
+
+.submit-exam-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: #16a34a;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-exam-btn:hover {
+    background: #15803d;
+}
+
+.submit-exam-btn:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.message {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.message.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.message.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.result-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.result-marks {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.result-percentage {
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+@media(max-width: 700px) {
+
+    .exam-info {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .question-card {
+        padding: 17px;
+    }
+
+}
+
+@media(max-width: 450px) {
+
+    .exam-info {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="exam-container">
+
+    <a href="student.html"
+       class="back-btn">
+
+        ← Back to Student Dashboard
+
+    </a>
+
+
+    <!-- =========================
+         LOADING
+    ========================== -->
+
+    <div id="loading"
+         class="loading">
+
+        Loading examination...
+
+    </div>
+
+
+    <!-- =========================
+         EXAM AREA
+    ========================== -->
+
+    <div id="examArea"
+         style="display:none;">
+
+
+        <div class="exam-header">
+
+            <h1 id="examTitle">
+                MCQ Examination
+            </h1>
+
+
+            <div class="exam-info">
+
+                <div class="info-box">
+
+                    <strong>
+                        Subject
+                    </strong>
+
+                    <span id="subjectName">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <strong>
+                        Total Questions
+                    </strong>
+
+                    <span id="questionCount">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <strong>
+                        Total Marks
+                    </strong>
+
+                    <span id="totalMarks">
+                        -
+                    </span>
+
+                </div>
+
+
+                <div class="timer"
+                     id="timer">
+
+                    00:00:00
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="message"
+             class="message">
+
+        </div>
+
+
+        <form id="examForm">
+
+            <div id="questionsContainer">
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="submitExamBtn"
+                class="submit-exam-btn">
+
+                Submit Examination
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         RESULT AREA
+    ========================== -->
+
+    <div id="resultArea"
+         style="display:none;">
+
+        <div class="result-box">
+
+            <h2>
+                Examination Submitted
+            </h2>
+
+            <p>
+                Your MCQ examination has been checked.
+            </p>
+
+            <div class="result-marks"
+                 id="resultMarks">
+
+                0 / 0
+
+            </div>
+
+            <div class="result-percentage"
+                 id="resultPercentage">
+
+                0%
+
+            </div>
+
+            <p id="resultMessage">
+
+            </p>
+
+            <br>
+
+            <a href="student.html"
+               class="btn btn-primary">
+
+                Go to Student Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script type="module">
+
+
+/* ========================================
+   FIREBASE
+======================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    addDoc,
+    query,
+    where,
+    getDocs,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* ========================================
+   FIREBASE CONFIG
+======================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "YOUR_API_KEY",
+
+    authDomain:
+        "YOUR_PROJECT.firebaseapp.com",
+
+    projectId:
+        "YOUR_PROJECT_ID",
+
+    storageBucket:
+        "YOUR_PROJECT.firebasestorage.app",
+
+    messagingSenderId:
+        "YOUR_MESSAGING_SENDER_ID",
+
+    appId:
+        "YOUR_APP_ID"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+/* ========================================
+   VARIABLES
+======================================== */
+
+let currentUser = null;
+
+let examData = null;
+
+let questions = [];
+
+let timerInterval = null;
+
+let examSubmitted = false;
+
+
+/* ========================================
+   GET EXAM ID
+======================================== */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const examId =
+    urlParams.get("id");
+
+
+/* ========================================
+   HTML ELEMENTS
+======================================== */
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+
+const examArea =
+    document.getElementById(
+        "examArea"
+    );
+
+
+const resultArea =
+    document.getElementById(
+        "resultArea"
+    );
+
+
+const questionsContainer =
+    document.getElementById(
+        "questionsContainer"
+    );
+
+
+const examForm =
+    document.getElementById(
+        "examForm"
+    );
+
+
+const submitExamBtn =
+    document.getElementById(
+        "submitExamBtn"
+    );
+
+
+const messageBox =
+    document.getElementById(
+        "message"
+    );
+
+
+/* ========================================
+   AUTH
+======================================== */
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html?role=student";
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        if (!examId) {
+
+            showError(
+                "Exam ID is missing."
+            );
+
+            return;
+
+        }
+
+
+        await loadExam();
+
+    }
+);
+
+
+/* ========================================
+   LOAD EXAM
+======================================== */
+
+async function loadExam() {
+
+    try {
+
+        const examRef =
+            doc(
+                db,
+                "exams",
+                examId
+            );
+
+
+        const examSnap =
+            await getDoc(
+                examRef
+            );
+
+
+        if (!examSnap.exists()) {
+
+            showError(
+                "Exam not found."
+            );
+
+            return;
+
+        }
+
+
+        examData = {
+
+            id:
+                examSnap.id,
+
+            ...examSnap.data()
+
+        };
+
+
+        /* ================================
+           CHECK STUDENT
+        ================================= */
+
+        if (
+            examData.studentId !==
+            currentUser.uid
+        ) {
+
+            showError(
+                "You are not allowed to access this exam."
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           CHECK EXISTING RESULT
+        ================================= */
+
+        const resultQuery =
+            query(
+                collection(
+                    db,
+                    "results"
+                ),
+
+                where(
+                    "examId",
+                    "==",
+                    examId
+                ),
+
+                where(
+                    "studentId",
+                    "==",
+                    currentUser.uid
+                )
+            );
+
+
+        const resultSnapshot =
+            await getDocs(
+                resultQuery
+            );
+
+
+        if (
+            !resultSnapshot.empty
+        ) {
+
+            showError(
+                "This examination has already been submitted."
+            );
+
+            return;
+
+        }
+
+
+        /* ================================
+           LOAD PAPER
+        ================================= */
+
+        const paperRef =
+            doc(
+                db,
+                "papers",
+                examData.paperId
+            );
+
+
+        const paperSnap =
+            await getDoc(
+                paperRef
+            );
+
+
+        if (!paperSnap.exists()) {
+
+            showError(
+                "Question paper not found."
+            );
+
+            return;
+
+        }
+
+
+        const paperData =
+            paperSnap.data();
+
+
+        document.getElementById(
+            "examTitle"
+        ).textContent =
+            paperData.title ||
+            "MCQ Examination";
+
+
+        document.getElementById(
+            "totalMarks"
+        ).textContent =
+            paperData.totalMarks ||
+            "-";
+
+
+        /* ================================
+           LOAD SUBJECT
+        ================================= */
+
+        if (
+            paperData.subjectId
+        ) {
+
+            const subjectRef =
+                doc(
+                    db,
+                    "subjects",
+                    paperData.subjectId
+                );
+
+
+            const subjectSnap =
+                await getDoc(
+                    subjectRef
+                );
+
+
+            if (
+                subjectSnap.exists()
+            ) {
+
+                document.getElementById(
+                    "subjectName"
+                ).textContent =
+                    subjectSnap.data().name ||
+                    "-";
+
+            }
+
+        }
+
+
+        /* ================================
+           LOAD MCQ QUESTIONS
+        ================================= */
+
+        const questionQuery =
+            query(
+                collection(
+                    db,
+                    "questions"
+                ),
+
+                where(
+                    "paperId",
+                    "==",
+                    examData.paperId
+                )
+            );
+
+
+        const questionSnapshot =
+            await getDocs(
+                questionQuery
+            );
+
+
+        questions = [];
+
+
+        questionSnapshot.forEach(
+            questionDoc => {
+
+                questions.push({
+
+                    id:
+                        questionDoc.id,
+
+                    ...questionDoc.data()
+
+                });
+
+            }
+        );
+
+
+        /* ================================
+           SORT QUESTIONS
+        ================================= */
+
+        questions.sort(
+            (a, b) =>
+                (a.questionNumber || 0) -
+                (b.questionNumber || 0)
+        );
+
+
+        if (!questions.length) {
+
+            showError(
+                "No MCQ questions have been added for this paper yet."
+            );
+
+            return;
+
+        }
+
+
+        document.getElementById(
+            "questionCount"
+        ).textContent =
+            questions.length;
+
+
+        /* ================================
+           DISPLAY QUESTIONS
+        ================================= */
+
+        displayQuestions();
+
+
+        /* ================================
+           CHECK EXAM TIME
+        ================================= */
+
+        if (!isExamActive()) {
+
+            showError(
+                "This examination is not currently active."
+            );
+
+            return;
+
+        }
+
+
+        loading.style.display =
+            "none";
+
+
+        examArea.style.display =
+            "block";
+
+
+        startTimer();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showError(
+            "Unable to load examination: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   DISPLAY QUESTIONS
+======================================== */
+
+function displayQuestions() {
+
+    questionsContainer.innerHTML =
+        "";
+
+
+    questions.forEach(
+        (question, index) => {
+
+            const questionCard =
+                document.createElement(
+                    "div"
+                );
+
+
+            questionCard.className =
+                "question-card";
+
+
+            const questionNumber =
+                index + 1;
+
+
+            const questionText =
+                question.question ||
+                question.questionText ||
+                "";
+
+
+            const options =
+                question.options ||
+                [];
+
+
+            let optionsHTML =
+                "";
+
+
+            options.forEach(
+                (option, optionIndex) => {
+
+                    let optionValue =
+                        option;
+
+
+                    let optionText =
+                        option;
+
+
+                    if (
+                        typeof option ===
+                        "object"
+                    ) {
+
+                        optionValue =
+                            option.value ||
+                            option.key ||
+                            optionIndex;
+
+                        optionText =
+                            option.text ||
+                            option.label ||
+                            option.value ||
+                            "";
+
+                    }
+
+
+                    optionsHTML += `
+
+                        <label class="option">
+
+                            <input
+                                type="radio"
+                                name="question_${question.id}"
+                                value="${escapeHTML(String(optionValue))}"
+                            >
+
+                            ${escapeHTML(String(optionText))}
+
+                        </label>
+
+                    `;
+
+                }
+            );
+
+
+            questionCard.innerHTML = `
+
+                <div class="question-number">
+
+                    Question ${questionNumber}
+
+                </div>
+
+
+                <div class="question-text">
+
+                    ${escapeHTML(
+                        String(questionText)
+                    )}
+
+                </div>
+
+
+                <div>
+
+                    ${optionsHTML}
+
+                </div>
+
+            `;
+
+
+            questionsContainer.appendChild(
+                questionCard
+            );
+
+        }
+    );
+
+
+    /* =================================
+       OPTION SELECTION STYLE
+    ================================= */
+
+    document
+        .querySelectorAll(
+            ".option input"
+        )
+        .forEach(
+            input => {
+
+                input.addEventListener(
+                    "change",
+                    function() {
+
+                        const options =
+                            document.querySelectorAll(
+                                `input[name="${this.name}"]`
+                            );
+
+
+                        options.forEach(
+                            radio => {
+
+                                radio
+                                    .closest(
+                                        ".option"
+                                    )
+                                    .classList
+                                    .remove(
+                                        "selected"
+                                    );
+
+                            }
+                        );
+
+
+                        this
+                            .closest(
+                                ".option"
+                            )
+                            .classList
+                            .add(
+                                "selected"
+                            );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* ========================================
+   TIMER
+======================================== */
+
+function startTimer() {
+
+    let endTime;
+
+
+    if (
+        examData.end &&
+        examData.end.toDate
+    ) {
+
+        endTime =
+            examData.end.toDate();
+
+    }
+
+    else {
+
+        endTime =
+            new Date(
+                `${examData.examDate} ${examData.endTime}`
+            );
+
+    }
+
+
+    function updateTimer() {
+
+        const now =
+            new Date();
+
+
+        const difference =
+            endTime.getTime() -
+            now.getTime();
+
+
+        if (
+            difference <= 0
+        ) {
+
+            document.getElementById(
+                "timer"
+            ).textContent =
+                "00:00:00";
+
+
+            clearInterval(
+                timerInterval
+            );
+
+
+            autoSubmit();
+
+            return;
+
+        }
+
+
+        const totalSeconds =
+            Math.floor(
+                difference / 1000
+            );
+
+
+        const hours =
+            Math.floor(
+                totalSeconds / 3600
+            );
+
+
+        const minutes =
+            Math.floor(
+                (totalSeconds % 3600) / 60
+            );
+
+
+        const seconds =
+            totalSeconds % 60;
+
+
+        document.getElementById(
+            "timer"
+        ).textContent =
+
+            String(hours).padStart(2, "0")
+            + ":" +
+
+            String(minutes).padStart(2, "0")
+            + ":" +
+
+            String(seconds).padStart(2, "0");
+
+    }
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(
+            updateTimer,
+            1000
+        );
+
+}
+
+
+/* ========================================
+   CHECK EXAM ACTIVE
+======================================== */
+
+function isExamActive() {
+
+    if (!examData) {
+        return false;
+    }
+
+
+    const now =
+        new Date();
+
+
+    let startDate;
+
+    let endDate;
+
+
+    if (
+        examData.start &&
+        examData.start.toDate
+    ) {
+
+        startDate =
+            examData.start.toDate();
+
+    }
+
+    else {
+
+        startDate =
+            new Date(
+                `${examData.examDate} ${examData.startTime}`
+            );
+
+    }
+
+
+    if (
+        examData.end &&
+        examData.end.toDate
+    ) {
+
+        endDate =
+            examData.end.toDate();
+
+    }
+
+    else {
+
+        endDate =
+            new Date(
+                `${examData.examDate} ${examData.endTime}`
+            );
+
+    }
+
+
+    return (
+        now >= startDate &&
+        now <= endDate
+    );
+
+}
+
+
+/* ========================================
+   SUBMIT EXAM
+======================================== */
+
+examForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        if (
+            examSubmitted
+        ) {
+
+            return;
+
+        }
+
+
+        if (!isExamActive()) {
+
+            showError(
+                "The examination time has ended."
+            );
+
+            return;
+
+        }
+
+
+        const confirmSubmit =
+            confirm(
+                "Are you sure you want to submit the examination?"
+            );
+
+
+        if (!confirmSubmit) {
+
+            return;
+
+        }
+
+
+        await submitExam();
+
+    }
+);
+
+
+/* ========================================
+   SUBMIT / CHECK ANSWERS
+======================================== */
+
+async function submitExam() {
+
+    examSubmitted =
+        true;
+
+
+    submitExamBtn.disabled =
+        true;
+
+
+    submitExamBtn.textContent =
+        "Checking Answers...";
+
+
+    if (
+        timerInterval
+    ) {
+
+        clearInterval(
+            timerInterval
+        );
+
+    }
+
+
+    try {
+
+        let correctAnswers =
+            0;
+
+
+        let answeredQuestions =
+            0;
+
+
+        questions.forEach(
+            question => {
+
+                const selected =
+                    document.querySelector(
+                        `input[name="question_${question.id}"]:checked`
+                    );
+
+
+                if (!selected) {
+
+                    return;
+
+                }
+
+
+                answeredQuestions++;
+
+
+                const studentAnswer =
+                    String(
+                        selected.value
+                    ).trim();
+
+
+                const correctAnswer =
+                    getCorrectAnswer(
+                        question
+                    );
+
+
+                if (
+                    studentAnswer.toLowerCase() ===
+                    correctAnswer.toLowerCase()
+                ) {
+
+                    correctAnswers++;
+
+                }
+
+            }
+        );
+
+
+        const totalQuestions =
+            questions.length;
+
+
+        const totalMarks =
+            Number(
+                document.getElementById(
+                    "totalMarks"
+                ).textContent
+            ) ||
+            totalQuestions;
+
+
+        /*
+         * Each question gets equal marks.
+         */
+
+        const marksPerQuestion =
+            totalMarks /
+            totalQuestions;
+
+
+        const marks =
+            correctAnswers *
+            marksPerQuestion;
+
+
+        const percentage =
+            totalQuestions > 0
+                ? (
+                    correctAnswers /
+                    totalQuestions
+                ) * 100
+                : 0;
+
+
+        /* =========================
+           SAVE RESULT
+        ========================== */
+
+        await addDoc(
+            collection(
+                db,
+                "results"
+            ),
+            {
+
+                studentId:
+                    currentUser.uid,
+
+                examId:
+                    examId,
+
+                submissionId:
+                    null,
+
+                marks:
+                    Number(
+                        marks.toFixed(2)
+                    ),
+
+                totalMarks:
+                    totalMarks,
+
+                percentage:
+                    Number(
+                        percentage.toFixed(2)
+                    ),
+
+                correctAnswers:
+                    correctAnswers,
+
+                answeredQuestions:
+                    answeredQuestions,
+
+                totalQuestions:
+                    totalQuestions,
+
+                remarks:
+                    "MCQ examination automatically evaluated.",
+
+                status:
+                    "published",
+
+                resultType:
+                    "mcq",
+
+                checkedAt:
+                    serverTimestamp(),
+
+                createdAt:
+                    serverTimestamp()
+
+            }
+        );
+
+
+        showResult(
+            correctAnswers,
+            totalQuestions,
+            marks,
+            totalMarks,
+            percentage
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        examSubmitted =
+            false;
+
+
+        submitExamBtn.disabled =
+            false;
+
+
+        submitExamBtn.textContent =
+            "Submit Examination";
+
+
+        showError(
+            "Unable to submit examination: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   AUTO SUBMIT
+======================================== */
+
+async function autoSubmit() {
+
+    if (
+        examSubmitted
+    ) {
+
+        return;
+
+    }
+
+
+    examSubmitted =
+        true;
+
+
+    submitExamBtn.disabled =
+        true;
+
+
+    submitExamBtn.textContent =
+        "Time Over - Submitting...";
+
+
+    try {
+
+        await submitExamWithoutConfirmation();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        showError(
+            "Automatic submission failed: " +
+            error.message
+        );
+
+    }
+
+}
+
+
+/* ========================================
+   AUTO SUBMIT FUNCTION
+======================================== */
+
+async function submitExamWithoutConfirmation() {
+
+    let correctAnswers =
+        0;
+
+
+    let answeredQuestions =
+        0;
+
+
+    questions.forEach(
+        question => {
+
+            const selected =
+                document.querySelector(
+                    `input[name="question_${question.id}"]:checked`
+                );
+
+
+            if (!selected) {
+                return;
+            }
+
+
+            answeredQuestions++;
+
+
+            const studentAnswer =
+                String(
+                    selected.value
+                ).trim();
+
+
+            const correctAnswer =
+                getCorrectAnswer(
+                    question
+                );
+
+
+            if (
+                studentAnswer.toLowerCase() ===
+                correctAnswer.toLowerCase()
+            ) {
+
+                correctAnswers++;
+
+            }
+
+        }
+    );
+
+
+    const totalQuestions =
+        questions.length;
+
+
+    const totalMarks =
+        Number(
+            document.getElementById(
+                "totalMarks"
+            ).textContent
+        ) ||
+        totalQuestions;
+
+
+    const marksPerQuestion =
+        totalMarks /
+        totalQuestions;
+
+
+    const marks =
+        correctAnswers *
+        marksPerQuestion;
+
+
+    const percentage =
+        (
+            correctAnswers /
+            totalQuestions
+        ) * 100;
+
+
+    await addDoc(
+        collection(
+            db,
+            "results"
+        ),
+        {
+
+            studentId:
+                currentUser.uid,
+
+            examId:
+                examId,
+
+            submissionId:
+                null,
+
+            marks:
+                Number(
+                    marks.toFixed(2)
+                ),
+
+            totalMarks:
+                totalMarks,
+
+            percentage:
+                Number(
+                    percentage.toFixed(2)
+                ),
+
+            correctAnswers:
+                correctAnswers,
+
+            answeredQuestions:
+                answeredQuestions,
+
+            totalQuestions:
+                totalQuestions,
+
+            remarks:
+                "MCQ examination automatically evaluated after time ended.",
+
+            status:
+                "published",
+
+            resultType:
+                "mcq",
+
+            checkedAt:
+                serverTimestamp(),
+
+            createdAt:
+                serverTimestamp()
+
+        }
+    );
+
+
+    showResult(
+        correctAnswers,
+        totalQuestions,
+        marks,
+        totalMarks,
+        percentage
+    );
+
+}
+
+
+/* ========================================
+   GET CORRECT ANSWER
+======================================== */
+
+function getCorrectAnswer(
+    question
+) {
+
+    if (
+        question.correctAnswer !==
+        undefined
+    ) {
+
+        return String(
+            question.correctAnswer
+        ).trim();
+
+    }
+
+
+    if (
+        question.answer !==
+        undefined
+    ) {
+
+        return String(
+            question.answer
+        ).trim();
+
+    }
+
+
+    if (
+        question.correctOption !==
+        undefined
+    ) {
+
+        return String(
+            question.correctOption
+        ).trim();
+
+    }
+
+
+    return "";
+
+}
+
+
+/* ========================================
+   SHOW RESULT
+======================================== */
+
+function showResult(
+    correctAnswers,
+    totalQuestions,
+    marks,
+    totalMarks,
+    percentage
+) {
+
+    examArea.style.display =
+        "none";
+
+
+    resultArea.style.display =
+        "block";
+
+
+    document.getElementById(
+        "resultMarks"
+    ).textContent =
+
+        `${marks.toFixed(2)} / ${totalMarks}`;
+
+
+    document.getElementById(
+        "resultPercentage"
+    ).textContent =
+
+        `${percentage.toFixed(2)}%`;
+
+
+    document.getElementById(
+        "resultMessage"
+    ).textContent =
+
+        `You answered ${correctAnswers} out of ${totalQuestions} questions correctly.`;
+
+}
+
+
+/* ========================================
+   ERROR
+======================================== */
+
+function showError(
+    message
+) {
+
+    loading.style.display =
+        "none";
+
+
+    examArea.style.display =
+        "none";
+
+
+    resultArea.style.display =
+        "none";
+
+
+    messageBox.textContent =
+        message;
+
+
+    messageBox.className =
+        "message error";
+
+
+    messageBox.style.display =
+        "block";
+
+}
+
+
+/* ========================================
+   HTML ESCAPE
+======================================== */
+
+function escapeHTML(
+    value
+) {
+
+    return value
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+</script>
+
+</body>
+
+</html>
