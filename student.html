@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Student Dashboard - Online Exam Portal</title>
+<title>Student Dashboard</title>
 
 <style>
 * {
@@ -25,8 +24,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
   flex-wrap: wrap;
+  gap: 15px;
 }
 
 .header h1 {
@@ -35,22 +34,18 @@ body {
 }
 
 .student-info {
+  margin-top: 6px;
   font-size: 14px;
-  margin-top: 5px;
 }
 
 .logout-btn {
-  border: none;
   background: #dc3545;
   color: white;
-  padding: 10px 18px;
+  border: 0;
   border-radius: 7px;
-  cursor: pointer;
+  padding: 10px 18px;
   font-weight: bold;
-}
-
-.logout-btn:hover {
-  background: #b02a37;
+  cursor: pointer;
 }
 
 .container {
@@ -64,83 +59,63 @@ body {
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
 
 .card h2 {
   margin-top: 0;
   color: #173b73;
-  font-size: 20px;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 7px;
+.loading,
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: #666;
 }
 
-select,
-input[type="file"] {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #ccd3dd;
+.error {
+  background: #fdeaea;
+  color: #a61b1b;
+  padding: 12px;
   border-radius: 7px;
-  background: white;
 }
 
-button {
-  border: none;
+.success {
+  background: #e8f7ee;
+  color: #146c43;
+  padding: 12px;
   border-radius: 7px;
-  padding: 11px 18px;
-  cursor: pointer;
-  font-weight: bold;
 }
 
-.primary-btn {
-  background: #1769aa;
-  color: white;
+.warning {
+  background: #fff4db;
+  color: #8a5a00;
+  padding: 12px;
+  border-radius: 7px;
 }
 
-.primary-btn:hover {
-  background: #125487;
+.hidden {
+  display: none !important;
 }
 
-.success-btn {
-  background: #198754;
-  color: white;
-}
-
-.warning-btn {
-  background: #f0ad4e;
-  color: white;
-}
-
-.danger-btn {
-  background: #dc3545;
-  color: white;
-}
-
-.secondary-btn {
-  background: #6c757d;
-  color: white;
-}
+/* SUBJECTS */
 
 .subject-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 15px;
-  margin-top: 15px;
 }
 
 .subject-box {
   border: 1px solid #d8e0ea;
   border-radius: 10px;
-  padding: 15px;
+  padding: 16px;
   background: #f8fbff;
 }
 
 .subject-box h3 {
-  margin: 0 0 7px;
+  margin: 0 0 8px;
   color: #173b73;
 }
 
@@ -149,12 +124,21 @@ button {
   font-size: 13px;
 }
 
+/* PAPER */
+
+select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccd3dd;
+  border-radius: 7px;
+  background: white;
+}
+
 .paper-box {
   border: 1px solid #d8e0ea;
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
-  background: #fff;
 }
 
 .paper-box h3 {
@@ -163,43 +147,45 @@ button {
 }
 
 .paper-info {
-  line-height: 1.7;
-  font-size: 14px;
+  line-height: 1.8;
 }
 
 .paper-actions {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-top: 12px;
+  margin-top: 15px;
 }
 
-.status-box {
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 15px;
+button {
+  border: 0;
+  border-radius: 7px;
+  padding: 11px 18px;
+  cursor: pointer;
   font-weight: bold;
 }
 
-.status-info {
-  background: #e8f1ff;
-  color: #174a85;
+.primary {
+  background: #1769aa;
+  color: white;
 }
 
-.status-success {
-  background: #e8f7ee;
-  color: #146c43;
+.success-btn {
+  background: #198754;
+  color: white;
 }
 
-.status-warning {
-  background: #fff4db;
-  color: #8a5a00;
+.secondary {
+  background: #6c757d;
+  color: white;
 }
 
-.status-danger {
-  background: #fdeaea;
-  color: #a61b1b;
+.warning-btn {
+  background: #f0ad4e;
+  color: white;
 }
+
+/* PHOTOS */
 
 .photo-buttons {
   display: flex;
@@ -221,17 +207,15 @@ button {
 
 .preview-item {
   position: relative;
-  border: 1px solid #d7dce2;
+  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background: #f7f7f7;
 }
 
 .preview-item img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  display: block;
 }
 
 .remove-photo {
@@ -244,23 +228,22 @@ button {
   border-radius: 50%;
   background: #dc3545;
   color: white;
-  font-size: 16px;
 }
 
 .photo-number {
-  padding: 5px;
   text-align: center;
+  padding: 5px;
   font-size: 12px;
-  font-weight: bold;
 }
+
+/* PROGRESS */
 
 .progress-container {
   display: none;
   margin-top: 15px;
 }
 
-.progress-bar-bg {
-  width: 100%;
+.progress-bg {
   height: 20px;
   background: #e5e7eb;
   border-radius: 10px;
@@ -268,28 +251,28 @@ button {
 }
 
 .progress-bar {
-  width: 0%;
+  width: 0;
   height: 100%;
   background: #198754;
-  transition: width 0.2s;
 }
 
 .progress-text {
   text-align: center;
-  margin-top: 6px;
   font-size: 13px;
+  margin-top: 5px;
 }
+
+/* RESULT */
 
 .result-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
 .result-table th,
 .result-table td {
-  border: 1px solid #d7dce2;
-  padding: 10px;
+  border: 1px solid #ddd;
+  padding: 9px;
   text-align: left;
 }
 
@@ -298,51 +281,7 @@ button {
   color: #173b73;
 }
 
-.empty {
-  text-align: center;
-  color: #777;
-  padding: 20px;
-}
-
-.loading {
-  text-align: center;
-  padding: 20px;
-  color: #555;
-}
-
-.error {
-  background: #fdeaea;
-  color: #a61b1b;
-  padding: 12px;
-  border-radius: 7px;
-  margin-top: 10px;
-}
-
-.success-message {
-  background: #e8f7ee;
-  color: #146c43;
-  padding: 12px;
-  border-radius: 7px;
-  margin-top: 10px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.small-text {
-  font-size: 13px;
-  color: #666;
-}
-
-@media (max-width: 600px) {
-  .header {
-    align-items: flex-start;
-  }
-
-  .header h1 {
-    font-size: 19px;
-  }
+@media(max-width:600px) {
 
   .container {
     width: 96%;
@@ -352,8 +291,8 @@ button {
     padding: 15px;
   }
 
-  .paper-actions button,
-  .photo-buttons button {
+  .photo-buttons button,
+  .paper-actions button {
     width: 100%;
   }
 }
@@ -363,125 +302,167 @@ button {
 <body>
 
 <div class="header">
+
   <div>
     <h1>🎓 Student Dashboard</h1>
+
     <div class="student-info" id="studentInfo">
-      Loading student information...
+      Loading...
     </div>
   </div>
 
-  <button class="logout-btn" onclick="logout()">Logout</button>
+  <button class="logout-btn" onclick="logout()">
+    Logout
+  </button>
+
 </div>
+
 
 <div class="container">
 
-  <!-- ASSIGNED SUBJECTS -->
+  <!-- =====================================================
+       ASSIGNED SUBJECTS
+  ====================================================== -->
+
   <div class="card">
+
     <h2>📚 My Assigned Subjects</h2>
 
-    <div id="subjectsLoading" class="loading">
+    <div id="subjectLoading" class="loading">
       Loading assigned subjects...
     </div>
 
-    <div id="subjectsError" class="error hidden"></div>
+    <div id="subjectError" class="error hidden"></div>
 
-    <div id="subjectsEmpty" class="empty hidden">
-      No subjects have been assigned to your Student ID yet.
+    <div id="subjectEmpty" class="empty hidden">
+      No subject has been assigned to this Student ID.
     </div>
 
-    <div id="subjectsGrid" class="subject-grid"></div>
+    <div id="subjectGrid" class="subject-grid"></div>
+
   </div>
 
-  <!-- QUESTION PAPERS -->
+
+  <!-- =====================================================
+       QUESTION PAPERS
+  ====================================================== -->
+
   <div class="card">
+
     <h2>📝 Question Papers</h2>
 
-    <label for="paperSelect">Select Question Paper</label>
+    <label for="paperSelect">
+      Select Question Paper
+    </label>
 
     <select id="paperSelect" onchange="paperSelected()">
-      <option value="">-- Select Question Paper --</option>
+
+      <option value="">
+        -- Select Question Paper --
+      </option>
+
     </select>
 
-    <div id="paperList" class="hidden"></div>
-
     <div id="paperEmpty" class="empty">
-      Select a question paper to view its details.
+      Select a question paper.
     </div>
+
+    <div id="paperContainer"></div>
+
   </div>
 
-  <!-- SUBMISSION -->
-  <div class="card" id="submissionCard">
+
+  <!-- =====================================================
+       ANSWER SHEET
+  ====================================================== -->
+
+  <div class="card">
 
     <h2>📤 Answer Sheet Submission</h2>
 
-    <div id="submissionMessage" class="status-box status-info">
-      Please select a question paper first.
+    <div id="submissionMessage" class="warning">
+      Please select a question paper.
     </div>
 
     <div id="submissionArea" class="hidden">
 
-      <p class="small-text">
-        You can upload <strong>1 to 20 photos</strong> of your answer sheet.
+      <p>
+        Upload <strong>1 to 20 photos</strong> of your answer sheet.
       </p>
 
       <div class="photo-buttons">
 
-        <!-- CAMERA -->
         <button
           type="button"
-          class="primary-btn"
+          class="primary"
           onclick="openCamera()">
           📷 Take Photo
         </button>
 
-        <!-- GALLERY / FILE -->
         <button
           type="button"
           class="success-btn"
           onclick="openGallery()">
-          📁 Choose from Gallery / Files
+          📁 Gallery / Files
         </button>
 
       </div>
 
-      <!-- Camera input -->
+
       <input
+        type="file"
         id="cameraInput"
         class="photo-input"
-        type="file"
         accept="image/*"
         capture="environment"
-        onchange="handleFiles(this.files)">
+        onchange="handleFiles(this.files)"
+      >
 
-      <!-- Gallery/File input -->
+
       <input
+        type="file"
         id="galleryInput"
         class="photo-input"
-        type="file"
         accept="image/*"
         multiple
-        onchange="handleFiles(this.files)">
+        onchange="handleFiles(this.files)"
+      >
 
-      <div id="photoCount" class="small-text">
+
+      <div id="photoCount">
         0 photos selected
       </div>
 
+
       <div id="previewGrid" class="preview-grid"></div>
 
-      <div class="progress-container" id="progressContainer">
-        <div class="progress-bar-bg">
-          <div class="progress-bar" id="progressBar"></div>
+
+      <div
+        id="progressContainer"
+        class="progress-container">
+
+        <div class="progress-bg">
+
+          <div
+            id="progressBar"
+            class="progress-bar">
+          </div>
+
         </div>
-        <div class="progress-text" id="progressText">
-          Uploading...
+
+        <div
+          id="progressText"
+          class="progress-text">
         </div>
+
       </div>
 
-      <div class="paper-actions" style="margin-top:20px;">
+
+      <div class="paper-actions">
 
         <button
-          type="button"
           id="submitBtn"
+          type="button"
           class="success-btn"
           onclick="submitAnswerSheet()">
           📤 Submit Answer Sheet
@@ -489,8 +470,7 @@ button {
 
         <button
           type="button"
-          id="clearBtn"
-          class="secondary-btn"
+          class="secondary"
           onclick="clearPhotos()">
           Clear Photos
         </button>
@@ -501,22 +481,27 @@ button {
 
   </div>
 
-  <!-- RESULTS -->
+
+  <!-- =====================================================
+       RESULTS
+  ====================================================== -->
+
   <div class="card">
+
     <h2>📊 My Results</h2>
 
-    <div id="resultsLoading" class="loading">
-      Loading results...
-    </div>
-
-    <div id="resultsEmpty" class="empty hidden">
+    <div id="resultEmpty" class="empty">
       No results available yet.
     </div>
 
-    <div id="resultsTableContainer" class="hidden">
+    <div id="resultContainer" class="hidden">
+
       <div style="overflow-x:auto;">
+
         <table class="result-table">
+
           <thead>
+
             <tr>
               <th>Paper</th>
               <th>Marks</th>
@@ -525,30 +510,43 @@ button {
               <th>Result</th>
               <th>Remarks</th>
             </tr>
+
           </thead>
-          <tbody id="resultsTableBody"></tbody>
+
+          <tbody id="resultBody"></tbody>
+
         </table>
+
       </div>
+
     </div>
 
   </div>
 
 </div>
 
+
 <script>
 
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
 var API_URL =
-  "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
+"https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+========================================================= */
 
 var studentId = "";
 var studentName = "";
 
-var dashboardData = {
-  subjects: [],
-  papers: [],
-  results: [],
-  submissions: []
-};
+var subjects = [];
+var assignments = [];
+var papers = [];
+var results = [];
 
 var selectedPaper = null;
 
@@ -556,50 +554,79 @@ var selectedPhotos = [];
 
 var editingSubmission = false;
 
-var currentSubmissionStatus = null;
-
 
 /* =========================================================
-   INITIALIZATION
+   START
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
 
-  /*
-   * IMPORTANT:
-   * index.html stores these values in sessionStorage.
-   * Therefore student.html MUST read sessionStorage.
-   */
+    /*
+     * VERY IMPORTANT
+     *
+     * index.html saves Student ID in sessionStorage.
+     *
+     * Therefore student.html also reads sessionStorage.
+     */
 
-  studentId = sessionStorage.getItem("studentId") || "";
-  studentName = sessionStorage.getItem("studentName") || "";
+    studentId =
+      sessionStorage.getItem("studentId") || "";
 
-  if (!studentId) {
+    studentName =
+      sessionStorage.getItem("studentName") || "";
 
-    alert("Student session not found. Please login again.");
 
-    window.location.href = "index.html";
+    if (!studentId) {
 
-    return;
+      alert(
+        "Student login session not found. Please login again."
+      );
+
+      window.location.href =
+        "index.html";
+
+      return;
+    }
+
+
+    document.getElementById(
+      "studentInfo"
+    ).innerHTML =
+      "Student ID: <strong>" +
+      escapeHtml(studentId) +
+      "</strong>" +
+      (
+        studentName
+          ? " &nbsp; | &nbsp; Name: <strong>" +
+            escapeHtml(studentName) +
+            "</strong>"
+          : ""
+      );
+
+
+    /*
+     * IMPORTANT:
+     *
+     * We do NOT depend on getStudentDashboard
+     * to determine assigned subjects.
+     *
+     * We separately load:
+     *
+     * 1. Subjects
+     * 2. Assignments for THIS Student ID
+     * 3. Match Subject IDs
+     */
+
+    loadStudentData();
+
   }
-
-  document.getElementById("studentInfo").innerHTML =
-    "Student ID: <strong>" +
-    escapeHtml(studentId) +
-    "</strong>" +
-    (studentName
-      ? " &nbsp; | &nbsp; Name: <strong>" +
-        escapeHtml(studentName) +
-        "</strong>"
-      : "");
-
-  loadDashboard();
-
-});
+);
 
 
 /* =========================================================
-   API
+   API FUNCTION
 ========================================================= */
 
 async function api(action, data) {
@@ -608,88 +635,172 @@ async function api(action, data) {
 
   payload.action = action;
 
-  var response = await fetch(API_URL, {
-    method: "POST",
-    body: JSON.stringify(payload)
-  });
 
-  var text = await response.text();
+  var response =
+    await fetch(
+      API_URL,
+      {
+        method: "POST",
+        body: JSON.stringify(payload)
+      }
+    );
+
+
+  var text =
+    await response.text();
+
 
   var result;
 
   try {
-    result = JSON.parse(text);
+
+    result =
+      JSON.parse(text);
+
   } catch (e) {
 
     throw new Error(
       "Invalid response from server: " +
       text.substring(0, 300)
     );
+
   }
+
 
   if (!result.success) {
 
     throw new Error(
-      result.message || "Server returned an error."
+      result.message ||
+      "Server error."
     );
+
   }
 
+
   return result;
+
 }
 
 
 /* =========================================================
-   LOAD STUDENT DASHBOARD
+   LOAD EVERYTHING
 ========================================================= */
 
-async function loadDashboard() {
+async function loadStudentData() {
 
-  showSubjectsLoading(true);
+  showSubjectLoading(true);
 
   try {
 
-    var result = await api(
-      "getStudentDashboard",
-      {
-        studentId: studentId
-      }
-    );
+    /*
+     * LOAD SUBJECTS
+     */
 
-    dashboardData.subjects =
-      Array.isArray(result.subjects)
-        ? result.subjects
-        : [];
+    var subjectResult =
+      await api(
+        "getSubjects",
+        {}
+      );
 
-    dashboardData.papers =
-      Array.isArray(result.papers)
-        ? result.papers
-        : [];
 
-    dashboardData.results =
-      Array.isArray(result.results)
-        ? result.results
-        : [];
+    subjects =
+      Array.isArray(subjectResult.subjects)
+        ? subjectResult.subjects
+        : (
+            Array.isArray(subjectResult.data)
+              ? subjectResult.data
+              : []
+          );
 
-    dashboardData.submissions =
-      Array.isArray(result.submissions)
-        ? result.submissions
-        : [];
 
-    renderSubjects();
+    /*
+     * LOAD ASSIGNMENTS FOR THIS STUDENT
+     *
+     * THIS IS THE IMPORTANT FIX.
+     */
+
+    var assignmentResult =
+      await api(
+        "getAssignments",
+        {
+          studentId: studentId
+        }
+      );
+
+
+    assignments =
+      Array.isArray(assignmentResult.assignments)
+        ? assignmentResult.assignments
+        : (
+            Array.isArray(assignmentResult.data)
+              ? assignmentResult.data
+              : []
+          );
+
+
+    /*
+     * BUILD ASSIGNED SUBJECT LIST
+     */
+
+    buildAssignedSubjects();
+
+
+    /*
+     * LOAD DASHBOARD FOR PAPERS / RESULTS
+     */
+
+    try {
+
+      var dashboard =
+        await api(
+          "getStudentDashboard",
+          {
+            studentId: studentId
+          }
+        );
+
+
+      papers =
+        Array.isArray(dashboard.papers)
+          ? dashboard.papers
+          : [];
+
+      results =
+        Array.isArray(dashboard.results)
+          ? dashboard.results
+          : [];
+
+    } catch (dashboardError) {
+
+      /*
+       * Assignment display must NOT fail
+       * just because another dashboard section
+       * has an error.
+       */
+
+      papers = [];
+      results = [];
+
+    }
+
 
     renderPapers();
 
     renderResults();
 
+
   } catch (error) {
 
-    showSubjectsLoading(false);
+    showSubjectLoading(false);
 
-    document.getElementById("subjectsError").textContent =
+    document.getElementById(
+      "subjectError"
+    ).textContent =
       error.message;
 
-    document.getElementById("subjectsError")
-      .classList.remove("hidden");
+    document.getElementById(
+      "subjectError"
+    ).classList.remove("hidden");
 
   }
 
@@ -697,78 +808,281 @@ async function loadDashboard() {
 
 
 /* =========================================================
-   SUBJECTS
+   BUILD ASSIGNED SUBJECTS
 ========================================================= */
 
-function renderSubjects() {
+function buildAssignedSubjects() {
 
-  showSubjectsLoading(false);
+  showSubjectLoading(false);
+
 
   var grid =
-    document.getElementById("subjectsGrid");
+    document.getElementById(
+      "subjectGrid"
+    );
 
   var empty =
-    document.getElementById("subjectsEmpty");
+    document.getElementById(
+      "subjectEmpty"
+    );
+
 
   grid.innerHTML = "";
 
+
   /*
-   * This is the important part:
-   *
-   * getStudentDashboard already returns ONLY the subjects
-   * assigned to the logged-in Student ID.
+   * DEBUG-SAFE NORMALIZATION
    */
 
-  if (!dashboardData.subjects.length) {
+  var assignedSubjectIds = [];
 
-    empty.classList.remove("hidden");
+
+  assignments.forEach(
+    function(assignment) {
+
+      var assignedStudentId =
+        getValue(
+          assignment,
+          [
+            "Student ID",
+            "studentId",
+            "StudentID"
+          ]
+        );
+
+
+      /*
+       * If backend already filtered assignments,
+       * assignedStudentId may be empty.
+       *
+       * If it is present, make sure it matches
+       * the logged-in student.
+       */
+
+      if (
+        assignedStudentId &&
+        String(assignedStudentId).trim() !==
+        String(studentId).trim()
+      ) {
+
+        return;
+
+      }
+
+
+      var subjectId =
+        getValue(
+          assignment,
+          [
+            "Subject ID",
+            "subjectId",
+            "SubjectID"
+          ]
+        );
+
+
+      if (!subjectId) {
+        return;
+      }
+
+
+      subjectId =
+        String(subjectId).trim();
+
+
+      if (
+        assignedSubjectIds.indexOf(subjectId) === -1
+      ) {
+
+        assignedSubjectIds.push(
+          subjectId
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+   * MATCH ASSIGNMENT SUBJECT IDs
+   * WITH SUBJECTS SHEET
+   */
+
+  var assignedSubjects = [];
+
+
+  subjects.forEach(
+    function(subject) {
+
+      var subjectId =
+        getValue(
+          subject,
+          [
+            "Subject ID",
+            "subjectId",
+            "SubjectID"
+          ]
+        );
+
+
+      subjectId =
+        String(subjectId || "").trim();
+
+
+      if (
+        subjectId &&
+        assignedSubjectIds.indexOf(subjectId) !== -1
+      ) {
+
+        assignedSubjects.push(
+          subject
+        );
+
+      }
+
+    }
+  );
+
+
+  /*
+   * DISPLAY
+   */
+
+  if (!assignedSubjects.length) {
+
+    empty.classList.remove(
+      "hidden"
+    );
+
+
+    /*
+     * This message helps identify the problem
+     * without hiding it.
+     */
+
+    empty.innerHTML =
+      "No subject has been assigned to Student ID " +
+      "<strong>" +
+      escapeHtml(studentId) +
+      "</strong>.";
 
     return;
+
   }
 
-  empty.classList.add("hidden");
 
-  dashboardData.subjects.forEach(function(subject) {
+  empty.classList.add(
+    "hidden"
+  );
 
-    var box =
-      document.createElement("div");
 
-    box.className = "subject-box";
+  assignedSubjects.forEach(
+    function(subject) {
 
-    var subjectId =
-      getValue(
-        subject,
-        ["Subject ID", "subjectId", "SubjectID"]
-      );
+      var subjectName =
+        getValue(
+          subject,
+          [
+            "Subject Name",
+            "subjectName",
+            "SubjectName"
+          ]
+        );
 
-    var subjectName =
-      getValue(
-        subject,
-        ["Subject Name", "subjectName", "SubjectName"]
-      );
 
-    var subjectCode =
-      getValue(
-        subject,
-        ["Subject Code", "subjectCode", "SubjectCode"]
-      );
+      var subjectCode =
+        getValue(
+          subject,
+          [
+            "Subject Code",
+            "subjectCode",
+            "SubjectCode"
+          ]
+        );
 
-    box.innerHTML =
-      "<h3>" +
-      escapeHtml(subjectName || subjectId || "Subject") +
-      "</h3>" +
 
-      (
-        subjectCode
-          ? "<div class='subject-code'>Code: " +
-            escapeHtml(subjectCode) +
-            "</div>"
-          : ""
-      );
+      var subjectId =
+        getValue(
+          subject,
+          [
+            "Subject ID",
+            "subjectId",
+            "SubjectID"
+          ]
+        );
 
-    grid.appendChild(box);
 
-  });
+      var box =
+        document.createElement(
+          "div"
+        );
+
+
+      box.className =
+        "subject-box";
+
+
+      box.innerHTML =
+        "<h3>" +
+        escapeHtml(
+          subjectName ||
+          "Subject"
+        ) +
+        "</h3>" +
+
+        (
+          subjectCode
+            ? "<div class='subject-code'>" +
+              "Subject Code: " +
+              escapeHtml(subjectCode) +
+              "</div>"
+            : ""
+        ) +
+
+        (
+          subjectId
+            ? "<div class='subject-code'>" +
+              "Subject ID: " +
+              escapeHtml(subjectId) +
+              "</div>"
+            : ""
+        );
+
+
+      grid.appendChild(box);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SUBJECT LOADING
+========================================================= */
+
+function showSubjectLoading(show) {
+
+  var loading =
+    document.getElementById(
+      "subjectLoading"
+    );
+
+
+  if (show) {
+
+    loading.classList.remove(
+      "hidden"
+    );
+
+  } else {
+
+    loading.classList.add(
+      "hidden"
+    );
+
+  }
 
 }
 
@@ -780,235 +1094,303 @@ function renderSubjects() {
 function renderPapers() {
 
   var select =
-    document.getElementById("paperSelect");
+    document.getElementById(
+      "paperSelect"
+    );
+
 
   select.innerHTML =
-    '<option value="">-- Select Question Paper --</option>';
+    "<option value=''>" +
+    "-- Select Question Paper --" +
+    "</option>";
 
-  if (!dashboardData.papers.length) {
 
-    document.getElementById("paperEmpty").textContent =
-      "No published question papers are available for your assigned subjects.";
+  if (!papers.length) {
+
+    document.getElementById(
+      "paperEmpty"
+    ).textContent =
+      "No published question papers are available.";
 
     return;
+
   }
 
-  dashboardData.papers.forEach(function(paper, index) {
 
-    var option =
-      document.createElement("option");
+  papers.forEach(
+    function(paper, index) {
 
-    option.value = String(index);
+      var option =
+        document.createElement(
+          "option"
+        );
 
-    var paperCode =
-      getValue(
-        paper,
-        ["Paper Code", "paperCode", "PaperCode"]
+
+      option.value =
+        String(index);
+
+
+      var code =
+        getValue(
+          paper,
+          [
+            "Paper Code",
+            "paperCode",
+            "PaperCode"
+          ]
+        );
+
+
+      var subject =
+        getValue(
+          paper,
+          [
+            "Subject Name",
+            "subjectName",
+            "SubjectName"
+          ]
+        );
+
+
+      var title =
+        getValue(
+          paper,
+          [
+            "Paper Title",
+            "paperTitle",
+            "PaperTitle"
+          ]
+        );
+
+
+      option.textContent =
+        (
+          code
+            ? code + " - "
+            : ""
+        ) +
+
+        (
+          subject
+            ? subject + " - "
+            : ""
+        ) +
+
+        (
+          title ||
+          "Question Paper"
+        );
+
+
+      select.appendChild(
+        option
       );
 
-    var title =
-      getValue(
-        paper,
-        ["Paper Title", "paperTitle", "PaperTitle"]
-      );
-
-    var subjectName =
-      getValue(
-        paper,
-        ["Subject Name", "subjectName", "SubjectName"]
-      );
-
-    var text = "";
-
-    if (paperCode) {
-      text += paperCode + " - ";
     }
-
-    if (subjectName) {
-      text += subjectName + " - ";
-    }
-
-    text += title || "Question Paper";
-
-    option.textContent = text;
-
-    select.appendChild(option);
-
-  });
+  );
 
 }
 
 
 /* =========================================================
-   PAPER SELECTED
+   PAPER SELECT
 ========================================================= */
 
 async function paperSelected() {
 
-  var select =
-    document.getElementById("paperSelect");
+  var value =
+    document.getElementById(
+      "paperSelect"
+    ).value;
 
-  var index =
-    select.value;
-
-  selectedPaper = null;
-
-  document.getElementById("paperList")
-    .classList.add("hidden");
-
-  document.getElementById("paperEmpty")
-    .classList.remove("hidden");
-
-  document.getElementById("submissionArea")
-    .classList.add("hidden");
-
-  document.getElementById("submissionMessage").className =
-    "status-box status-info";
-
-  document.getElementById("submissionMessage").textContent =
-    "Please select a question paper first.";
-
-  clearPhotos();
-
-  if (index === "") {
-    return;
-  }
 
   selectedPaper =
-    dashboardData.papers[Number(index)];
+    null;
+
+
+  document.getElementById(
+    "paperContainer"
+  ).innerHTML = "";
+
+
+  document.getElementById(
+    "submissionArea"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  if (value === "") {
+
+    document.getElementById(
+      "paperEmpty"
+    ).classList.remove(
+      "hidden"
+    );
+
+    document.getElementById(
+      "submissionMessage"
+    ).className =
+      "warning";
+
+    document.getElementById(
+      "submissionMessage"
+    ).textContent =
+      "Please select a question paper.";
+
+    return;
+
+  }
+
+
+  selectedPaper =
+    papers[
+      Number(value)
+    ];
+
 
   if (!selectedPaper) {
     return;
   }
 
-  showPaperDetails();
 
-  await checkSubmissionStatus();
+  showPaper();
+
+
+  await checkSubmission();
 
 }
 
 
 /* =========================================================
-   PAPER DETAILS
+   SHOW PAPER
 ========================================================= */
 
-function showPaperDetails() {
-
-  var paperList =
-    document.getElementById("paperList");
-
-  var paperEmpty =
-    document.getElementById("paperEmpty");
+function showPaper() {
 
   var paper =
     selectedPaper;
 
+
   var code =
     getValue(
       paper,
-      ["Paper Code", "paperCode", "PaperCode"]
+      [
+        "Paper Code",
+        "paperCode",
+        "PaperCode"
+      ]
     );
 
-  var subject =
-    getValue(
-      paper,
-      ["Subject Name", "subjectName", "SubjectName"]
-    );
 
   var title =
     getValue(
       paper,
-      ["Paper Title", "paperTitle", "PaperTitle"]
+      [
+        "Paper Title",
+        "paperTitle",
+        "PaperTitle"
+      ]
     );
+
+
+  var subject =
+    getValue(
+      paper,
+      [
+        "Subject Name",
+        "subjectName",
+        "SubjectName"
+      ]
+    );
+
 
   var totalMarks =
     getValue(
       paper,
-      ["Total Marks", "totalMarks", "TotalMarks"]
+      [
+        "Total Marks",
+        "totalMarks",
+        "TotalMarks"
+      ]
     );
+
 
   var fileUrl =
     getValue(
       paper,
-      ["File URL", "fileUrl", "FileURL"]
+      [
+        "File URL",
+        "fileUrl",
+        "FileURL"
+      ]
     );
 
-  var start =
-    getValue(
-      paper,
-      ["Exam Start", "examStart", "ExamStart"]
-    );
 
-  var end =
-    getValue(
-      paper,
-      ["Exam End", "examEnd", "ExamEnd"]
-    );
+  document.getElementById(
+    "paperEmpty"
+  ).classList.add(
+    "hidden"
+  );
+
 
   var html =
     "<div class='paper-box'>" +
 
-      "<h3>" +
-      escapeHtml(title || "Question Paper") +
-      "</h3>" +
+    "<h3>" +
+    escapeHtml(
+      title ||
+      "Question Paper"
+    ) +
+    "</h3>" +
 
-      "<div class='paper-info'>" +
+    "<div class='paper-info'>" +
 
-        (code
-          ? "<strong>Paper Code:</strong> " +
-            escapeHtml(code) +
-            "<br>"
-          : "") +
+    (
+      code
+        ? "<strong>Paper Code:</strong> " +
+          escapeHtml(code) +
+          "<br>"
+        : ""
+    ) +
 
-        (subject
-          ? "<strong>Subject:</strong> " +
-            escapeHtml(subject) +
-            "<br>"
-          : "") +
+    (
+      subject
+        ? "<strong>Subject:</strong> " +
+          escapeHtml(subject) +
+          "<br>"
+        : ""
+    ) +
 
-        (totalMarks
-          ? "<strong>Total Marks:</strong> " +
-            escapeHtml(totalMarks) +
-            "<br>"
-          : "") +
+    (
+      totalMarks
+        ? "<strong>Total Marks:</strong> " +
+          escapeHtml(totalMarks)
+        : ""
+    ) +
 
-        (start
-          ? "<strong>Exam Start:</strong> " +
-            escapeHtml(formatDate(start)) +
-            "<br>"
-          : "") +
+    "</div>" +
 
-        (end
-          ? "<strong>Exam End:</strong> " +
-            escapeHtml(formatDate(end)) +
-            "<br>"
-          : "") +
+    (
+      fileUrl
+        ? "<div class='paper-actions'>" +
+          "<button class='primary' " +
+          "onclick=\"openPaper('" +
+          escapeJs(fileUrl) +
+          "')\">" +
+          "📄 Open / Download Question Paper" +
+          "</button>" +
+          "</div>"
+        : ""
+    ) +
 
-      "</div>" +
-
-      "<div class='paper-actions'>";
-
-  if (fileUrl) {
-
-    html +=
-      "<button type='button' class='primary-btn' " +
-      "onclick=\"openPaper('" +
-      escapeJs(fileUrl) +
-      "')\">" +
-      "📄 Open / Download Question Paper" +
-      "</button>";
-
-  }
-
-  html +=
-      "</div>" +
     "</div>";
 
-  paperList.innerHTML = html;
 
-  paperList.classList.remove("hidden");
-
-  paperEmpty.classList.add("hidden");
+  document.getElementById(
+    "paperContainer"
+  ).innerHTML =
+    html;
 
 }
 
@@ -1021,39 +1403,40 @@ function openPaper(url) {
 
   if (!url) {
 
-    alert("Question paper file is not available.");
+    alert(
+      "Question paper file is not available."
+    );
 
     return;
   }
 
-  window.open(url, "_blank");
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
 
 /* =========================================================
-   SUBMISSION STATUS
+   SUBMISSION CHECK
 ========================================================= */
 
-async function checkSubmissionStatus() {
+async function checkSubmission() {
 
-  if (!selectedPaper) {
-    return;
-  }
+  var paperId =
+    getValue(
+      selectedPaper,
+      [
+        "Paper ID",
+        "paperId",
+        "PaperID"
+      ]
+    );
 
-  document.getElementById("submissionMessage").className =
-    "status-box status-info";
-
-  document.getElementById("submissionMessage").textContent =
-    "Checking submission status...";
 
   try {
-
-    var paperId =
-      getValue(
-        selectedPaper,
-        ["Paper ID", "paperId", "PaperID"]
-      );
 
     var result =
       await api(
@@ -1064,109 +1447,137 @@ async function checkSubmissionStatus() {
         }
       );
 
-    currentSubmissionStatus =
-      result;
 
-    updateSubmissionUI();
+    var submitted =
+      result.submitted === true ||
+      result.hasSubmission === true;
+
+
+    var editAllowed =
+      result.editAllowed === true;
+
+
+    var editCount =
+      Number(
+        result.editCount || 0
+      );
+
+
+    if (!submitted) {
+
+      editingSubmission =
+        false;
+
+
+      document.getElementById(
+        "submissionMessage"
+      ).className =
+        "success";
+
+
+      document.getElementById(
+        "submissionMessage"
+      ).textContent =
+        "You have not submitted this answer sheet yet. " +
+        "You can upload 1 to 20 photos.";
+
+
+      document.getElementById(
+        "submissionArea"
+      ).classList.remove(
+        "hidden"
+      );
+
+
+      document.getElementById(
+        "submitBtn"
+      ).textContent =
+        "📤 Submit Answer Sheet";
+
+
+      return;
+
+    }
+
+
+    if (
+      submitted &&
+      editAllowed &&
+      editCount < 1
+    ) {
+
+      editingSubmission =
+        true;
+
+
+      document.getElementById(
+        "submissionMessage"
+      ).className =
+        "warning";
+
+
+      document.getElementById(
+        "submissionMessage"
+      ).innerHTML =
+        "Your answer sheet is already submitted. " +
+        "<strong>You have one edit opportunity remaining.</strong>";
+
+
+      document.getElementById(
+        "submissionArea"
+      ).classList.remove(
+        "hidden"
+      );
+
+
+      document.getElementById(
+        "submitBtn"
+      ).textContent =
+        "✏️ Update Answer Sheet";
+
+
+      return;
+
+    }
+
+
+    editingSubmission =
+      false;
+
+
+    document.getElementById(
+      "submissionMessage"
+    ).className =
+      "success";
+
+
+    document.getElementById(
+      "submissionMessage"
+    ).textContent =
+      "✅ Answer sheet submitted. No further edits are allowed.";
+
+
+    document.getElementById(
+      "submissionArea"
+    ).classList.add(
+      "hidden"
+    );
+
 
   } catch (error) {
 
-    document.getElementById("submissionMessage").className =
-      "status-box status-danger";
+    document.getElementById(
+      "submissionMessage"
+    ).className =
+      "error";
 
-    document.getElementById("submissionMessage").textContent =
+
+    document.getElementById(
+      "submissionMessage"
+    ).textContent =
       error.message;
 
   }
-
-}
-
-
-/* =========================================================
-   SUBMISSION UI
-========================================================= */
-
-function updateSubmissionUI() {
-
-  var message =
-    document.getElementById("submissionMessage");
-
-  var area =
-    document.getElementById("submissionArea");
-
-  var status =
-    currentSubmissionStatus || {};
-
-  var submitted =
-    status.submitted === true ||
-    status.hasSubmission === true;
-
-  var editAllowed =
-    status.editAllowed === true;
-
-  var editCount =
-    Number(status.editCount || 0);
-
-  /*
-   * FIRST SUBMISSION
-   */
-
-  if (!submitted) {
-
-    editingSubmission = false;
-
-    message.className =
-      "status-box status-info";
-
-    message.innerHTML =
-      "You have not submitted your answer sheet yet. " +
-      "You can upload 1 to 20 photos.";
-
-    area.classList.remove("hidden");
-
-    document.getElementById("submitBtn").textContent =
-      "📤 Submit Answer Sheet";
-
-    return;
-  }
-
-  /*
-   * ONE EDIT ALLOWED
-   */
-
-  if (submitted && editAllowed && editCount < 1) {
-
-    editingSubmission = true;
-
-    message.className =
-      "status-box status-warning";
-
-    message.innerHTML =
-      "Your answer sheet has already been submitted. " +
-      "<strong>You have 1 edit opportunity remaining.</strong>";
-
-    area.classList.remove("hidden");
-
-    document.getElementById("submitBtn").textContent =
-      "✏️ Update Answer Sheet";
-
-    return;
-  }
-
-  /*
-   * COMPLETED
-   */
-
-  editingSubmission = false;
-
-  message.className =
-    "status-box status-success";
-
-  message.innerHTML =
-    "✅ Answer sheet submitted successfully. " +
-    "No further edits are allowed.";
-
-  area.classList.add("hidden");
 
 }
 
@@ -1177,24 +1588,28 @@ function updateSubmissionUI() {
 
 function openCamera() {
 
-  document.getElementById("cameraInput").click();
+  document.getElementById(
+    "cameraInput"
+  ).click();
 
 }
 
 
 /* =========================================================
-   GALLERY / FILE
+   GALLERY
 ========================================================= */
 
 function openGallery() {
 
-  document.getElementById("galleryInput").click();
+  document.getElementById(
+    "galleryInput"
+  ).click();
 
 }
 
 
 /* =========================================================
-   HANDLE FILES
+   FILES
 ========================================================= */
 
 function handleFiles(files) {
@@ -1203,138 +1618,164 @@ function handleFiles(files) {
     return;
   }
 
+
   var remaining =
-    20 - selectedPhotos.length;
+    20 -
+    selectedPhotos.length;
+
 
   if (remaining <= 0) {
 
-    alert("Maximum 20 photos are allowed.");
+    alert(
+      "Maximum 20 photos are allowed."
+    );
 
     return;
   }
 
-  var added = 0;
 
-  for (var i = 0; i < files.length; i++) {
+  for (
+    var i = 0;
+    i < files.length && i < remaining;
+    i++
+  ) {
 
-    if (added >= remaining) {
-      break;
+    if (
+      files[i].type &&
+      files[i].type.indexOf("image/") === 0
+    ) {
+
+      selectedPhotos.push(
+        files[i]
+      );
+
     }
-
-    var file = files[i];
-
-    if (!file.type ||
-        file.type.indexOf("image/") !== 0) {
-
-      continue;
-    }
-
-    selectedPhotos.push(file);
-
-    added++;
-  }
-
-  if (files.length > remaining) {
-
-    alert("Only 20 photos are allowed.");
 
   }
 
-  renderPhotoPreview();
 
-  document.getElementById("cameraInput").value = "";
-  document.getElementById("galleryInput").value = "";
+  renderPhotos();
+
+
+  document.getElementById(
+    "cameraInput"
+  ).value = "";
+
+
+  document.getElementById(
+    "galleryInput"
+  ).value = "";
 
 }
 
 
 /* =========================================================
-   PHOTO PREVIEW
+   RENDER PHOTOS
 ========================================================= */
 
-function renderPhotoPreview() {
+function renderPhotos() {
 
   var grid =
-    document.getElementById("previewGrid");
+    document.getElementById(
+      "previewGrid"
+    );
+
 
   grid.innerHTML = "";
 
-  document.getElementById("photoCount").textContent =
+
+  document.getElementById(
+    "photoCount"
+  ).textContent =
     selectedPhotos.length +
-    (selectedPhotos.length === 1
-      ? " photo selected"
-      : " photos selected");
-
-  selectedPhotos.forEach(function(file, index) {
-
-    var item =
-      document.createElement("div");
-
-    item.className =
-      "preview-item";
-
-    var img =
-      document.createElement("img");
-
-    var url =
-      URL.createObjectURL(file);
-
-    img.src = url;
-
-    img.onload = function() {
-      URL.revokeObjectURL(url);
-    };
-
-    var remove =
-      document.createElement("button");
-
-    remove.type = "button";
-
-    remove.className =
-      "remove-photo";
-
-    remove.textContent = "×";
-
-    remove.onclick = function() {
-      removePhoto(index);
-    };
-
-    var number =
-      document.createElement("div");
-
-    number.className =
-      "photo-number";
-
-    number.textContent =
-      "Photo " + (index + 1);
-
-    item.appendChild(img);
-
-    item.appendChild(remove);
-
-    item.appendChild(number);
-
-    grid.appendChild(item);
-
-  });
-
-}
+    (
+      selectedPhotos.length === 1
+        ? " photo selected"
+        : " photos selected"
+    );
 
 
-/* =========================================================
-   REMOVE PHOTO
-========================================================= */
+  selectedPhotos.forEach(
+    function(file, index) {
 
-function removePhoto(index) {
+      var item =
+        document.createElement(
+          "div"
+        );
 
-  if (index < 0 ||
-      index >= selectedPhotos.length) {
-    return;
-  }
 
-  selectedPhotos.splice(index, 1);
+      item.className =
+        "preview-item";
 
-  renderPhotoPreview();
+
+      var img =
+        document.createElement(
+          "img"
+        );
+
+
+      img.src =
+        URL.createObjectURL(
+          file
+        );
+
+
+      var remove =
+        document.createElement(
+          "button"
+        );
+
+
+      remove.type =
+        "button";
+
+
+      remove.className =
+        "remove-photo";
+
+
+      remove.textContent =
+        "×";
+
+
+      remove.onclick =
+        function() {
+
+          selectedPhotos.splice(
+            index,
+            1
+          );
+
+          renderPhotos();
+
+        };
+
+
+      var number =
+        document.createElement(
+          "div"
+        );
+
+
+      number.className =
+        "photo-number";
+
+
+      number.textContent =
+        "Photo " +
+        (index + 1);
+
+
+      item.appendChild(img);
+
+      item.appendChild(remove);
+
+      item.appendChild(number);
+
+      grid.appendChild(item);
+
+    }
+  );
 
 }
 
@@ -1347,92 +1788,132 @@ function clearPhotos() {
 
   selectedPhotos = [];
 
-  document.getElementById("previewGrid").innerHTML = "";
 
-  document.getElementById("photoCount").textContent =
+  document.getElementById(
+    "previewGrid"
+  ).innerHTML =
+    "";
+
+
+  document.getElementById(
+    "photoCount"
+  ).textContent =
     "0 photos selected";
 
-  document.getElementById("cameraInput").value = "";
 
-  document.getElementById("galleryInput").value = "";
+  document.getElementById(
+    "cameraInput"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "galleryInput"
+  ).value =
+    "";
 
 }
 
 
 /* =========================================================
-   SUBMIT ANSWER SHEET
+   SUBMIT
 ========================================================= */
 
 async function submitAnswerSheet() {
 
   if (!selectedPaper) {
 
-    alert("Please select a question paper.");
+    alert(
+      "Please select a question paper."
+    );
 
     return;
   }
+
 
   if (!selectedPhotos.length) {
 
-    alert("Please select at least 1 answer-sheet photo.");
+    alert(
+      "Please select at least 1 photo."
+    );
 
     return;
   }
 
-  if (selectedPhotos.length > 20) {
 
-    alert("Maximum 20 photos are allowed.");
+  if (
+    selectedPhotos.length > 20
+  ) {
+
+    alert(
+      "Maximum 20 photos are allowed."
+    );
 
     return;
   }
 
-  var confirmMessage =
-    editingSubmission
-      ? "Do you want to update your answer sheet? This will use your one edit opportunity."
-      : "Do you want to submit your answer sheet?";
 
-  if (!confirm(confirmMessage)) {
+  if (
+    !confirm(
+      editingSubmission
+        ? "Do you want to use your edit opportunity and update the answer sheet?"
+        : "Do you want to submit the answer sheet?"
+    )
+  ) {
+
     return;
+
   }
+
 
   var button =
-    document.getElementById("submitBtn");
+    document.getElementById(
+      "submitBtn"
+    );
 
-  button.disabled = true;
 
-  button.textContent =
-    "Uploading...";
+  button.disabled =
+    true;
 
-  showProgress(0, "Preparing photos...");
 
   try {
 
-    var photoData = [];
+    var photos = [];
 
-    for (var i = 0; i < selectedPhotos.length; i++) {
 
-      var percent =
-        Math.round(
-          (i / selectedPhotos.length) * 50
-        );
+    for (
+      var i = 0;
+      i < selectedPhotos.length;
+      i++
+    ) {
 
       showProgress(
-        percent,
+        Math.round(
+          (i /
+            selectedPhotos.length) *
+          50
+        ),
         "Preparing photo " +
         (i + 1) +
         " of " +
         selectedPhotos.length
       );
 
+
       var compressed =
         await compressImage(
           selectedPhotos[i]
         );
 
-      var base64 =
-        await fileToBase64(compressed);
 
-      photoData.push({
+      var base64 =
+        await fileToBase64(
+          compressed
+        );
+
+
+      photos.push({
+
         fileName:
           "answer_" +
           (i + 1) +
@@ -1443,60 +1924,91 @@ async function submitAnswerSheet() {
 
         base64:
           base64
+
       });
 
     }
 
+
     showProgress(
-      60,
-      "Uploading answer sheets..."
+      70,
+      "Uploading answer sheet..."
     );
+
 
     var paperId =
       getValue(
         selectedPaper,
-        ["Paper ID", "paperId", "PaperID"]
+        [
+          "Paper ID",
+          "paperId",
+          "PaperID"
+        ]
       );
+
 
     var paperCode =
       getValue(
         selectedPaper,
-        ["Paper Code", "paperCode", "PaperCode"]
+        [
+          "Paper Code",
+          "paperCode",
+          "PaperCode"
+        ]
       );
+
 
     var action =
       editingSubmission
         ? "editSubmission"
         : "saveSubmission";
 
+
     var result =
       await api(
         action,
         {
-          studentId: studentId,
-          studentName: studentName,
-          paperId: paperId,
-          paperCode: paperCode,
-          photos: photoData,
-          photoCount: photoData.length
+          studentId:
+            studentId,
+
+          studentName:
+            studentName,
+
+          paperId:
+            paperId,
+
+          paperCode:
+            paperCode,
+
+          photos:
+            photos,
+
+          photoCount:
+            photos.length
         }
       );
 
+
     showProgress(
       100,
-      "Submission completed."
+      "Completed"
     );
+
 
     alert(
       result.message ||
       "Answer sheet submitted successfully."
     );
 
+
     clearPhotos();
 
-    await loadDashboard();
 
-    await checkSubmissionStatus();
+    await loadStudentData();
+
+
+    await checkSubmission();
+
 
   } catch (error) {
 
@@ -1507,18 +2019,20 @@ async function submitAnswerSheet() {
 
   } finally {
 
-    setTimeout(function() {
+    button.disabled =
+      false;
 
-      hideProgress();
 
-      button.disabled = false;
+    button.textContent =
+      editingSubmission
+        ? "✏️ Update Answer Sheet"
+        : "📤 Submit Answer Sheet";
 
-      button.textContent =
-        editingSubmission
-          ? "✏️ Update Answer Sheet"
-          : "📤 Submit Answer Sheet";
 
-    }, 700);
+    setTimeout(
+      hideProgress,
+      800
+    );
 
   }
 
@@ -1526,161 +2040,212 @@ async function submitAnswerSheet() {
 
 
 /* =========================================================
-   FILE TO BASE64
+   COMPRESS IMAGE
 ========================================================= */
 
-function fileToBase64(file) {
+function compressImage(file) {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(
+    function(resolve, reject) {
 
-    var reader =
-      new FileReader();
+      var reader =
+        new FileReader();
 
-    reader.onload = function() {
 
-      var result =
-        reader.result;
+      reader.onload =
+        function(event) {
 
-      var comma =
-        result.indexOf(",");
+          var img =
+            new Image();
 
-      if (comma >= 0) {
-        result =
-          result.substring(comma + 1);
-      }
 
-      resolve(result);
+          img.onload =
+            function() {
 
-    };
+              var maxWidth =
+                1600;
 
-    reader.onerror = function() {
-      reject(
-        new Error("Unable to read image file.")
+              var maxHeight =
+                2200;
+
+
+              var width =
+                img.width;
+
+              var height =
+                img.height;
+
+
+              var ratio =
+                Math.min(
+                  maxWidth / width,
+                  maxHeight / height,
+                  1
+                );
+
+
+              width =
+                Math.round(
+                  width * ratio
+                );
+
+
+              height =
+                Math.round(
+                  height * ratio
+                );
+
+
+              var canvas =
+                document.createElement(
+                  "canvas"
+                );
+
+
+              canvas.width =
+                width;
+
+              canvas.height =
+                height;
+
+
+              var ctx =
+                canvas.getContext(
+                  "2d"
+                );
+
+
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
+
+
+              canvas.toBlob(
+                function(blob) {
+
+                  if (!blob) {
+
+                    reject(
+                      new Error(
+                        "Image compression failed."
+                      )
+                    );
+
+                    return;
+                  }
+
+
+                  resolve(blob);
+
+                },
+                "image/jpeg",
+                0.78
+              );
+
+            };
+
+
+          img.onerror =
+            function() {
+
+              reject(
+                new Error(
+                  "Unable to process image."
+                )
+              );
+
+            };
+
+
+          img.src =
+            event.target.result;
+
+        };
+
+
+      reader.onerror =
+        function() {
+
+          reject(
+            new Error(
+              "Unable to read image."
+            )
+          );
+
+        };
+
+
+      reader.readAsDataURL(
+        file
       );
-    };
 
-    reader.readAsDataURL(file);
-
-  });
+    }
+  );
 
 }
 
 
 /* =========================================================
-   IMAGE COMPRESSION
+   BASE64
 ========================================================= */
 
-function compressImage(file) {
+function fileToBase64(file) {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(
+    function(resolve, reject) {
 
-    var reader =
-      new FileReader();
+      var reader =
+        new FileReader();
 
-    reader.onload = function(event) {
 
-      var img =
-        new Image();
+      reader.onload =
+        function() {
 
-      img.onload = function() {
+          var value =
+            reader.result;
 
-        var maxWidth = 1600;
-        var maxHeight = 2200;
 
-        var width =
-          img.width;
+          var comma =
+            value.indexOf(",");
 
-        var height =
-          img.height;
 
-        var ratio =
-          Math.min(
-            maxWidth / width,
-            maxHeight / height,
-            1
-          );
+          if (comma >= 0) {
 
-        width =
-          Math.round(
-            width * ratio
-          );
-
-        height =
-          Math.round(
-            height * ratio
-          );
-
-        var canvas =
-          document.createElement("canvas");
-
-        canvas.width =
-          width;
-
-        canvas.height =
-          height;
-
-        var ctx =
-          canvas.getContext("2d");
-
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          width,
-          height
-        );
-
-        canvas.toBlob(
-          function(blob) {
-
-            if (!blob) {
-
-              reject(
-                new Error(
-                  "Unable to compress image."
-                )
+            value =
+              value.substring(
+                comma + 1
               );
 
-              return;
-            }
+          }
 
-            resolve(blob);
 
-          },
-          "image/jpeg",
-          0.78
-        );
+          resolve(value);
 
-      };
+        };
 
-      img.onerror = function() {
 
-        reject(
-          new Error(
-            "Unable to process image."
-          )
-        );
+      reader.onerror =
+        function() {
 
-      };
+          reject(
+            new Error(
+              "Unable to read file."
+            )
+          );
 
-      img.src =
-        event.target.result;
+        };
 
-    };
 
-    reader.onerror = function() {
-
-      reject(
-        new Error(
-          "Unable to read image."
-        )
+      reader.readAsDataURL(
+        file
       );
 
-    };
-
-    reader.readAsDataURL(file);
-
-  });
+    }
+  );
 
 }
 
@@ -1689,30 +2254,26 @@ function compressImage(file) {
    PROGRESS
 ========================================================= */
 
-function showProgress(percent, message) {
+function showProgress(
+  percent,
+  message
+) {
 
-  var container =
-    document.getElementById(
-      "progressContainer"
-    );
-
-  var bar =
-    document.getElementById(
-      "progressBar"
-    );
-
-  var text =
-    document.getElementById(
-      "progressText"
-    );
-
-  container.style.display =
+  document.getElementById(
+    "progressContainer"
+  ).style.display =
     "block";
 
-  bar.style.width =
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
     percent + "%";
 
-  text.textContent =
+
+  document.getElementById(
+    "progressText"
+  ).textContent =
     message;
 
 }
@@ -1734,179 +2295,207 @@ function hideProgress() {
 
 function renderResults() {
 
-  document.getElementById(
-    "resultsLoading"
-  ).classList.add("hidden");
-
-  var empty =
+  var body =
     document.getElementById(
-      "resultsEmpty"
+      "resultBody"
     );
 
-  var container =
+
+  body.innerHTML = "";
+
+
+  if (!results.length) {
+
     document.getElementById(
-      "resultsTableContainer"
+      "resultEmpty"
+    ).classList.remove(
+      "hidden"
     );
 
-  var tbody =
+
     document.getElementById(
-      "resultsTableBody"
+      "resultContainer"
+    ).classList.add(
+      "hidden"
     );
 
-  tbody.innerHTML = "";
-
-  if (!dashboardData.results.length) {
-
-    empty.classList.remove("hidden");
-
-    container.classList.add("hidden");
 
     return;
   }
 
-  empty.classList.add("hidden");
 
-  container.classList.remove("hidden");
+  document.getElementById(
+    "resultEmpty"
+  ).classList.add(
+    "hidden"
+  );
 
-  dashboardData.results.forEach(function(result) {
 
-    var row =
-      document.createElement("tr");
+  document.getElementById(
+    "resultContainer"
+  ).classList.remove(
+    "hidden"
+  );
 
-    var paper =
-      getValue(
-        result,
-        ["Paper Code", "paperCode", "PaperCode"]
-      );
 
-    if (!paper) {
+  results.forEach(
+    function(result) {
 
-      paper =
-        getValue(
-          result,
-          ["Paper ID", "paperId", "PaperID"]
+      var row =
+        document.createElement(
+          "tr"
         );
 
+
+      var paper =
+        getValue(
+          result,
+          [
+            "Paper Code",
+            "paperCode",
+            "PaperCode",
+            "Paper ID",
+            "paperId"
+          ]
+        );
+
+
+      var marks =
+        getValue(
+          result,
+          [
+            "Marks Obtained",
+            "marksObtained",
+            "MarksObtained"
+          ]
+        );
+
+
+      var total =
+        getValue(
+          result,
+          [
+            "Total Marks",
+            "totalMarks",
+            "TotalMarks"
+          ]
+        );
+
+
+      var percentage =
+        getValue(
+          result,
+          [
+            "Percentage",
+            "percentage"
+          ]
+        );
+
+
+      var resultText =
+        getValue(
+          result,
+          [
+            "Result",
+            "result"
+          ]
+        );
+
+
+      var remarks =
+        getValue(
+          result,
+          [
+            "Remarks",
+            "remarks"
+          ]
+        );
+
+
+      row.innerHTML =
+
+        "<td>" +
+        escapeHtml(paper || "-") +
+        "</td>" +
+
+        "<td>" +
+        escapeHtml(marks || "-") +
+        "</td>" +
+
+        "<td>" +
+        escapeHtml(total || "-") +
+        "</td>" +
+
+        "<td>" +
+        escapeHtml(
+          percentage
+            ? percentage + "%"
+            : "-"
+        ) +
+        "</td>" +
+
+        "<td>" +
+        escapeHtml(
+          resultText || "-"
+        ) +
+        "</td>" +
+
+        "<td>" +
+        escapeHtml(
+          remarks || "-"
+        ) +
+        "</td>";
+
+
+      body.appendChild(
+        row
+      );
+
     }
-
-    var marks =
-      getValue(
-        result,
-        ["Marks Obtained", "marksObtained", "MarksObtained"]
-      );
-
-    var total =
-      getValue(
-        result,
-        ["Total Marks", "totalMarks", "TotalMarks"]
-      );
-
-    var percentage =
-      getValue(
-        result,
-        ["Percentage", "percentage"]
-      );
-
-    var resultValue =
-      getValue(
-        result,
-        ["Result", "result"]
-      );
-
-    var remarks =
-      getValue(
-        result,
-        ["Remarks", "remarks"]
-      );
-
-    row.innerHTML =
-      "<td>" +
-      escapeHtml(paper || "-") +
-      "</td>" +
-
-      "<td>" +
-      escapeHtml(marks || "-") +
-      "</td>" +
-
-      "<td>" +
-      escapeHtml(total || "-") +
-      "</td>" +
-
-      "<td>" +
-      escapeHtml(
-        percentage !== ""
-          ? percentage + "%"
-          : "-"
-      ) +
-      "</td>" +
-
-      "<td>" +
-      escapeHtml(resultValue || "-") +
-      "</td>" +
-
-      "<td>" +
-      escapeHtml(remarks || "-") +
-      "</td>";
-
-    tbody.appendChild(row);
-
-  });
+  );
 
 }
 
 
 /* =========================================================
-   LOADING
+   GET VALUE
 ========================================================= */
 
-function showSubjectsLoading(show) {
+function getValue(
+  object,
+  keys
+) {
 
-  var loading =
-    document.getElementById(
-      "subjectsLoading"
-    );
-
-  if (show) {
-
-    loading.classList.remove("hidden");
-
-  } else {
-
-    loading.classList.add("hidden");
-
-  }
-
-}
-
-
-/* =========================================================
-   VALUE HELPER
-========================================================= */
-
-function getValue(obj, keys) {
-
-  if (!obj) {
+  if (!object) {
     return "";
   }
 
-  for (var i = 0; i < keys.length; i++) {
+
+  for (
+    var i = 0;
+    i < keys.length;
+    i++
+  ) {
 
     var key =
       keys[i];
 
+
     if (
       Object.prototype.hasOwnProperty.call(
-        obj,
+        object,
         key
       )
     ) {
 
       var value =
-        obj[key];
+        object[key];
+
 
       if (
         value !== null &&
-        value !== undefined
+        value !== undefined &&
+        String(value) !== ""
       ) {
 
         return String(value);
@@ -1917,29 +2506,8 @@ function getValue(obj, keys) {
 
   }
 
+
   return "";
-
-}
-
-
-/* =========================================================
-   DATE FORMAT
-========================================================= */
-
-function formatDate(value) {
-
-  if (!value) {
-    return "";
-  }
-
-  var date =
-    new Date(value);
-
-  if (isNaN(date.getTime())) {
-    return String(value);
-  }
-
-  return date.toLocaleString();
 
 }
 
@@ -1954,31 +2522,66 @@ function escapeHtml(value) {
     value === null ||
     value === undefined
   ) {
+
     return "";
+
   }
 
+
   return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-   JAVASCRIPT STRING ESCAPE
+   JS ESCAPE
 ========================================================= */
 
 function escapeJs(value) {
 
-  return String(value || "")
-    .replace(/\\/g, "\\\\")
-    .replace(/'/g, "\\'")
-    .replace(/"/g, '\\"')
-    .replace(/\r/g, "\\r")
-    .replace(/\n/g, "\\n");
+  return String(
+    value || ""
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  )
+  .replace(
+    /"/g,
+    '\\"'
+  )
+  .replace(
+    /\r/g,
+    "\\r"
+  )
+  .replace(
+    /\n/g,
+    "\\n"
+  );
 
 }
 
@@ -1989,10 +2592,22 @@ function escapeJs(value) {
 
 function logout() {
 
-  sessionStorage.removeItem("examPortalRole");
-  sessionStorage.removeItem("studentId");
-  sessionStorage.removeItem("studentName");
-  sessionStorage.removeItem("adminId");
+  sessionStorage.removeItem(
+    "examPortalRole"
+  );
+
+  sessionStorage.removeItem(
+    "studentId"
+  );
+
+  sessionStorage.removeItem(
+    "studentName"
+  );
+
+  sessionStorage.removeItem(
+    "adminId"
+  );
+
 
   window.location.href =
     "index.html";
