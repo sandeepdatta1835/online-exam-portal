@@ -25,8 +25,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .header h2 {
@@ -44,22 +44,23 @@ body {
   font-weight: bold;
 }
 
-.logout-btn:hover {
-  background: #b02a37;
-}
-
 .container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
 }
 
-.welcome {
+.welcome,
+.section,
+.card {
   background: white;
-  padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.welcome {
+  padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .welcome h2 {
@@ -75,10 +76,7 @@ body {
 }
 
 .card {
-  background: white;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   text-align: center;
 }
 
@@ -94,11 +92,8 @@ body {
 }
 
 .section {
-  background: white;
   padding: 20px;
-  border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .section h3 {
@@ -154,13 +149,22 @@ body {
   background: #f8f8f8;
 }
 
+select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: white;
+}
+
 .btn {
   border: none;
-  padding: 9px 14px;
+  padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  margin: 2px;
+  margin: 3px;
 }
 
 .btn-primary {
@@ -189,28 +193,40 @@ body {
 }
 
 .btn:disabled {
-  opacity: 0.6;
+  opacity: .6;
   cursor: not-allowed;
 }
 
-select,
-input[type="file"] {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-bottom: 12px;
-  background: white;
+.upload-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
+.upload-option {
+  flex: 1;
+  min-width: 180px;
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
   font-weight: bold;
-  margin-bottom: 7px;
+  font-size: 15px;
+}
+
+.camera-btn {
+  background: #0d6efd;
+  color: white;
+}
+
+.gallery-btn {
+  background: #198754;
+  color: white;
+}
+
+.hidden {
+  display: none !important;
 }
 
 .status-box {
@@ -270,7 +286,7 @@ label {
   position: absolute;
   top: 5px;
   left: 5px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,.7);
   color: white;
   padding: 3px 7px;
   border-radius: 4px;
@@ -284,17 +300,17 @@ label {
 
 .progress-bar-bg {
   width: 100%;
-  background: #ddd;
   height: 20px;
+  background: #ddd;
   border-radius: 10px;
   overflow: hidden;
 }
 
 .progress-bar {
-  width: 0%;
+  width: 0;
   height: 100%;
   background: #198754;
-  transition: width 0.3s;
+  transition: width .3s;
 }
 
 .progress-text {
@@ -304,16 +320,16 @@ label {
   font-weight: bold;
 }
 
-.loading {
-  text-align: center;
-  padding: 20px;
-  color: #666;
-}
-
+.loading,
 .empty {
   text-align: center;
   padding: 20px;
   color: #777;
+}
+
+.small-text {
+  font-size: 13px;
+  color: #666;
 }
 
 .info-row {
@@ -324,16 +340,7 @@ label {
   font-weight: bold;
 }
 
-.small-text {
-  font-size: 13px;
-  color: #666;
-}
-
-.hidden {
-  display: none !important;
-}
-
-@media (max-width: 768px) {
+@media(max-width:768px) {
   .cards {
     grid-template-columns: 1fr;
   }
@@ -353,8 +360,12 @@ label {
     white-space: nowrap;
   }
 
-  .header h2 {
-    font-size: 18px;
+  .upload-options {
+    flex-direction: column;
+  }
+
+  .upload-option {
+    width: 100%;
   }
 }
 </style>
@@ -363,117 +374,240 @@ label {
 <body>
 
 <div class="header">
+
   <h2>Online Exam Portal - Student Dashboard</h2>
-  <button class="logout-btn" onclick="logout()">Logout</button>
+
+  <button class="logout-btn" onclick="logout()">
+    Logout
+  </button>
+
 </div>
+
 
 <div class="container">
 
   <!-- WELCOME -->
+
   <div class="welcome">
-    <h2 id="welcomeText">Welcome</h2>
+
+    <h2 id="welcomeText">
+      Welcome
+    </h2>
 
     <div class="info-row">
-      <span class="info-label">Student ID:</span>
-      <span id="studentIdText">-</span>
+      <span class="info-label">
+        Student ID:
+      </span>
+
+      <span id="studentIdText">
+        -
+      </span>
     </div>
 
     <div class="info-row">
-      <span class="info-label">Student Name:</span>
-      <span id="studentNameText">-</span>
+      <span class="info-label">
+        Student Name:
+      </span>
+
+      <span id="studentNameText">
+        -
+      </span>
     </div>
+
   </div>
 
+
   <!-- SUMMARY -->
+
   <div class="cards">
 
     <div class="card">
-      <h3 id="subjectCount">0</h3>
-      <p>Assigned Subjects</p>
+
+      <h3 id="subjectCount">
+        0
+      </h3>
+
+      <p>
+        Assigned Subjects
+      </p>
+
     </div>
 
     <div class="card">
-      <h3 id="paperCount">0</h3>
-      <p>Question Papers</p>
+
+      <h3 id="paperCount">
+        0
+      </h3>
+
+      <p>
+        Question Papers
+      </p>
+
     </div>
 
     <div class="card">
-      <h3 id="resultCount">0</h3>
-      <p>Results</p>
+
+      <h3 id="resultCount">
+        0
+      </h3>
+
+      <p>
+        Results
+      </p>
+
     </div>
 
   </div>
+
 
   <!-- SUBJECTS -->
+
   <div class="section">
 
-    <h3>📚 My Assigned Subjects</h3>
+    <h3>
+      📚 My Assigned Subjects
+    </h3>
 
-    <div id="subjectsContainer" class="subject-grid">
-      <div class="loading">Loading subjects...</div>
+    <div id="subjectsContainer">
+      <div class="loading">
+        Loading subjects...
+      </div>
     </div>
 
   </div>
+
 
   <!-- QUESTION PAPERS -->
+
   <div class="section">
 
-    <h3>📄 Available Question Papers</h3>
+    <h3>
+      📄 Available Question Papers
+    </h3>
 
     <div id="papersContainer">
-      <div class="loading">Loading question papers...</div>
+      <div class="loading">
+        Loading question papers...
+      </div>
     </div>
 
   </div>
 
+
   <!-- ANSWER SHEET -->
+
   <div class="section">
 
-    <h3>📤 Answer Sheet Submission</h3>
+    <h3>
+      📤 Answer Sheet Submission
+    </h3>
 
-    <div class="form-group">
+    <label>
+      Select Question Paper
+    </label>
 
-      <label for="paperSelect">
-        Select Question Paper
-      </label>
+    <select
+      id="paperSelect"
+      onchange="paperSelected()"
+    >
 
-      <select id="paperSelect" onchange="paperSelected()">
+      <option value="">
+        -- Select Question Paper --
+      </option>
 
-        <option value="">
-          -- Select Question Paper --
-        </option>
+    </select>
 
-      </select>
-
-    </div>
 
     <div id="submissionStatus"></div>
 
-    <div id="submissionArea" class="hidden">
 
-      <div class="form-group">
+    <div
+      id="submissionArea"
+      class="hidden"
+    >
 
-        <label id="fileLabel">
-          Select Answer Sheet Photos
-        </label>
+      <div class="small-text">
 
-        <input
-          type="file"
-          id="answerFiles"
-          accept="image/*"
-          capture="environment"
-          multiple
-          onchange="handleFileSelection()"
-        >
+        Select your answer-sheet photos.
 
-        <div class="small-text">
-          Select between 1 and 20 photos.
-          You can submit only once. After submission, you get one edit opportunity.
-        </div>
+        <br>
+
+        You can use your camera OR choose photos
+        from your gallery/files.
+
+        <br>
+
+        <strong>
+          Minimum: 1 photo | Maximum: 20 photos
+        </strong>
 
       </div>
 
-      <div id="photoPreview" class="photo-preview"></div>
+
+      <!-- TWO OPTIONS -->
+
+      <div
+        id="uploadOptions"
+        class="upload-options"
+      >
+
+        <button
+          type="button"
+          class="upload-option camera-btn"
+          onclick="openCamera()"
+        >
+          📷 Take Photo
+        </button>
+
+
+        <button
+          type="button"
+          class="upload-option gallery-btn"
+          onclick="openGallery()"
+        >
+          🖼️ Choose from Gallery / Files
+        </button>
+
+      </div>
+
+
+      <!-- HIDDEN CAMERA INPUT -->
+
+      <input
+        type="file"
+        id="cameraInput"
+        accept="image/*"
+        capture="environment"
+        class="hidden"
+        onchange="cameraSelected(event)"
+      >
+
+
+      <!-- HIDDEN GALLERY INPUT -->
+
+      <input
+        type="file"
+        id="galleryInput"
+        accept="image/*"
+        multiple
+        class="hidden"
+        onchange="gallerySelected(event)"
+      >
+
+
+      <div
+        id="photoCountText"
+        class="small-text"
+      >
+        No photos selected.
+      </div>
+
+
+      <div
+        id="photoPreview"
+        class="photo-preview"
+      ></div>
+
 
       <div style="margin-top:15px;">
 
@@ -485,6 +619,7 @@ label {
           📤 Submit Answer Sheet
         </button>
 
+
         <button
           id="editBtn"
           class="btn btn-warning hidden"
@@ -495,13 +630,25 @@ label {
 
       </div>
 
-      <div id="progressContainer" class="progress-container">
+
+      <div
+        id="progressContainer"
+        class="progress-container"
+      >
 
         <div class="progress-bar-bg">
-          <div id="progressBar" class="progress-bar"></div>
+
+          <div
+            id="progressBar"
+            class="progress-bar"
+          ></div>
+
         </div>
 
-        <div id="progressText" class="progress-text">
+        <div
+          id="progressText"
+          class="progress-text"
+        >
           Uploading...
         </div>
 
@@ -511,13 +658,19 @@ label {
 
   </div>
 
+
   <!-- RESULTS -->
+
   <div class="section">
 
-    <h3>📊 My Results</h3>
+    <h3>
+      📊 My Results
+    </h3>
 
     <div id="resultsContainer">
-      <div class="loading">Loading results...</div>
+      <div class="loading">
+        Loading results...
+      </div>
     </div>
 
   </div>
@@ -543,9 +696,9 @@ let selectedFiles = [];
 let currentSubmissionStatus = null;
 
 
-/* =========================================================
+/* =====================================================
    PAGE LOAD
-========================================================= */
+===================================================== */
 
 window.onload = function() {
 
@@ -562,82 +715,105 @@ window.onload = function() {
 
     alert("Please login first.");
 
-    window.location.href = "index.html";
+    window.location.href =
+      "index.html";
 
     return;
   }
 
-  document.getElementById("studentIdText").textContent =
+
+  document.getElementById(
+    "studentIdText"
+  ).textContent =
     studentId;
 
-  document.getElementById("studentNameText").textContent =
+
+  document.getElementById(
+    "studentNameText"
+  ).textContent =
     studentName || "-";
 
-  document.getElementById("welcomeText").textContent =
-    "Welcome, " + (studentName || "Student");
+
+  document.getElementById(
+    "welcomeText"
+  ).textContent =
+    "Welcome, " +
+    (studentName || "Student");
+
 
   loadDashboard();
 
 };
 
 
-/* =========================================================
-   API HELPER
-========================================================= */
+/* =====================================================
+   API
+===================================================== */
 
 async function api(action, data = {}) {
 
-  const payload = {
-    action: action,
-    ...data
-  };
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method: "POST",
 
-  const response = await fetch(API_URL, {
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
 
-    method: "POST",
+        body: JSON.stringify({
+          action: action,
+          ...data
+        })
+      }
+    );
 
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
 
-    body: JSON.stringify(payload)
+  const text =
+    await response.text();
 
-  });
-
-  const text = await response.text();
 
   let result;
 
+
   try {
 
-    result = JSON.parse(text);
+    result =
+      JSON.parse(text);
 
-  } catch (error) {
+  }
 
-    console.error("Server response:", text);
+  catch(error) {
+
+    console.error(text);
 
     throw new Error(
-      "Invalid server response. Please try again."
+      "Invalid server response."
     );
 
   }
+
 
   if (!result.success) {
 
     throw new Error(
-      result.message || "Something went wrong."
+      result.message ||
+      "Something went wrong."
     );
 
   }
+
 
   return result;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    LOAD DASHBOARD
-========================================================= */
+===================================================== */
 
 async function loadDashboard() {
 
@@ -647,40 +823,56 @@ async function loadDashboard() {
       await api(
         "getStudentDashboard",
         {
-          studentId: studentId
+          studentId:
+            studentId
         }
       );
 
-    dashboardData = result;
+
+    dashboardData =
+      result;
+
 
     renderSubjects(
       result.subjects || []
     );
 
+
     renderPapers(
       result.papers || []
     );
+
 
     renderResults(
       result.results || []
     );
 
+
     populatePaperDropdown(
       result.papers || []
     );
 
-    document.getElementById("subjectCount").textContent =
+
+    document.getElementById(
+      "subjectCount"
+    ).textContent =
       (result.subjects || []).length;
 
-    document.getElementById("paperCount").textContent =
+
+    document.getElementById(
+      "paperCount"
+    ).textContent =
       (result.papers || []).length;
 
-    document.getElementById("resultCount").textContent =
+
+    document.getElementById(
+      "resultCount"
+    ).textContent =
       (result.results || []).length;
 
   }
 
-  catch (error) {
+  catch(error) {
 
     console.error(error);
 
@@ -691,14 +883,17 @@ async function loadDashboard() {
 }
 
 
-/* =========================================================
+/* =====================================================
    SUBJECTS
-========================================================= */
+===================================================== */
 
 function renderSubjects(subjects) {
 
   const container =
-    document.getElementById("subjectsContainer");
+    document.getElementById(
+      "subjectsContainer"
+    );
+
 
   if (!subjects.length) {
 
@@ -708,21 +903,31 @@ function renderSubjects(subjects) {
     return;
   }
 
+
   container.innerHTML = "";
+
 
   subjects.forEach(subject => {
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
-    div.className = "subject-box";
+
+    div.className =
+      "subject-box";
+
 
     div.innerHTML = `
-      <strong>${escapeHtml(
-        subject["Subject Name"] ||
-        subject.subjectName ||
-        "-"
-      )}</strong>
+
+      <strong>
+        ${escapeHtml(
+          subject["Subject Name"] ||
+          subject.subjectName ||
+          "-"
+        )}
+      </strong>
 
       <div>
         Subject Code:
@@ -741,7 +946,9 @@ function renderSubjects(subjects) {
           "-"
         )}
       </div>
+
     `;
+
 
     container.appendChild(div);
 
@@ -750,14 +957,17 @@ function renderSubjects(subjects) {
 }
 
 
-/* =========================================================
-   QUESTION PAPERS
-========================================================= */
+/* =====================================================
+   PAPERS
+===================================================== */
 
 function renderPapers(papers) {
 
   const container =
-    document.getElementById("papersContainer");
+    document.getElementById(
+      "papersContainer"
+    );
+
 
   if (!papers.length) {
 
@@ -767,6 +977,7 @@ function renderPapers(papers) {
     return;
   }
 
+
   let html = `
 
     <table class="paper-table">
@@ -774,19 +985,28 @@ function renderPapers(papers) {
       <thead>
 
         <tr>
+
           <th>Subject</th>
+
           <th>Paper Code</th>
+
           <th>Paper Title</th>
+
           <th>Total Marks</th>
+
           <th>Exam Start</th>
+
           <th>Exam End</th>
+
           <th>Action</th>
+
         </tr>
 
       </thead>
 
       <tbody>
   `;
+
 
   papers.forEach(paper => {
 
@@ -795,35 +1015,42 @@ function renderPapers(papers) {
       paper.subjectName ||
       "-";
 
+
     const paperCode =
       paper["Paper Code"] ||
       paper.paperCode ||
       "-";
+
 
     const title =
       paper["Paper Title"] ||
       paper.paperTitle ||
       "-";
 
+
     const totalMarks =
       paper["Total Marks"] ||
       paper.totalMarks ||
       "-";
+
 
     const start =
       paper["Exam Start"] ||
       paper.examStart ||
       "-";
 
+
     const end =
       paper["Exam End"] ||
       paper.examEnd ||
       "-";
 
+
     const fileUrl =
       paper["File URL"] ||
       paper.fileUrl ||
       "#";
+
 
     html += `
 
@@ -846,11 +1073,15 @@ function renderPapers(papers) {
         </td>
 
         <td>
-          ${escapeHtml(formatDate(start))}
+          ${escapeHtml(
+            formatDate(start)
+          )}
         </td>
 
         <td>
-          ${escapeHtml(formatDate(end))}
+          ${escapeHtml(
+            formatDate(end)
+          )}
         </td>
 
         <td>
@@ -870,45 +1101,60 @@ function renderPapers(papers) {
 
   });
 
+
   html += `
       </tbody>
     </table>
   `;
 
-  container.innerHTML = html;
+
+  container.innerHTML =
+    html;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    OPEN PAPER
-========================================================= */
+===================================================== */
 
 function openPaper(url) {
 
   if (!url || url === "#") {
 
-    alert("Question paper file is not available.");
+    alert(
+      "Question paper file is not available."
+    );
 
     return;
   }
 
-  window.open(url, "_blank");
+
+  window.open(
+    url,
+    "_blank"
+  );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PAPER DROPDOWN
-========================================================= */
+===================================================== */
 
 function populatePaperDropdown(papers) {
 
   const select =
-    document.getElementById("paperSelect");
+    document.getElementById(
+      "paperSelect"
+    );
+
 
   select.innerHTML =
-    `<option value="">-- Select Question Paper --</option>`;
+    `<option value="">
+      -- Select Question Paper --
+    </option>`;
+
 
   papers.forEach(paper => {
 
@@ -917,25 +1163,34 @@ function populatePaperDropdown(papers) {
       paper.paperId ||
       "";
 
+
     const paperCode =
       paper["Paper Code"] ||
       paper.paperCode ||
       "";
+
 
     const subjectName =
       paper["Subject Name"] ||
       paper.subjectName ||
       "";
 
+
     const title =
       paper["Paper Title"] ||
       paper.paperTitle ||
       "";
 
-    const option =
-      document.createElement("option");
 
-    option.value = paperId;
+    const option =
+      document.createElement(
+        "option"
+      );
+
+
+    option.value =
+      paperId;
+
 
     option.textContent =
       subjectName +
@@ -944,27 +1199,39 @@ function populatePaperDropdown(papers) {
       " - " +
       title;
 
-    select.appendChild(option);
+
+    select.appendChild(
+      option
+    );
 
   });
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PAPER SELECTED
-========================================================= */
+===================================================== */
 
 async function paperSelected() {
 
   const paperId =
-    document.getElementById("paperSelect").value;
+    document.getElementById(
+      "paperSelect"
+    ).value;
+
 
   const status =
-    document.getElementById("submissionStatus");
+    document.getElementById(
+      "submissionStatus"
+    );
+
 
   const area =
-    document.getElementById("submissionArea");
+    document.getElementById(
+      "submissionArea"
+    );
+
 
   selectedPaper = null;
 
@@ -972,19 +1239,27 @@ async function paperSelected() {
 
   selectedFiles = [];
 
+
   clearFileSelection();
 
-  area.classList.add("hidden");
+
+  area.classList.add(
+    "hidden"
+  );
+
 
   status.innerHTML = "";
+
 
   if (!paperId) {
 
     return;
   }
 
+
   selectedPaper =
-    (dashboardData.papers || []).find(
+    (dashboardData.papers || [])
+    .find(
       paper =>
         String(
           paper["Paper ID"] ||
@@ -992,6 +1267,7 @@ async function paperSelected() {
           ""
         ) === String(paperId)
     );
+
 
   if (!selectedPaper) {
 
@@ -1003,10 +1279,12 @@ async function paperSelected() {
     return;
   }
 
+
   status.innerHTML =
     `<div class="status-box status-new">
       Checking submission status...
     </div>`;
+
 
   try {
 
@@ -1014,22 +1292,30 @@ async function paperSelected() {
       await api(
         "getStudentSubmissionStatus",
         {
-          studentId: studentId,
-          paperId: paperId
+          studentId:
+            studentId,
+
+          paperId:
+            paperId
         }
       );
 
-    currentSubmissionStatus = result;
+
+    currentSubmissionStatus =
+      result;
+
 
     updateSubmissionUI();
 
   }
 
-  catch (error) {
+  catch(error) {
 
     status.innerHTML =
       `<div class="status-box status-error">
-        ${escapeHtml(error.message)}
+        ${escapeHtml(
+          error.message
+        )}
       </div>`;
 
   }
@@ -1037,37 +1323,61 @@ async function paperSelected() {
 }
 
 
-/* =========================================================
-   UPDATE SUBMISSION UI
-========================================================= */
+/* =====================================================
+   SUBMISSION UI
+===================================================== */
 
 function updateSubmissionUI() {
 
   const status =
-    document.getElementById("submissionStatus");
+    document.getElementById(
+      "submissionStatus"
+    );
+
 
   const area =
-    document.getElementById("submissionArea");
+    document.getElementById(
+      "submissionArea"
+    );
+
 
   const submitBtn =
-    document.getElementById("submitBtn");
+    document.getElementById(
+      "submitBtn"
+    );
+
 
   const editBtn =
-    document.getElementById("editBtn");
+    document.getElementById(
+      "editBtn"
+    );
 
-  const fileInput =
-    document.getElementById("answerFiles");
 
-  const fileLabel =
-    document.getElementById("fileLabel");
+  const uploadOptions =
+    document.getElementById(
+      "uploadOptions"
+    );
 
-  area.classList.remove("hidden");
 
-  submitBtn.classList.add("hidden");
+  area.classList.remove(
+    "hidden"
+  );
 
-  editBtn.classList.add("hidden");
 
-  fileInput.disabled = false;
+  submitBtn.classList.add(
+    "hidden"
+  );
+
+
+  editBtn.classList.add(
+    "hidden"
+  );
+
+
+  uploadOptions.classList.remove(
+    "hidden"
+  );
+
 
   if (
     !currentSubmissionStatus ||
@@ -1077,14 +1387,14 @@ function updateSubmissionUI() {
     status.innerHTML =
       `<div class="status-box status-new">
         📤 <strong>Not Submitted</strong><br>
-        You have not submitted this answer sheet yet.
-        You can upload 1–20 photos.
+        You can upload 1–20 answer-sheet photos.
       </div>`;
 
-    submitBtn.classList.remove("hidden");
 
-    fileLabel.textContent =
-      "Select Answer Sheet Photos";
+    submitBtn.classList.remove(
+      "hidden"
+    );
+
 
     return;
   }
@@ -1092,6 +1402,7 @@ function updateSubmissionUI() {
 
   const editAllowed =
     currentSubmissionStatus.editAllowed;
+
 
   const editCount =
     Number(
@@ -1104,15 +1415,16 @@ function updateSubmissionUI() {
     status.innerHTML =
       `<div class="status-box status-submitted">
         📋 <strong>Answer Sheet Submitted</strong><br>
-        Your answer sheet has been submitted successfully.<br>
-        <strong>Edit opportunity remaining: 1</strong><br>
+        Your answer sheet has been submitted.<br>
+        ✏️ You have <strong>ONE edit opportunity</strong> remaining.<br>
         Edit Count: ${editCount}/1
       </div>`;
 
-    editBtn.classList.remove("hidden");
 
-    fileLabel.textContent =
-      "Select New Answer Sheet Photos for Edit";
+    editBtn.classList.remove(
+      "hidden"
+    );
+
 
     return;
   }
@@ -1121,121 +1433,247 @@ function updateSubmissionUI() {
   status.innerHTML =
     `<div class="status-box status-completed">
       ✅ <strong>Submission Completed</strong><br>
-      Your answer sheet has been submitted and the one edit opportunity has already been used.<br>
-      <strong>No further submission or edit is allowed.</strong>
+      Your one edit opportunity has already been used.<br>
+      <strong>No further changes are allowed.</strong>
     </div>`;
 
-  fileInput.disabled = true;
 
-  fileLabel.textContent =
-    "Submission completed";
+  uploadOptions.classList.add(
+    "hidden"
+  );
 
 }
 
 
-/* =========================================================
-   FILE SELECTION
-========================================================= */
+/* =====================================================
+   CAMERA
+===================================================== */
 
-function handleFileSelection() {
+function openCamera() {
 
   const input =
-    document.getElementById("answerFiles");
+    document.getElementById(
+      "cameraInput"
+    );
+
+
+  input.value = "";
+
+  input.click();
+
+}
+
+
+function cameraSelected(event) {
 
   const files =
-    Array.from(input.files || []);
+    Array.from(
+      event.target.files || []
+    );
+
 
   if (!files.length) {
-
-    selectedFiles = [];
-
-    document.getElementById(
-      "photoPreview"
-    ).innerHTML = "";
 
     return;
   }
 
-  if (files.length > 20) {
+
+  if (
+    selectedFiles.length >= 20
+  ) {
 
     alert(
       "Maximum 20 photos are allowed."
     );
 
-    input.value = "";
+    return;
+  }
 
-    selectedFiles = [];
 
+  selectedFiles.push(
+    files[0]
+  );
+
+
+  updatePhotoPreview();
+
+}
+
+
+/* =====================================================
+   GALLERY / FILES
+===================================================== */
+
+function openGallery() {
+
+  const input =
     document.getElementById(
-      "photoPreview"
-    ).innerHTML = "";
+      "galleryInput"
+    );
+
+
+  input.value = "";
+
+  input.click();
+
+}
+
+
+function gallerySelected(event) {
+
+  const files =
+    Array.from(
+      event.target.files || []
+    );
+
+
+  if (!files.length) {
 
     return;
   }
 
-  selectedFiles = files;
 
-  showPhotoPreview(files);
+  const combined =
+    selectedFiles.concat(
+      files
+    );
+
+
+  if (combined.length > 20) {
+
+    alert(
+      "Maximum 20 photos are allowed."
+    );
+
+    selectedFiles =
+      combined.slice(
+        0,
+        20
+      );
+
+  } else {
+
+    selectedFiles =
+      combined;
+
+  }
+
+
+  updatePhotoPreview();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PHOTO PREVIEW
-========================================================= */
+===================================================== */
 
-function showPhotoPreview(files) {
+function updatePhotoPreview() {
 
   const container =
-    document.getElementById("photoPreview");
+    document.getElementById(
+      "photoPreview"
+    );
+
+
+  const countText =
+    document.getElementById(
+      "photoCountText"
+    );
+
 
   container.innerHTML = "";
 
-  files.forEach((file, index) => {
 
-    const item =
-      document.createElement("div");
+  if (!selectedFiles.length) {
 
-    item.className =
-      "photo-item";
+    countText.textContent =
+      "No photos selected.";
 
-    const img =
-      document.createElement("img");
+    return;
+  }
 
-    const number =
-      document.createElement("div");
 
-    number.className =
-      "photo-number";
+  countText.textContent =
+    selectedFiles.length +
+    " photo(s) selected. Maximum 20.";
 
-    number.textContent =
-      "#" + (index + 1);
 
-    const reader =
-      new FileReader();
+  selectedFiles.forEach(
+    (file, index) => {
 
-    reader.onload = function(e) {
+      const item =
+        document.createElement(
+          "div"
+        );
 
-      img.src = e.target.result;
 
-    };
+      item.className =
+        "photo-item";
 
-    reader.readAsDataURL(file);
 
-    item.appendChild(img);
+      const img =
+        document.createElement(
+          "img"
+        );
 
-    item.appendChild(number);
 
-    container.appendChild(item);
+      const number =
+        document.createElement(
+          "div"
+        );
 
-  });
+
+      number.className =
+        "photo-number";
+
+
+      number.textContent =
+        "#" +
+        (index + 1);
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(e) {
+
+          img.src =
+            e.target.result;
+
+        };
+
+
+      reader.readAsDataURL(
+        file
+      );
+
+
+      item.appendChild(
+        img
+      );
+
+
+      item.appendChild(
+        number
+      );
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
 
 }
 
 
-/* =========================================================
-   SUBMIT ANSWER SHEET
-========================================================= */
+/* =====================================================
+   SUBMIT
+===================================================== */
 
 async function submitAnswerSheet() {
 
@@ -1248,6 +1686,7 @@ async function submitAnswerSheet() {
     return;
   }
 
+
   if (!selectedFiles.length) {
 
     alert(
@@ -1257,6 +1696,7 @@ async function submitAnswerSheet() {
     return;
   }
 
+
   if (selectedFiles.length > 20) {
 
     alert(
@@ -1265,6 +1705,7 @@ async function submitAnswerSheet() {
 
     return;
   }
+
 
   if (
     currentSubmissionStatus &&
@@ -1278,40 +1719,29 @@ async function submitAnswerSheet() {
     return;
   }
 
-  const confirmed =
-    confirm(
+
+  if (
+    !confirm(
       "Are you sure you want to submit your answer sheet?\n\n" +
       "You can submit only once. " +
-      "After submission, you will have only one edit opportunity."
-    );
-
-  if (!confirmed) {
+      "After submission, you will have one edit opportunity."
+    )
+  ) {
 
     return;
   }
 
-  try {
 
-    await uploadSubmission(
-      "saveSubmission"
-    );
-
-  }
-
-  catch (error) {
-
-    alert(
-      error.message
-    );
-
-  }
+  await uploadSubmission(
+    "saveSubmission"
+  );
 
 }
 
 
-/* =========================================================
-   EDIT ANSWER SHEET
-========================================================= */
+/* =====================================================
+   EDIT
+===================================================== */
 
 async function editAnswerSheet() {
 
@@ -1323,6 +1753,7 @@ async function editAnswerSheet() {
 
     return;
   }
+
 
   if (
     !currentSubmissionStatus ||
@@ -1336,6 +1767,7 @@ async function editAnswerSheet() {
     return;
   }
 
+
   if (
     !currentSubmissionStatus.editAllowed
   ) {
@@ -1347,76 +1779,67 @@ async function editAnswerSheet() {
     return;
   }
 
+
   if (!selectedFiles.length) {
 
     alert(
-      "Please select 1–20 new photos before editing."
+      "Please select 1–20 new photos."
     );
 
     return;
   }
 
-  if (selectedFiles.length > 20) {
 
-    alert(
-      "Maximum 20 photos are allowed."
-    );
-
-    return;
-  }
-
-  const confirmed =
-    confirm(
-      "Are you sure you want to replace your submitted answer sheet?\n\n" +
-      "This is your ONE and ONLY edit opportunity.\n" +
-      "After this edit, no further changes will be allowed."
-    );
-
-  if (!confirmed) {
+  if (
+    !confirm(
+      "This is your ONE edit opportunity.\n\n" +
+      "After editing, no further changes will be allowed.\n\n" +
+      "Continue?"
+    )
+  ) {
 
     return;
   }
 
-  try {
 
-    await uploadSubmission(
-      "editSubmission"
-    );
-
-  }
-
-  catch (error) {
-
-    alert(
-      error.message
-    );
-
-  }
+  await uploadSubmission(
+    "editSubmission"
+  );
 
 }
 
 
-/* =========================================================
-   UPLOAD SUBMISSION
-========================================================= */
+/* =====================================================
+   UPLOAD
+===================================================== */
 
-async function uploadSubmission(action) {
+async function uploadSubmission(
+  action
+) {
 
   const submitBtn =
-    document.getElementById("submitBtn");
+    document.getElementById(
+      "submitBtn"
+    );
+
 
   const editBtn =
-    document.getElementById("editBtn");
+    document.getElementById(
+      "editBtn"
+    );
+
 
   const progressContainer =
     document.getElementById(
       "progressContainer"
     );
 
+
   const progressBar =
     document.getElementById(
       "progressBar"
     );
+
 
   const progressText =
     document.getElementById(
@@ -1424,15 +1847,21 @@ async function uploadSubmission(action) {
     );
 
 
-  submitBtn.disabled = true;
+  submitBtn.disabled =
+    true;
 
-  editBtn.disabled = true;
+
+  editBtn.disabled =
+    true;
+
 
   progressContainer.style.display =
     "block";
 
+
   progressBar.style.width =
     "0%";
+
 
   progressText.textContent =
     "Preparing photos...";
@@ -1441,6 +1870,7 @@ async function uploadSubmission(action) {
   try {
 
     const photoData = [];
+
 
     for (
       let i = 0;
@@ -1455,14 +1885,17 @@ async function uploadSubmission(action) {
         selectedFiles.length +
         "...";
 
+
       const compressed =
         await compressImage(
           selectedFiles[i]
         );
 
+
       photoData.push(
         compressed
       );
+
 
       const percent =
         Math.round(
@@ -1470,6 +1903,7 @@ async function uploadSubmission(action) {
             selectedFiles.length) *
           50
         );
+
 
       progressBar.style.width =
         percent + "%";
@@ -1485,17 +1919,22 @@ async function uploadSubmission(action) {
       await api(
         action,
         {
-          studentId: studentId,
+          studentId:
+            studentId,
+
           paperId:
             selectedPaper["Paper ID"] ||
             selectedPaper.paperId,
-          photos: photoData
+
+          photos:
+            photoData
         }
       );
 
 
     progressBar.style.width =
       "100%";
+
 
     progressText.textContent =
       "Upload completed successfully.";
@@ -1509,54 +1948,57 @@ async function uploadSubmission(action) {
 
     selectedFiles = [];
 
+
     clearFileSelection();
 
-
-    await loadDashboard();
-
-
-    const paperSelect =
-      document.getElementById(
-        "paperSelect"
-      );
 
     const paperId =
       selectedPaper["Paper ID"] ||
       selectedPaper.paperId;
 
-    paperSelect.value =
+
+    await loadDashboard();
+
+
+    document.getElementById(
+      "paperSelect"
+    ).value =
       paperId;
+
 
     await paperSelected();
 
-
   }
 
-  catch (error) {
+  catch(error) {
 
     console.error(error);
 
     progressText.textContent =
       "Upload failed.";
 
-    throw error;
+    alert(
+      error.message
+    );
 
   }
 
   finally {
 
-    submitBtn.disabled = false;
+    submitBtn.disabled =
+      false;
 
-    editBtn.disabled = false;
+    editBtn.disabled =
+      false;
 
   }
 
 }
 
 
-/* =========================================================
-   COMPRESS IMAGE
-========================================================= */
+/* =====================================================
+   IMAGE COMPRESSION
+===================================================== */
 
 function compressImage(file) {
 
@@ -1566,121 +2008,143 @@ function compressImage(file) {
       const reader =
         new FileReader();
 
-      reader.onload = function(event) {
 
-        const img =
-          new Image();
+      reader.onload =
+        function(event) {
 
-        img.onload = function() {
-
-          const maxSize = 1600;
-
-          let width =
-            img.width;
-
-          let height =
-            img.height;
+          const img =
+            new Image();
 
 
-          if (
-            width > maxSize ||
-            height > maxSize
-          ) {
+          img.onload =
+            function() {
 
-            if (width > height) {
+              const maxSize =
+                1600;
 
-              height =
-                Math.round(
-                  height *
-                  maxSize /
-                  width
+
+              let width =
+                img.width;
+
+
+              let height =
+                img.height;
+
+
+              if (
+                width > maxSize ||
+                height > maxSize
+              ) {
+
+                if (
+                  width > height
+                ) {
+
+                  height =
+                    Math.round(
+                      height *
+                      maxSize /
+                      width
+                    );
+
+                  width =
+                    maxSize;
+
+                }
+
+                else {
+
+                  width =
+                    Math.round(
+                      width *
+                      maxSize /
+                      height
+                    );
+
+                  height =
+                    maxSize;
+
+                }
+
+              }
+
+
+              const canvas =
+                document.createElement(
+                  "canvas"
                 );
 
-              width =
-                maxSize;
 
-            } else {
+              canvas.width =
+                width;
 
-              width =
-                Math.round(
-                  width *
-                  maxSize /
-                  height
+
+              canvas.height =
+                height;
+
+
+              const ctx =
+                canvas.getContext(
+                  "2d"
                 );
 
-              height =
-                maxSize;
 
-            }
-
-          }
-
-
-          const canvas =
-            document.createElement(
-              "canvas"
-            );
-
-          canvas.width =
-            width;
-
-          canvas.height =
-            height;
+              ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+              );
 
 
-          const ctx =
-            canvas.getContext("2d");
-
-          ctx.drawImage(
-            img,
-            0,
-            0,
-            width,
-            height
-          );
+              const dataUrl =
+                canvas.toDataURL(
+                  "image/jpeg",
+                  0.75
+                );
 
 
-          const dataUrl =
-            canvas.toDataURL(
-              "image/jpeg",
-              0.75
-            );
+              resolve(
+                dataUrl
+              );
+
+            };
 
 
-          resolve(dataUrl);
+          img.onerror =
+            function() {
+
+              reject(
+                new Error(
+                  "Unable to read image."
+                )
+              );
+
+            };
+
+
+          img.src =
+            event.target.result;
 
         };
 
 
-        img.onerror = function() {
+      reader.onerror =
+        function() {
 
           reject(
             new Error(
-              "Unable to read image."
+              "Unable to read file."
             )
           );
 
         };
 
 
-        img.src =
-          event.target.result;
-
-      };
-
-
-      reader.onerror = function() {
-
-        reject(
-          new Error(
-            "Unable to read file."
-          )
-        );
-
-      };
-
-
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(
+        file
+      );
 
     }
   );
@@ -1688,29 +2152,41 @@ function compressImage(file) {
 }
 
 
-/* =========================================================
-   CLEAR FILE SELECTION
-========================================================= */
+/* =====================================================
+   CLEAR FILES
+===================================================== */
 
 function clearFileSelection() {
 
-  const input =
-    document.getElementById(
-      "answerFiles"
-    );
+  document.getElementById(
+    "cameraInput"
+  ).value = "";
 
-  input.value = "";
+
+  document.getElementById(
+    "galleryInput"
+  ).value = "";
+
+
+  selectedFiles = [];
+
 
   document.getElementById(
     "photoPreview"
   ).innerHTML = "";
 
+
+  document.getElementById(
+    "photoCountText"
+  ).textContent =
+    "No photos selected.";
+
 }
 
 
-/* =========================================================
+/* =====================================================
    RESULTS
-========================================================= */
+===================================================== */
 
 function renderResults(results) {
 
@@ -1718,6 +2194,7 @@ function renderResults(results) {
     document.getElementById(
       "resultsContainer"
     );
+
 
   if (!results.length) {
 
@@ -1735,13 +2212,21 @@ function renderResults(results) {
       <thead>
 
         <tr>
+
           <th>Paper ID</th>
+
           <th>Marks</th>
+
           <th>Total Marks</th>
+
           <th>Percentage</th>
+
           <th>Result</th>
+
           <th>Remarks</th>
+
           <th>Updated At</th>
+
         </tr>
 
       </thead>
@@ -1822,11 +2307,8 @@ function renderResults(results) {
 
 
   html += `
-
       </tbody>
-
     </table>
-
   `;
 
 
@@ -1836,9 +2318,9 @@ function renderResults(results) {
 }
 
 
-/* =========================================================
+/* =====================================================
    LOGOUT
-========================================================= */
+===================================================== */
 
 function logout() {
 
@@ -1862,27 +2344,33 @@ function logout() {
     "loggedIn"
   );
 
+
   window.location.href =
     "index.html";
 
 }
 
 
-/* =========================================================
-   FORMAT DATE
-========================================================= */
+/* =====================================================
+   DATE
+===================================================== */
 
 function formatDate(value) {
 
-  if (!value || value === "-") {
+  if (
+    !value ||
+    value === "-"
+  ) {
 
     return "-";
   }
+
 
   try {
 
     const date =
       new Date(value);
+
 
     if (
       isNaN(
@@ -1893,13 +2381,14 @@ function formatDate(value) {
       return value;
     }
 
+
     return date.toLocaleString(
       "en-IN"
     );
 
   }
 
-  catch (error) {
+  catch(error) {
 
     return value;
 
@@ -1908,9 +2397,9 @@ function formatDate(value) {
 }
 
 
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value) {
 
@@ -1920,26 +2409,31 @@ function escapeHtml(value) {
   ) {
 
     return "";
-
   }
 
+
   return String(value)
+
     .replace(
       /&/g,
       "&amp;"
     )
+
     .replace(
       /</g,
       "&lt;"
     )
+
     .replace(
       />/g,
       "&gt;"
     )
+
     .replace(
       /"/g,
       "&quot;"
     )
+
     .replace(
       /'/g,
       "&#039;"
@@ -1948,9 +2442,9 @@ function escapeHtml(value) {
 }
 
 
-/* =========================================================
-   JAVASCRIPT STRING ESCAPE
-========================================================= */
+/* =====================================================
+   ESCAPE JAVASCRIPT
+===================================================== */
 
 function escapeJs(value) {
 
@@ -1960,18 +2454,21 @@ function escapeJs(value) {
   ) {
 
     return "";
-
   }
 
+
   return String(value)
+
     .replace(
       /\\/g,
       "\\\\"
     )
+
     .replace(
       /'/g,
       "\\'"
     )
+
     .replace(
       /"/g,
       '\\"'
