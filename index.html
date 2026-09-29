@@ -4,614 +4,745 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Online Exam Portal - Login</title>
+<title>Online Exam Portal</title>
 
 <style>
+
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #eef4ff, #f8fbff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
+
+/* MAIN CONTAINER */
 
 .container {
-  width: 100%;
-  max-width: 900px;
+    width: 100%;
+    max-width: 900px;
 }
 
+/* HEADER */
+
 .header {
-  text-align: center;
-  margin-bottom: 25px;
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 .header h1 {
-  margin: 0;
-  color: #163a70;
-  font-size: 32px;
+    margin: 0;
+    color: #17365d;
+    font-size: 32px;
 }
 
 .header p {
-  margin-top: 8px;
-  color: #666;
-  font-size: 15px;
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 15px;
 }
 
-.login-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
+/* LOGIN AREA */
+
+.login-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
+
+/* CARD */
 
 .login-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 30px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.10);
-  border: 1px solid #e5eaf2;
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+    border: 1px solid #e1e6ed;
+}
+
+/* CARD HEADER */
+
+.card-header {
+    text-align: center;
+    margin-bottom: 22px;
 }
 
 .icon {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px;
-  font-size: 30px;
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
 }
 
 .student-icon {
-  background: #e8f1ff;
+    background: #e8f1ff;
 }
 
 .admin-icon {
-  background: #fff0e5;
+    background: #fff0df;
 }
 
-.login-card h2 {
-  text-align: center;
-  margin: 5px 0 8px;
-  color: #222;
+.card-header h2 {
+    margin: 5px 0;
+    color: #222;
 }
 
-.login-card .description {
-  text-align: center;
-  color: #777;
-  font-size: 14px;
-  margin-bottom: 22px;
+.card-header p {
+    margin: 5px 0;
+    font-size: 13px;
+    color: #777;
 }
+
+/* FORM */
 
 label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: bold;
-  color: #333;
-  font-size: 14px;
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+    color: #333;
+    font-size: 14px;
 }
 
 input {
-  width: 100%;
-  padding: 13px 14px;
-  border: 1px solid #ccd3dd;
-  border-radius: 9px;
-  font-size: 15px;
-  outline: none;
-  margin-bottom: 15px;
+    width: 100%;
+    height: 45px;
+    border: 1px solid #cbd3df;
+    border-radius: 8px;
+    padding: 0 13px;
+    font-size: 15px;
+    margin-bottom: 17px;
+    outline: none;
 }
 
 input:focus {
-  border-color: #2864d7;
-  box-shadow: 0 0 0 3px rgba(40,100,215,0.10);
+    border-color: #2463d4;
+    box-shadow: 0 0 0 3px rgba(36,99,212,0.10);
 }
 
-.login-btn {
-  width: 100%;
-  border: none;
-  padding: 13px;
-  border-radius: 9px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  color: white;
-  transition: 0.2s;
+/* LOGIN BUTTON */
+
+.login-button {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.student-btn {
-  background: #2864d7;
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.student-btn:hover {
-  background: #1e50b1;
+.student-button {
+    background: #2463d4;
 }
 
-.admin-btn {
-  background: #e67e22;
+.student-button:hover {
+    background: #1b4fae;
 }
 
-.admin-btn:hover {
-  background: #c9650d;
+.admin-button {
+    background: #e67e22;
 }
 
-.login-btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
+.admin-button:hover {
+    background: #c9630c;
 }
+
+/* MESSAGE */
 
 .message {
-  display: none;
-  margin-top: 15px;
-  padding: 11px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-  text-align: center;
+    display: none;
+    margin-top: 15px;
+    padding: 11px;
+    border-radius: 7px;
+    font-size: 14px;
+    text-align: center;
 }
 
 .message.error {
-  display: block;
-  background: #ffe8e8;
-  color: #b42318;
-  border: 1px solid #ffcaca;
+    display: block;
+    background: #ffe9e9;
+    border: 1px solid #ffcaca;
+    color: #b42318;
 }
 
 .message.success {
-  display: block;
-  background: #e8f7ed;
-  color: #16733a;
-  border: 1px solid #bfe8cd;
+    display: block;
+    background: #e9f8ef;
+    border: 1px solid #bce8ca;
+    color: #18733a;
 }
 
+/* FOOTER */
+
 .footer {
-  text-align: center;
-  margin-top: 22px;
-  color: #888;
-  font-size: 13px;
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    font-size: 13px;
 }
+
+
+/* MOBILE */
 
 @media (max-width: 700px) {
 
-  body {
-    padding: 15px;
-    align-items: flex-start;
-  }
+    body {
+        align-items: flex-start;
+        padding: 15px;
+    }
 
-  .container {
-    margin-top: 20px;
-  }
+    .container {
+        margin-top: 15px;
+    }
 
-  .header h1 {
-    font-size: 25px;
-  }
+    .header h1 {
+        font-size: 25px;
+    }
 
-  .login-grid {
-    grid-template-columns: 1fr;
-  }
+    .login-area {
+        grid-template-columns: 1fr;
+    }
 
-  .login-card {
-    padding: 24px 20px;
-  }
+    .login-card {
+        padding: 23px 20px;
+    }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-  <div class="header">
-    <h1>Online Exam Portal</h1>
-    <p>Login to continue</p>
-  </div>
+    <!-- HEADER -->
 
-  <div class="login-grid">
+    <div class="header">
 
-    <!-- STUDENT LOGIN -->
-    <div class="login-card">
+        <h1>Online Exam Portal</h1>
 
-      <div class="icon student-icon">
-        🎓
-      </div>
-
-      <h2>Student Login</h2>
-
-      <div class="description">
-        Login to view your subjects, question papers, submit answer sheets and check results.
-      </div>
-
-      <form id="studentLoginForm">
-
-        <label for="studentId">
-          Student ID
-        </label>
-
-        <input
-          type="text"
-          id="studentId"
-          placeholder="Enter Student ID"
-          autocomplete="username"
-          required
-        >
-
-        <label for="studentPassword">
-          Password
-        </label>
-
-        <input
-          type="password"
-          id="studentPassword"
-          placeholder="Enter Password"
-          autocomplete="current-password"
-          required
-        >
-
-        <button
-          type="submit"
-          class="login-btn student-btn"
-          id="studentLoginBtn"
-        >
-          Login as Student
-        </button>
-
-        <div id="studentMessage" class="message"></div>
-
-      </form>
+        <p>
+            Select your login type to continue
+        </p>
 
     </div>
 
 
-    <!-- ADMIN LOGIN -->
-    <div class="login-card">
+    <!-- SIDE BY SIDE LOGIN -->
 
-      <div class="icon admin-icon">
-        👨‍💼
-      </div>
+    <div class="login-area">
 
-      <h2>Admin Login</h2>
 
-      <div class="description">
-        Login to manage students, subjects, question papers, submissions and results.
-      </div>
+        <!-- =========================
+             STUDENT LOGIN
+        ========================== -->
 
-      <form id="adminLoginForm">
+        <div class="login-card">
 
-        <label for="adminId">
-          Admin ID
-        </label>
+            <div class="card-header">
 
-        <input
-          type="text"
-          id="adminId"
-          placeholder="Enter Admin ID"
-          autocomplete="username"
-          required
-        >
+                <div class="icon student-icon">
+                    🎓
+                </div>
 
-        <label for="adminPassword">
-          Password
-        </label>
+                <h2>Student Login</h2>
 
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="Enter Password"
-          autocomplete="current-password"
-          required
-        >
+                <p>
+                    Login to access your examination dashboard
+                </p>
 
-        <button
-          type="submit"
-          class="login-btn admin-btn"
-          id="adminLoginBtn"
-        >
-          Login as Admin
-        </button>
+            </div>
 
-        <div id="adminMessage" class="message"></div>
 
-      </form>
+            <form id="studentLoginForm">
+
+                <label for="studentId">
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter Student ID"
+                    autocomplete="username"
+                    required
+                >
+
+
+                <label for="studentPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="studentPassword"
+                    placeholder="Enter Password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    id="studentLoginButton"
+                    class="login-button student-button"
+                >
+                    Login as Student
+                </button>
+
+
+                <div
+                    id="studentMessage"
+                    class="message"
+                ></div>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =========================
+             ADMIN LOGIN
+        ========================== -->
+
+        <div class="login-card">
+
+            <div class="card-header">
+
+                <div class="icon admin-icon">
+                    👨‍💼
+                </div>
+
+                <h2>Admin Login</h2>
+
+                <p>
+                    Login to manage the examination portal
+                </p>
+
+            </div>
+
+
+            <form id="adminLoginForm">
+
+                <label for="adminId">
+                    Admin ID
+                </label>
+
+                <input
+                    type="text"
+                    id="adminId"
+                    placeholder="Enter Admin ID"
+                    autocomplete="username"
+                    required
+                >
+
+
+                <label for="adminPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter Password"
+                    autocomplete="current-password"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    id="adminLoginButton"
+                    class="login-button admin-button"
+                >
+                    Login as Admin
+                </button>
+
+
+                <div
+                    id="adminMessage"
+                    class="message"
+                ></div>
+
+            </form>
+
+        </div>
 
     </div>
 
-  </div>
 
-  <div class="footer">
-    Online Exam Portal
-  </div>
+    <div class="footer">
+        Online Examination System
+    </div>
 
 </div>
 
 
+
 <script>
 
-/* =========================================================
-   GOOGLE APPS SCRIPT API
-========================================================= */
+/* =====================================================
+   GOOGLE APPS SCRIPT WEB APP URL
+===================================================== */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
-/* =========================================================
+/* =====================================================
    API FUNCTION
-========================================================= */
+===================================================== */
 
 async function api(action, data = {}) {
 
-  try {
-
-    const response = await fetch(API_URL, {
-
-      method: "POST",
-
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-
-      body: JSON.stringify({
-        action: action,
-        ...data
-      })
-
-    });
-
-    const text = await response.text();
-
-    let result;
-
     try {
-      result = JSON.parse(text);
-    } catch (e) {
 
-      console.error("Invalid server response:", text);
+        const response = await fetch(API_URL, {
 
-      return {
-        success: false,
-        message: "Invalid response from server."
-      };
+            method: "POST",
+
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify({
+                action: action,
+                ...data
+            })
+
+        });
+
+
+        const text = await response.text();
+
+
+        let result;
+
+        try {
+
+            result = JSON.parse(text);
+
+        } catch (error) {
+
+            console.error("Server response:", text);
+
+            return {
+                success: false,
+                message: "Invalid response from server."
+            };
+
+        }
+
+
+        return result;
+
+    } catch (error) {
+
+        console.error("API Error:", error);
+
+        return {
+            success: false,
+            message: "Unable to connect to server."
+        };
 
     }
 
-    return result;
+}
 
-  } catch (error) {
 
-    console.error(error);
+/* =====================================================
+   MESSAGE FUNCTION
+===================================================== */
 
-    return {
-      success: false,
-      message: "Unable to connect to server. Please try again."
-    };
+function showMessage(id, message, type) {
 
-  }
+    const element = document.getElementById(id);
+
+    element.textContent = message;
+
+    element.className = "message " + type;
 
 }
 
 
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(elementId, message, type = "error") {
-
-  const element = document.getElementById(elementId);
-
-  element.textContent = message;
-
-  element.className = "message " + type;
-
-}
-
-
-/* =========================================================
+/* =====================================================
    STUDENT LOGIN
-========================================================= */
+===================================================== */
 
 document
 .getElementById("studentLoginForm")
-.addEventListener("submit", async function(e) {
+.addEventListener("submit", async function(event) {
 
-  e.preventDefault();
-
-  const studentId =
-    document.getElementById("studentId").value.trim();
-
-  const password =
-    document.getElementById("studentPassword").value;
-
-  const button =
-    document.getElementById("studentLoginBtn");
-
-  if (!studentId || !password) {
-
-    showMessage(
-      "studentMessage",
-      "Please enter Student ID and Password.",
-      "error"
-    );
-
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Logging in...";
-
-  showMessage(
-    "studentMessage",
-    "Checking login...",
-    "success"
-  );
-
-  const result = await api("studentLogin", {
-
-    studentId: studentId,
-
-    password: password
-
-  });
+    event.preventDefault();
 
 
-  if (result && result.success) {
+    const studentId =
+        document.getElementById("studentId")
+        .value
+        .trim();
 
-    /*
-      Store only the login information needed
-      by student.html.
-    */
 
-    sessionStorage.setItem(
-      "examPortalRole",
-      "student"
-    );
+    const password =
+        document.getElementById("studentPassword")
+        .value;
 
-    sessionStorage.setItem(
-      "studentId",
-      result.studentId || studentId
-    );
 
-    sessionStorage.setItem(
-      "studentName",
-      result.studentName || ""
-    );
+    const button =
+        document.getElementById("studentLoginButton");
+
+
+    if (!studentId || !password) {
+
+        showMessage(
+            "studentMessage",
+            "Please enter Student ID and Password.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent = "Logging in...";
 
 
     showMessage(
-      "studentMessage",
-      "Login successful. Opening dashboard...",
-      "success"
+        "studentMessage",
+        "Checking login...",
+        "success"
     );
 
 
-    setTimeout(function() {
-
-      window.location.href = "student.html";
-
-    }, 400);
-
-  } else {
-
-    showMessage(
-      "studentMessage",
-      result && result.message
-        ? result.message
-        : "Invalid Student ID or password.",
-      "error"
+    const result = await api(
+        "studentLogin",
+        {
+            studentId: studentId,
+            password: password
+        }
     );
 
-    button.disabled = false;
-    button.textContent = "Login as Student";
 
-  }
+    console.log("Student Login:", result);
+
+
+    if (result && result.success) {
+
+
+        /* Clear old login data */
+
+        sessionStorage.removeItem("examPortalRole");
+        sessionStorage.removeItem("studentId");
+        sessionStorage.removeItem("studentName");
+
+
+        /* Save student login */
+
+        sessionStorage.setItem(
+            "examPortalRole",
+            "student"
+        );
+
+
+        sessionStorage.setItem(
+            "studentId",
+            result.studentId || studentId
+        );
+
+
+        sessionStorage.setItem(
+            "studentName",
+            result.studentName || ""
+        );
+
+
+        showMessage(
+            "studentMessage",
+            "Login successful. Opening dashboard...",
+            "success"
+        );
+
+
+        setTimeout(function() {
+
+            window.location.href = "student.html";
+
+        }, 500);
+
+
+    } else {
+
+
+        showMessage(
+            "studentMessage",
+            result && result.message
+                ? result.message
+                : "Invalid Student ID or password.",
+            "error"
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Login as Student";
+
+    }
 
 });
 
 
-/* =========================================================
+/* =====================================================
    ADMIN LOGIN
-========================================================= */
+===================================================== */
 
 document
 .getElementById("adminLoginForm")
-.addEventListener("submit", async function(e) {
+.addEventListener("submit", async function(event) {
 
-  e.preventDefault();
-
-  const adminId =
-    document.getElementById("adminId").value.trim();
-
-  const password =
-    document.getElementById("adminPassword").value;
-
-  const button =
-    document.getElementById("adminLoginBtn");
-
-  if (!adminId || !password) {
-
-    showMessage(
-      "adminMessage",
-      "Please enter Admin ID and Password.",
-      "error"
-    );
-
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Logging in...";
-
-  showMessage(
-    "adminMessage",
-    "Checking login...",
-    "success"
-  );
+    event.preventDefault();
 
 
-  const result = await api("adminLogin", {
-
-    adminId: adminId,
-
-    password: password
-
-  });
+    const adminId =
+        document.getElementById("adminId")
+        .value
+        .trim();
 
 
-  if (result && result.success) {
+    const password =
+        document.getElementById("adminPassword")
+        .value;
 
-    sessionStorage.setItem(
-      "examPortalRole",
-      "admin"
-    );
 
-    sessionStorage.setItem(
-      "adminId",
-      result.adminId || adminId
-    );
+    const button =
+        document.getElementById("adminLoginButton");
+
+
+    if (!adminId || !password) {
+
+        showMessage(
+            "adminMessage",
+            "Please enter Admin ID and Password.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent = "Logging in...";
 
 
     showMessage(
-      "adminMessage",
-      "Login successful. Opening dashboard...",
-      "success"
+        "adminMessage",
+        "Checking login...",
+        "success"
     );
 
 
-    setTimeout(function() {
-
-      window.location.href = "admin.html";
-
-    }, 400);
-
-  } else {
-
-    showMessage(
-      "adminMessage",
-      result && result.message
-        ? result.message
-        : "Invalid Admin ID or password.",
-      "error"
+    const result = await api(
+        "adminLogin",
+        {
+            adminId: adminId,
+            password: password
+        }
     );
 
-    button.disabled = false;
-    button.textContent = "Login as Admin";
 
-  }
+    console.log("Admin Login:", result);
+
+
+    if (result && result.success) {
+
+
+        /* Clear old login data */
+
+        sessionStorage.removeItem("examPortalRole");
+        sessionStorage.removeItem("adminId");
+
+
+        /* Save admin login */
+
+        sessionStorage.setItem(
+            "examPortalRole",
+            "admin"
+        );
+
+
+        sessionStorage.setItem(
+            "adminId",
+            result.adminId || adminId
+        );
+
+
+        showMessage(
+            "adminMessage",
+            "Login successful. Opening dashboard...",
+            "success"
+        );
+
+
+        setTimeout(function() {
+
+            window.location.href = "admin.html";
+
+        }, 500);
+
+
+    } else {
+
+
+        showMessage(
+            "adminMessage",
+            result && result.message
+                ? result.message
+                : "Invalid Admin ID or password.",
+            "error"
+        );
+
+
+        button.disabled = false;
+
+        button.textContent = "Login as Admin";
+
+    }
 
 });
 
 
-/* =========================================================
-   ENTER KEY / AUTO FOCUS
-========================================================= */
+/* =====================================================
+   AUTO FOCUS
+===================================================== */
 
 window.addEventListener("load", function() {
 
-  document.getElementById("studentId").focus();
+    document
+        .getElementById("studentId")
+        .focus();
 
 });
 
