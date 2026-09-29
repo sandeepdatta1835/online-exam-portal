@@ -147,7 +147,31 @@ select {
 }
 
 .paper-info {
-  line-height: 1.8;
+  line-height: 1.9;
+}
+
+.exam-timing {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #edf5ff;
+  border: 1px solid #c9ddf5;
+}
+
+.exam-timing div {
+  margin: 5px 0;
+}
+
+.exam-start {
+  color: #146c43;
+}
+
+.exam-end {
+  color: #a61b1b;
+}
+
+.exam-marks {
+  color: #173b73;
 }
 
 .paper-actions {
@@ -563,14 +587,6 @@ document.addEventListener(
   "DOMContentLoaded",
   function() {
 
-    /*
-     * VERY IMPORTANT
-     *
-     * index.html saves Student ID in sessionStorage.
-     *
-     * Therefore student.html also reads sessionStorage.
-     */
-
     studentId =
       sessionStorage.getItem("studentId") || "";
 
@@ -605,19 +621,6 @@ document.addEventListener(
           : ""
       );
 
-
-    /*
-     * IMPORTANT:
-     *
-     * We do NOT depend on getStudentDashboard
-     * to determine assigned subjects.
-     *
-     * We separately load:
-     *
-     * 1. Subjects
-     * 2. Assignments for THIS Student ID
-     * 3. Match Subject IDs
-     */
 
     loadStudentData();
 
@@ -692,10 +695,6 @@ async function loadStudentData() {
 
   try {
 
-    /*
-     * LOAD SUBJECTS
-     */
-
     var subjectResult =
       await api(
         "getSubjects",
@@ -712,12 +711,6 @@ async function loadStudentData() {
               : []
           );
 
-
-    /*
-     * LOAD ASSIGNMENTS FOR THIS STUDENT
-     *
-     * THIS IS THE IMPORTANT FIX.
-     */
 
     var assignmentResult =
       await api(
@@ -738,16 +731,8 @@ async function loadStudentData() {
           );
 
 
-    /*
-     * BUILD ASSIGNED SUBJECT LIST
-     */
-
     buildAssignedSubjects();
 
-
-    /*
-     * LOAD DASHBOARD FOR PAPERS / RESULTS
-     */
 
     try {
 
@@ -771,12 +756,6 @@ async function loadStudentData() {
           : [];
 
     } catch (dashboardError) {
-
-      /*
-       * Assignment display must NOT fail
-       * just because another dashboard section
-       * has an error.
-       */
 
       papers = [];
       results = [];
@@ -830,10 +809,6 @@ function buildAssignedSubjects() {
   grid.innerHTML = "";
 
 
-  /*
-   * DEBUG-SAFE NORMALIZATION
-   */
-
   var assignedSubjectIds = [];
 
 
@@ -850,14 +825,6 @@ function buildAssignedSubjects() {
           ]
         );
 
-
-      /*
-       * If backend already filtered assignments,
-       * assignedStudentId may be empty.
-       *
-       * If it is present, make sure it matches
-       * the logged-in student.
-       */
 
       if (
         assignedStudentId &&
@@ -904,11 +871,6 @@ function buildAssignedSubjects() {
   );
 
 
-  /*
-   * MATCH ASSIGNMENT SUBJECT IDs
-   * WITH SUBJECTS SHEET
-   */
-
   var assignedSubjects = [];
 
 
@@ -945,21 +907,12 @@ function buildAssignedSubjects() {
   );
 
 
-  /*
-   * DISPLAY
-   */
-
   if (!assignedSubjects.length) {
 
     empty.classList.remove(
       "hidden"
     );
 
-
-    /*
-     * This message helps identify the problem
-     * without hiding it.
-     */
 
     empty.innerHTML =
       "No subject has been assigned to Student ID " +
@@ -1264,6 +1217,8 @@ async function paperSelected() {
 
 /* =========================================================
    SHOW PAPER
+   UPDATED:
+   Exam Start + Exam End + Total Marks
 ========================================================= */
 
 function showPaper() {
@@ -1316,6 +1271,28 @@ function showPaper() {
     );
 
 
+  var examStart =
+    getValue(
+      paper,
+      [
+        "Exam Start",
+        "examStart",
+        "ExamStart"
+      ]
+    );
+
+
+  var examEnd =
+    getValue(
+      paper,
+      [
+        "Exam End",
+        "examEnd",
+        "ExamEnd"
+      ]
+    );
+
+
   var fileUrl =
     getValue(
       paper,
@@ -1362,10 +1339,38 @@ function showPaper() {
         : ""
     ) +
 
+    "</div>" +
+
+    /*
+     * EXAM TIMING
+     */
+
+    "<div class='exam-timing'>" +
+
+    (
+      examStart
+        ? "<div class='exam-start'>" +
+          "🟢 <strong>Exam Start:</strong> " +
+          escapeHtml(formatExamDateTime(examStart)) +
+          "</div>"
+        : ""
+    ) +
+
+    (
+      examEnd
+        ? "<div class='exam-end'>" +
+          "🔴 <strong>Exam End:</strong> " +
+          escapeHtml(formatExamDateTime(examEnd)) +
+          "</div>"
+        : ""
+    ) +
+
     (
       totalMarks
-        ? "<strong>Total Marks:</strong> " +
-          escapeHtml(totalMarks)
+        ? "<div class='exam-marks'>" +
+          "📊 <strong>Total Marks:</strong> " +
+          escapeHtml(totalMarks) +
+          "</div>"
         : ""
     ) +
 
@@ -1391,6 +1396,55 @@ function showPaper() {
     "paperContainer"
   ).innerHTML =
     html;
+
+}
+
+
+/* =========================================================
+   FORMAT EXAM DATE/TIME
+========================================================= */
+
+function formatExamDateTime(value) {
+
+  if (!value) {
+    return "";
+  }
+
+
+  var text =
+    String(value).trim();
+
+
+  /*
+   * Try to format valid date/time values.
+   * If Apps Script sends an unrecognized format,
+   * keep the original value rather than hiding it.
+   */
+
+  var date =
+    new Date(text);
+
+
+  if (
+    !isNaN(date.getTime())
+  ) {
+
+    return date.toLocaleString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true
+      }
+    );
+
+  }
+
+
+  return text;
 
 }
 
