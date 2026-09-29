@@ -7,615 +7,198 @@
 <title>Online Exam Portal</title>
 
 <style>
-* {
-  box-sizing: border-box;
+
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  background:
-    linear-gradient(135deg, #0f3d91 0%, #1769e0 50%, #4f9cf9 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #222;
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f6fa;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.page {
-  width: 100%;
-  padding: 20px;
+.login-box{
+  width:100%;
+  max-width:420px;
+  margin:20px;
+  background:white;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 4px 18px rgba(0,0,0,.12);
 }
 
-.portal {
-  max-width: 950px;
-  min-height: 560px;
-  margin: auto;
-  background: white;
-  border-radius: 24px;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+.logo{
+  text-align:center;
+  margin-bottom:22px;
 }
 
-/* LEFT SIDE */
-
-.left-panel {
-  background:
-    linear-gradient(
-      145deg,
-      #092b68,
-      #1769e0
-    );
-  color: white;
-  padding: 55px 45px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
+.logo h1{
+  margin:0;
+  color:#17365d;
+  font-size:25px;
 }
 
-.left-panel::before {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  top: -100px;
-  right: -100px;
+.logo p{
+  margin:8px 0 0;
+  color:#666;
+  font-size:14px;
 }
 
-.left-panel::after {
-  content: "";
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  bottom: -100px;
-  left: -80px;
+label{
+  display:block;
+  margin-top:15px;
+  margin-bottom:6px;
+  font-weight:bold;
 }
 
-.logo-icon {
-  width: 75px;
-  height: 75px;
-  border-radius: 20px;
-  background: white;
-  color: #1769e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 38px;
-  margin-bottom: 25px;
-  position: relative;
-  z-index: 2;
+input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  font-size:15px;
+  outline:none;
 }
 
-.left-panel h1 {
-  margin: 0;
-  font-size: 38px;
-  line-height: 1.15;
-  position: relative;
-  z-index: 2;
+input:focus{
+  border-color:#17365d;
 }
 
-.left-panel h2 {
-  font-size: 20px;
-  font-weight: normal;
-  margin: 15px 0;
-  opacity: 0.95;
-  position: relative;
-  z-index: 2;
+button{
+  width:100%;
+  padding:12px;
+  margin-top:20px;
+  border:0;
+  border-radius:6px;
+  background:#17365d;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.left-panel p {
-  font-size: 15px;
-  line-height: 1.7;
-  opacity: 0.85;
-  max-width: 380px;
-  position: relative;
-  z-index: 2;
+button:hover{
+  opacity:.9;
 }
 
-.features {
-  margin-top: 25px;
-  position: relative;
-  z-index: 2;
+button:disabled{
+  background:#888;
+  cursor:not-allowed;
 }
 
-.feature {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 14px 0;
-  font-size: 14px;
+.message{
+  display:none;
+  padding:11px;
+  margin-top:15px;
+  border-radius:6px;
+  font-size:14px;
 }
 
-.check {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.error{
+  background:#f8d7da;
+  color:#842029;
 }
 
-
-/* RIGHT SIDE */
-
-.right-panel {
-  padding: 45px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.success{
+  background:#d1e7dd;
+  color:#0f5132;
 }
 
-.login-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 7px;
+.info{
+  background:#cff4fc;
+  color:#055160;
 }
 
-.login-subtitle {
-  color: #777;
-  font-size: 14px;
-  margin-bottom: 25px;
+.footer{
+  text-align:center;
+  margin-top:20px;
+  color:#777;
+  font-size:12px;
 }
 
-
-/* TABS */
-
-.login-tabs {
-  display: flex;
-  background: #f0f3f7;
-  padding: 5px;
-  border-radius: 10px;
-  margin-bottom: 25px;
+.admin-link{
+  display:block;
+  text-align:center;
+  margin-top:15px;
+  color:#17365d;
+  font-size:13px;
+  text-decoration:none;
 }
 
-.login-tabs button {
-  flex: 1;
-  border: none;
-  background: transparent;
-  padding: 12px;
-  border-radius: 7px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #666;
-  transition: 0.2s;
+.admin-link:hover{
+  text-decoration:underline;
 }
 
-.login-tabs button.active {
-  background: #1769e0;
-  color: white;
-  box-shadow: 0 3px 8px rgba(23,105,224,0.25);
-}
-
-
-/* FORM */
-
-.form-group {
-  margin-bottom: 18px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.input-wrapper {
-  position: relative;
-}
-
-.input-icon {
-  position: absolute;
-  left: 13px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 17px;
-  color: #888;
-}
-
-.form-group input {
-  width: 100%;
-  height: 48px;
-  border: 1px solid #d5dbe3;
-  border-radius: 9px;
-  padding: 0 14px 0 42px;
-  font-size: 15px;
-  outline: none;
-  transition: 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #1769e0;
-  box-shadow: 0 0 0 3px rgba(23,105,224,0.10);
-}
-
-
-/* LOGIN BUTTON */
-
-.login-btn {
-  width: 100%;
-  height: 50px;
-  border: none;
-  border-radius: 9px;
-  background: #1769e0;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.login-btn:hover {
-  background: #0d58c8;
-  transform: translateY(-1px);
-}
-
-.login-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-
-/* MESSAGE */
-
-.message {
-  display: none;
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.message.success {
-  display: block;
-  background: #e9f8ef;
-  color: #18733c;
-}
-
-.message.error {
-  display: block;
-  background: #fdecec;
-  color: #b42318;
-}
-
-
-/* LOADING */
-
-.loading {
-  display: none;
-  text-align: center;
-  margin-top: 15px;
-  color: #1769e0;
-  font-size: 14px;
-}
-
-
-/* FOOTER */
-
-.footer {
-  text-align: center;
-  color: #999;
-  font-size: 12px;
-  margin-top: 25px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 750px) {
-
-  body {
-    align-items: flex-start;
-  }
-
-  .page {
-    padding: 12px;
-  }
-
-  .portal {
-    grid-template-columns: 1fr;
-    border-radius: 18px;
-    margin-top: 10px;
-  }
-
-  .left-panel {
-    padding: 35px 28px;
-    min-height: 330px;
-  }
-
-  .left-panel h1 {
-    font-size: 30px;
-  }
-
-  .left-panel h2 {
-    font-size: 17px;
-  }
-
-  .features {
-    display: none;
-  }
-
-  .logo-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 30px;
-    border-radius: 16px;
-  }
-
-  .right-panel {
-    padding: 30px 25px 35px;
-  }
-
-  .login-title {
-    font-size: 24px;
-  }
-}
 </style>
 </head>
 
-
 <body>
 
-<div class="page">
+<div class="login-box">
 
-  <div class="portal">
+  <div class="logo">
 
-    <!-- =========================================
-         LEFT PANEL
-    ========================================== -->
+    <h1>Online Exam Portal</h1>
 
-    <div class="left-panel">
+    <p>Student Login</p>
 
-      <div class="logo-icon">
-        🎓
-      </div>
+  </div>
 
-      <h1>
-        Online Exam<br>
-        Portal
-      </h1>
 
-      <h2>
-        Smart • Simple • Secure
-      </h2>
+  <div
+    id="message"
+    class="message"
+  ></div>
 
-      <p>
-        A complete online examination platform
-        for managing question papers, examinations,
-        answer sheets and results.
-      </p>
 
+  <label for="studentId">
+    Student ID
+  </label>
 
-      <div class="features">
+  <input
+    type="text"
+    id="studentId"
+    placeholder="Enter Student ID"
+    autocomplete="username"
+    autocapitalize="none"
+    spellcheck="false"
+  >
 
-        <div class="feature">
-          <span class="check">✓</span>
-          <span>Online Question Papers</span>
-        </div>
 
-        <div class="feature">
-          <span class="check">✓</span>
-          <span>Answer Sheet Submission</span>
-        </div>
+  <label for="password">
+    Password
+  </label>
 
-        <div class="feature">
-          <span class="check">✓</span>
-          <span>Student Results</span>
-        </div>
+  <input
+    type="password"
+    id="password"
+    placeholder="Enter Password"
+    autocomplete="current-password"
+  >
 
-      </div>
 
-    </div>
+  <button
+    id="loginButton"
+    onclick="studentLogin()"
+  >
+    Login
+  </button>
 
 
-    <!-- =========================================
-         RIGHT PANEL
-    ========================================== -->
+  <a
+    href="admin.html"
+    class="admin-link"
+  >
+    Admin Login
+  </a>
 
-    <div class="right-panel">
 
-      <div class="login-title">
-        Welcome Back
-      </div>
-
-      <div class="login-subtitle">
-        Login to continue to the examination portal
-      </div>
-
-
-      <!-- LOGIN TABS -->
-
-      <div class="login-tabs">
-
-        <button
-          id="adminTab"
-          class="active"
-          onclick="showAdminLogin()">
-
-          Admin Login
-
-        </button>
-
-        <button
-          id="studentTab"
-          onclick="showStudentLogin()">
-
-          Student Login
-
-        </button>
-
-      </div>
-
-
-      <!-- =====================================
-           ADMIN LOGIN
-      ====================================== -->
-
-      <div id="adminLoginForm">
-
-        <div class="form-group">
-
-          <label>
-            Admin ID
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              👤
-            </span>
-
-            <input
-              type="text"
-              id="adminId"
-              placeholder="Enter Admin ID"
-              autocomplete="username">
-
-          </div>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Password
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              🔒
-            </span>
-
-            <input
-              type="password"
-              id="adminPassword"
-              placeholder="Enter password"
-              autocomplete="current-password">
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="login-btn"
-          id="adminLoginButton"
-          onclick="adminLogin()">
-
-          Login as Admin
-
-        </button>
-
-      </div>
-
-
-      <!-- =====================================
-           STUDENT LOGIN
-      ====================================== -->
-
-      <div
-        id="studentLoginForm"
-        style="display:none;">
-
-        <div class="form-group">
-
-          <label>
-            Student ID
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              👨‍🎓
-            </span>
-
-            <input
-              type="text"
-              id="studentId"
-              placeholder="Enter Student ID"
-              autocomplete="username">
-
-          </div>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label>
-            Password
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              🔒
-            </span>
-
-            <input
-              type="password"
-              id="studentPassword"
-              placeholder="Enter password"
-              autocomplete="current-password">
-
-          </div>
-
-        </div>
-
-
-        <button
-          class="login-btn"
-          id="studentLoginButton"
-          onclick="studentLogin()">
-
-          Login as Student
-
-        </button>
-
-      </div>
-
-
-      <!-- LOADING -->
-
-      <div
-        id="loading"
-        class="loading">
-
-        Connecting to examination server...
-
-      </div>
-
-
-      <!-- MESSAGE -->
-
-      <div
-        id="message"
-        class="message">
-      </div>
-
-
-      <div class="footer">
-        © Online Exam Portal • Secure Examination System
-      </div>
-
-    </div>
-
+  <div class="footer">
+    Use the Student ID and Password provided by the Admin.
   </div>
 
 </div>
@@ -623,321 +206,116 @@ body {
 
 <script>
 
-/* =====================================================
-   GOOGLE APPS SCRIPT API
-===================================================== */
+/* =========================================================
+   GOOGLE APPS SCRIPT WEB APP URL
+========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
-/* =====================================================
-   API REQUEST
-===================================================== */
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-async function apiRequest(data) {
+function showMessage(message,type){
+
+  const box =
+    document.getElementById("message");
+
+  box.textContent = message;
+
+  box.className =
+    "message " + type;
+
+  box.style.display = "block";
+
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function api(action,data={}){
+
+  const body =
+    Object.assign({},data,{
+      action:action
+    });
+
 
   const response =
-    await fetch(
-      API_URL,
-      {
-        method: "POST",
+    await fetch(API_URL,{
 
-        headers: {
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
+      method:"POST",
 
-        body:
-          JSON.stringify(data)
-      }
-    );
+      headers:{
+        "Content-Type":
+          "text/plain;charset=utf-8"
+      },
+
+      body:JSON.stringify(body)
+
+    });
 
 
   const text =
     await response.text();
 
 
-  try {
+  let result;
 
-    return JSON.parse(text);
 
-  } catch (error) {
+  try{
+
+    result =
+      JSON.parse(text);
+
+  }catch(error){
 
     throw new Error(
-      "Invalid response received from server."
+      "Invalid server response."
     );
 
   }
 
-}
 
+  if(!result.success){
 
-/* =====================================================
-   MESSAGE
-===================================================== */
-
-function showMessage(
-  message,
-  type
-) {
-
-  const box =
-    document.getElementById(
-      "message"
+    throw new Error(
+      result.message ||
+      "Login failed."
     );
-
-  box.textContent =
-    message;
-
-  box.className =
-    "message " + type;
-
-}
-
-
-function clearMessage() {
-
-  const box =
-    document.getElementById(
-      "message"
-    );
-
-  box.textContent =
-    "";
-
-  box.className =
-    "message";
-
-}
-
-
-/* =====================================================
-   LOADING
-===================================================== */
-
-function setLoading(status) {
-
-  document.getElementById(
-    "loading"
-  ).style.display =
-    status
-      ? "block"
-      : "none";
-
-
-  document.getElementById(
-    "adminLoginButton"
-  ).disabled =
-    status;
-
-
-  document.getElementById(
-    "studentLoginButton"
-  ).disabled =
-    status;
-
-}
-
-
-/* =====================================================
-   ADMIN TAB
-===================================================== */
-
-function showAdminLogin() {
-
-  clearMessage();
-
-  document.getElementById(
-    "adminLoginForm"
-  ).style.display =
-    "block";
-
-  document.getElementById(
-    "studentLoginForm"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "adminTab"
-  ).classList.add(
-    "active"
-  );
-
-  document.getElementById(
-    "studentTab"
-  ).classList.remove(
-    "active"
-  );
-
-}
-
-
-/* =====================================================
-   STUDENT TAB
-===================================================== */
-
-function showStudentLogin() {
-
-  clearMessage();
-
-  document.getElementById(
-    "adminLoginForm"
-  ).style.display =
-    "none";
-
-  document.getElementById(
-    "studentLoginForm"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "adminTab"
-  ).classList.remove(
-    "active"
-  );
-
-  document.getElementById(
-    "studentTab"
-  ).classList.add(
-    "active"
-  );
-
-}
-
-
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
-
-async function adminLogin() {
-
-  clearMessage();
-
-
-  const adminId =
-    document.getElementById(
-      "adminId"
-    ).value.trim();
-
-
-  const password =
-    document.getElementById(
-      "adminPassword"
-    ).value;
-
-
-  if (!adminId) {
-
-    showMessage(
-      "Please enter Admin ID.",
-      "error"
-    );
-
-    return;
 
   }
 
 
-  if (!password) {
-
-    showMessage(
-      "Please enter password.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  setLoading(true);
-
-
-  try {
-
-    const result =
-      await apiRequest({
-
-        action:
-          "adminLogin",
-
-        adminId:
-          adminId,
-
-        password:
-          password
-
-      });
-
-
-    if (result.success) {
-
-      sessionStorage.setItem(
-        "examAdminId",
-        adminId
-      );
-
-      sessionStorage.setItem(
-        "examAdminPassword",
-        password
-      );
-
-
-      window.location.href =
-        "admin.html";
-
-    } else {
-
-      showMessage(
-        result.message ||
-        "Invalid Admin ID or password.",
-        "error"
-      );
-
-    }
-
-  } catch (error) {
-
-    showMessage(
-      error.message ||
-      "Unable to connect to server.",
-      "error"
-    );
-
-  } finally {
-
-    setLoading(false);
-
-  }
+  return result;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    STUDENT LOGIN
-===================================================== */
+========================================================= */
 
-async function studentLogin() {
-
-  clearMessage();
-
+async function studentLogin(){
 
   const studentId =
-    document.getElementById(
-      "studentId"
-    ).value.trim();
+    document
+      .getElementById("studentId")
+      .value
+      .trim();
 
 
   const password =
-    document.getElementById(
-      "studentPassword"
-    ).value;
+    document
+      .getElementById("password")
+      .value;
 
 
-  if (!studentId) {
+  if(!studentId){
 
     showMessage(
       "Please enter Student ID.",
@@ -949,10 +327,10 @@ async function studentLogin() {
   }
 
 
-  if (!password) {
+  if(!password){
 
     showMessage(
-      "Please enter password.",
+      "Please enter Password.",
       "error"
     );
 
@@ -961,112 +339,147 @@ async function studentLogin() {
   }
 
 
-  setLoading(true);
+  const button =
+    document.getElementById(
+      "loginButton"
+    );
 
 
-  try {
+  button.disabled = true;
+
+  button.textContent =
+    "Logging in...";
+
+
+  showMessage(
+    "Checking Student ID and Password...",
+    "info"
+  );
+
+
+  try{
 
     const result =
-      await apiRequest({
-
-        action:
-          "studentLogin",
-
-        studentId:
-          studentId,
-
-        password:
-          password
-
-      });
-
-
-    if (result.success) {
-
-      sessionStorage.setItem(
-        "examStudentId",
-        studentId
+      await api(
+        "studentLogin",
+        {
+          studentId:studentId,
+          password:password
+        }
       );
 
-      sessionStorage.setItem(
-        "examStudentPassword",
-        password
-      );
 
-      sessionStorage.setItem(
-        "examStudentName",
-        result.student.studentName
-      );
+    /*
+      Save the session returned
+      by Google Apps Script.
+    */
 
+    sessionStorage.setItem(
+      "studentSession",
+      result.session || ""
+    );
+
+
+    sessionStorage.setItem(
+      "studentId",
+      result.studentId || studentId
+    );
+
+
+    sessionStorage.setItem(
+      "studentName",
+      result.studentName || ""
+    );
+
+
+    showMessage(
+      "Login successful.",
+      "success"
+    );
+
+
+    /*
+      Open student dashboard.
+    */
+
+    setTimeout(function(){
 
       window.location.href =
         "student.html";
 
-    } else {
+    },500);
 
-      showMessage(
-        result.message ||
-        "Invalid Student ID or password.",
-        "error"
-      );
 
-    }
+  }catch(error){
 
-  } catch (error) {
+    console.error(error);
+
 
     showMessage(
       error.message ||
-      "Unable to connect to server.",
+      "Invalid Student ID or Password.",
       "error"
     );
 
-  } finally {
 
-    setLoading(false);
+    button.disabled = false;
+
+    button.textContent =
+      "Login";
 
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    ENTER KEY
-===================================================== */
+========================================================= */
 
-document
-  .getElementById(
-    "adminPassword"
-  )
-  .addEventListener(
-    "keydown",
-    function(event) {
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-      if (event.key === "Enter") {
+    const studentId =
+      document.getElementById(
+        "studentId"
+      );
 
-        adminLogin();
-
-      }
-
-    }
-  );
+    const password =
+      document.getElementById(
+        "password"
+      );
 
 
-document
-  .getElementById(
-    "studentPassword"
-  )
-  .addEventListener(
-    "keydown",
-    function(event) {
+    studentId.addEventListener(
+      "keydown",
+      function(event){
 
-      if (event.key === "Enter") {
+        if(event.key === "Enter"){
 
-        studentLogin();
+          password.focus();
+
+        }
 
       }
+    );
 
-    }
-  );
+
+    password.addEventListener(
+      "keydown",
+      function(event){
+
+        if(event.key === "Enter"){
+
+          studentLogin();
+
+        }
+
+      }
+    );
+
+  }
+);
 
 </script>
 
