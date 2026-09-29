@@ -4,241 +4,530 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Online Exam Portal - Login</title>
+<title>Online Exam Portal</title>
 
 <style>
-* {
-  box-sizing: border-box;
+
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f5f9;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f6f9;
+  color:#1e293b;
 }
 
-.container {
-  width: 100%;
-  max-width: 900px;
-  padding: 20px;
+/* ================= HEADER ================= */
+
+.header{
+  background:#172554;
+  color:white;
+  padding:18px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 25px;
+.header-title{
+  font-size:23px;
+  font-weight:bold;
 }
 
-.header h1 {
-  margin: 0;
-  color: #1d3557;
-  font-size: 30px;
+.header-subtitle{
+  font-size:13px;
+  opacity:.85;
+  margin-top:4px;
 }
 
-.header p {
-  margin-top: 8px;
-  color: #666;
+/* ================= MAIN ================= */
+
+.main{
+  width:94%;
+  max-width:1100px;
+  margin:45px auto;
 }
 
-.login-area {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
+.welcome{
+  text-align:center;
+  margin-bottom:30px;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 28px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+.welcome h1{
+  margin:0;
+  color:#172554;
+  font-size:30px;
 }
 
-.card h2 {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 22px;
+.welcome p{
+  color:#64748b;
+  margin-top:8px;
 }
 
-.student-card h2 {
-  color: #1565c0;
+/* ================= ROLE CARDS ================= */
+
+.role-container{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  max-width:850px;
+  margin:0 auto;
 }
 
-.admin-card h2 {
-  color: #6a1b9a;
+.role-card{
+  background:white;
+  border-radius:15px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+  border:2px solid transparent;
+  transition:.2s;
 }
 
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 7px;
-  color: #333;
+.role-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
 }
 
-input {
-  width: 100%;
-  padding: 13px;
-  margin-bottom: 17px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: 16px;
-  outline: none;
+.student-card:hover{
+  border-color:#2563eb;
 }
 
-input:focus {
-  border-color: #1565c0;
+.admin-card:hover{
+  border-color:#172554;
 }
 
-button {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 7px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
+.role-icon{
+  width:80px;
+  height:80px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
 }
 
-.student-btn {
-  background: #1565c0;
+.student-icon{
+  background:#dbeafe;
 }
 
-.student-btn:hover {
-  background: #0d47a1;
+.admin-icon{
+  background:#e0e7ff;
 }
 
-.admin-btn {
-  background: #6a1b9a;
+.role-card h2{
+  margin:5px 0 8px;
+  color:#172554;
 }
 
-.admin-btn:hover {
-  background: #4a148c;
+.role-card p{
+  color:#64748b;
+  font-size:14px;
+  min-height:40px;
 }
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.role-btn{
+  width:100%;
+  padding:13px;
+  margin-top:15px;
+  border:none;
+  border-radius:7px;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.message {
-  display: none;
-  margin-top: 15px;
-  padding: 11px;
-  border-radius: 6px;
-  font-size: 14px;
-  text-align: center;
+.student-btn{
+  background:#2563eb;
 }
 
-.error {
-  display: block;
-  background: #ffebee;
-  color: #c62828;
+.student-btn:hover{
+  background:#1d4ed8;
 }
 
-.success {
-  display: block;
-  background: #e8f5e9;
-  color: #2e7d32;
+.admin-btn{
+  background:#172554;
 }
 
-.loading {
-  text-align: center;
-  margin-top: 12px;
-  color: #555;
-  display: none;
+.admin-btn:hover{
+  background:#0f172a;
 }
 
-.footer {
-  text-align: center;
-  margin-top: 25px;
-  color: #777;
-  font-size: 13px;
+/* ================= LOGIN BOX ================= */
+
+.login-section{
+  display:none;
+  max-width:450px;
+  margin:0 auto;
 }
 
-@media (max-width: 700px) {
+.login-box{
+  background:white;
+  border-radius:15px;
+  padding:30px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
 
-  .login-area {
-    grid-template-columns: 1fr;
+.login-header{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.login-icon{
+  width:65px;
+  height:65px;
+  margin:0 auto 12px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  background:#dbeafe;
+}
+
+.login-header h2{
+  margin:5px 0;
+  color:#172554;
+}
+
+.login-header p{
+  margin:0;
+  color:#64748b;
+  font-size:13px;
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.form-group input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  font-size:15px;
+  outline:none;
+}
+
+.form-group input:focus{
+  border-color:#2563eb;
+  box-shadow:0 0 0 2px rgba(37,99,235,.1);
+}
+
+.password-wrapper{
+  position:relative;
+}
+
+.password-wrapper input{
+  padding-right:75px;
+}
+
+.show-password{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:#2563eb;
+  font-size:12px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.login-btn{
+  width:100%;
+  padding:13px;
+  border:none;
+  border-radius:7px;
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  background:#2563eb;
+}
+
+.login-btn.admin-login{
+  background:#172554;
+}
+
+.login-btn:hover{
+  opacity:.9;
+}
+
+.back-btn{
+  width:100%;
+  padding:11px;
+  margin-top:10px;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  background:white;
+  color:#334155;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.message{
+  display:none;
+  margin-top:15px;
+  padding:11px;
+  border-radius:7px;
+  font-size:13px;
+  text-align:center;
+}
+
+.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+  text-align:center;
+  padding:25px;
+  color:#64748b;
+  font-size:12px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:650px){
+
+  .header{
+    padding:15px;
   }
 
-  .header h1 {
-    font-size: 25px;
+  .header-title{
+    font-size:18px;
   }
 
-  .card {
-    padding: 22px;
+  .main{
+    margin:30px auto;
   }
+
+  .welcome h1{
+    font-size:25px;
+  }
+
+  .role-container{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .role-card{
+    padding:25px 20px;
+  }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- ================= HEADER ================= -->
 
-  <div class="header">
-    <h1>Online Exam Portal</h1>
-    <p>Login to continue</p>
+<div class="header">
+
+  <div>
+    <div class="header-title">
+      Online Exam Portal
+    </div>
+
+    <div class="header-subtitle">
+      Secure Examination Management System
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+  <!-- WELCOME -->
+
+  <div class="welcome">
+
+    <h1>
+      Welcome
+    </h1>
+
+    <p>
+      Select your login type to continue
+    </p>
+
   </div>
 
 
-  <div class="login-area">
+  <!-- ================= ROLE SELECTION ================= -->
 
-    <!-- =========================
-         STUDENT LOGIN
-    ========================== -->
+  <div
+    id="roleSelection"
+    class="role-container"
+  >
 
-    <div class="card student-card">
+    <!-- STUDENT -->
 
-      <h2>Student Login</h2>
+    <div class="role-card student-card">
 
-      <form id="studentLoginForm">
+      <div class="role-icon student-icon">
+        👨‍🎓
+      </div>
 
-        <label for="studentId">
+      <h2>
+        Student
+      </h2>
+
+      <p>
+        Login to view your subjects, question papers,
+        submit answer sheets and check results.
+      </p>
+
+      <button
+        class="role-btn student-btn"
+        onclick="showLogin('student')"
+      >
+        Student Login
+      </button>
+
+    </div>
+
+
+    <!-- ADMIN -->
+
+    <div class="role-card admin-card">
+
+      <div class="role-icon admin-icon">
+        🛠️
+      </div>
+
+      <h2>
+        Admin
+      </h2>
+
+      <p>
+        Manage students, subjects, question papers,
+        assignments, submissions and results.
+      </p>
+
+      <button
+        class="role-btn admin-btn"
+        onclick="showLogin('admin')"
+      >
+        Admin Login
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= STUDENT LOGIN ================= -->
+
+  <div
+    id="studentLoginSection"
+    class="login-section"
+  >
+
+    <div class="login-box">
+
+      <div class="login-header">
+
+        <div class="login-icon">
+          👨‍🎓
+        </div>
+
+        <h2>
+          Student Login
+        </h2>
+
+        <p>
+          Enter your Student ID and Password
+        </p>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
           Student ID
         </label>
 
         <input
           type="text"
-          id="studentId"
+          id="studentLoginId"
           placeholder="Enter Student ID"
           autocomplete="username"
-          required
         >
 
+      </div>
 
-        <label for="studentPassword">
+
+      <div class="form-group">
+
+        <label>
           Password
         </label>
 
-        <input
-          type="password"
-          id="studentPassword"
-          placeholder="Enter Password"
-          autocomplete="current-password"
-          required
-        >
+        <div class="password-wrapper">
 
+          <input
+            type="password"
+            id="studentLoginPassword"
+            placeholder="Enter Password"
+            autocomplete="current-password"
+          >
 
-        <button
-          type="submit"
-          id="studentLoginButton"
-          class="student-btn"
-        >
-          Student Login
-        </button>
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('studentLoginPassword',this)"
+          >
+            Show
+          </button>
 
-      </form>
+        </div>
 
-      <div
-        id="studentLoading"
-        class="loading"
-      >
-        Checking Student ID...
       </div>
+
+
+      <button
+        class="login-btn"
+        onclick="studentLogin()"
+      >
+        Login as Student
+      </button>
+
+
+      <button
+        class="back-btn"
+        onclick="backToRoles()"
+      >
+        ← Back
+      </button>
+
 
       <div
         id="studentMessage"
@@ -247,59 +536,97 @@ button:disabled {
 
     </div>
 
+  </div>
 
-    <!-- =========================
-         ADMIN LOGIN
-    ========================== -->
 
-    <div class="card admin-card">
+  <!-- ================= ADMIN LOGIN ================= -->
 
-      <h2>Admin Login</h2>
+  <div
+    id="adminLoginSection"
+    class="login-section"
+  >
 
-      <form id="adminLoginForm">
+    <div class="login-box">
 
-        <label for="adminId">
+      <div class="login-header">
+
+        <div
+          class="login-icon"
+          style="background:#e0e7ff;"
+        >
+          🛠️
+        </div>
+
+        <h2>
+          Admin Login
+        </h2>
+
+        <p>
+          Enter Admin ID and Password
+        </p>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
           Admin ID
         </label>
 
         <input
           type="text"
-          id="adminId"
+          id="adminLoginId"
           placeholder="Enter Admin ID"
           autocomplete="username"
-          required
         >
 
+      </div>
 
-        <label for="adminPassword">
+
+      <div class="form-group">
+
+        <label>
           Password
         </label>
 
-        <input
-          type="password"
-          id="adminPassword"
-          placeholder="Enter Admin Password"
-          autocomplete="current-password"
-          required
-        >
+        <div class="password-wrapper">
 
+          <input
+            type="password"
+            id="adminLoginPassword"
+            placeholder="Enter Password"
+            autocomplete="current-password"
+          >
 
-        <button
-          type="submit"
-          id="adminLoginButton"
-          class="admin-btn"
-        >
-          Admin Login
-        </button>
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword('adminLoginPassword',this)"
+          >
+            Show
+          </button>
 
-      </form>
+        </div>
 
-      <div
-        id="adminLoading"
-        class="loading"
-      >
-        Checking Admin Login...
       </div>
+
+
+      <button
+        class="login-btn admin-login"
+        onclick="adminLogin()"
+      >
+        Login as Admin
+      </button>
+
+
+      <button
+        class="back-btn"
+        onclick="backToRoles()"
+      >
+        ← Back
+      </button>
+
 
       <div
         id="adminMessage"
@@ -310,61 +637,384 @@ button:disabled {
 
   </div>
 
+</div>
 
-  <div class="footer">
-    Online Exam Portal
-  </div>
+
+<!-- ================= FOOTER ================= -->
+
+<div class="footer">
+
+  Online Exam Portal
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   GOOGLE APPS SCRIPT WEB APP URL
-===================================================== */
+/* =========================================================
+   APPS SCRIPT WEB APP URL
+========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
-/* =====================================================
-   COMMON API FUNCTION
-===================================================== */
+/* =========================================================
+   ROLE SELECTION
+========================================================= */
 
-async function api(action, data = {}) {
+function showLogin(type){
 
-  const response = await fetch(API_URL, {
+  document.getElementById(
+    "roleSelection"
+  ).style.display = "none";
 
-    method: "POST",
+  document.getElementById(
+    "studentLoginSection"
+  ).style.display = "none";
 
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-
-    body: JSON.stringify({
-
-      action: action,
-
-      ...data
-
-    })
-
-  });
+  document.getElementById(
+    "adminLoginSection"
+  ).style.display = "none";
 
 
-  const text = await response.text();
+  if(type === "student"){
+
+    document.getElementById(
+      "studentLoginSection"
+    ).style.display = "block";
+
+    setTimeout(function(){
+
+      document.getElementById(
+        "studentLoginId"
+      ).focus();
+
+    },100);
+
+  }
+
+
+  if(type === "admin"){
+
+    document.getElementById(
+      "adminLoginSection"
+    ).style.display = "block";
+
+    setTimeout(function(){
+
+      document.getElementById(
+        "adminLoginId"
+      ).focus();
+
+    },100);
+
+  }
+
+}
+
+
+/* =========================================================
+   BACK TO ROLE SELECTION
+========================================================= */
+
+function backToRoles(){
+
+  document.getElementById(
+    "roleSelection"
+  ).style.display = "grid";
+
+  document.getElementById(
+    "studentLoginSection"
+  ).style.display = "none";
+
+  document.getElementById(
+    "adminLoginSection"
+  ).style.display = "none";
+
+
+  clearMessage("studentMessage");
+  clearMessage("adminMessage");
+
+}
+
+
+/* =========================================================
+   STUDENT LOGIN
+========================================================= */
+
+async function studentLogin(){
+
+  const studentId =
+    document.getElementById(
+      "studentLoginId"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "studentLoginPassword"
+    ).value.trim();
+
+
+  if(!studentId || !password){
+
+    showMessage(
+      "studentMessage",
+      "Please enter Student ID and Password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    showMessage(
+      "studentMessage",
+      "Checking login...",
+      "success"
+    );
+
+
+    const result =
+      await api(
+        "studentLogin",
+        {
+          studentId:studentId,
+          password:password
+        }
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.message ||
+        "Invalid Student ID or Password."
+      );
+
+    }
+
+
+    /*
+       Store student information.
+       Student dashboard will use these values.
+    */
+
+    localStorage.setItem(
+      "studentId",
+      result.studentId || studentId
+    );
+
+    localStorage.setItem(
+      "studentID",
+      result.studentId || studentId
+    );
+
+    localStorage.setItem(
+      "Student ID",
+      result.studentId || studentId
+    );
+
+
+    localStorage.setItem(
+      "studentName",
+      result.studentName || ""
+    );
+
+    localStorage.setItem(
+      "Student Name",
+      result.studentName || ""
+    );
+
+
+    /*
+       Go directly to Student Dashboard.
+    */
+
+    window.location.href =
+      "student.html";
+
+
+  }catch(error){
+
+    showMessage(
+      "studentMessage",
+      error.message ||
+      "Login failed.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+async function adminLogin(){
+
+  const adminId =
+    document.getElementById(
+      "adminLoginId"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "adminLoginPassword"
+    ).value.trim();
+
+
+  if(!adminId || !password){
+
+    showMessage(
+      "adminMessage",
+      "Please enter Admin ID and Password.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    showMessage(
+      "adminMessage",
+      "Checking login...",
+      "success"
+    );
+
+
+    const result =
+      await api(
+        "adminLogin",
+        {
+          adminId:adminId,
+          password:password
+        }
+      );
+
+
+    if(!result.success){
+
+      throw new Error(
+        result.message ||
+        "Invalid Admin ID or Password."
+      );
+
+    }
+
+
+    /*
+       Store admin information.
+       Admin dashboard will use these values.
+    */
+
+    localStorage.setItem(
+      "adminId",
+      result.adminId || adminId
+    );
+
+    localStorage.setItem(
+      "adminID",
+      result.adminId || adminId
+    );
+
+    localStorage.setItem(
+      "Admin ID",
+      result.adminId || adminId
+    );
+
+
+    localStorage.setItem(
+      "adminName",
+      result.adminName || "Admin"
+    );
+
+    localStorage.setItem(
+      "Admin Name",
+      result.adminName || "Admin"
+    );
+
+
+    /*
+       Go directly to Admin Dashboard.
+    */
+
+    window.location.href =
+      "admin.html";
+
+
+  }catch(error){
+
+    showMessage(
+      "adminMessage",
+      error.message ||
+      "Login failed.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   API FUNCTION
+========================================================= */
+
+async function api(action,data={}){
+
+  const payload = {
+
+    action:action,
+
+    ...data
+
+  };
+
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+
+        method:"POST",
+
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(payload)
+
+      }
+    );
+
+
+  const text =
+    await response.text();
+
 
   let result;
 
-  try {
 
-    result = JSON.parse(text);
+  try{
 
-  } catch (error) {
+    result =
+      JSON.parse(text);
+
+  }catch(error){
 
     throw new Error(
-      "Invalid response from Google Apps Script."
+      "Invalid server response."
     );
 
   }
@@ -375,290 +1025,131 @@ async function api(action, data = {}) {
 }
 
 
-/* =====================================================
-   SHOW MESSAGE
-===================================================== */
+/* =========================================================
+   SHOW / HIDE PASSWORD
+========================================================= */
 
-function showMessage(elementId, message, type) {
+function togglePassword(
+  inputId,
+  button
+){
 
-  const element =
-    document.getElementById(elementId);
+  const input =
+    document.getElementById(
+      inputId
+    );
 
-  element.textContent = message;
 
-  element.className =
-    "message " + type;
+  if(input.type === "password"){
+
+    input.type = "text";
+
+    button.textContent =
+      "Hide";
+
+  }else{
+
+    input.type = "password";
+
+    button.textContent =
+      "Show";
+
+  }
 
 }
 
 
-/* =====================================================
-   STUDENT LOGIN
-===================================================== */
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-document
-  .getElementById("studentLoginForm")
-  .addEventListener("submit", async function(event) {
+function showMessage(
+  elementId,
+  message,
+  type
+){
 
-    event.preventDefault();
-
-
-    const studentId =
-      document
-        .getElementById("studentId")
-        .value
-        .trim();
-
-
-    const password =
-      document
-        .getElementById("studentPassword")
-        .value;
-
-
-    if (!studentId || !password) {
-
-      showMessage(
-        "studentMessage",
-        "Student ID and password are required.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const button =
-      document.getElementById("studentLoginButton");
-
-    const loading =
-      document.getElementById("studentLoading");
-
-
-    button.disabled = true;
-
-    loading.style.display = "block";
-
-
-    showMessage(
-      "studentMessage",
-      "",
-      ""
+  const element =
+    document.getElementById(
+      elementId
     );
 
 
-    try {
-
-      /*
-       * IMPORTANT:
-       * Backend expects:
-       *
-       * action: studentLogin
-       * studentId: ...
-       * password: ...
-       */
-
-      const result = await api(
-        "studentLogin",
-        {
-          studentId: studentId,
-          password: password
-        }
-      );
+  element.textContent =
+    message;
 
 
-      if (result.success === true) {
+  element.className =
+    "message " +
+    (
+      type === "success"
+      ? "success"
+      : "error"
+    );
 
-        /*
-         * Save only the logged-in student's
-         * basic information.
-         */
-
-        localStorage.setItem(
-          "studentId",
-          result.student.studentId
-        );
-
-        localStorage.setItem(
-          "studentName",
-          result.student.name
-        );
+}
 
 
-        showMessage(
-          "studentMessage",
-          "Login successful. Opening Student Dashboard...",
-          "success"
-        );
+function clearMessage(elementId){
 
-
-        setTimeout(function() {
-
-          window.location.href =
-            "student.html";
-
-        }, 500);
-
-
-      } else {
-
-        showMessage(
-          "studentMessage",
-          result.message ||
-          "Invalid Student ID or password.",
-          "error"
-        );
-
-      }
-
-
-    } catch (error) {
-
-      showMessage(
-        "studentMessage",
-        error.message ||
-        "Unable to connect to the server.",
-        "error"
-      );
-
-    }
-
-
-    button.disabled = false;
-
-    loading.style.display = "none";
-
-  });
-
-
-/* =====================================================
-   ADMIN LOGIN
-===================================================== */
-
-document
-  .getElementById("adminLoginForm")
-  .addEventListener("submit", async function(event) {
-
-    event.preventDefault();
-
-
-    const adminId =
-      document
-        .getElementById("adminId")
-        .value
-        .trim();
-
-
-    const password =
-      document
-        .getElementById("adminPassword")
-        .value;
-
-
-    if (!adminId || !password) {
-
-      showMessage(
-        "adminMessage",
-        "Admin ID and password are required.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    const button =
-      document.getElementById("adminLoginButton");
-
-    const loading =
-      document.getElementById("adminLoading");
-
-
-    button.disabled = true;
-
-    loading.style.display = "block";
-
-
-    showMessage(
-      "adminMessage",
-      "",
-      ""
+  const element =
+    document.getElementById(
+      elementId
     );
 
 
-    try {
+  element.textContent =
+    "";
 
-      /*
-       * Backend expects:
-       *
-       * action: adminLogin
-       * adminId: ...
-       * password: ...
-       */
+  element.className =
+    "message";
 
-      const result = await api(
-        "adminLogin",
-        {
-          adminId: adminId,
-          password: password
-        }
+}
+
+
+/* =========================================================
+   ENTER KEY LOGIN
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key !== "Enter")
+      return;
+
+
+    const studentSection =
+      document.getElementById(
+        "studentLoginSection"
       );
 
 
-      if (result.success === true) {
-
-        localStorage.setItem(
-          "adminId",
-          result.admin.adminId
-        );
-
-
-        showMessage(
-          "adminMessage",
-          "Login successful. Opening Admin Panel...",
-          "success"
-        );
-
-
-        setTimeout(function() {
-
-          window.location.href =
-            "admin.html";
-
-        }, 500);
-
-
-      } else {
-
-        showMessage(
-          "adminMessage",
-          result.message ||
-          "Invalid Admin ID or password.",
-          "error"
-        );
-
-      }
-
-
-    } catch (error) {
-
-      showMessage(
-        "adminMessage",
-        error.message ||
-        "Unable to connect to the server.",
-        "error"
+    const adminSection =
+      document.getElementById(
+        "adminLoginSection"
       );
+
+
+    if(
+      studentSection.style.display === "block"
+    ){
+
+      studentLogin();
 
     }
 
 
-    button.disabled = false;
+    if(
+      adminSection.style.display === "block"
+    ){
 
-    loading.style.display = "none";
+      adminLogin();
 
-  });
+    }
+
+  }
+);
 
 </script>
 
