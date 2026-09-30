@@ -230,6 +230,91 @@ textarea {
 }
 
 /* =========================
+   QUESTION PAPER ACTIONS
+========================= */
+
+.paper-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.paper-action-btn {
+    border: none;
+    border-radius: 7px;
+    padding: 7px 10px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: .2s;
+}
+
+.paper-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 7px rgba(0,0,0,.12);
+}
+
+.paper-open {
+    background: #edf3f8;
+    color: #29445d;
+}
+
+.paper-publish {
+    background: #e7f6ea;
+    color: #2e7d32;
+}
+
+.paper-unpublish {
+    background: #fff2df;
+    color: #ef6c00;
+}
+
+.paper-delete {
+    background: #fff0f0;
+    color: #c62828;
+}
+
+.paper-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 86px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.paper-status-draft {
+    background: #f3e8ff;
+    color: #7b1fa2;
+}
+
+.paper-status-published {
+    background: #e7f6ea;
+    color: #2e7d32;
+}
+
+.paper-status-unpublished {
+    background: #fff2df;
+    color: #ef6c00;
+}
+
+.paper-status-select {
+    width: auto;
+    min-width: 115px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: 18px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =========================
    TABLE
 ========================= */
 
@@ -438,6 +523,15 @@ tr:hover td {
 
     .section {
         padding: 15px;
+    }
+
+    .paper-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .paper-action-btn {
+        width: 100%;
     }
 }
 </style>
@@ -2115,8 +2209,6 @@ async function saveAssignments() {
 
     try {
 
-        /* Remove existing assignments */
-
         const old =
             assignments.filter(
                 function(a) {
@@ -2152,8 +2244,6 @@ async function saveAssignments() {
 
         }
 
-
-        /* Add selected */
 
         for(
             const subjectId of selected
@@ -2222,6 +2312,10 @@ async function loadPapers() {
 }
 
 
+/* =========================================================
+   GET PAPER SUBJECT NAME
+========================================================= */
+
 function getPaperSubjectName(paper) {
 
     const subjectId =
@@ -2265,6 +2359,10 @@ function getPaperSubjectName(paper) {
 }
 
 
+/* =========================================================
+   GET PAPER CODE
+========================================================= */
+
 function getPaperCode(paper) {
 
     return (
@@ -2275,6 +2373,121 @@ function getPaperCode(paper) {
 
 }
 
+
+/* =========================================================
+   GET PAPER STATUS
+========================================================= */
+
+function getPaperStatus(paper) {
+
+    const raw =
+        paper["Published"] ??
+        paper.published ??
+        paper["Status"] ??
+        paper.status ??
+        "";
+
+
+    const value =
+        String(raw)
+        .trim()
+        .toLowerCase();
+
+
+    /*
+       Supported values:
+
+       Draft
+       Published / Yes
+       Unpublished / No
+
+       This also keeps compatibility
+       with the existing Yes / No data.
+    */
+
+    if(
+        value === "draft"
+    ) {
+
+        return "Draft";
+
+    }
+
+
+    if(
+        value === "yes" ||
+        value === "published" ||
+        value === "true" ||
+        value === "1"
+    ) {
+
+        return "Published";
+
+    }
+
+
+    if(
+        value === "no" ||
+        value === "unpublished" ||
+        value === "false" ||
+        value === "0"
+    ) {
+
+        return "Unpublished";
+
+    }
+
+
+    /*
+       Existing old records without a
+       status are treated as Unpublished.
+    */
+
+    return "Unpublished";
+
+}
+
+
+/* =========================================================
+   STATUS HTML
+========================================================= */
+
+function getPaperStatusHtml(status) {
+
+    if(status === "Published") {
+
+        return `
+            <span class="paper-status paper-status-published">
+                ● Published
+            </span>
+        `;
+
+    }
+
+
+    if(status === "Draft") {
+
+        return `
+            <span class="paper-status paper-status-draft">
+                ● Draft
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="paper-status paper-status-unpublished">
+            ● Unpublished
+        </span>
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER QUESTION PAPERS
+========================================================= */
 
 function renderPapers() {
 
@@ -2312,17 +2525,8 @@ function renderPapers() {
                 "";
 
 
-            const published =
-                String(
-                    paper["Published"] ||
-                    paper.published ||
-                    "No"
-                );
-
-
-            const publishedYes =
-                published.toLowerCase()
-                === "yes";
+            const status =
+                getPaperStatus(paper);
 
 
             const fileUrl =
@@ -2337,12 +2541,24 @@ function renderPapers() {
                 );
 
 
+            /*
+               Action buttons are deliberately
+               kept separate:
+
+               OPEN
+               PUBLISH
+               UNPUBLISH
+               DELETE
+            */
+
             tr.innerHTML = `
 
                 <td>
-                    ${escapeHtml(
-                        paperCode
-                    )}
+                    <strong>
+                        ${escapeHtml(
+                            paperCode
+                        )}
+                    </strong>
                 </td>
 
                 <td>
@@ -2367,23 +2583,7 @@ function renderPapers() {
 
                 <td>
 
-                    <span class="status ${
-                        publishedYes
-                        ?
-                        "status-published"
-                        :
-                        "status-unpublished"
-                    }">
-
-                        ${
-                            publishedYes
-                            ?
-                            "Published"
-                            :
-                            "Unpublished"
-                        }
-
-                    </span>
+                    ${getPaperStatusHtml(status)}
 
                 </td>
 
@@ -2413,50 +2613,63 @@ function renderPapers() {
 
                 <td>
 
-                    ${
-                        fileUrl
-                        ?
-                        `<a
-                            href="${escapeHtml(fileUrl)}"
-                            target="_blank"
-                            class="btn btn-light"
-                        >
-                            Open
-                        </a>`
-                        :
-                        ""
-                    }
+                    <div class="paper-actions">
 
-                    <button
-                        class="btn ${
-                            publishedYes
-                            ?
-                            "btn-warning"
-                            :
-                            "btn-success"
-                        }"
-                        onclick="togglePaperPublish(
-                            '${escapeJs(paperId)}',
-                            '${publishedYes ? "No" : "Yes"}'
-                        )"
-                    >
                         ${
-                            publishedYes
+                            fileUrl
                             ?
-                            "Unpublish"
+                            `
+                            <a
+                                href="${escapeHtml(fileUrl)}"
+                                target="_blank"
+                                class="paper-action-btn paper-open"
+                                style="text-decoration:none;text-align:center"
+                            >
+                                ↗ Open
+                            </a>
+                            `
                             :
-                            "Publish"
+                            `
+                            <button
+                                class="paper-action-btn paper-open"
+                                disabled
+                            >
+                                ↗ Open
+                            </button>
+                            `
                         }
-                    </button>
 
-                    <button
-                        class="btn btn-danger"
-                        onclick="deletePaper(
-                            '${escapeJs(paperId)}'
-                        )"
-                    >
-                        Delete
-                    </button>
+
+                        <button
+                            class="paper-action-btn paper-publish"
+                            onclick="publishPaperAction(
+                                '${escapeJs(paperId)}'
+                            )"
+                        >
+                            ✓ Publish
+                        </button>
+
+
+                        <button
+                            class="paper-action-btn paper-unpublish"
+                            onclick="unpublishPaperAction(
+                                '${escapeJs(paperId)}'
+                            )"
+                        >
+                            ↩ Unpublish
+                        </button>
+
+
+                        <button
+                            class="paper-action-btn paper-delete"
+                            onclick="deletePaper(
+                                '${escapeJs(paperId)}'
+                            )"
+                        >
+                            🗑 Delete
+                        </button>
+
+                    </div>
 
                 </td>
 
@@ -2523,10 +2736,6 @@ async function uploadPaper() {
         fileInput.files[0];
 
 
-    /* =========================
-       REQUIRED CHECK
-    ========================= */
-
     if(!paperCode) {
 
         showMessage(
@@ -2584,10 +2793,6 @@ async function uploadPaper() {
         return;
     }
 
-
-    /* =========================
-       FILE SIZE
-    ========================= */
 
     const maxSize =
         25 * 1024 * 1024;
@@ -2710,8 +2915,6 @@ async function uploadPaper() {
             "success"
         );
 
-
-        /* Clear form */
 
         document.getElementById(
             "paperCode"
@@ -2860,12 +3063,11 @@ function fileToBase64(file) {
 
 
 /* =========================================================
-   PUBLISH / UNPUBLISH
+   PUBLISH PAPER
 ========================================================= */
 
-async function togglePaperPublish(
-    paperId,
-    published
+async function publishPaperAction(
+    paperId
 ) {
 
     if(!paperId) {
@@ -2874,6 +3076,131 @@ async function togglePaperPublish(
             "Paper ID is missing.",
             "error"
         );
+
+        return;
+    }
+
+
+    const paper =
+        papers.find(
+            function(item) {
+
+                return String(
+                    item["Paper ID"] ||
+                    item.paperId ||
+                    ""
+                ) ===
+                String(paperId);
+
+            }
+        );
+
+
+    if(!paper) {
+
+        showMessage(
+            "Question paper not found.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const subjectName =
+        getPaperSubjectName(paper);
+
+
+    const confirmPublish =
+        confirm(
+            "Publish this question paper?\n\n" +
+            "Subject: " +
+            subjectName +
+            "\n\n" +
+            "Students assigned to this subject will be able to access the published paper."
+        );
+
+
+    if(!confirmPublish) {
+
+        return;
+    }
+
+
+    try {
+
+        /*
+           Existing backend action is retained.
+
+           "Yes" = Published
+
+           The student side should therefore
+           display this paper only for students
+           assigned to the corresponding subject.
+        */
+
+        await api(
+            "publishPaper",
+            {
+
+                paperId:
+                    paperId,
+
+                published:
+                    "Yes"
+
+            }
+        );
+
+
+        showMessage(
+            "Question paper published successfully. Students assigned to this subject can now see it.",
+            "success"
+        );
+
+
+        await loadPapers();
+
+    }
+
+    catch(error) {
+
+        showMessage(
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   UNPUBLISH PAPER
+========================================================= */
+
+async function unpublishPaperAction(
+    paperId
+) {
+
+    if(!paperId) {
+
+        showMessage(
+            "Paper ID is missing.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const confirmUnpublish =
+        confirm(
+            "Unpublish this question paper?\n\nThe paper will no longer be available as a published paper to students."
+        );
+
+
+    if(!confirmUnpublish) {
 
         return;
     }
@@ -2889,18 +3216,14 @@ async function togglePaperPublish(
                     paperId,
 
                 published:
-                    published
+                    "No"
 
             }
         );
 
 
         showMessage(
-            published === "Yes"
-            ?
-            "Paper published successfully. Assigned students can now see it."
-            :
-            "Paper unpublished successfully.",
+            "Question paper unpublished successfully.",
             "success"
         );
 
