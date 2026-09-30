@@ -527,7 +527,7 @@ button {
           <thead>
 
             <tr>
-              <th>Paper</th>
+              <th>Subject - Title</th>
               <th>Marks</th>
               <th>Total</th>
               <th>Percentage</th>
@@ -1212,13 +1212,12 @@ async function paperSelected() {
 
   await checkSubmission();
 
+
 }
 
 
 /* =========================================================
    SHOW PAPER
-   UPDATED:
-   Exam Start + Exam End + Total Marks
 ========================================================= */
 
 function showPaper() {
@@ -1341,10 +1340,6 @@ function showPaper() {
 
     "</div>" +
 
-    /*
-     * EXAM TIMING
-     */
-
     "<div class='exam-timing'>" +
 
     (
@@ -1414,12 +1409,6 @@ function formatExamDateTime(value) {
   var text =
     String(value).trim();
 
-
-  /*
-   * Try to format valid date/time values.
-   * If Apps Script sends an unrecognized format,
-   * keep the original value rather than hiding it.
-   */
 
   var date =
     new Date(text);
@@ -2345,6 +2334,8 @@ function hideProgress() {
 
 /* =========================================================
    RESULTS
+   UPDATED:
+   Paper → Subject - Title
 ========================================================= */
 
 function renderResults() {
@@ -2401,17 +2392,213 @@ function renderResults() {
         );
 
 
-      var paper =
+      /*
+       * Get Paper ID / Paper Code from Result
+       */
+
+      var paperId =
+        getValue(
+          result,
+          [
+            "Paper ID",
+            "paperId",
+            "PaperID"
+          ]
+        );
+
+
+      var paperCode =
         getValue(
           result,
           [
             "Paper Code",
             "paperCode",
-            "PaperCode",
-            "Paper ID",
-            "paperId"
+            "PaperCode"
           ]
         );
+
+
+      /*
+       * Find the matching question paper
+       * from Question Paper Management data.
+       */
+
+      var questionPaper =
+        null;
+
+
+      if (paperId) {
+
+        questionPaper =
+          papers.find(
+            function(paper) {
+
+              var id =
+                getValue(
+                  paper,
+                  [
+                    "Paper ID",
+                    "paperId",
+                    "PaperID"
+                  ]
+                );
+
+
+              return (
+                String(id || "").trim() ===
+                String(paperId).trim()
+              );
+
+            }
+          );
+
+      }
+
+
+      /*
+       * If Paper ID does not match,
+       * try Paper Code.
+       */
+
+      if (
+        !questionPaper &&
+        paperCode
+      ) {
+
+        questionPaper =
+          papers.find(
+            function(paper) {
+
+              var code =
+                getValue(
+                  paper,
+                  [
+                    "Paper Code",
+                    "paperCode",
+                    "PaperCode"
+                  ]
+                );
+
+
+              return (
+                String(code || "").trim() ===
+                String(paperCode).trim()
+              );
+
+            }
+          );
+
+      }
+
+
+      /*
+       * First try Subject + Title from Result.
+       * If unavailable, get them from
+       * Question Paper Management.
+       */
+
+      var subject =
+        getValue(
+          result,
+          [
+            "Subject Name",
+            "subjectName",
+            "SubjectName",
+            "Subject"
+          ]
+        );
+
+
+      var title =
+        getValue(
+          result,
+          [
+            "Paper Title",
+            "paperTitle",
+            "PaperTitle",
+            "Title",
+            "title"
+          ]
+        );
+
+
+      if (questionPaper) {
+
+        if (!subject) {
+
+          subject =
+            getValue(
+              questionPaper,
+              [
+                "Subject Name",
+                "subjectName",
+                "SubjectName",
+                "Subject"
+              ]
+            );
+
+        }
+
+
+        if (!title) {
+
+          title =
+            getValue(
+              questionPaper,
+              [
+                "Paper Title",
+                "paperTitle",
+                "PaperTitle",
+                "Title",
+                "title"
+              ]
+            );
+
+        }
+
+      }
+
+
+      /*
+       * Build Subject - Title
+       */
+
+      var subjectTitle = "";
+
+
+      if (
+        subject &&
+        title
+      ) {
+
+        subjectTitle =
+          subject +
+          " - " +
+          title;
+
+      } else if (subject) {
+
+        subjectTitle =
+          subject;
+
+      } else if (title) {
+
+        subjectTitle =
+          title;
+
+      } else {
+
+        /*
+         * Final fallback only if
+         * Subject and Title are unavailable.
+         */
+
+        subjectTitle =
+          paperCode ||
+          paperId ||
+          "-";
+
+      }
 
 
       var marks =
@@ -2469,15 +2656,21 @@ function renderResults() {
       row.innerHTML =
 
         "<td>" +
-        escapeHtml(paper || "-") +
+        escapeHtml(
+          subjectTitle
+        ) +
         "</td>" +
 
         "<td>" +
-        escapeHtml(marks || "-") +
+        escapeHtml(
+          marks || "-"
+        ) +
         "</td>" +
 
         "<td>" +
-        escapeHtml(total || "-") +
+        escapeHtml(
+          total || "-"
+        ) +
         "</td>" +
 
         "<td>" +
