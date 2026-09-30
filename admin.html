@@ -1163,8 +1163,8 @@ tr:hover td {
 
 <tr>
 
-<th>Student ID</th>
-<th>Paper ID</th>
+<th>Student Name</th>
+<th>Paper ID - Title</th>
 <th>Marks</th>
 <th>Total</th>
 <th>Percentage</th>
@@ -1502,39 +1502,39 @@ function populateStudentDropdowns() {
         );
 
 
-    assignmentSelect.innerHTML =
-        `<option value="">
-            Select Student
-        </option>`;
+    if(assignmentSelect) {
 
+        assignmentSelect.innerHTML =
+            `<option value="">
+                Select Student
+            </option>`;
 
-    students.forEach(
-        function(student) {
+        students.forEach(
+            function(student) {
 
-            const id =
-                student["Student ID"] ||
-                student.studentId ||
-                "";
+                const id =
+                    student["Student ID"] ||
+                    student.studentId ||
+                    "";
 
-            const name =
-                student["Student Name"] ||
-                student.studentName ||
-                "";
+                const name =
+                    student["Student Name"] ||
+                    student.studentName ||
+                    "";
 
+                const text =
+                    id +
+                    (name ? " - " + name : "");
 
-            const text =
-                id +
-                (name ? " - " + name : "");
+                assignmentSelect.innerHTML +=
+                    `<option value="${escapeHtml(id)}">
+                        ${escapeHtml(text)}
+                    </option>`;
 
+            }
+        );
 
-            assignmentSelect.innerHTML +=
-                `<option value="${escapeHtml(id)}">
-                    ${escapeHtml(text)}
-                </option>`;
-
-        }
-    );
-
+    }
 
     populateResultStudentDropdown();
 
@@ -1548,82 +1548,46 @@ function populateResultStudentDropdown() {
             "resultStudent"
         );
 
+    if(!resultSelect) return;
 
-    if(!resultSelect) {
-        return;
-    }
-
-
-    const oldValue =
-        resultSelect.value;
-
+    const oldValue = resultSelect.value;
 
     resultSelect.innerHTML =
         `<option value="">
             Select Student
         </option>`;
 
-
-    const uniqueStudents = {};
-
+    const seen = new Set();
 
     submissions.forEach(
         function(submission) {
 
-            const studentId =
+            const id =
                 submission["Student ID"] ||
                 submission.studentId ||
                 "";
 
-            const studentName =
+            const name =
                 submission["Student Name"] ||
                 submission.studentName ||
                 "";
 
+            if(!id || seen.has(String(id))) return;
 
-            if(
-                studentId &&
-                !uniqueStudents[
-                    String(studentId)
-                ]
-            ) {
-
-                uniqueStudents[
-                    String(studentId)
-                ] = {
-                    id: studentId,
-                    name: studentName
-                };
-
-            }
-
-        }
-    );
-
-
-    Object.values(
-        uniqueStudents
-    ).forEach(
-        function(student) {
+            seen.add(String(id));
 
             const option =
-                document.createElement(
-                    "option"
-                );
+                document.createElement("option");
 
-            option.value =
-                student.id;
-
+            option.value = id;
             option.textContent =
-                student.name;
+                id +
+                (name ? " - " + name : "");
 
-            resultSelect.appendChild(
-                option
-            );
+            resultSelect.appendChild(option);
 
         }
     );
-
 
     if(oldValue) {
         resultSelect.value = oldValue;
@@ -2623,7 +2587,7 @@ async function uploadPaper() {
 
     /* =========================
        FILE SIZE
-========================= */
+    ========================= */
 
     const maxSize =
         25 * 1024 * 1024;
@@ -3043,16 +3007,9 @@ async function loadSubmissions() {
 
     populateResultStudentDropdown();
 
+    loadResultPapers();
+
     updateSummary();
-
-    const resultStudent =
-        document.getElementById(
-            "resultStudent"
-        );
-
-    if(resultStudent && resultStudent.value) {
-        await loadResultPapers();
-    }
 
 }
 
@@ -3308,6 +3265,132 @@ function renderResults() {
     results.forEach(
         function(result) {
 
+            const studentId =
+                result["Student ID"] ||
+                result.studentId ||
+                "";
+
+            const paperId =
+                result["Paper ID"] ||
+                result.paperId ||
+                "";
+
+            const submission =
+                submissions.find(
+                    function(item) {
+
+                        return String(
+                            item["Student ID"] ||
+                            item.studentId ||
+                            ""
+                        ) === String(studentId) &&
+                        String(
+                            item["Paper ID"] ||
+                            item.paperId ||
+                            ""
+                        ) === String(paperId);
+
+                    }
+                );
+
+            const studentName =
+                submission
+                ?
+                (
+                    submission["Student Name"] ||
+                    submission.studentName ||
+                    studentId
+                )
+                :
+                (
+                    result["Student Name"] ||
+                    result.studentName ||
+                    studentId
+                );
+
+            const paper =
+                papers.find(
+                    function(item) {
+
+                        return String(
+                            item["Paper ID"] ||
+                            item.paperId ||
+                            ""
+                        ) === String(paperId);
+
+                    }
+                );
+
+            const title = paper
+                ?
+                (
+                    paper["Paper Title"] ||
+                    paper.paperTitle ||
+                    paper["Title"] ||
+                    paper.title ||
+                    ""
+                )
+                :
+                "";
+
+            const paperLabel =
+                String(paperId) +
+                (title ? " - " + title : "");
+
+            const marksObtained =
+                result["Marks Obtained"] ||
+                result.marksObtained ||
+                "";
+
+            const totalMarks =
+                paper
+                ?
+                (
+                    paper["Total Marks"] ||
+                    paper.totalMarks ||
+                    result["Total Marks"] ||
+                    result.totalMarks ||
+                    ""
+                )
+                :
+                (
+                    result["Total Marks"] ||
+                    result.totalMarks ||
+                    ""
+                );
+
+            const percentage =
+                result["Percentage"] ||
+                result.percentage ||
+                (
+                    Number(totalMarks) > 0
+                    ?
+                    (
+                        (
+                            Number(marksObtained) /
+                            Number(totalMarks)
+                        ) * 100
+                    ).toFixed(2)
+                    :
+                    ""
+                );
+
+            const resultStatus =
+                result["Result"] ||
+                result.result ||
+                "";
+
+            const remarks =
+                result["Remarks"] ||
+                result.remarks ||
+                "";
+
+            const updated =
+                result["Updated At"] ||
+                result.updatedAt ||
+                "";
+
+
             const tr =
                 document.createElement(
                     "tr"
@@ -3317,67 +3400,35 @@ function renderResults() {
             tr.innerHTML = `
 
                 <td>
-                    ${escapeHtml(
-                        result["Student ID"] ||
-                        result.studentId ||
-                        ""
-                    )}
+                    ${escapeHtml(studentName)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Paper ID"] ||
-                        result.paperId ||
-                        ""
-                    )}
+                    ${escapeHtml(paperLabel)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Marks Obtained"] ||
-                        result.marksObtained ||
-                        ""
-                    )}
+                    ${escapeHtml(marksObtained)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Total Marks"] ||
-                        result.totalMarks ||
-                        ""
-                    )}
+                    ${escapeHtml(totalMarks)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Percentage"] ||
-                        result.percentage ||
-                        ""
-                    )}
+                    ${escapeHtml(percentage)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Result"] ||
-                        result.result ||
-                        ""
-                    )}
+                    ${escapeHtml(resultStatus)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Remarks"] ||
-                        result.remarks ||
-                        ""
-                    )}
+                    ${escapeHtml(remarks)}
                 </td>
 
                 <td>
-                    ${escapeHtml(
-                        result["Updated At"] ||
-                        result.updatedAt ||
-                        ""
-                    )}
+                    ${escapeHtml(updated)}
                 </td>
 
             `;
@@ -3416,39 +3467,22 @@ async function loadResultPapers() {
 
 
     if(!studentId) {
+
         return;
+
     }
 
 
-    /*
-     * Result Question Paper list is based only on
-     * Student Submissions for the selected student.
-     * The Paper ID comes from Student Submissions and
-     * the Paper Title comes from Question Paper Management.
-     */
-
-    const studentSubmissions =
-        submissions.filter(
-            function(submission) {
-
-                const submittedStudentId =
-                    submission["Student ID"] ||
-                    submission.studentId ||
-                    "";
-
-                return String(
-                    submittedStudentId
-                ) === String(studentId);
-
-            }
-        );
+    const seen = new Set();
 
 
-    const uniquePapers = {};
-
-
-    studentSubmissions.forEach(
+    submissions.forEach(
         function(submission) {
+
+            const sid =
+                submission["Student ID"] ||
+                submission.studentId ||
+                "";
 
             const paperId =
                 submission["Paper ID"] ||
@@ -3457,26 +3491,18 @@ async function loadResultPapers() {
 
 
             if(
-                paperId &&
-                !uniquePapers[
-                    String(paperId)
-                ]
+                String(sid) !== String(studentId) ||
+                !paperId ||
+                seen.has(String(paperId))
             ) {
 
-                uniquePapers[
-                    String(paperId)
-                ] = paperId;
+                return;
 
             }
 
-        }
-    );
 
+            seen.add(String(paperId));
 
-    Object.values(
-        uniquePapers
-    ).forEach(
-        function(paperId) {
 
             const paper =
                 papers.find(
@@ -3492,14 +3518,17 @@ async function loadResultPapers() {
                 );
 
 
-            const title =
-                paper
-                ? (
+            const title = paper
+                ?
+                (
                     paper["Paper Title"] ||
                     paper.paperTitle ||
+                    paper["Title"] ||
+                    paper.title ||
                     ""
                 )
-                : "";
+                :
+                "";
 
 
             const option =
@@ -3507,13 +3536,16 @@ async function loadResultPapers() {
                     "option"
                 );
 
+
             option.value =
                 paperId;
 
+
             option.textContent =
-                title
-                ? paperId + " - " + title
-                : paperId;
+                String(paperId) +
+                (title ?
+                    " - " + title :
+                    "");
 
 
             select.appendChild(
@@ -3524,7 +3556,6 @@ async function loadResultPapers() {
     );
 
 }
-
 
 
 /* =========================================================
