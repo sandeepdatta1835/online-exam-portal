@@ -26,7 +26,6 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 15px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.15);
 }
 
 .header h1 {
@@ -61,17 +60,12 @@ body {
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 3px 12px rgba(0,0,0,.08);
-  border: 1px solid #e4eaf2;
 }
 
 .card h2 {
   margin-top: 0;
   color: #173b73;
-  border-bottom: 2px solid #edf2f7;
-  padding-bottom: 12px;
 }
-
-/* MESSAGE */
 
 .loading,
 .empty {
@@ -117,13 +111,7 @@ body {
   border: 1px solid #d8e0ea;
   border-radius: 10px;
   padding: 16px;
-  background: linear-gradient(135deg, #f8fbff, #eef5fc);
-  transition: .2s;
-}
-
-.subject-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 14px rgba(23,59,115,.12);
+  background: #f8fbff;
 }
 
 .subject-box h3 {
@@ -134,7 +122,6 @@ body {
 .subject-code {
   color: #666;
   font-size: 13px;
-  margin-top: 4px;
 }
 
 /* PAPER */
@@ -145,7 +132,6 @@ select {
   border: 1px solid #ccd3dd;
   border-radius: 7px;
   background: white;
-  font-size: 14px;
 }
 
 .paper-box {
@@ -153,7 +139,6 @@ select {
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
-  background: #fbfdff;
 }
 
 .paper-box h3 {
@@ -204,11 +189,6 @@ button {
   font-weight: bold;
 }
 
-button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
 .primary {
   background: #1769aa;
   color: white;
@@ -254,7 +234,6 @@ button:disabled {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background: white;
 }
 
 .preview-item img {
@@ -299,7 +278,6 @@ button:disabled {
   width: 0;
   height: 100%;
   background: #198754;
-  transition: width .2s;
 }
 
 .progress-text {
@@ -313,24 +291,18 @@ button:disabled {
 .result-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
 }
 
 .result-table th,
 .result-table td {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 9px;
   text-align: left;
 }
 
 .result-table th {
   background: #edf3fa;
   color: #173b73;
-  font-weight: bold;
-}
-
-.result-table tr:nth-child(even) {
-  background: #fafcff;
 }
 
 @media(max-width:600px) {
@@ -343,21 +315,9 @@ button:disabled {
     padding: 15px;
   }
 
-  .header {
-    padding: 15px;
-  }
-
-  .header h1 {
-    font-size: 20px;
-  }
-
   .photo-buttons button,
   .paper-actions button {
     width: 100%;
-  }
-
-  .result-table {
-    min-width: 700px;
   }
 }
 </style>
@@ -472,6 +432,7 @@ button:disabled {
 
       </div>
 
+
       <input
         type="file"
         id="cameraInput"
@@ -480,6 +441,7 @@ button:disabled {
         capture="environment"
         onchange="handleFiles(this.files)"
       >
+
 
       <input
         type="file"
@@ -490,11 +452,14 @@ button:disabled {
         onchange="handleFiles(this.files)"
       >
 
+
       <div id="photoCount">
         0 photos selected
       </div>
 
+
       <div id="previewGrid" class="preview-grid"></div>
+
 
       <div
         id="progressContainer"
@@ -515,6 +480,7 @@ button:disabled {
         </div>
 
       </div>
+
 
       <div class="paper-actions">
 
@@ -627,6 +593,7 @@ document.addEventListener(
     studentName =
       sessionStorage.getItem("studentName") || "";
 
+
     if (!studentId) {
 
       alert(
@@ -638,6 +605,7 @@ document.addEventListener(
 
       return;
     }
+
 
     document.getElementById(
       "studentInfo"
@@ -652,6 +620,7 @@ document.addEventListener(
             "</strong>"
           : ""
       );
+
 
     loadStudentData();
 
@@ -669,6 +638,7 @@ async function api(action, data) {
 
   payload.action = action;
 
+
   var response =
     await fetch(
       API_URL,
@@ -678,8 +648,10 @@ async function api(action, data) {
       }
     );
 
+
   var text =
     await response.text();
+
 
   var result;
 
@@ -697,6 +669,7 @@ async function api(action, data) {
 
   }
 
+
   if (!result.success) {
 
     throw new Error(
@@ -705,6 +678,7 @@ async function api(action, data) {
     );
 
   }
+
 
   return result;
 
@@ -727,6 +701,7 @@ async function loadStudentData() {
         {}
       );
 
+
     subjects =
       Array.isArray(subjectResult.subjects)
         ? subjectResult.subjects
@@ -736,6 +711,7 @@ async function loadStudentData() {
               : []
           );
 
+
     var assignmentResult =
       await api(
         "getAssignments",
@@ -743,6 +719,7 @@ async function loadStudentData() {
           studentId: studentId
         }
       );
+
 
     assignments =
       Array.isArray(assignmentResult.assignments)
@@ -753,7 +730,9 @@ async function loadStudentData() {
               : []
           );
 
+
     buildAssignedSubjects();
+
 
     try {
 
@@ -764,6 +743,7 @@ async function loadStudentData() {
             studentId: studentId
           }
         );
+
 
       papers =
         Array.isArray(dashboard.papers)
@@ -782,9 +762,11 @@ async function loadStudentData() {
 
     }
 
+
     renderPapers();
 
     renderResults();
+
 
   } catch (error) {
 
@@ -812,6 +794,7 @@ function buildAssignedSubjects() {
 
   showSubjectLoading(false);
 
+
   var grid =
     document.getElementById(
       "subjectGrid"
@@ -822,9 +805,12 @@ function buildAssignedSubjects() {
       "subjectEmpty"
     );
 
+
   grid.innerHTML = "";
 
+
   var assignedSubjectIds = [];
+
 
   assignments.forEach(
     function(assignment) {
@@ -839,6 +825,7 @@ function buildAssignedSubjects() {
           ]
         );
 
+
       if (
         assignedStudentId &&
         String(assignedStudentId).trim() !==
@@ -848,6 +835,7 @@ function buildAssignedSubjects() {
         return;
 
       }
+
 
       var subjectId =
         getValue(
@@ -859,12 +847,15 @@ function buildAssignedSubjects() {
           ]
         );
 
+
       if (!subjectId) {
         return;
       }
 
+
       subjectId =
         String(subjectId).trim();
+
 
       if (
         assignedSubjectIds.indexOf(subjectId) === -1
@@ -879,7 +870,9 @@ function buildAssignedSubjects() {
     }
   );
 
+
   var assignedSubjects = [];
+
 
   subjects.forEach(
     function(subject) {
@@ -894,8 +887,10 @@ function buildAssignedSubjects() {
           ]
         );
 
+
       subjectId =
         String(subjectId || "").trim();
+
 
       if (
         subjectId &&
@@ -911,11 +906,13 @@ function buildAssignedSubjects() {
     }
   );
 
+
   if (!assignedSubjects.length) {
 
     empty.classList.remove(
       "hidden"
     );
+
 
     empty.innerHTML =
       "No subject has been assigned to Student ID " +
@@ -927,9 +924,11 @@ function buildAssignedSubjects() {
 
   }
 
+
   empty.classList.add(
     "hidden"
   );
+
 
   assignedSubjects.forEach(
     function(subject) {
@@ -944,6 +943,7 @@ function buildAssignedSubjects() {
           ]
         );
 
+
       var subjectCode =
         getValue(
           subject,
@@ -953,6 +953,7 @@ function buildAssignedSubjects() {
             "SubjectCode"
           ]
         );
+
 
       var subjectId =
         getValue(
@@ -964,13 +965,16 @@ function buildAssignedSubjects() {
           ]
         );
 
+
       var box =
         document.createElement(
           "div"
         );
 
+
       box.className =
         "subject-box";
+
 
       box.innerHTML =
         "<h3>" +
@@ -998,6 +1002,7 @@ function buildAssignedSubjects() {
             : ""
         );
 
+
       grid.appendChild(box);
 
     }
@@ -1016,6 +1021,7 @@ function showSubjectLoading(show) {
     document.getElementById(
       "subjectLoading"
     );
+
 
   if (show) {
 
@@ -1045,10 +1051,12 @@ function renderPapers() {
       "paperSelect"
     );
 
+
   select.innerHTML =
     "<option value=''>" +
     "-- Select Question Paper --" +
     "</option>";
+
 
   if (!papers.length) {
 
@@ -1061,6 +1069,7 @@ function renderPapers() {
 
   }
 
+
   papers.forEach(
     function(paper, index) {
 
@@ -1069,8 +1078,10 @@ function renderPapers() {
           "option"
         );
 
+
       option.value =
         String(index);
+
 
       var code =
         getValue(
@@ -1082,6 +1093,7 @@ function renderPapers() {
           ]
         );
 
+
       var subject =
         getValue(
           paper,
@@ -1092,6 +1104,7 @@ function renderPapers() {
           ]
         );
 
+
       var title =
         getValue(
           paper,
@@ -1101,6 +1114,7 @@ function renderPapers() {
             "PaperTitle"
           ]
         );
+
 
       option.textContent =
         (
@@ -1119,6 +1133,7 @@ function renderPapers() {
           title ||
           "Question Paper"
         );
+
 
       select.appendChild(
         option
@@ -1141,18 +1156,22 @@ async function paperSelected() {
       "paperSelect"
     ).value;
 
+
   selectedPaper =
     null;
+
 
   document.getElementById(
     "paperContainer"
   ).innerHTML = "";
+
 
   document.getElementById(
     "submissionArea"
   ).classList.add(
     "hidden"
   );
+
 
   if (value === "") {
 
@@ -1176,18 +1195,23 @@ async function paperSelected() {
 
   }
 
+
   selectedPaper =
     papers[
       Number(value)
     ];
 
+
   if (!selectedPaper) {
     return;
   }
 
+
   showPaper();
 
+
   await checkSubmission();
+
 
 }
 
@@ -1201,6 +1225,7 @@ function showPaper() {
   var paper =
     selectedPaper;
 
+
   var code =
     getValue(
       paper,
@@ -1210,6 +1235,7 @@ function showPaper() {
         "PaperCode"
       ]
     );
+
 
   var title =
     getValue(
@@ -1221,6 +1247,7 @@ function showPaper() {
       ]
     );
 
+
   var subject =
     getValue(
       paper,
@@ -1230,6 +1257,7 @@ function showPaper() {
         "SubjectName"
       ]
     );
+
 
   var totalMarks =
     getValue(
@@ -1241,6 +1269,7 @@ function showPaper() {
       ]
     );
 
+
   var examStart =
     getValue(
       paper,
@@ -1250,6 +1279,7 @@ function showPaper() {
         "ExamStart"
       ]
     );
+
 
   var examEnd =
     getValue(
@@ -1261,6 +1291,7 @@ function showPaper() {
       ]
     );
 
+
   var fileUrl =
     getValue(
       paper,
@@ -1271,11 +1302,13 @@ function showPaper() {
       ]
     );
 
+
   document.getElementById(
     "paperEmpty"
   ).classList.add(
     "hidden"
   );
+
 
   var html =
     "<div class='paper-box'>" +
@@ -1353,6 +1386,7 @@ function showPaper() {
 
     "</div>";
 
+
   document.getElementById(
     "paperContainer"
   ).innerHTML =
@@ -1371,11 +1405,14 @@ function formatExamDateTime(value) {
     return "";
   }
 
+
   var text =
     String(value).trim();
 
+
   var date =
     new Date(text);
+
 
   if (
     !isNaN(date.getTime())
@@ -1394,6 +1431,7 @@ function formatExamDateTime(value) {
     );
 
   }
+
 
   return text;
 
@@ -1414,6 +1452,7 @@ function openPaper(url) {
 
     return;
   }
+
 
   window.open(
     url,
@@ -1439,6 +1478,7 @@ async function checkSubmission() {
       ]
     );
 
+
   try {
 
     var result =
@@ -1450,27 +1490,33 @@ async function checkSubmission() {
         }
       );
 
+
     var submitted =
       result.submitted === true ||
       result.hasSubmission === true;
 
+
     var editAllowed =
       result.editAllowed === true;
+
 
     var editCount =
       Number(
         result.editCount || 0
       );
 
+
     if (!submitted) {
 
       editingSubmission =
         false;
 
+
       document.getElementById(
         "submissionMessage"
       ).className =
         "success";
+
 
       document.getElementById(
         "submissionMessage"
@@ -1478,20 +1524,24 @@ async function checkSubmission() {
         "You have not submitted this answer sheet yet. " +
         "You can upload 1 to 20 photos.";
 
+
       document.getElementById(
         "submissionArea"
       ).classList.remove(
         "hidden"
       );
 
+
       document.getElementById(
         "submitBtn"
       ).textContent =
         "📤 Submit Answer Sheet";
 
+
       return;
 
     }
+
 
     if (
       submitted &&
@@ -1502,10 +1552,12 @@ async function checkSubmission() {
       editingSubmission =
         true;
 
+
       document.getElementById(
         "submissionMessage"
       ).className =
         "warning";
+
 
       document.getElementById(
         "submissionMessage"
@@ -1513,33 +1565,40 @@ async function checkSubmission() {
         "Your answer sheet is already submitted. " +
         "<strong>You have one edit opportunity remaining.</strong>";
 
+
       document.getElementById(
         "submissionArea"
       ).classList.remove(
         "hidden"
       );
 
+
       document.getElementById(
         "submitBtn"
       ).textContent =
         "✏️ Update Answer Sheet";
 
+
       return;
 
     }
 
+
     editingSubmission =
       false;
+
 
     document.getElementById(
       "submissionMessage"
     ).className =
       "success";
 
+
     document.getElementById(
       "submissionMessage"
     ).textContent =
       "✅ Answer sheet submitted. No further edits are allowed.";
+
 
     document.getElementById(
       "submissionArea"
@@ -1547,12 +1606,14 @@ async function checkSubmission() {
       "hidden"
     );
 
+
   } catch (error) {
 
     document.getElementById(
       "submissionMessage"
     ).className =
       "error";
+
 
     document.getElementById(
       "submissionMessage"
@@ -1600,9 +1661,11 @@ function handleFiles(files) {
     return;
   }
 
+
   var remaining =
     20 -
     selectedPhotos.length;
+
 
   if (remaining <= 0) {
 
@@ -1612,6 +1675,7 @@ function handleFiles(files) {
 
     return;
   }
+
 
   for (
     var i = 0;
@@ -1632,11 +1696,14 @@ function handleFiles(files) {
 
   }
 
+
   renderPhotos();
+
 
   document.getElementById(
     "cameraInput"
   ).value = "";
+
 
   document.getElementById(
     "galleryInput"
@@ -1656,7 +1723,9 @@ function renderPhotos() {
       "previewGrid"
     );
 
+
   grid.innerHTML = "";
+
 
   document.getElementById(
     "photoCount"
@@ -1668,6 +1737,7 @@ function renderPhotos() {
         : " photos selected"
     );
 
+
   selectedPhotos.forEach(
     function(file, index) {
 
@@ -1676,32 +1746,40 @@ function renderPhotos() {
           "div"
         );
 
+
       item.className =
         "preview-item";
+
 
       var img =
         document.createElement(
           "img"
         );
 
+
       img.src =
         URL.createObjectURL(
           file
         );
+
 
       var remove =
         document.createElement(
           "button"
         );
 
+
       remove.type =
         "button";
+
 
       remove.className =
         "remove-photo";
 
+
       remove.textContent =
         "×";
+
 
       remove.onclick =
         function() {
@@ -1715,17 +1793,21 @@ function renderPhotos() {
 
         };
 
+
       var number =
         document.createElement(
           "div"
         );
 
+
       number.className =
         "photo-number";
+
 
       number.textContent =
         "Photo " +
         (index + 1);
+
 
       item.appendChild(img);
 
@@ -1749,20 +1831,24 @@ function clearPhotos() {
 
   selectedPhotos = [];
 
+
   document.getElementById(
     "previewGrid"
   ).innerHTML =
     "";
+
 
   document.getElementById(
     "photoCount"
   ).textContent =
     "0 photos selected";
 
+
   document.getElementById(
     "cameraInput"
   ).value =
     "";
+
 
   document.getElementById(
     "galleryInput"
@@ -1787,6 +1873,7 @@ async function submitAnswerSheet() {
     return;
   }
 
+
   if (!selectedPhotos.length) {
 
     alert(
@@ -1795,6 +1882,7 @@ async function submitAnswerSheet() {
 
     return;
   }
+
 
   if (
     selectedPhotos.length > 20
@@ -1806,6 +1894,7 @@ async function submitAnswerSheet() {
 
     return;
   }
+
 
   if (
     !confirm(
@@ -1819,17 +1908,21 @@ async function submitAnswerSheet() {
 
   }
 
+
   var button =
     document.getElementById(
       "submitBtn"
     );
 
+
   button.disabled =
     true;
+
 
   try {
 
     var photos = [];
+
 
     for (
       var i = 0;
@@ -1849,15 +1942,18 @@ async function submitAnswerSheet() {
         selectedPhotos.length
       );
 
+
       var compressed =
         await compressImage(
           selectedPhotos[i]
         );
 
+
       var base64 =
         await fileToBase64(
           compressed
         );
+
 
       photos.push({
 
@@ -1876,10 +1972,12 @@ async function submitAnswerSheet() {
 
     }
 
+
     showProgress(
       70,
       "Uploading answer sheet..."
     );
+
 
     var paperId =
       getValue(
@@ -1891,6 +1989,7 @@ async function submitAnswerSheet() {
         ]
       );
 
+
     var paperCode =
       getValue(
         selectedPaper,
@@ -1901,10 +2000,12 @@ async function submitAnswerSheet() {
         ]
       );
 
+
     var action =
       editingSubmission
         ? "editSubmission"
         : "saveSubmission";
+
 
     var result =
       await api(
@@ -1930,21 +2031,27 @@ async function submitAnswerSheet() {
         }
       );
 
+
     showProgress(
       100,
       "Completed"
     );
+
 
     alert(
       result.message ||
       "Answer sheet submitted successfully."
     );
 
+
     clearPhotos();
+
 
     await loadStudentData();
 
+
     await checkSubmission();
+
 
   } catch (error) {
 
@@ -1958,10 +2065,12 @@ async function submitAnswerSheet() {
     button.disabled =
       false;
 
+
     button.textContent =
       editingSubmission
         ? "✏️ Update Answer Sheet"
         : "📤 Submit Answer Sheet";
+
 
     setTimeout(
       hideProgress,
@@ -1985,11 +2094,13 @@ function compressImage(file) {
       var reader =
         new FileReader();
 
+
       reader.onload =
         function(event) {
 
           var img =
             new Image();
+
 
           img.onload =
             function() {
@@ -2000,11 +2111,13 @@ function compressImage(file) {
               var maxHeight =
                 2200;
 
+
               var width =
                 img.width;
 
               var height =
                 img.height;
+
 
               var ratio =
                 Math.min(
@@ -2013,20 +2126,24 @@ function compressImage(file) {
                   1
                 );
 
+
               width =
                 Math.round(
                   width * ratio
                 );
+
 
               height =
                 Math.round(
                   height * ratio
                 );
 
+
               var canvas =
                 document.createElement(
                   "canvas"
                 );
+
 
               canvas.width =
                 width;
@@ -2034,10 +2151,12 @@ function compressImage(file) {
               canvas.height =
                 height;
 
+
               var ctx =
                 canvas.getContext(
                   "2d"
                 );
+
 
               ctx.drawImage(
                 img,
@@ -2046,6 +2165,7 @@ function compressImage(file) {
                 width,
                 height
               );
+
 
               canvas.toBlob(
                 function(blob) {
@@ -2061,6 +2181,7 @@ function compressImage(file) {
                     return;
                   }
 
+
                   resolve(blob);
 
                 },
@@ -2069,6 +2190,7 @@ function compressImage(file) {
               );
 
             };
+
 
           img.onerror =
             function() {
@@ -2081,10 +2203,12 @@ function compressImage(file) {
 
             };
 
+
           img.src =
             event.target.result;
 
         };
+
 
       reader.onerror =
         function() {
@@ -2096,6 +2220,7 @@ function compressImage(file) {
           );
 
         };
+
 
       reader.readAsDataURL(
         file
@@ -2119,14 +2244,17 @@ function fileToBase64(file) {
       var reader =
         new FileReader();
 
+
       reader.onload =
         function() {
 
           var value =
             reader.result;
 
+
           var comma =
             value.indexOf(",");
+
 
           if (comma >= 0) {
 
@@ -2137,9 +2265,11 @@ function fileToBase64(file) {
 
           }
 
+
           resolve(value);
 
         };
+
 
       reader.onerror =
         function() {
@@ -2151,6 +2281,7 @@ function fileToBase64(file) {
           );
 
         };
+
 
       reader.readAsDataURL(
         file
@@ -2176,10 +2307,12 @@ function showProgress(
   ).style.display =
     "block";
 
+
   document.getElementById(
     "progressBar"
   ).style.width =
     percent + "%";
+
 
   document.getElementById(
     "progressText"
@@ -2200,257 +2333,9 @@ function hideProgress() {
 
 
 /* =========================================================
-   RESULT HELPERS
-========================================================= */
-
-/*
- * Normalizes IDs/codes before comparison.
- * This prevents problems caused by:
- * 123
- * "123"
- * " 123 "
- */
-
-function normalizeValue(value) {
-
-  return String(
-    value === null ||
-    value === undefined
-      ? ""
-      : value
-  )
-  .trim()
-  .toLowerCase();
-
-}
-
-
-/*
- * Get Subject Name from Subject ID.
- */
-
-function findSubjectNameById(subjectId) {
-
-  if (!subjectId) {
-    return "";
-  }
-
-  var wanted =
-    normalizeValue(subjectId);
-
-  var found =
-    subjects.find(
-      function(subject) {
-
-        var id =
-          getValue(
-            subject,
-            [
-              "Subject ID",
-              "subjectId",
-              "SubjectID",
-              "ID",
-              "id"
-            ]
-          );
-
-        return (
-          normalizeValue(id) ===
-          wanted
-        );
-
-      }
-    );
-
-  if (!found) {
-    return "";
-  }
-
-  return getValue(
-    found,
-    [
-      "Subject Name",
-      "subjectName",
-      "SubjectName",
-      "Name",
-      "name",
-      "Subject"
-    ]
-  );
-
-}
-
-
-/*
- * Find Question Paper.
- *
- * Order:
- * 1. Paper ID
- * 2. Paper Code
- * 3. Paper Title
- */
-
-function findQuestionPaperForResult(
-  result
-) {
-
-  var paperId =
-    getValue(
-      result,
-      [
-        "Paper ID",
-        "paperId",
-        "PaperID",
-        "Question Paper ID",
-        "questionPaperId"
-      ]
-    );
-
-  var paperCode =
-    getValue(
-      result,
-      [
-        "Paper Code",
-        "paperCode",
-        "PaperCode",
-        "Question Paper Code",
-        "questionPaperCode"
-      ]
-    );
-
-  var title =
-    getValue(
-      result,
-      [
-        "Paper Title",
-        "paperTitle",
-        "PaperTitle",
-        "Question Paper",
-        "questionPaper",
-        "Title",
-        "title"
-      ]
-    );
-
-
-  /* PAPER ID */
-
-  if (paperId) {
-
-    var byId =
-      papers.find(
-        function(paper) {
-
-          var id =
-            getValue(
-              paper,
-              [
-                "Paper ID",
-                "paperId",
-                "PaperID",
-                "Question Paper ID",
-                "questionPaperId"
-              ]
-            );
-
-          return (
-            normalizeValue(id) ===
-            normalizeValue(paperId)
-          );
-
-        }
-      );
-
-    if (byId) {
-      return byId;
-    }
-
-  }
-
-
-  /* PAPER CODE */
-
-  if (paperCode) {
-
-    var byCode =
-      papers.find(
-        function(paper) {
-
-          var code =
-            getValue(
-              paper,
-              [
-                "Paper Code",
-                "paperCode",
-                "PaperCode",
-                "Question Paper Code",
-                "questionPaperCode"
-              ]
-            );
-
-          return (
-            normalizeValue(code) ===
-            normalizeValue(paperCode)
-          );
-
-        }
-      );
-
-    if (byCode) {
-      return byCode;
-    }
-
-  }
-
-
-  /* PAPER TITLE */
-
-  if (title) {
-
-    var byTitle =
-      papers.find(
-        function(paper) {
-
-          var paperTitle =
-            getValue(
-              paper,
-              [
-                "Paper Title",
-                "paperTitle",
-                "PaperTitle",
-                "Question Paper",
-                "questionPaper",
-                "Title",
-                "title"
-              ]
-            );
-
-          return (
-            normalizeValue(paperTitle) ===
-            normalizeValue(title)
-          );
-
-        }
-      );
-
-    if (byTitle) {
-      return byTitle;
-    }
-
-  }
-
-
-  return null;
-
-}
-
-
-/* =========================================================
    RESULTS
-   DISPLAY:
-   SUBJECT NAME - PAPER TITLE
-
-   PAPER ID IS NEVER DISPLAYED
+   UPDATED:
+   Paper → Subject - Title
 ========================================================= */
 
 function renderResults() {
@@ -2460,7 +2345,9 @@ function renderResults() {
       "resultBody"
     );
 
+
   body.innerHTML = "";
+
 
   if (!results.length) {
 
@@ -2470,20 +2357,24 @@ function renderResults() {
       "hidden"
     );
 
+
     document.getElementById(
       "resultContainer"
     ).classList.add(
       "hidden"
     );
 
+
     return;
   }
+
 
   document.getElementById(
     "resultEmpty"
   ).classList.add(
     "hidden"
   );
+
 
   document.getElementById(
     "resultContainer"
@@ -2501,19 +2392,110 @@ function renderResults() {
         );
 
 
-      /* =====================================================
-         FIND QUESTION PAPER
-      ===================================================== */
+      /*
+       * Get Paper ID / Paper Code from Result
+       */
 
-      var questionPaper =
-        findQuestionPaperForResult(
-          result
+      var paperId =
+        getValue(
+          result,
+          [
+            "Paper ID",
+            "paperId",
+            "PaperID"
+          ]
         );
 
 
-      /* =====================================================
-         GET SUBJECT NAME DIRECTLY FROM RESULT
-      ===================================================== */
+      var paperCode =
+        getValue(
+          result,
+          [
+            "Paper Code",
+            "paperCode",
+            "PaperCode"
+          ]
+        );
+
+
+      /*
+       * Find the matching question paper
+       * from Question Paper Management data.
+       */
+
+      var questionPaper =
+        null;
+
+
+      if (paperId) {
+
+        questionPaper =
+          papers.find(
+            function(paper) {
+
+              var id =
+                getValue(
+                  paper,
+                  [
+                    "Paper ID",
+                    "paperId",
+                    "PaperID"
+                  ]
+                );
+
+
+              return (
+                String(id || "").trim() ===
+                String(paperId).trim()
+              );
+
+            }
+          );
+
+      }
+
+
+      /*
+       * If Paper ID does not match,
+       * try Paper Code.
+       */
+
+      if (
+        !questionPaper &&
+        paperCode
+      ) {
+
+        questionPaper =
+          papers.find(
+            function(paper) {
+
+              var code =
+                getValue(
+                  paper,
+                  [
+                    "Paper Code",
+                    "paperCode",
+                    "PaperCode"
+                  ]
+                );
+
+
+              return (
+                String(code || "").trim() ===
+                String(paperCode).trim()
+              );
+
+            }
+          );
+
+      }
+
+
+      /*
+       * First try Subject + Title from Result.
+       * If unavailable, get them from
+       * Question Paper Management.
+       */
 
       var subject =
         getValue(
@@ -2527,26 +2509,6 @@ function renderResults() {
         );
 
 
-      /* =====================================================
-         GET SUBJECT ID FROM RESULT
-      ===================================================== */
-
-      var resultSubjectId =
-        getValue(
-          result,
-          [
-            "Subject ID",
-            "subjectId",
-            "SubjectID",
-            "Subject Id"
-          ]
-        );
-
-
-      /* =====================================================
-         GET TITLE FROM RESULT
-      ===================================================== */
-
       var title =
         getValue(
           result,
@@ -2554,17 +2516,11 @@ function renderResults() {
             "Paper Title",
             "paperTitle",
             "PaperTitle",
-            "Question Paper",
-            "questionPaper",
             "Title",
             "title"
           ]
         );
 
-
-      /* =====================================================
-         GET DATA FROM QUESTION PAPER
-      ===================================================== */
 
       if (questionPaper) {
 
@@ -2583,20 +2539,6 @@ function renderResults() {
 
         }
 
-        if (!resultSubjectId) {
-
-          resultSubjectId =
-            getValue(
-              questionPaper,
-              [
-                "Subject ID",
-                "subjectId",
-                "SubjectID",
-                "Subject Id"
-              ]
-            );
-
-        }
 
         if (!title) {
 
@@ -2607,8 +2549,6 @@ function renderResults() {
                 "Paper Title",
                 "paperTitle",
                 "PaperTitle",
-                "Question Paper",
-                "questionPaper",
                 "Title",
                 "title"
               ]
@@ -2619,212 +2559,9 @@ function renderResults() {
       }
 
 
-      /* =====================================================
-         FIND SUBJECT NAME FROM SUBJECT LIST
-      ===================================================== */
-
-      if (
-        !subject &&
-        resultSubjectId
-      ) {
-
-        subject =
-          findSubjectNameById(
-            resultSubjectId
-          );
-
-      }
-
-
-      /* =====================================================
-         SECOND SUBJECT LOOKUP
-         QUESTION PAPER SUBJECT ID
-      ===================================================== */
-
-      if (
-        !subject &&
-        questionPaper
-      ) {
-
-        var questionPaperSubjectId =
-          getValue(
-            questionPaper,
-            [
-              "Subject ID",
-              "subjectId",
-              "SubjectID",
-              "Subject Id"
-            ]
-          );
-
-        if (questionPaperSubjectId) {
-
-          subject =
-            findSubjectNameById(
-              questionPaperSubjectId
-            );
-
-        }
-
-      }
-
-
-      /* =====================================================
-         THIRD SUBJECT LOOKUP
-         MATCH QUESTION PAPER TITLE
-      ===================================================== */
-
-      if (
-        !subject &&
-        title
-      ) {
-
-        var titlePaper =
-          papers.find(
-            function(paper) {
-
-              var paperTitle =
-                getValue(
-                  paper,
-                  [
-                    "Paper Title",
-                    "paperTitle",
-                    "PaperTitle",
-                    "Question Paper",
-                    "questionPaper",
-                    "Title",
-                    "title"
-                  ]
-                );
-
-              return (
-                normalizeValue(paperTitle) ===
-                normalizeValue(title)
-              );
-
-            }
-          );
-
-
-        if (titlePaper) {
-
-          subject =
-            getValue(
-              titlePaper,
-              [
-                "Subject Name",
-                "subjectName",
-                "SubjectName",
-                "Subject"
-              ]
-            );
-
-
-          if (!subject) {
-
-            var titlePaperSubjectId =
-              getValue(
-                titlePaper,
-                [
-                  "Subject ID",
-                  "subjectId",
-                  "SubjectID",
-                  "Subject Id"
-                ]
-              );
-
-            subject =
-              findSubjectNameById(
-                titlePaperSubjectId
-              );
-
-          }
-
-        }
-
-      }
-
-
-      /* =====================================================
-         GET MARKS
-      ===================================================== */
-
-      var marks =
-        getValue(
-          result,
-          [
-            "Marks Obtained",
-            "marksObtained",
-            "MarksObtained",
-            "Marks",
-            "marks"
-          ]
-        );
-
-
-      /* =====================================================
-         GET TOTAL
-      ===================================================== */
-
-      var total =
-        getValue(
-          result,
-          [
-            "Total Marks",
-            "totalMarks",
-            "TotalMarks",
-            "Total",
-            "total"
-          ]
-        );
-
-
-      /* =====================================================
-         GET PERCENTAGE
-      ===================================================== */
-
-      var percentage =
-        getValue(
-          result,
-          [
-            "Percentage",
-            "percentage"
-          ]
-        );
-
-
-      /* =====================================================
-         GET RESULT
-      ===================================================== */
-
-      var resultText =
-        getValue(
-          result,
-          [
-            "Result",
-            "result"
-          ]
-        );
-
-
-      /* =====================================================
-         GET REMARKS
-      ===================================================== */
-
-      var remarks =
-        getValue(
-          result,
-          [
-            "Remarks",
-            "remarks"
-          ]
-        );
-
-
-      /* =====================================================
-         IMPORTANT:
-         SUBJECT + TITLE ONLY
-      ===================================================== */
+      /*
+       * Build Subject - Title
+       */
 
       var subjectTitle = "";
 
@@ -2846,25 +2583,75 @@ function renderResults() {
 
       } else if (title) {
 
-        /*
-         * This is only a final fallback.
-         * Paper ID will NEVER be displayed.
-         */
-
         subjectTitle =
           title;
 
       } else {
 
+        /*
+         * Final fallback only if
+         * Subject and Title are unavailable.
+         */
+
         subjectTitle =
-          "Question Paper";
+          paperCode ||
+          paperId ||
+          "-";
 
       }
 
 
-      /* =====================================================
-         DISPLAY RESULT
-      ===================================================== */
+      var marks =
+        getValue(
+          result,
+          [
+            "Marks Obtained",
+            "marksObtained",
+            "MarksObtained"
+          ]
+        );
+
+
+      var total =
+        getValue(
+          result,
+          [
+            "Total Marks",
+            "totalMarks",
+            "TotalMarks"
+          ]
+        );
+
+
+      var percentage =
+        getValue(
+          result,
+          [
+            "Percentage",
+            "percentage"
+          ]
+        );
+
+
+      var resultText =
+        getValue(
+          result,
+          [
+            "Result",
+            "result"
+          ]
+        );
+
+
+      var remarks =
+        getValue(
+          result,
+          [
+            "Remarks",
+            "remarks"
+          ]
+        );
+
 
       row.innerHTML =
 
@@ -2955,7 +2742,7 @@ function getValue(
       if (
         value !== null &&
         value !== undefined &&
-        String(value).trim() !== ""
+        String(value) !== ""
       ) {
 
         return String(value);
@@ -2967,85 +2754,7 @@ function getValue(
   }
 
 
-  /*
-   * Additional case-insensitive search.
-   *
-   * This helps if the Apps Script returns:
-   * "subject name"
-   * "SUBJECT NAME"
-   * "Subject name"
-   */
-
-  var objectKeys =
-    Object.keys(object);
-
-
-  for (
-    var j = 0;
-    j < keys.length;
-    j++
-  ) {
-
-    var wantedKey =
-      normalizeKey(keys[j]);
-
-
-    for (
-      var k = 0;
-      k < objectKeys.length;
-      k++
-    ) {
-
-      if (
-        normalizeKey(
-          objectKeys[k]
-        ) === wantedKey
-      ) {
-
-        var foundValue =
-          object[
-            objectKeys[k]
-          ];
-
-
-        if (
-          foundValue !== null &&
-          foundValue !== undefined &&
-          String(foundValue).trim() !== ""
-        ) {
-
-          return String(
-            foundValue
-          );
-
-        }
-
-      }
-
-    }
-
-  }
-
-
   return "";
-
-}
-
-
-/* =========================================================
-   NORMALIZE KEY
-========================================================= */
-
-function normalizeKey(value) {
-
-  return String(
-    value || ""
-  )
-  .toLowerCase()
-  .replace(
-    /[\s_\-]+/g,
-    ""
-  );
 
 }
 
@@ -3145,6 +2854,7 @@ function logout() {
   sessionStorage.removeItem(
     "adminId"
   );
+
 
   window.location.href =
     "index.html";
