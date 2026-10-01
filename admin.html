@@ -345,14 +345,6 @@ tr:hover td {
     min-width: 260px;
 }
 
-.paper-status-select {
-    min-width: 125px;
-    height: 34px;
-    padding: 0 7px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
 /* =========================
    MESSAGE
 ========================= */
@@ -1159,7 +1151,9 @@ async function api(action, data = {}) {
 function showMessage(message, type = "success") {
 
     const box =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
 
     box.className =
@@ -2127,18 +2121,6 @@ function normalizePaperStatus(paper) {
         .toLowerCase();
 
 
-    /*
-       Supported values:
-
-       Draft
-       Published
-       Unpublished
-
-       Existing Yes = Published
-       Existing No = Unpublished
-    */
-
-
     if (
         status === "yes" ||
         status === "publish" ||
@@ -2169,11 +2151,6 @@ function normalizePaperStatus(paper) {
 
     }
 
-
-    /*
-       Existing/blank papers
-       are treated as Draft.
-    */
 
     return "Draft";
 
@@ -2207,6 +2184,9 @@ async function loadPapers() {
 
 /* =========================================================
    RENDER PAPERS
+   ONLY CHANGE:
+   Published column is display-only.
+   Action buttons control the status.
 ========================================================= */
 
 function renderPapers() {
@@ -2280,6 +2260,10 @@ function renderPapers() {
             );
 
 
+        /* =========================
+           STATUS
+        ========================= */
+
         let statusClass =
             "status-draft";
 
@@ -2306,51 +2290,27 @@ function renderPapers() {
 
 
         /*
-           Status dropdown in Published column.
+           Published column now only
+           displays the current status.
         */
 
-        const statusSelect = `
+        const statusDisplay = `
 
-            <select
-                class="paper-status-select"
-                onchange="changePaperStatus(
-                    '${escapeJs(paperId)}',
-                    this.value
-                )"
-                title="Change paper status"
-            >
-
-                <option value="Draft"
-                    ${currentStatus === "Draft" ? "selected" : ""}>
-                    Draft
-                </option>
-
-                <option value="Published"
-                    ${currentStatus === "Published" ? "selected" : ""}>
-                    Published
-                </option>
-
-                <option value="Unpublished"
-                    ${currentStatus === "Unpublished" ? "selected" : ""}>
-                    Unpublished
-                </option>
-
-            </select>
+            <span class="status ${statusClass}">
+                ${escapeHtml(currentStatus)}
+            </span>
 
         `;
 
 
-        /*
-           Action buttons:
-
-           Open
-           Publish
-           Unpublish
-           Delete
-        */
+        /* =========================
+           ACTION BUTTONS
+        ========================= */
 
         let actionButtons = "";
 
+
+        /* OPEN */
 
         if (fileUrl) {
 
@@ -2384,6 +2344,8 @@ function renderPapers() {
         }
 
 
+        /* PUBLISH */
+
         actionButtons += `
 
             <button
@@ -2393,12 +2355,26 @@ function renderPapers() {
                 Publish
             </button>
 
+        `;
+
+
+        /* UNPUBLISH */
+
+        actionButtons += `
+
             <button
                 class="btn btn-warning"
                 onclick="unpublishPaper('${escapeJs(paperId)}')"
             >
                 Unpublish
             </button>
+
+        `;
+
+
+        /* DELETE */
+
+        actionButtons += `
 
             <button
                 class="btn btn-danger"
@@ -2409,6 +2385,10 @@ function renderPapers() {
 
         `;
 
+
+        /* =========================
+           ROW
+        ========================= */
 
         tr.innerHTML = `
 
@@ -2431,17 +2411,7 @@ function renderPapers() {
             </td>
 
             <td>
-
-                <div style="margin-bottom:5px">
-
-                    <span class="status ${statusClass}">
-                        ${escapeHtml(currentStatus)}
-                    </span>
-
-                </div>
-
-                ${statusSelect}
-
+                ${statusDisplay}
             </td>
 
             <td>
@@ -2843,103 +2813,6 @@ function fileToBase64(file) {
 
         }
     );
-
-}
-
-
-/* =========================================================
-   CHANGE PAPER STATUS
-========================================================= */
-
-async function changePaperStatus(
-    paperId,
-    status
-) {
-
-    if (!paperId) {
-
-        showMessage(
-            "Paper ID is missing.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    let backendValue;
-
-
-    /*
-       Existing backend normally uses:
-       Yes = Published
-       No = Unpublished
-
-       Draft is sent as Draft so a backend
-       that supports three states can save it.
-    */
-
-    if (status === "Published") {
-
-        backendValue = "Yes";
-
-    }
-
-    else if (
-        status === "Unpublished"
-    ) {
-
-        backendValue = "No";
-
-    }
-
-    else {
-
-        backendValue = "Draft";
-
-    }
-
-
-    try {
-
-        await api(
-            "publishPaper",
-            {
-                paperId,
-                published: backendValue
-            }
-        );
-
-
-        showMessage(
-            "Paper status changed to " +
-            status +
-            ".",
-            "success"
-        );
-
-
-        await loadPapers();
-
-    }
-
-    catch(error) {
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-
-        /*
-           Reload the table so the dropdown
-           returns to the actual saved value.
-        */
-
-        await loadPapers();
-
-    }
 
 }
 
@@ -3509,16 +3382,6 @@ function renderResults() {
             );
 
 
-        /*
-           IMPORTANT:
-
-           Paper ID is still used internally.
-
-           Display is:
-
-           Subject Name - Title
-        */
-
         const paperLabel =
             getResultPaperLabel(
                 paper
@@ -3731,14 +3594,6 @@ async function loadResultPapers() {
                     "option"
                 );
 
-
-            /*
-               Paper ID stays as VALUE.
-
-               User sees:
-
-               Subject Name - Title
-            */
 
             option.value =
                 paperId;
