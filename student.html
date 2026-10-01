@@ -3,500 +3,1609 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Dashboard</title>
+
+<title>Student Dashboard | Online Exam Portal</title>
 
 <style>
+
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #1e40af;
+  --primary-dark: #17358f;
+  --secondary: #2563eb;
+  --light-blue: #eff6ff;
+  --blue-border: #dbeafe;
+
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+
+  --warning: #b45309;
+  --warning-bg: #fffbeb;
+
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+
+  --text: #172033;
+  --muted: #64748b;
+
+  --background: #f5f7fb;
+  --white: #ffffff;
+  --border: #e2e8f0;
+
+  --shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+  --shadow-hover: 0 12px 30px rgba(15, 23, 42, 0.11);
+
+  --radius: 16px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7fb;
-  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.5;
 }
 
-.header {
-  background: linear-gradient(135deg, #173b73, #2563a6);
-  color: white;
-  padding: 18px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 22px;
-}
-
-.student-info {
-  margin-top: 6px;
-  font-size: 14px;
-}
-
-.logout-btn {
-  background: #dc3545;
-  color: white;
-  border: 0;
-  border-radius: 7px;
-  padding: 10px 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.container {
-  width: 94%;
-  max-width: 1200px;
-  margin: 25px auto;
-}
-
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.08);
-}
-
-.card h2 {
-  margin-top: 0;
-  color: #173b73;
-}
-
-.loading,
-.empty {
-  text-align: center;
-  padding: 20px;
-  color: #666;
-}
-
-.error {
-  background: #fdeaea;
-  color: #a61b1b;
-  padding: 12px;
-  border-radius: 7px;
-}
-
-.success {
-  background: #e8f7ee;
-  color: #146c43;
-  padding: 12px;
-  border-radius: 7px;
-}
-
-.warning {
-  background: #fff4db;
-  color: #8a5a00;
-  padding: 12px;
-  border-radius: 7px;
-}
+/* =========================
+   GENERAL
+========================= */
 
 .hidden {
   display: none !important;
 }
 
-/* SUBJECTS */
-
-.subject-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 15px;
-}
-
-.subject-box {
-  border: 1px solid #d8e0ea;
-  border-radius: 10px;
-  padding: 16px;
-  background: #f8fbff;
-}
-
-.subject-box h3 {
-  margin: 0 0 8px;
-  color: #173b73;
-}
-
-.subject-code {
-  color: #666;
-  font-size: 13px;
-}
-
-/* PAPER */
-
-select {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #ccd3dd;
-  border-radius: 7px;
-  background: white;
-}
-
-.paper-box {
-  border: 1px solid #d8e0ea;
-  border-radius: 10px;
-  padding: 15px;
-  margin-top: 15px;
-}
-
-.paper-box h3 {
-  margin-top: 0;
-  color: #173b73;
-}
-
-.paper-info {
-  line-height: 1.9;
-}
-
-.exam-timing {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 8px;
-  background: #edf5ff;
-  border: 1px solid #c9ddf5;
-}
-
-.exam-timing div {
-  margin: 5px 0;
-}
-
-.exam-start {
-  color: #146c43;
-}
-
-.exam-end {
-  color: #a61b1b;
-}
-
-.exam-marks {
-  color: #173b73;
-}
-
-.paper-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 15px;
+button,
+select,
+input {
+  font-family: inherit;
 }
 
 button {
-  border: 0;
-  border-radius: 7px;
-  padding: 11px 18px;
   cursor: pointer;
-  font-weight: bold;
 }
 
-.primary {
-  background: #1769aa;
+.container {
+  width: min(1200px, calc(100% - 30px));
+  margin: auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.top-header {
+  background: linear-gradient(
+    135deg,
+    #17358f 0%,
+    #1e40af 50%,
+    #2563eb 100%
+  );
+
   color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.25);
 }
 
-.success-btn {
-  background: #198754;
-  color: white;
-}
-
-.secondary {
-  background: #6c757d;
-  color: white;
-}
-
-.warning-btn {
-  background: #f0ad4e;
-  color: white;
-}
-
-/* PHOTOS */
-
-.photo-buttons {
+.header-inner {
+  min-height: 74px;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 15px 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.photo-input {
+.brand-area {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+}
+
+.brand-title {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  opacity: 0.78;
+  margin-top: 2px;
+}
+
+.student-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.student-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  background: white;
+  color: var(--primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  border: 3px solid rgba(255,255,255,0.25);
+}
+
+.student-name-box {
+  text-align: right;
+}
+
+.student-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.student-id {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.logout-btn {
+  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+  color: white;
+
+  padding: 9px 14px;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: white;
+  color: var(--primary);
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page {
+  padding: 28px 0 50px;
+}
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome-card {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f8fbff 100%
+  );
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  padding: 24px;
+  margin-bottom: 22px;
+
+  box-shadow: var(--shadow);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.welcome-title {
+  margin: 0 0 5px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.welcome-text {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.welcome-badge {
+  background: var(--light-blue);
+  color: var(--primary);
+  border: 1px solid var(--blue-border);
+
+  padding: 10px 15px;
+  border-radius: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+  margin-bottom: 25px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 13px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.section-title-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+  background: var(--light-blue);
+  color: var(--primary);
+
+  font-size: 16px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  padding: 21px;
+
+  box-shadow: var(--shadow);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* =========================
+   SUBJECTS
+========================= */
+
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.subject-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+
+  background: white;
+
+  transition: 0.2s;
+}
+
+.subject-card:hover {
+  transform: translateY(-2px);
+  border-color: #bfdbfe;
+  box-shadow: var(--shadow-hover);
+}
+
+.subject-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: var(--light-blue);
+  color: var(--primary);
+
+  font-size: 20px;
+
+  margin-bottom: 12px;
+}
+
+.subject-code {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.subject-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* =========================
+   PAPER SELECT
+========================= */
+
+.paper-selector-card {
+  background: white;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 7px;
+  color: #334155;
+}
+
+select {
+  width: 100%;
+
+  border: 1px solid #cbd5e1;
+  background: white;
+
+  padding: 12px 13px;
+
+  border-radius: 10px;
+
+  outline: none;
+  font-size: 14px;
+
+  color: var(--text);
+
+  transition: 0.2s;
+}
+
+select:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+}
+
+/* =========================
+   QUESTION PAPER
+========================= */
+
+.paper-details {
+  margin-top: 16px;
+
+  border: 1px solid var(--blue-border);
+  background: #f8fbff;
+
+  border-radius: 13px;
+  padding: 18px;
+}
+
+.paper-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.paper-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.paper-code {
+  display: inline-block;
+  margin-top: 4px;
+
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.paper-status {
+  background: #dcfce7;
+  color: #166534;
+
+  border-radius: 20px;
+  padding: 6px 11px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.paper-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  margin-bottom: 17px;
+}
+
+.info-box {
+  background: white;
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+  padding: 11px;
+}
+
+.info-label {
+  font-size: 10px;
+  color: var(--muted);
+
+  text-transform: uppercase;
+  font-weight: 700;
+
+  margin-bottom: 3px;
+}
+
+.info-value {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.btn {
+  border: none;
+  border-radius: 9px;
+
+  padding: 10px 15px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition: 0.2s;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: #e0edff;
+  color: #1e40af;
+}
+
+.btn-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.btn-danger {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-outline {
+  background: white;
+  color: var(--primary);
+  border: 1px solid #bfdbfe;
+}
+
+/* =========================
+   SUBMISSION
+========================= */
+
+.submission-card {
+  background: white;
+}
+
+.submission-intro {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+
+  padding: 13px 15px;
+  border-radius: 10px;
+
+  font-size: 13px;
+  color: var(--muted);
+
+  margin-bottom: 17px;
+}
+
+.upload-area {
+  border: 2px dashed #bfdbfe;
+  background: #f8fbff;
+
+  border-radius: 14px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  transition: 0.2s;
+}
+
+.upload-area:hover {
+  background: #f0f7ff;
+  border-color: var(--secondary);
+}
+
+.upload-icon {
+  width: 52px;
+  height: 52px;
+
+  margin: auto auto 10px;
+
+  border-radius: 14px;
+
+  background: #dbeafe;
+  color: var(--primary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+}
+
+.upload-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.upload-description {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.file-input {
   display: none;
 }
 
-.preview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
-  margin-top: 15px;
+.upload-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
 }
 
-.preview-item {
+/* =========================
+   PHOTO PREVIEW
+========================= */
+
+.photo-area {
+  margin-top: 18px;
+}
+
+.photo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.photo-count {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.photo-limit {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.photo-item {
   position: relative;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+
+  aspect-ratio: 1 / 1;
+
+  background: #f8fafc;
+  border: 1px solid var(--border);
+
+  border-radius: 10px;
+
   overflow: hidden;
 }
 
-.preview-item img {
+.photo-item img {
   width: 100%;
-  height: 150px;
+  height: 100%;
   object-fit: cover;
 }
 
 .remove-photo {
   position: absolute;
+
   top: 5px;
   right: 5px;
-  width: 28px;
-  height: 28px;
-  padding: 0;
+
+  width: 25px;
+  height: 25px;
+
+  border: none;
   border-radius: 50%;
-  background: #dc3545;
+
+  background: rgba(220,38,38,0.92);
   color: white;
+
+  font-size: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.photo-number {
-  text-align: center;
-  padding: 5px;
-  font-size: 12px;
-}
-
-/* PROGRESS */
-
-.progress-container {
-  display: none;
+.progress-wrapper {
   margin-top: 15px;
 }
 
-.progress-bg {
-  height: 20px;
-  background: #e5e7eb;
-  border-radius: 10px;
+.progress-track {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 20px;
   overflow: hidden;
 }
 
 .progress-bar {
-  width: 0;
   height: 100%;
-  background: #198754;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    #1e40af,
+    #2563eb
+  );
+  transition: width 0.3s;
 }
 
-.progress-text {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 5px;
-}
+/* =========================
+   RESULT
+========================= */
 
-/* RESULT */
+.result-table-wrapper {
+  overflow-x: auto;
+}
 
 .result-table {
   width: 100%;
   border-collapse: collapse;
-}
 
-.result-table th,
-.result-table td {
-  border: 1px solid #ddd;
-  padding: 9px;
-  text-align: left;
+  min-width: 700px;
 }
 
 .result-table th {
-  background: #edf3fa;
-  color: #173b73;
+  background: #f1f5f9;
+
+  color: #334155;
+
+  font-size: 11px;
+  text-transform: uppercase;
+
+  letter-spacing: 0.3px;
+
+  padding: 13px 12px;
+
+  text-align: left;
+
+  border-bottom: 1px solid var(--border);
 }
 
-@media(max-width:600px) {
+.result-table td {
+  padding: 14px 12px;
+
+  border-bottom: 1px solid #edf2f7;
+
+  font-size: 13px;
+
+  vertical-align: middle;
+}
+
+.result-table tr:hover td {
+  background: #f8fbff;
+}
+
+.result-table td:nth-child(2),
+.result-table td:nth-child(3),
+.result-table td:nth-child(4) {
+  font-weight: 700;
+}
+
+.result-pass {
+  display: inline-block;
+
+  background: #dcfce7;
+  color: #166534;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.result-fail {
+  display: inline-block;
+
+  background: #fee2e2;
+  color: #991b1b;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+  padding: 35px 20px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  font-size: 13px;
+}
+
+/* =========================
+   ALERTS
+========================= */
+
+.alert {
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  font-size: 13px;
+
+  margin-bottom: 14px;
+}
+
+.alert-success {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid #bbf7d0;
+}
+
+.alert-warning {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid #fde68a;
+}
+
+.alert-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid #fecaca;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading {
+  padding: 35px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+
+  border: 3px solid #dbeafe;
+  border-top-color: var(--primary);
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  text-align: center;
+
+  padding: 20px;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+  .subject-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .paper-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+}
+
+@media (max-width: 650px) {
 
   .container {
-    width: 96%;
+    width: min(100% - 20px, 1200px);
+  }
+
+  .header-inner {
+    min-height: 65px;
+  }
+
+  .brand-title {
+    font-size: 15px;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  .student-name-box {
+    display: none;
+  }
+
+  .student-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logout-btn {
+    padding: 8px 10px;
+  }
+
+  .page {
+    padding-top: 18px;
+  }
+
+  .welcome-card {
+    padding: 18px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .welcome-title {
+    font-size: 21px;
+  }
+
+  .welcome-badge {
+    white-space: normal;
+  }
+
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-header {
+    flex-direction: column;
+  }
+
+  .paper-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .card {
-    padding: 15px;
+    padding: 16px;
   }
 
-  .photo-buttons button,
-  .paper-actions button {
+  .upload-area {
+    padding: 20px 12px;
+  }
+
+  .button-row .btn {
     width: 100%;
   }
+
 }
+
+@media (max-width: 400px) {
+
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-title {
+    font-size: 14px;
+  }
+
+  .paper-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* =========================
+   CAMERA MODAL
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15,23,42,0.72);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+
+  z-index: 5000;
+}
+
+.modal-box {
+  width: min(600px, 100%);
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 14px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 17px;
+}
+
+.close-modal {
+  border: none;
+  background: #f1f5f9;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  font-size: 17px;
+}
+
+.camera-video {
+  width: 100%;
+
+  background: #000;
+
+  border-radius: 12px;
+
+  max-height: 60vh;
+
+  object-fit: cover;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-container {
+  position: fixed;
+
+  right: 20px;
+  bottom: 20px;
+
+  z-index: 7000;
+}
+
+.toast {
+  min-width: 260px;
+
+  background: #172033;
+  color: white;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+  font-size: 13px;
+
+  margin-top: 8px;
+
+  animation: toastIn 0.25s ease;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<!-- =========================
+     HEADER
+========================= -->
 
-  <div>
-    <h1>🎓 Student Dashboard</h1>
+<header class="top-header">
 
-    <div class="student-info" id="studentInfo">
-      Loading...
+  <div class="container header-inner">
+
+    <div class="brand-area">
+
+      <div class="brand-icon">
+        🎓
+      </div>
+
+      <div>
+        <div class="brand-title">
+          Online Exam Portal
+        </div>
+
+        <div class="brand-subtitle">
+          Student Academic Dashboard
+        </div>
+      </div>
+
     </div>
+
+    <div class="student-header-info">
+
+      <div class="student-name-box">
+
+        <div
+          class="student-name"
+          id="headerStudentName"
+        >
+          Student
+        </div>
+
+        <div
+          class="student-id"
+          id="headerStudentId"
+        >
+          -
+        </div>
+
+      </div>
+
+      <div
+        class="student-avatar"
+        id="studentAvatar"
+      >
+        S
+      </div>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        🚪 Logout
+      </button>
+
+    </div>
+
   </div>
 
-  <button class="logout-btn" onclick="logout()">
-    Logout
-  </button>
+</header>
 
-</div>
 
+<main class="page">
 
 <div class="container">
 
-  <!-- =====================================================
-       ASSIGNED SUBJECTS
-  ====================================================== -->
 
-  <div class="card">
+<!-- =========================
+     WELCOME
+========================= -->
 
-    <h2>📚 My Assigned Subjects</h2>
+<section class="welcome-card">
 
-    <div id="subjectLoading" class="loading">
-      Loading assigned subjects...
-    </div>
+  <div>
 
-    <div id="subjectError" class="error hidden"></div>
+    <h1
+      class="welcome-title"
+      id="welcomeStudentName"
+    >
+      Welcome, Student
+    </h1>
 
-    <div id="subjectEmpty" class="empty hidden">
-      No subject has been assigned to this Student ID.
-    </div>
+    <p class="welcome-text">
+      Manage your assigned subjects, question papers,
+      answer sheet submissions and examination results
+      from one place.
+    </p>
 
-    <div id="subjectGrid" class="subject-grid"></div>
+  </div>
+
+  <div class="welcome-badge">
+    🎓 Student Dashboard
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE
+========================= -->
+
+<div
+  id="messageBox"
+  class="hidden"
+></div>
+
+
+<!-- =========================
+     ASSIGNED SUBJECTS
+========================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <h2 class="section-title">
+
+      <span class="section-title-icon">
+        📚
+      </span>
+
+      My Assigned Subjects
+
+    </h2>
 
   </div>
 
 
-  <!-- =====================================================
-       QUESTION PAPERS
-  ====================================================== -->
+  <div
+    id="subjectsContainer"
+    class="subject-grid"
+  >
 
-  <div class="card">
+    <div class="card">
+      <div class="loading">
+        <div class="spinner"></div>
+        Loading subjects...
+      </div>
+    </div>
 
-    <h2>📝 Question Papers</h2>
+  </div>
 
-    <label for="paperSelect">
+</section>
+
+
+<!-- =========================
+     QUESTION PAPERS
+========================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <h2 class="section-title">
+
+      <span class="section-title-icon">
+        📄
+      </span>
+
+      Question Papers
+
+    </h2>
+
+  </div>
+
+
+  <div class="card paper-selector-card">
+
+    <label
+      class="form-label"
+      for="paperSelect"
+    >
       Select Question Paper
     </label>
 
-    <select id="paperSelect" onchange="paperSelected()">
+    <select id="paperSelect">
 
       <option value="">
-        -- Select Question Paper --
+        Select a question paper
       </option>
 
     </select>
 
-    <div id="paperEmpty" class="empty">
-      Select a question paper.
-    </div>
 
-    <div id="paperContainer"></div>
+    <div
+      id="paperDetails"
+      class="hidden"
+    >
 
-  </div>
+      <div class="paper-details">
 
+        <div class="paper-header">
 
-  <!-- =====================================================
-       ANSWER SHEET
-  ====================================================== -->
+          <div>
 
-  <div class="card">
+            <h3
+              class="paper-title"
+              id="paperTitle"
+            >
+              Question Paper
+            </h3>
 
-    <h2>📤 Answer Sheet Submission</h2>
+            <div
+              class="paper-code"
+              id="paperCode"
+            >
+              -
+            </div>
 
-    <div id="submissionMessage" class="warning">
-      Please select a question paper.
-    </div>
+          </div>
 
-    <div id="submissionArea" class="hidden">
-
-      <p>
-        Upload <strong>1 to 20 photos</strong> of your answer sheet.
-      </p>
-
-      <div class="photo-buttons">
-
-        <button
-          type="button"
-          class="primary"
-          onclick="openCamera()">
-          📷 Take Photo
-        </button>
-
-        <button
-          type="button"
-          class="success-btn"
-          onclick="openGallery()">
-          📁 Gallery / Files
-        </button>
-
-      </div>
-
-
-      <input
-        type="file"
-        id="cameraInput"
-        class="photo-input"
-        accept="image/*"
-        capture="environment"
-        onchange="handleFiles(this.files)"
-      >
-
-
-      <input
-        type="file"
-        id="galleryInput"
-        class="photo-input"
-        accept="image/*"
-        multiple
-        onchange="handleFiles(this.files)"
-      >
-
-
-      <div id="photoCount">
-        0 photos selected
-      </div>
-
-
-      <div id="previewGrid" class="preview-grid"></div>
-
-
-      <div
-        id="progressContainer"
-        class="progress-container">
-
-        <div class="progress-bg">
-
-          <div
-            id="progressBar"
-            class="progress-bar">
+          <div class="paper-status">
+            PUBLISHED
           </div>
 
         </div>
 
+
+        <div class="paper-info-grid">
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Subject
+            </div>
+
+            <div
+              class="info-value"
+              id="paperSubject"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Total Marks
+            </div>
+
+            <div
+              class="info-value"
+              id="paperTotalMarks"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Exam Start
+            </div>
+
+            <div
+              class="info-value"
+              id="paperStart"
+            >
+              -
+            </div>
+
+          </div>
+
+
+          <div class="info-box">
+
+            <div class="info-label">
+              Exam End
+            </div>
+
+            <div
+              class="info-value"
+              id="paperEnd"
+            >
+              -
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="button-row">
+
+          <a
+            id="paperFileLink"
+            href="#"
+            target="_blank"
+            class="btn btn-outline"
+          >
+            📥 Download Question Paper
+          </a>
+
+          <button
+            id="startExamBtn"
+            class="btn btn-primary"
+            type="button"
+          >
+            📝 Start MCQ Exam
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ANSWER SHEET SUBMISSION
+========================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <h2 class="section-title">
+
+      <span class="section-title-icon">
+        📷
+      </span>
+
+      Answer Sheet Submission
+
+    </h2>
+
+  </div>
+
+
+  <div class="card submission-card">
+
+    <div class="submission-intro">
+
+      📌 <strong>Important:</strong>
+      Upload clear photos of your completed answer sheet.
+      You can upload photos using your camera or gallery.
+      Maximum 20 photos are allowed.
+
+    </div>
+
+
+    <div
+      id="submissionMessage"
+      class="hidden"
+    ></div>
+
+
+    <div class="upload-area">
+
+      <div class="upload-icon">
+        📸
+      </div>
+
+      <div class="upload-title">
+        Upload Answer Sheet Photos
+      </div>
+
+      <div class="upload-description">
+        Take photos directly using camera or select
+        existing photos from your device.
+      </div>
+
+
+      <div class="upload-buttons">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="openCamera()"
+        >
+          📷 Open Camera
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="document.getElementById('galleryInput').click()"
+        >
+          🖼️ Choose from Gallery
+        </button>
+
+        <input
+          id="galleryInput"
+          class="file-input"
+          type="file"
+          accept="image/*"
+          multiple
+          onchange="handleGalleryFiles(event)"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div
+      id="photoArea"
+      class="photo-area hidden"
+    >
+
+      <div class="photo-header">
+
         <div
-          id="progressText"
-          class="progress-text">
+          class="photo-count"
+          id="photoCount"
+        >
+          0 photos
+        </div>
+
+        <div class="photo-limit">
+          Maximum 20 photos
         </div>
 
       </div>
 
 
-      <div class="paper-actions">
+      <div
+        id="photoGrid"
+        class="photo-grid"
+      ></div>
+
+
+      <div class="progress-wrapper">
+
+        <div class="progress-track">
+
+          <div
+            id="progressBar"
+            class="progress-bar"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:16px;
+          display:flex;
+          justify-content:flex-end;
+        "
+      >
 
         <button
-          id="submitBtn"
+          id="submitAnswerBtn"
           type="button"
-          class="success-btn"
-          onclick="submitAnswerSheet()">
+          class="btn btn-primary"
+          onclick="submitAnswerSheet()"
+        >
           📤 Submit Answer Sheet
-        </button>
-
-        <button
-          type="button"
-          class="secondary"
-          onclick="clearPhotos()">
-          Clear Photos
         </button>
 
       </div>
@@ -505,39 +1614,84 @@ button {
 
   </div>
 
+</section>
 
-  <!-- =====================================================
-       RESULTS
-  ====================================================== -->
+
+<!-- =========================
+     RESULTS
+========================= -->
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <h2 class="section-title">
+
+      <span class="section-title-icon">
+        📊
+      </span>
+
+      My Results
+
+    </h2>
+
+  </div>
+
 
   <div class="card">
 
-    <h2>📊 My Results</h2>
-
-    <div id="resultEmpty" class="empty">
+    <div
+      id="resultEmpty"
+      class="empty"
+    >
       No results available yet.
     </div>
 
-    <div id="resultContainer" class="hidden">
 
-      <div style="overflow-x:auto;">
+    <div
+      id="resultContainer"
+      class="hidden"
+    >
+
+      <div class="result-table-wrapper">
 
         <table class="result-table">
 
           <thead>
 
             <tr>
-              <th>Subject - Title</th>
-              <th>Marks</th>
-              <th>Total</th>
-              <th>Percentage</th>
-              <th>Result</th>
-              <th>Remarks</th>
+
+              <th>
+                Subject - Title
+              </th>
+
+              <th>
+                Marks
+              </th>
+
+              <th>
+                Total
+              </th>
+
+              <th>
+                Percentage
+              </th>
+
+              <th>
+                Result
+              </th>
+
+              <th>
+                Remarks
+              </th>
+
             </tr>
 
           </thead>
 
-          <tbody id="resultBody"></tbody>
+          <tbody
+            id="resultBody"
+          ></tbody>
 
         </table>
 
@@ -547,17 +1701,160 @@ button {
 
   </div>
 
+</section>
+
+
 </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+  Online Exam Portal
+  &nbsp;•&nbsp;
+  Student Academic Dashboard
+
+</footer>
+
+
+<!-- =========================
+     CAMERA MODAL
+========================= -->
+
+<div
+  id="cameraModal"
+  class="modal hidden"
+>
+
+  <div class="modal-box">
+
+    <div class="modal-header">
+
+      <h3 class="modal-title">
+        📷 Capture Answer Sheet
+      </h3>
+
+      <button
+        class="close-modal"
+        onclick="closeCamera()"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <video
+      id="cameraVideo"
+      class="camera-video"
+      autoplay
+      playsinline
+    ></video>
+
+
+    <canvas
+      id="cameraCanvas"
+      class="hidden"
+    ></canvas>
+
+
+    <div
+      class="button-row"
+      style="margin-top:14px;"
+    >
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="capturePhoto()"
+      >
+        📸 Capture Photo
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline"
+        onclick="closeCamera()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+  id="toastContainer"
+  class="toast-container"
+></div>
 
 
 <script>
 
 /* =========================================================
-   CONFIGURATION
+   API
 ========================================================= */
 
 var API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
+
+
+async function api(action, data) {
+
+  var payload = data || {};
+
+  payload.action = action;
+
+  var response = await fetch(
+    API_URL,
+    {
+      method: "POST",
+      body: JSON.stringify(payload)
+    }
+  );
+
+  var text = await response.text();
+
+  var result;
+
+  try {
+
+    result = JSON.parse(text);
+
+  } catch (e) {
+
+    throw new Error(
+      "Invalid response from server: " +
+      text.substring(0, 300)
+    );
+
+  }
+
+  if (!result.success) {
+
+    throw new Error(
+      result.message ||
+      "Server error."
+    );
+
+  }
+
+  return result;
+
+}
 
 
 /* =========================================================
@@ -578,122 +1875,110 @@ var selectedPhotos = [];
 
 var editingSubmission = false;
 
+var cameraStream = null;
+
 
 /* =========================================================
-   START
+   INIT
 ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   function() {
 
-    studentId =
-      sessionStorage.getItem("studentId") || "";
-
-    studentName =
-      sessionStorage.getItem("studentName") || "";
-
-
-    if (!studentId) {
-
-      alert(
-        "Student login session not found. Please login again."
-      );
-
-      window.location.href =
-        "index.html";
-
-      return;
-    }
-
-
-    document.getElementById(
-      "studentInfo"
-    ).innerHTML =
-      "Student ID: <strong>" +
-      escapeHtml(studentId) +
-      "</strong>" +
-      (
-        studentName
-          ? " &nbsp; | &nbsp; Name: <strong>" +
-            escapeHtml(studentName) +
-            "</strong>"
-          : ""
-      );
-
-
-    loadStudentData();
+    initializeStudent();
 
   }
 );
 
 
 /* =========================================================
-   API FUNCTION
+   INITIALIZE STUDENT
 ========================================================= */
 
-async function api(action, data) {
+function initializeStudent() {
 
-  var payload = data || {};
+  studentId =
+    localStorage.getItem("studentId") ||
+    sessionStorage.getItem("studentId") ||
+    "";
 
-  payload.action = action;
+  studentName =
+    localStorage.getItem("studentName") ||
+    sessionStorage.getItem("studentName") ||
+    "";
 
+  if (!studentId) {
 
-  var response =
-    await fetch(
-      API_URL,
-      {
-        method: "POST",
-        body: JSON.stringify(payload)
-      }
+    showMessage(
+      "Student login information was not found. Please login again.",
+      "danger"
     );
 
-
-  var text =
-    await response.text();
-
-
-  var result;
-
-  try {
-
-    result =
-      JSON.parse(text);
-
-  } catch (e) {
-
-    throw new Error(
-      "Invalid response from server: " +
-      text.substring(0, 300)
+    setTimeout(
+      function() {
+        window.location.href = "index.html";
+      },
+      1500
     );
+
+    return;
 
   }
 
+  updateStudentHeader();
 
-  if (!result.success) {
-
-    throw new Error(
-      result.message ||
-      "Server error."
-    );
-
-  }
-
-
-  return result;
+  loadStudentData();
 
 }
 
 
 /* =========================================================
-   LOAD EVERYTHING
+   HEADER
+========================================================= */
+
+function updateStudentHeader() {
+
+  var name =
+    studentName ||
+    "Student";
+
+  document.getElementById(
+    "headerStudentName"
+  ).textContent = name;
+
+  document.getElementById(
+    "headerStudentId"
+  ).textContent =
+    "ID: " + studentId;
+
+  document.getElementById(
+    "welcomeStudentName"
+  ).textContent =
+    "Welcome, " + name;
+
+  var firstLetter =
+    name.trim()
+      ? name.trim().charAt(0).toUpperCase()
+      : "S";
+
+  document.getElementById(
+    "studentAvatar"
+  ).textContent =
+    firstLetter;
+
+}
+
+
+/* =========================================================
+   LOAD STUDENT DATA
 ========================================================= */
 
 async function loadStudentData() {
 
-  showSubjectLoading(true);
-
   try {
+
+    showLoadingSubjects();
 
     var subjectResult =
       await api(
@@ -701,15 +1986,10 @@ async function loadStudentData() {
         {}
       );
 
-
     subjects =
-      Array.isArray(subjectResult.subjects)
-        ? subjectResult.subjects
-        : (
-            Array.isArray(subjectResult.data)
-              ? subjectResult.data
-              : []
-          );
+      subjectResult.subjects ||
+      subjectResult.data ||
+      [];
 
 
     var assignmentResult =
@@ -720,15 +2000,10 @@ async function loadStudentData() {
         }
       );
 
-
     assignments =
-      Array.isArray(assignmentResult.assignments)
-        ? assignmentResult.assignments
-        : (
-            Array.isArray(assignmentResult.data)
-              ? assignmentResult.data
-              : []
-          );
+      assignmentResult.assignments ||
+      assignmentResult.data ||
+      [];
 
 
     buildAssignedSubjects();
@@ -744,18 +2019,20 @@ async function loadStudentData() {
           }
         );
 
-
       papers =
-        Array.isArray(dashboard.papers)
-          ? dashboard.papers
-          : [];
+        dashboard.papers ||
+        [];
 
       results =
-        Array.isArray(dashboard.results)
-          ? dashboard.results
-          : [];
+        dashboard.results ||
+        [];
 
     } catch (dashboardError) {
+
+      console.warn(
+        "Dashboard load warning:",
+        dashboardError
+      );
 
       papers = [];
       results = [];
@@ -767,19 +2044,15 @@ async function loadStudentData() {
 
     renderResults();
 
-
   } catch (error) {
 
-    showSubjectLoading(false);
+    console.error(error);
 
-    document.getElementById(
-      "subjectError"
-    ).textContent =
-      error.message;
-
-    document.getElementById(
-      "subjectError"
-    ).classList.remove("hidden");
+    showMessage(
+      error.message ||
+      "Unable to load student data.",
+      "danger"
+    );
 
   }
 
@@ -792,30 +2065,12 @@ async function loadStudentData() {
 
 function buildAssignedSubjects() {
 
-  showSubjectLoading(false);
-
-
-  var grid =
-    document.getElementById(
-      "subjectGrid"
-    );
-
-  var empty =
-    document.getElementById(
-      "subjectEmpty"
-    );
-
-
-  grid.innerHTML = "";
-
-
-  var assignedSubjectIds = [];
-
+  var assigned = [];
 
   assignments.forEach(
     function(assignment) {
 
-      var assignedStudentId =
+      var assignmentStudent =
         getValue(
           assignment,
           [
@@ -825,11 +2080,13 @@ function buildAssignedSubjects() {
           ]
         );
 
-
       if (
-        assignedStudentId &&
-        String(assignedStudentId).trim() !==
-        String(studentId).trim()
+        String(
+          assignmentStudent || ""
+        ).trim() !==
+        String(
+          studentId || ""
+        ).trim()
       ) {
 
         return;
@@ -843,111 +2100,7 @@ function buildAssignedSubjects() {
           [
             "Subject ID",
             "subjectId",
-            "SubjectID"
-          ]
-        );
-
-
-      if (!subjectId) {
-        return;
-      }
-
-
-      subjectId =
-        String(subjectId).trim();
-
-
-      if (
-        assignedSubjectIds.indexOf(subjectId) === -1
-      ) {
-
-        assignedSubjectIds.push(
-          subjectId
-        );
-
-      }
-
-    }
-  );
-
-
-  var assignedSubjects = [];
-
-
-  subjects.forEach(
-    function(subject) {
-
-      var subjectId =
-        getValue(
-          subject,
-          [
-            "Subject ID",
-            "subjectId",
-            "SubjectID"
-          ]
-        );
-
-
-      subjectId =
-        String(subjectId || "").trim();
-
-
-      if (
-        subjectId &&
-        assignedSubjectIds.indexOf(subjectId) !== -1
-      ) {
-
-        assignedSubjects.push(
-          subject
-        );
-
-      }
-
-    }
-  );
-
-
-  if (!assignedSubjects.length) {
-
-    empty.classList.remove(
-      "hidden"
-    );
-
-
-    empty.innerHTML =
-      "No subject has been assigned to Student ID " +
-      "<strong>" +
-      escapeHtml(studentId) +
-      "</strong>.";
-
-    return;
-
-  }
-
-
-  empty.classList.add(
-    "hidden"
-  );
-
-
-  assignedSubjects.forEach(
-    function(subject) {
-
-      var subjectName =
-        getValue(
-          subject,
-          [
-            "Subject Name",
-            "subjectName",
-            "SubjectName"
-          ]
-        );
-
-
-      var subjectCode =
-        getValue(
-          subject,
-          [
+            "SubjectID",
             "Subject Code",
             "subjectCode",
             "SubjectCode"
@@ -955,55 +2108,167 @@ function buildAssignedSubjects() {
         );
 
 
-      var subjectId =
+      var foundSubject =
+        subjects.find(
+          function(subject) {
+
+            var id =
+              getValue(
+                subject,
+                [
+                  "Subject ID",
+                  "subjectId",
+                  "SubjectID",
+                  "Subject Code",
+                  "subjectCode",
+                  "SubjectCode"
+                ]
+              );
+
+            return (
+              String(id || "")
+                .trim()
+                ===
+              String(subjectId || "")
+                .trim()
+            );
+
+          }
+        );
+
+
+      if (foundSubject) {
+
+        var alreadyExists =
+          assigned.some(
+            function(item) {
+
+              return (
+                String(
+                  getValue(
+                    item,
+                    [
+                      "Subject ID",
+                      "subjectId",
+                      "SubjectID",
+                      "Subject Code",
+                      "subjectCode",
+                      "SubjectCode"
+                    ]
+                  ) || ""
+                ).trim()
+                ===
+                String(
+                  subjectId || ""
+                ).trim()
+              );
+
+            }
+          );
+
+
+        if (!alreadyExists) {
+
+          assigned.push(
+            foundSubject
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+
+  renderSubjects(assigned);
+
+}
+
+
+/* =========================================================
+   RENDER SUBJECTS
+========================================================= */
+
+function renderSubjects(assigned) {
+
+  var container =
+    document.getElementById(
+      "subjectsContainer"
+    );
+
+  container.innerHTML = "";
+
+
+  if (!assigned.length) {
+
+    container.innerHTML =
+      '<div class="card" style="grid-column:1/-1;">' +
+      '<div class="empty">' +
+      'No subjects have been assigned to you yet.' +
+      '</div>' +
+      '</div>';
+
+    return;
+
+  }
+
+
+  assigned.forEach(
+    function(subject) {
+
+      var code =
         getValue(
           subject,
           [
-            "Subject ID",
-            "subjectId",
-            "SubjectID"
+            "Subject Code",
+            "subjectCode",
+            "SubjectCode",
+            "Code",
+            "code"
+          ]
+        );
+
+      var name =
+        getValue(
+          subject,
+          [
+            "Subject Name",
+            "subjectName",
+            "SubjectName",
+            "Name",
+            "name"
           ]
         );
 
 
-      var box =
+      var card =
         document.createElement(
           "div"
         );
 
+      card.className =
+        "subject-card";
 
-      box.className =
-        "subject-box";
 
+      card.innerHTML =
 
-      box.innerHTML =
-        "<h3>" +
+        '<div class="subject-icon">📘</div>' +
+
+        '<div class="subject-code">' +
         escapeHtml(
-          subjectName ||
-          "Subject"
+          code || "SUBJECT"
         ) +
-        "</h3>" +
+        '</div>' +
 
-        (
-          subjectCode
-            ? "<div class='subject-code'>" +
-              "Subject Code: " +
-              escapeHtml(subjectCode) +
-              "</div>"
-            : ""
+        '<div class="subject-name">' +
+        escapeHtml(
+          name || "-"
         ) +
-
-        (
-          subjectId
-            ? "<div class='subject-code'>" +
-              "Subject ID: " +
-              escapeHtml(subjectId) +
-              "</div>"
-            : ""
-        );
+        '</div>';
 
 
-      grid.appendChild(box);
+      container.appendChild(card);
 
     }
   );
@@ -1012,36 +2277,32 @@ function buildAssignedSubjects() {
 
 
 /* =========================================================
-   SUBJECT LOADING
+   SHOW LOADING
 ========================================================= */
 
-function showSubjectLoading(show) {
+function showLoadingSubjects() {
 
-  var loading =
-    document.getElementById(
-      "subjectLoading"
-    );
+  document.getElementById(
+    "subjectsContainer"
+  ).innerHTML =
 
+    '<div class="card" style="grid-column:1/-1;">' +
 
-  if (show) {
+    '<div class="loading">' +
 
-    loading.classList.remove(
-      "hidden"
-    );
+    '<div class="spinner"></div>' +
 
-  } else {
+    'Loading subjects...' +
 
-    loading.classList.add(
-      "hidden"
-    );
+    '</div>' +
 
-  }
+    '</div>';
 
 }
 
 
 /* =========================================================
-   PAPERS
+   RENDER PAPERS
 ========================================================= */
 
 function renderPapers() {
@@ -1051,45 +2312,46 @@ function renderPapers() {
       "paperSelect"
     );
 
-
   select.innerHTML =
-    "<option value=''>" +
-    "-- Select Question Paper --" +
-    "</option>";
-
-
-  if (!papers.length) {
-
-    document.getElementById(
-      "paperEmpty"
-    ).textContent =
-      "No published question papers are available.";
-
-    return;
-
-  }
+    '<option value="">Select a question paper</option>';
 
 
   papers.forEach(
     function(paper, index) {
 
-      var option =
-        document.createElement(
-          "option"
+      var paperId =
+        getValue(
+          paper,
+          [
+            "Paper ID",
+            "paperId",
+            "PaperID"
+          ]
         );
 
 
-      option.value =
-        String(index);
-
-
-      var code =
+      var paperCode =
         getValue(
           paper,
           [
             "Paper Code",
             "paperCode",
-            "PaperCode"
+            "PaperCode",
+            "Code",
+            "code"
+          ]
+        );
+
+
+      var title =
+        getValue(
+          paper,
+          [
+            "Title",
+            "title",
+            "Paper Title",
+            "paperTitle",
+            "PaperTitle"
           ]
         );
 
@@ -1100,37 +2362,32 @@ function renderPapers() {
           [
             "Subject Name",
             "subjectName",
-            "SubjectName"
+            "SubjectName",
+            "Subject",
+            "subject"
           ]
         );
 
 
-      var title =
-        getValue(
-          paper,
-          [
-            "Paper Title",
-            "paperTitle",
-            "PaperTitle"
-          ]
+      var option =
+        document.createElement(
+          "option"
         );
+
+      option.value =
+        paperId ||
+        index;
 
 
       option.textContent =
-        (
-          code
-            ? code + " - "
-            : ""
-        ) +
-
         (
           subject
             ? subject + " - "
             : ""
         ) +
-
         (
           title ||
+          paperCode ||
           "Question Paper"
         );
 
@@ -1149,81 +2406,100 @@ function renderPapers() {
    PAPER SELECT
 ========================================================= */
 
-async function paperSelected() {
+document.getElementById(
+  "paperSelect"
+).addEventListener(
+  "change",
+  function() {
 
-  var value =
-    document.getElementById(
-      "paperSelect"
-    ).value;
+    var value =
+      this.value;
+
+    if (!value) {
+
+      selectedPaper = null;
+
+      document.getElementById(
+        "paperDetails"
+      ).classList.add(
+        "hidden"
+      );
+
+      return;
+
+    }
 
 
-  selectedPaper =
-    null;
+    selectedPaper =
+      papers.find(
+        function(paper) {
+
+          var id =
+            getValue(
+              paper,
+              [
+                "Paper ID",
+                "paperId",
+                "PaperID"
+              ]
+            );
+
+          return (
+            String(id || "")
+              ===
+            String(value)
+          );
+
+        }
+      );
 
 
-  document.getElementById(
-    "paperContainer"
-  ).innerHTML = "";
+    if (!selectedPaper) {
+
+      selectedPaper =
+        papers[
+          Number(value)
+        ];
+
+    }
 
 
-  document.getElementById(
-    "submissionArea"
-  ).classList.add(
-    "hidden"
-  );
+    if (selectedPaper) {
 
+      showPaper(
+        selectedPaper
+      );
 
-  if (value === "") {
-
-    document.getElementById(
-      "paperEmpty"
-    ).classList.remove(
-      "hidden"
-    );
-
-    document.getElementById(
-      "submissionMessage"
-    ).className =
-      "warning";
-
-    document.getElementById(
-      "submissionMessage"
-    ).textContent =
-      "Please select a question paper.";
-
-    return;
+    }
 
   }
-
-
-  selectedPaper =
-    papers[
-      Number(value)
-    ];
-
-
-  if (!selectedPaper) {
-    return;
-  }
-
-
-  showPaper();
-
-
-  await checkSubmission();
-
-
-}
+);
 
 
 /* =========================================================
    SHOW PAPER
 ========================================================= */
 
-function showPaper() {
+function showPaper(paper) {
 
-  var paper =
-    selectedPaper;
+  document.getElementById(
+    "paperDetails"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  var title =
+    getValue(
+      paper,
+      [
+        "Title",
+        "title",
+        "Paper Title",
+        "paperTitle",
+        "PaperTitle"
+      ]
+    );
 
 
   var code =
@@ -1232,18 +2508,9 @@ function showPaper() {
       [
         "Paper Code",
         "paperCode",
-        "PaperCode"
-      ]
-    );
-
-
-  var title =
-    getValue(
-      paper,
-      [
-        "Paper Title",
-        "paperTitle",
-        "PaperTitle"
+        "PaperCode",
+        "Code",
+        "code"
       ]
     );
 
@@ -1254,7 +2521,9 @@ function showPaper() {
       [
         "Subject Name",
         "subjectName",
-        "SubjectName"
+        "SubjectName",
+        "Subject",
+        "subject"
       ]
     );
 
@@ -1270,24 +2539,28 @@ function showPaper() {
     );
 
 
-  var examStart =
+  var start =
     getValue(
       paper,
       [
         "Exam Start",
         "examStart",
-        "ExamStart"
+        "ExamStart",
+        "Start Time",
+        "startTime"
       ]
     );
 
 
-  var examEnd =
+  var end =
     getValue(
       paper,
       [
         "Exam End",
         "examEnd",
-        "ExamEnd"
+        "ExamEnd",
+        "End Time",
+        "endTime"
       ]
     );
 
@@ -1298,175 +2571,148 @@ function showPaper() {
       [
         "File URL",
         "fileUrl",
-        "FileURL"
+        "FileURL",
+        "PDF URL",
+        "pdfUrl",
+        "Question Paper URL",
+        "questionPaperUrl"
       ]
     );
 
 
   document.getElementById(
-    "paperEmpty"
-  ).classList.add(
-    "hidden"
-  );
-
-
-  var html =
-    "<div class='paper-box'>" +
-
-    "<h3>" +
-    escapeHtml(
-      title ||
-      "Question Paper"
-    ) +
-    "</h3>" +
-
-    "<div class='paper-info'>" +
-
-    (
-      code
-        ? "<strong>Paper Code:</strong> " +
-          escapeHtml(code) +
-          "<br>"
-        : ""
-    ) +
-
-    (
-      subject
-        ? "<strong>Subject:</strong> " +
-          escapeHtml(subject) +
-          "<br>"
-        : ""
-    ) +
-
-    "</div>" +
-
-    "<div class='exam-timing'>" +
-
-    (
-      examStart
-        ? "<div class='exam-start'>" +
-          "🟢 <strong>Exam Start:</strong> " +
-          escapeHtml(formatExamDateTime(examStart)) +
-          "</div>"
-        : ""
-    ) +
-
-    (
-      examEnd
-        ? "<div class='exam-end'>" +
-          "🔴 <strong>Exam End:</strong> " +
-          escapeHtml(formatExamDateTime(examEnd)) +
-          "</div>"
-        : ""
-    ) +
-
-    (
-      totalMarks
-        ? "<div class='exam-marks'>" +
-          "📊 <strong>Total Marks:</strong> " +
-          escapeHtml(totalMarks) +
-          "</div>"
-        : ""
-    ) +
-
-    "</div>" +
-
-    (
-      fileUrl
-        ? "<div class='paper-actions'>" +
-          "<button class='primary' " +
-          "onclick=\"openPaper('" +
-          escapeJs(fileUrl) +
-          "')\">" +
-          "📄 Open / Download Question Paper" +
-          "</button>" +
-          "</div>"
-        : ""
-    ) +
-
-    "</div>";
+    "paperTitle"
+  ).textContent =
+    title ||
+    "Question Paper";
 
 
   document.getElementById(
-    "paperContainer"
-  ).innerHTML =
-    html;
+    "paperCode"
+  ).textContent =
+    code ||
+    "-";
+
+
+  document.getElementById(
+    "paperSubject"
+  ).textContent =
+    subject ||
+    "-";
+
+
+  document.getElementById(
+    "paperTotalMarks"
+  ).textContent =
+    totalMarks ||
+    "-";
+
+
+  document.getElementById(
+    "paperStart"
+  ).textContent =
+    formatDateTime(start);
+
+
+  document.getElementById(
+    "paperEnd"
+  ).textContent =
+    formatDateTime(end);
+
+
+  var link =
+    document.getElementById(
+      "paperFileLink"
+    );
+
+
+  if (fileUrl) {
+
+    link.href =
+      fileUrl;
+
+    link.style.display =
+      "inline-flex";
+
+  } else {
+
+    link.style.display =
+      "none";
+
+  }
+
+
+  checkSubmission();
 
 }
 
 
 /* =========================================================
-   FORMAT EXAM DATE/TIME
+   START EXAM
 ========================================================= */
 
-function formatExamDateTime(value) {
+document.getElementById(
+  "startExamBtn"
+).addEventListener(
+  "click",
+  function() {
 
-  if (!value) {
-    return "";
-  }
+    if (!selectedPaper) {
+
+      showMessage(
+        "Please select a question paper first.",
+        "warning"
+      );
+
+      return;
+
+    }
 
 
-  var text =
-    String(value).trim();
+    var examUrl =
+      getValue(
+        selectedPaper,
+        [
+          "Exam URL",
+          "examUrl",
+          "ExamURL",
+          "MCQ URL",
+          "mcqUrl"
+        ]
+      );
 
 
-  var date =
-    new Date(text);
+    if (examUrl) {
+
+      window.open(
+        examUrl,
+        "_blank"
+      );
+
+      return;
+
+    }
 
 
-  if (
-    !isNaN(date.getTime())
-  ) {
-
-    return date.toLocaleString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true
-      }
+    showMessage(
+      "MCQ exam is not available for this question paper.",
+      "warning"
     );
 
   }
-
-
-  return text;
-
-}
+);
 
 
 /* =========================================================
-   OPEN PAPER
-========================================================= */
-
-function openPaper(url) {
-
-  if (!url) {
-
-    alert(
-      "Question paper file is not available."
-    );
-
-    return;
-  }
-
-
-  window.open(
-    url,
-    "_blank"
-  );
-
-}
-
-
-/* =========================================================
-   SUBMISSION CHECK
+   CHECK SUBMISSION
 ========================================================= */
 
 async function checkSubmission() {
+
+  if (!selectedPaper) {
+    return;
+  }
+
 
   var paperId =
     getValue(
@@ -1477,6 +2723,11 @@ async function checkSubmission() {
         "PaperID"
       ]
     );
+
+
+  if (!paperId) {
+    return;
+  }
 
 
   try {
@@ -1491,149 +2742,60 @@ async function checkSubmission() {
       );
 
 
-    var submitted =
-      result.submitted === true ||
-      result.hasSubmission === true;
-
-
-    var editAllowed =
-      result.editAllowed === true;
-
-
-    var editCount =
-      Number(
-        result.editCount || 0
-      );
-
-
-    if (!submitted) {
-
-      editingSubmission =
-        false;
-
-
-      document.getElementById(
-        "submissionMessage"
-      ).className =
-        "success";
-
-
-      document.getElementById(
-        "submissionMessage"
-      ).textContent =
-        "You have not submitted this answer sheet yet. " +
-        "You can upload 1 to 20 photos.";
-
-
-      document.getElementById(
-        "submissionArea"
-      ).classList.remove(
-        "hidden"
-      );
-
-
-      document.getElementById(
-        "submitBtn"
-      ).textContent =
-        "📤 Submit Answer Sheet";
-
-
-      return;
-
-    }
-
-
     if (
-      submitted &&
-      editAllowed &&
-      editCount < 1
+      result.submission
     ) {
 
-      editingSubmission =
-        true;
+      var submission =
+        result.submission;
 
 
-      document.getElementById(
-        "submissionMessage"
-      ).className =
-        "warning";
+      var status =
+        getValue(
+          submission,
+          [
+            "Status",
+            "status"
+          ]
+        );
 
 
-      document.getElementById(
-        "submissionMessage"
-      ).innerHTML =
-        "Your answer sheet is already submitted. " +
-        "<strong>You have one edit opportunity remaining.</strong>";
+      var photoCount =
+        getValue(
+          submission,
+          [
+            "Photo Count",
+            "photoCount",
+            "PhotoCount"
+          ]
+        );
 
 
-      document.getElementById(
-        "submissionArea"
-      ).classList.remove(
-        "hidden"
-      );
+      if (status) {
 
+        showSubmissionMessage(
+          "Your answer sheet has already been submitted. Status: " +
+          status +
+          (
+            photoCount
+              ? " (" + photoCount + " photos)"
+              : ""
+          ),
+          "success"
+        );
 
-      document.getElementById(
-        "submitBtn"
-      ).textContent =
-        "✏️ Update Answer Sheet";
-
-
-      return;
+      }
 
     }
-
-
-    editingSubmission =
-      false;
-
-
-    document.getElementById(
-      "submissionMessage"
-    ).className =
-      "success";
-
-
-    document.getElementById(
-      "submissionMessage"
-    ).textContent =
-      "✅ Answer sheet submitted. No further edits are allowed.";
-
-
-    document.getElementById(
-      "submissionArea"
-    ).classList.add(
-      "hidden"
-    );
-
 
   } catch (error) {
 
-    document.getElementById(
-      "submissionMessage"
-    ).className =
-      "error";
-
-
-    document.getElementById(
-      "submissionMessage"
-    ).textContent =
-      error.message;
+    console.warn(
+      "Submission status:",
+      error
+    );
 
   }
-
-}
-
-
-/* =========================================================
-   CAMERA
-========================================================= */
-
-function openCamera() {
-
-  document.getElementById(
-    "cameraInput"
-  ).click();
 
 }
 
@@ -1642,89 +2804,123 @@ function openCamera() {
    GALLERY
 ========================================================= */
 
-function openGallery() {
+function handleGalleryFiles(event) {
 
-  document.getElementById(
-    "galleryInput"
-  ).click();
+  var files =
+    Array.from(
+      event.target.files ||
+      []
+    );
+
+
+  if (!files.length) {
+    return;
+  }
+
+
+  addImageFiles(
+    files
+  );
+
+
+  event.target.value = "";
 
 }
 
 
 /* =========================================================
-   FILES
+   ADD IMAGE FILES
 ========================================================= */
 
-function handleFiles(files) {
+function addImageFiles(files) {
 
-  if (!files || !files.length) {
+  if (
+    selectedPhotos.length >= 20
+  ) {
+
+    showSubmissionMessage(
+      "Maximum 20 photos are allowed.",
+      "warning"
+    );
+
     return;
+
   }
 
 
-  var remaining =
+  var available =
     20 -
     selectedPhotos.length;
 
 
-  if (remaining <= 0) {
-
-    alert(
-      "Maximum 20 photos are allowed."
+  files =
+    files.slice(
+      0,
+      available
     );
 
-    return;
-  }
 
+  files.forEach(
+    function(file) {
 
-  for (
-    var i = 0;
-    i < files.length && i < remaining;
-    i++
-  ) {
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
 
-    if (
-      files[i].type &&
-      files[i].type.indexOf("image/") === 0
-    ) {
+        return;
+
+      }
+
 
       selectedPhotos.push(
-        files[i]
+        file
       );
 
     }
-
-  }
-
-
-  renderPhotos();
+  );
 
 
-  document.getElementById(
-    "cameraInput"
-  ).value = "";
-
-
-  document.getElementById(
-    "galleryInput"
-  ).value = "";
+  renderPhotoPreview();
 
 }
 
 
 /* =========================================================
-   RENDER PHOTOS
+   PHOTO PREVIEW
 ========================================================= */
 
-function renderPhotos() {
+function renderPhotoPreview() {
+
+  var area =
+    document.getElementById(
+      "photoArea"
+    );
 
   var grid =
     document.getElementById(
-      "previewGrid"
+      "photoGrid"
     );
 
 
   grid.innerHTML = "";
+
+
+  if (!selectedPhotos.length) {
+
+    area.classList.add(
+      "hidden"
+    );
+
+    return;
+
+  }
+
+
+  area.classList.remove(
+    "hidden"
+  );
 
 
   document.getElementById(
@@ -1733,9 +2929,23 @@ function renderPhotos() {
     selectedPhotos.length +
     (
       selectedPhotos.length === 1
-        ? " photo selected"
-        : " photos selected"
+        ? " photo"
+        : " photos"
     );
+
+
+  var percentage =
+    (
+      selectedPhotos.length /
+      20
+    ) *
+    100;
+
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    percentage + "%";
 
 
   selectedPhotos.forEach(
@@ -1746,20 +2956,13 @@ function renderPhotos() {
           "div"
         );
 
-
       item.className =
-        "preview-item";
+        "photo-item";
 
 
-      var img =
+      var image =
         document.createElement(
           "img"
-        );
-
-
-      img.src =
-        URL.createObjectURL(
-          file
         );
 
 
@@ -1768,14 +2971,11 @@ function renderPhotos() {
           "button"
         );
 
-
       remove.type =
         "button";
 
-
       remove.className =
         "remove-photo";
-
 
       remove.textContent =
         "×";
@@ -1789,33 +2989,28 @@ function renderPhotos() {
             1
           );
 
-          renderPhotos();
+          renderPhotoPreview();
 
         };
 
 
-      var number =
-        document.createElement(
-          "div"
+      image.src =
+        URL.createObjectURL(
+          file
         );
 
 
-      number.className =
-        "photo-number";
+      item.appendChild(
+        image
+      );
 
+      item.appendChild(
+        remove
+      );
 
-      number.textContent =
-        "Photo " +
-        (index + 1);
-
-
-      item.appendChild(img);
-
-      item.appendChild(remove);
-
-      item.appendChild(number);
-
-      grid.appendChild(item);
+      grid.appendChild(
+        item
+      );
 
     }
   );
@@ -1824,85 +3019,268 @@ function renderPhotos() {
 
 
 /* =========================================================
-   CLEAR PHOTOS
+   CAMERA
 ========================================================= */
 
-function clearPhotos() {
+async function openCamera() {
 
-  selectedPhotos = [];
+  if (
+    selectedPhotos.length >= 20
+  ) {
 
+    showSubmissionMessage(
+      "Maximum 20 photos are allowed.",
+      "warning"
+    );
 
-  document.getElementById(
-    "previewGrid"
-  ).innerHTML =
-    "";
+    return;
 
-
-  document.getElementById(
-    "photoCount"
-  ).textContent =
-    "0 photos selected";
-
-
-  document.getElementById(
-    "cameraInput"
-  ).value =
-    "";
+  }
 
 
-  document.getElementById(
-    "galleryInput"
-  ).value =
-    "";
+  try {
+
+    cameraStream =
+      await navigator.mediaDevices.getUserMedia(
+        {
+          video: {
+            facingMode: "environment"
+          },
+          audio: false
+        }
+      );
+
+
+    var video =
+      document.getElementById(
+        "cameraVideo"
+      );
+
+
+    video.srcObject =
+      cameraStream;
+
+
+    document.getElementById(
+      "cameraModal"
+    ).classList.remove(
+      "hidden"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    showSubmissionMessage(
+      "Camera could not be opened. Please allow camera permission or use the Gallery option.",
+      "danger"
+    );
+
+  }
 
 }
 
 
 /* =========================================================
-   SUBMIT
+   CAPTURE PHOTO
+========================================================= */
+
+function capturePhoto() {
+
+  if (!cameraStream) {
+    return;
+  }
+
+
+  var video =
+    document.getElementById(
+      "cameraVideo"
+    );
+
+  var canvas =
+    document.getElementById(
+      "cameraCanvas"
+    );
+
+
+  var width =
+    video.videoWidth;
+
+  var height =
+    video.videoHeight;
+
+
+  if (!width || !height) {
+
+    showSubmissionMessage(
+      "Camera is not ready. Please try again.",
+      "warning"
+    );
+
+    return;
+
+  }
+
+
+  var maxWidth =
+    1600;
+
+
+  if (width > maxWidth) {
+
+    var ratio =
+      maxWidth /
+      width;
+
+    width =
+      maxWidth;
+
+    height =
+      Math.round(
+        height *
+        ratio
+      );
+
+  }
+
+
+  canvas.width =
+    width;
+
+  canvas.height =
+    height;
+
+
+  var context =
+    canvas.getContext(
+      "2d"
+    );
+
+
+  context.drawImage(
+    video,
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  canvas.toBlob(
+    function(blob) {
+
+      if (!blob) {
+
+        showSubmissionMessage(
+          "Unable to capture photo.",
+          "danger"
+        );
+
+        return;
+
+      }
+
+
+      var file =
+        new File(
+          [blob],
+          "answer-sheet-" +
+          Date.now() +
+          ".jpg",
+          {
+            type: "image/jpeg"
+          }
+        );
+
+
+      selectedPhotos.push(
+        file
+      );
+
+
+      renderPhotoPreview();
+
+
+      if (
+        selectedPhotos.length >= 20
+      ) {
+
+        closeCamera();
+
+      }
+
+    },
+    "image/jpeg",
+    0.82
+  );
+
+}
+
+
+/* =========================================================
+   CLOSE CAMERA
+========================================================= */
+
+function closeCamera() {
+
+  if (cameraStream) {
+
+    cameraStream.getTracks()
+      .forEach(
+        function(track) {
+          track.stop();
+        }
+      );
+
+    cameraStream =
+      null;
+
+  }
+
+
+  var video =
+    document.getElementById(
+      "cameraVideo"
+    );
+
+
+  video.srcObject =
+    null;
+
+
+  document.getElementById(
+    "cameraModal"
+  ).classList.add(
+    "hidden"
+  );
+
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER SHEET
 ========================================================= */
 
 async function submitAnswerSheet() {
 
   if (!selectedPaper) {
 
-    alert(
-      "Please select a question paper."
+    showSubmissionMessage(
+      "Please select a question paper first.",
+      "warning"
     );
 
     return;
+
   }
 
 
   if (!selectedPhotos.length) {
 
-    alert(
-      "Please select at least 1 photo."
+    showSubmissionMessage(
+      "Please upload at least one answer sheet photo.",
+      "warning"
     );
-
-    return;
-  }
-
-
-  if (
-    selectedPhotos.length > 20
-  ) {
-
-    alert(
-      "Maximum 20 photos are allowed."
-    );
-
-    return;
-  }
-
-
-  if (
-    !confirm(
-      editingSubmission
-        ? "Do you want to use your edit opportunity and update the answer sheet?"
-        : "Do you want to submit the answer sheet?"
-    )
-  ) {
 
     return;
 
@@ -1911,73 +3289,18 @@ async function submitAnswerSheet() {
 
   var button =
     document.getElementById(
-      "submitBtn"
+      "submitAnswerBtn"
     );
 
 
   button.disabled =
     true;
 
+  button.textContent =
+    "⏳ Uploading...";
+
 
   try {
-
-    var photos = [];
-
-
-    for (
-      var i = 0;
-      i < selectedPhotos.length;
-      i++
-    ) {
-
-      showProgress(
-        Math.round(
-          (i /
-            selectedPhotos.length) *
-          50
-        ),
-        "Preparing photo " +
-        (i + 1) +
-        " of " +
-        selectedPhotos.length
-      );
-
-
-      var compressed =
-        await compressImage(
-          selectedPhotos[i]
-        );
-
-
-      var base64 =
-        await fileToBase64(
-          compressed
-        );
-
-
-      photos.push({
-
-        fileName:
-          "answer_" +
-          (i + 1) +
-          ".jpg",
-
-        mimeType:
-          "image/jpeg",
-
-        base64:
-          base64
-
-      });
-
-    }
-
-
-    showProgress(
-      70,
-      "Uploading answer sheet..."
-    );
-
 
     var paperId =
       getValue(
@@ -1996,9 +3319,46 @@ async function submitAnswerSheet() {
         [
           "Paper Code",
           "paperCode",
-          "PaperCode"
+          "PaperCode",
+          "Code",
+          "code"
         ]
       );
+
+
+    var photos =
+      [];
+
+
+    for (
+      var i = 0;
+      i < selectedPhotos.length;
+      i++
+    ) {
+
+      button.textContent =
+        "⏳ Processing " +
+        (i + 1) +
+        "/" +
+        selectedPhotos.length +
+        "...";
+
+
+      var base64 =
+        await fileToBase64(
+          selectedPhotos[i]
+        );
+
+
+      photos.push(
+        base64
+      );
+
+    }
+
+
+    button.textContent =
+      "⏳ Submitting...";
 
 
     var action =
@@ -2011,8 +3371,7 @@ async function submitAnswerSheet() {
       await api(
         action,
         {
-          studentId:
-            studentId,
+          studentId: studentId,
 
           studentName:
             studentName,
@@ -2032,50 +3391,57 @@ async function submitAnswerSheet() {
       );
 
 
-    showProgress(
-      100,
-      "Completed"
-    );
-
-
-    alert(
+    showSubmissionMessage(
       result.message ||
-      "Answer sheet submitted successfully."
+      "Answer sheet submitted successfully.",
+      "success"
     );
 
 
-    clearPhotos();
+    selectedPhotos =
+      [];
+
+    editingSubmission =
+      false;
 
 
-    await loadStudentData();
+    renderPhotoPreview();
 
 
-    await checkSubmission();
+    button.textContent =
+      "✅ Submitted";
+
+
+    setTimeout(
+      function() {
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "📤 Submit Answer Sheet";
+
+      },
+      2500
+    );
 
 
   } catch (error) {
 
-    alert(
-      "Submission failed:\n" +
-      error.message
+    console.error(error);
+
+    showSubmissionMessage(
+      error.message ||
+      "Unable to submit answer sheet.",
+      "danger"
     );
 
-  } finally {
 
     button.disabled =
       false;
 
-
     button.textContent =
-      editingSubmission
-        ? "✏️ Update Answer Sheet"
-        : "📤 Submit Answer Sheet";
-
-
-    setTimeout(
-      hideProgress,
-      800
-    );
+      "📤 Submit Answer Sheet";
 
   }
 
@@ -2083,157 +3449,7 @@ async function submitAnswerSheet() {
 
 
 /* =========================================================
-   COMPRESS IMAGE
-========================================================= */
-
-function compressImage(file) {
-
-  return new Promise(
-    function(resolve, reject) {
-
-      var reader =
-        new FileReader();
-
-
-      reader.onload =
-        function(event) {
-
-          var img =
-            new Image();
-
-
-          img.onload =
-            function() {
-
-              var maxWidth =
-                1600;
-
-              var maxHeight =
-                2200;
-
-
-              var width =
-                img.width;
-
-              var height =
-                img.height;
-
-
-              var ratio =
-                Math.min(
-                  maxWidth / width,
-                  maxHeight / height,
-                  1
-                );
-
-
-              width =
-                Math.round(
-                  width * ratio
-                );
-
-
-              height =
-                Math.round(
-                  height * ratio
-                );
-
-
-              var canvas =
-                document.createElement(
-                  "canvas"
-                );
-
-
-              canvas.width =
-                width;
-
-              canvas.height =
-                height;
-
-
-              var ctx =
-                canvas.getContext(
-                  "2d"
-                );
-
-
-              ctx.drawImage(
-                img,
-                0,
-                0,
-                width,
-                height
-              );
-
-
-              canvas.toBlob(
-                function(blob) {
-
-                  if (!blob) {
-
-                    reject(
-                      new Error(
-                        "Image compression failed."
-                      )
-                    );
-
-                    return;
-                  }
-
-
-                  resolve(blob);
-
-                },
-                "image/jpeg",
-                0.78
-              );
-
-            };
-
-
-          img.onerror =
-            function() {
-
-              reject(
-                new Error(
-                  "Unable to process image."
-                )
-              );
-
-            };
-
-
-          img.src =
-            event.target.result;
-
-        };
-
-
-      reader.onerror =
-        function() {
-
-          reject(
-            new Error(
-              "Unable to read image."
-            )
-          );
-
-        };
-
-
-      reader.readAsDataURL(
-        file
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   BASE64
+   FILE TO BASE64
 ========================================================= */
 
 function fileToBase64(file) {
@@ -2248,39 +3464,30 @@ function fileToBase64(file) {
       reader.onload =
         function() {
 
-          var value =
+          var result =
             reader.result;
 
 
-          var comma =
-            value.indexOf(",");
+          if (
+            typeof result === "string" &&
+            result.indexOf(",") !== -1
+          ) {
 
-
-          if (comma >= 0) {
-
-            value =
-              value.substring(
-                comma + 1
-              );
+            result =
+              result.split(",")[1];
 
           }
 
 
-          resolve(value);
+          resolve(
+            result
+          );
 
         };
 
 
       reader.onerror =
-        function() {
-
-          reject(
-            new Error(
-              "Unable to read file."
-            )
-          );
-
-        };
+        reject;
 
 
       reader.readAsDataURL(
@@ -2294,48 +3501,7 @@ function fileToBase64(file) {
 
 
 /* =========================================================
-   PROGRESS
-========================================================= */
-
-function showProgress(
-  percent,
-  message
-) {
-
-  document.getElementById(
-    "progressContainer"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "progressBar"
-  ).style.width =
-    percent + "%";
-
-
-  document.getElementById(
-    "progressText"
-  ).textContent =
-    message;
-
-}
-
-
-function hideProgress() {
-
-  document.getElementById(
-    "progressContainer"
-  ).style.display =
-    "none";
-
-}
-
-
-/* =========================================================
-   RESULTS
-   UPDATED:
-   Paper → Subject - Title
+   RENDER RESULTS
 ========================================================= */
 
 function renderResults() {
@@ -2357,15 +3523,14 @@ function renderResults() {
       "hidden"
     );
 
-
     document.getElementById(
       "resultContainer"
     ).classList.add(
       "hidden"
     );
 
-
     return;
+
   }
 
 
@@ -2386,17 +3551,7 @@ function renderResults() {
   results.forEach(
     function(result) {
 
-      var row =
-        document.createElement(
-          "tr"
-        );
-
-
-      /*
-       * Get Paper ID / Paper Code from Result
-       */
-
-      var paperId =
+      var resultPaperId =
         getValue(
           result,
           [
@@ -2407,33 +3562,17 @@ function renderResults() {
         );
 
 
-      var paperCode =
-        getValue(
-          result,
-          [
-            "Paper Code",
-            "paperCode",
-            "PaperCode"
-          ]
-        );
-
-
-      /*
-       * Find the matching question paper
-       * from Question Paper Management data.
-       */
-
       var questionPaper =
         null;
 
 
-      if (paperId) {
+      if (resultPaperId) {
 
         questionPaper =
           papers.find(
             function(paper) {
 
-              var id =
+              var paperId =
                 getValue(
                   paper,
                   [
@@ -2445,8 +3584,13 @@ function renderResults() {
 
 
               return (
-                String(id || "").trim() ===
-                String(paperId).trim()
+                String(
+                  paperId || ""
+                ).trim()
+                ===
+                String(
+                  resultPaperId || ""
+                ).trim()
               );
 
             }
@@ -2455,148 +3599,115 @@ function renderResults() {
       }
 
 
-      /*
-       * If Paper ID does not match,
-       * try Paper Code.
-       */
+      var subjectName =
+        "";
 
-      if (
-        !questionPaper &&
-        paperCode
-      ) {
-
-        questionPaper =
-          papers.find(
-            function(paper) {
-
-              var code =
-                getValue(
-                  paper,
-                  [
-                    "Paper Code",
-                    "paperCode",
-                    "PaperCode"
-                  ]
-                );
-
-
-              return (
-                String(code || "").trim() ===
-                String(paperCode).trim()
-              );
-
-            }
-          );
-
-      }
+      var paperTitle =
+        "";
 
 
       /*
-       * First try Subject + Title from Result.
-       * If unavailable, get them from
-       * Question Paper Management.
-       */
-
-      var subject =
-        getValue(
-          result,
-          [
-            "Subject Name",
-            "subjectName",
-            "SubjectName",
-            "Subject"
-          ]
-        );
-
-
-      var title =
-        getValue(
-          result,
-          [
-            "Paper Title",
-            "paperTitle",
-            "PaperTitle",
-            "Title",
-            "title"
-          ]
-        );
-
+        IMPORTANT:
+        Subject and Title are taken from
+        Question Paper Management first.
+      */
 
       if (questionPaper) {
 
-        if (!subject) {
-
-          subject =
-            getValue(
-              questionPaper,
-              [
-                "Subject Name",
-                "subjectName",
-                "SubjectName",
-                "Subject"
-              ]
-            );
-
-        }
+        subjectName =
+          getValue(
+            questionPaper,
+            [
+              "Subject Name",
+              "subjectName",
+              "SubjectName",
+              "Subject",
+              "subject"
+            ]
+          );
 
 
-        if (!title) {
-
-          title =
-            getValue(
-              questionPaper,
-              [
-                "Paper Title",
-                "paperTitle",
-                "PaperTitle",
-                "Title",
-                "title"
-              ]
-            );
-
-        }
+        paperTitle =
+          getValue(
+            questionPaper,
+            [
+              "Title",
+              "title",
+              "Paper Title",
+              "paperTitle",
+              "PaperTitle"
+            ]
+          );
 
       }
 
 
-      /*
-       * Build Subject - Title
-       */
+      if (!subjectName) {
 
-      var subjectTitle = "";
+        subjectName =
+          getValue(
+            result,
+            [
+              "Subject Name",
+              "subjectName",
+              "SubjectName",
+              "Subject",
+              "subject"
+            ]
+          );
+
+      }
+
+
+      if (!paperTitle) {
+
+        paperTitle =
+          getValue(
+            result,
+            [
+              "Title",
+              "title",
+              "Paper Title",
+              "paperTitle",
+              "PaperTitle"
+            ]
+          );
+
+      }
+
+
+      var subjectTitle =
+        "";
 
 
       if (
-        subject &&
-        title
+        subjectName &&
+        paperTitle
       ) {
 
         subjectTitle =
-          subject +
+          subjectName.trim() +
           " - " +
-          title;
+          paperTitle.trim();
 
-      } else if (subject) {
-
-        subjectTitle =
-          subject;
-
-      } else if (title) {
+      } else if (
+        paperTitle
+      ) {
 
         subjectTitle =
-          title;
+          paperTitle.trim();
+
+      } else if (
+        subjectName
+      ) {
+
+        subjectTitle =
+          subjectName.trim();
 
       } else {
 
-        /*
-         * Final fallback only if
-         * Subject and Title are unavailable.
-         */
-
         subjectTitle =
-          paperCode ||
-          paperId ||
-          "-";
+          "Question Paper";
 
       }
 
@@ -2607,20 +3718,44 @@ function renderResults() {
           [
             "Marks Obtained",
             "marksObtained",
-            "MarksObtained"
+            "MarksObtained",
+            "Marks"
           ]
         );
 
 
-      var total =
-        getValue(
-          result,
-          [
-            "Total Marks",
-            "totalMarks",
-            "TotalMarks"
-          ]
-        );
+      var totalMarks =
+        "";
+
+
+      if (questionPaper) {
+
+        totalMarks =
+          getValue(
+            questionPaper,
+            [
+              "Total Marks",
+              "totalMarks",
+              "TotalMarks"
+            ]
+          );
+
+      }
+
+
+      if (!totalMarks) {
+
+        totalMarks =
+          getValue(
+            result,
+            [
+              "Total Marks",
+              "totalMarks",
+              "TotalMarks"
+            ]
+          );
+
+      }
 
 
       var percentage =
@@ -2631,6 +3766,23 @@ function renderResults() {
             "percentage"
           ]
         );
+
+
+      if (
+        !percentage &&
+        marks !== "" &&
+        totalMarks !== "" &&
+        Number(totalMarks) > 0
+      ) {
+
+        percentage =
+          (
+            Number(marks) /
+            Number(totalMarks) *
+            100
+          ).toFixed(2);
+
+      }
 
 
       var resultText =
@@ -2653,6 +3805,56 @@ function renderResults() {
         );
 
 
+      var row =
+        document.createElement(
+          "tr"
+        );
+
+
+      var resultBadge =
+        resultText || "-";
+
+
+      var resultLower =
+        String(
+          resultText || ""
+        ).toLowerCase();
+
+
+      if (
+        resultLower === "pass" ||
+        resultLower === "passed"
+      ) {
+
+        resultBadge =
+          '<span class="result-pass">' +
+          escapeHtml(
+            resultText
+          ) +
+          '</span>';
+
+      } else if (
+        resultLower === "fail" ||
+        resultLower === "failed"
+      ) {
+
+        resultBadge =
+          '<span class="result-fail">' +
+          escapeHtml(
+            resultText
+          ) +
+          '</span>';
+
+      } else {
+
+        resultBadge =
+          escapeHtml(
+            resultText || "-"
+          );
+
+      }
+
+
       row.innerHTML =
 
         "<td>" +
@@ -2669,7 +3871,7 @@ function renderResults() {
 
         "<td>" +
         escapeHtml(
-          total || "-"
+          totalMarks || "-"
         ) +
         "</td>" +
 
@@ -2682,9 +3884,7 @@ function renderResults() {
         "</td>" +
 
         "<td>" +
-        escapeHtml(
-          resultText || "-"
-        ) +
+        resultBadge +
         "</td>" +
 
         "<td>" +
@@ -2699,6 +3899,147 @@ function renderResults() {
       );
 
     }
+  );
+
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+  message,
+  type
+) {
+
+  var box =
+    document.getElementById(
+      "messageBox"
+    );
+
+
+  box.className =
+    "alert " +
+    (
+      type === "success"
+        ? "alert-success"
+        : type === "warning"
+          ? "alert-warning"
+          : "alert-danger"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.classList.remove(
+    "hidden"
+  );
+
+
+  setTimeout(
+    function() {
+
+      box.classList.add(
+        "hidden"
+      );
+
+    },
+    6000
+  );
+
+}
+
+
+/* =========================================================
+   SUBMISSION MESSAGE
+========================================================= */
+
+function showSubmissionMessage(
+  message,
+  type
+) {
+
+  var box =
+    document.getElementById(
+      "submissionMessage"
+    );
+
+
+  box.className =
+    "alert " +
+    (
+      type === "success"
+        ? "alert-success"
+        : type === "warning"
+          ? "alert-warning"
+          : "alert-danger"
+    );
+
+
+  box.textContent =
+    message;
+
+
+  box.classList.remove(
+    "hidden"
+  );
+
+
+  setTimeout(
+    function() {
+
+      box.classList.add(
+        "hidden"
+      );
+
+    },
+    7000
+  );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message) {
+
+  var container =
+    document.getElementById(
+      "toastContainer"
+    );
+
+
+  var toast =
+    document.createElement(
+      "div"
+    );
+
+
+  toast.className =
+    "toast";
+
+
+  toast.textContent =
+    message;
+
+
+  container.appendChild(
+    toast
+  );
+
+
+  setTimeout(
+    function() {
+
+      toast.remove();
+
+    },
+    3500
   );
 
 }
@@ -2729,25 +4070,14 @@ function getValue(
 
 
     if (
-      Object.prototype.hasOwnProperty.call(
-        object,
-        key
-      )
+      object[key] !== undefined &&
+      object[key] !== null &&
+      String(
+        object[key]
+      ).trim() !== ""
     ) {
 
-      var value =
-        object[key];
-
-
-      if (
-        value !== null &&
-        value !== undefined &&
-        String(value) !== ""
-      ) {
-
-        return String(value);
-
-      }
+      return object[key];
 
     }
 
@@ -2760,14 +4090,14 @@ function getValue(
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE HTML
 ========================================================= */
 
 function escapeHtml(value) {
 
   if (
-    value === null ||
-    value === undefined
+    value === undefined ||
+    value === null
   ) {
 
     return "";
@@ -2801,7 +4131,7 @@ function escapeHtml(value) {
 
 
 /* =========================================================
-   JS ESCAPE
+   ESCAPE JS
 ========================================================= */
 
 function escapeJs(value) {
@@ -2809,25 +4139,67 @@ function escapeJs(value) {
   return String(
     value || ""
   )
-  .replace(
-    /\\/g,
-    "\\\\"
-  )
-  .replace(
-    /'/g,
-    "\\'"
-  )
-  .replace(
-    /"/g,
-    '\\"'
-  )
-  .replace(
-    /\r/g,
-    "\\r"
-  )
-  .replace(
-    /\n/g,
-    "\\n"
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    )
+    .replace(
+      /"/g,
+      '\\"'
+    )
+    .replace(
+      /\n/g,
+      "\\n"
+    );
+
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDateTime(value) {
+
+  if (
+    value === undefined ||
+    value === null ||
+    value === ""
+  ) {
+
+    return "-";
+
+  }
+
+
+  var date =
+    new Date(value);
+
+
+  if (
+    isNaN(
+      date.getTime()
+    )
+  ) {
+
+    return String(value);
+
+  }
+
+
+  return date.toLocaleString(
+    "en-IN",
+    {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
   );
 
 }
@@ -2839,27 +4211,62 @@ function escapeJs(value) {
 
 function logout() {
 
-  sessionStorage.removeItem(
-    "examPortalRole"
-  );
+  try {
 
-  sessionStorage.removeItem(
-    "studentId"
-  );
+    localStorage.removeItem(
+      "studentId"
+    );
 
-  sessionStorage.removeItem(
-    "studentName"
-  );
+    localStorage.removeItem(
+      "studentName"
+    );
 
-  sessionStorage.removeItem(
-    "adminId"
-  );
+    sessionStorage.removeItem(
+      "studentId"
+    );
+
+    sessionStorage.removeItem(
+      "studentName"
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Logout cleanup:",
+      error
+    );
+
+  }
 
 
   window.location.href =
     "index.html";
 
 }
+
+
+/* =========================================================
+   PAGE EXIT
+========================================================= */
+
+window.addEventListener(
+  "beforeunload",
+  function() {
+
+    if (cameraStream) {
+
+      cameraStream
+        .getTracks()
+        .forEach(
+          function(track) {
+            track.stop();
+          }
+        );
+
+    }
+
+  }
+);
 
 </script>
 
