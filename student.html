@@ -158,6 +158,41 @@ td {
     padding: 25px;
 }
 
+/* ASSIGNED SUBJECT LIST */
+
+.subject-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.subject-item {
+    background: #f8faff;
+    border: 1px solid #dbe6ff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.subject-name {
+    color: #173b8f;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.subject-code {
+    background: #eaf1ff;
+    color: #173b8f;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
 .paper-selector {
     margin-bottom: 18px;
 }
@@ -480,6 +515,10 @@ input[type="text"] {
         grid-template-columns: 1fr;
     }
 
+    .subject-list {
+        grid-template-columns: 1fr;
+    }
+
     .section {
         padding: 15px;
     }
@@ -583,26 +622,9 @@ input[type="text"] {
         </div>
 
 
-        <div class="table-wrap">
-
-            <table
-                id="subjectsTable"
-                class="hidden">
-
-                <thead>
-
-                    <tr>
-                        <th>Subject ID</th>
-                        <th>Subject Name</th>
-                        <th>Subject Code</th>
-                    </tr>
-
-                </thead>
-
-                <tbody id="subjectsBody"></tbody>
-
-            </table>
-
+        <div
+            id="subjectsList"
+            class="subject-list hidden">
         </div>
 
 
@@ -886,7 +908,7 @@ input[type="text"] {
                         id="answerFiles"
                         accept="image/*"
                         multiple
-                        onchange="previewImages()">
+                        onchange="previewImages">
 
 
                     <div
@@ -1442,15 +1464,9 @@ function renderSubjects() {
         );
 
 
-    const table =
+    const list =
         document.getElementById(
-            "subjectsTable"
-        );
-
-
-    const body =
-        document.getElementById(
-            "subjectsBody"
+            "subjectsList"
         );
 
 
@@ -1465,7 +1481,7 @@ function renderSubjects() {
     );
 
 
-    body.innerHTML = "";
+    list.innerHTML = "";
 
 
     document.getElementById(
@@ -1476,7 +1492,7 @@ function renderSubjects() {
 
     if (!assignedSubjects.length) {
 
-        table.classList.add(
+        list.classList.add(
             "hidden"
         );
 
@@ -1494,7 +1510,7 @@ function renderSubjects() {
     );
 
 
-    table.classList.remove(
+    list.classList.remove(
         "hidden"
     );
 
@@ -1502,38 +1518,36 @@ function renderSubjects() {
     assignedSubjects.forEach(
         function(subject) {
 
-            const row =
+            const item =
                 document.createElement(
-                    "tr"
+                    "div"
                 );
 
 
-            row.innerHTML = `
+            item.className =
+                "subject-item";
 
-                <td>
+
+            item.innerHTML = `
+
+                <div class="subject-name">
                     ${escapeHtml(
-                        subject.subjectId || ""
+                        subject.subjectName || ""
                     )}
-                </td>
+                </div>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            subject.subjectName || ""
-                        )}
-                    </strong>
-                </td>
-
-                <td>
+                <div class="subject-code">
                     ${escapeHtml(
                         subject.subjectCode || ""
                     )}
-                </td>
+                </div>
 
             `;
 
 
-            body.appendChild(row);
+            list.appendChild(
+                item
+            );
 
         }
     );
@@ -1698,7 +1712,6 @@ function renderPapers() {
 
 /* =========================================================
    SELECT QUESTION PAPER
-   ALSO LOADS ANSWER SHEET STATUS
 ========================================================= */
 
 async function showSelectedPaper() {
@@ -1802,8 +1815,6 @@ async function showSelectedPaper() {
         );
 
 
-    /* ANSWER SHEET DETAILS */
-
     document.getElementById(
         "submissionPaperTitle"
     ).textContent =
@@ -1839,11 +1850,6 @@ async function showSelectedPaper() {
         "show"
     );
 
-
-    /*
-     * Automatically check the submission
-     * for THIS selected Paper ID.
-     */
 
     await loadSubmissionStatus(
         paperId
@@ -2103,7 +2109,6 @@ function resetSubmissionUI() {
 
 /* =========================================================
    LOAD SUBMISSION STATUS
-   FOR SELECTED QUESTION PAPER
 ========================================================= */
 
 async function loadSubmissionStatus(paperId) {
@@ -3734,6 +3739,7 @@ function clearError() {
 
 /* =========================================================
    LOGOUT
+   CONNECTED TO index.html
 ========================================================= */
 
 function logout() {
@@ -3773,7 +3779,7 @@ function logout() {
 
 
     window.location.href =
-        "login.html";
+        "index.html";
 
 }
 
