@@ -282,6 +282,21 @@ tr:hover {
     color: #92400e;
 }
 
+.status-submitted {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-other {
+    background: #e2e8f0;
+    color: #334155;
+}
+
 .action-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -290,6 +305,38 @@ tr:hover {
 
 .action-buttons button {
     padding: 7px 10px;
+    font-size: 12px;
+}
+
+.photo-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-width: 260px;
+}
+
+.photo-btn {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 9px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.photo-btn:hover {
+    background: #1d4ed8;
+}
+
+.photo-count {
+    display: inline-block;
+    background: #edf3ff;
+    color: #173b7a;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-weight: bold;
     font-size: 12px;
 }
 
@@ -724,7 +771,7 @@ tr:hover {
     </div>
 
 
-    <!-- SUBMISSIONS -->
+    <!-- STUDENT SUBMISSIONS -->
     <div class="section">
 
         <div class="section-header">
@@ -737,16 +784,23 @@ tr:hover {
 
                 <thead>
                     <tr>
-                        <th>Student ID</th>
+                        <th>Student Name</th>
                         <th>Paper ID</th>
-                        <th>Submission Date</th>
-                        <th>Answer Sheet</th>
+                        <th>Exam Name</th>
+                        <th>Photo URLs</th>
+                        <th>Submitted At</th>
+                        <th>Status</th>
+                        <th>Marks</th>
+                        <th>Remarks</th>
+                        <th>Paper Code</th>
+                        <th>Submission Type</th>
+                        <th>Photo Count</th>
                     </tr>
                 </thead>
 
                 <tbody id="submissionsTableBody">
                     <tr>
-                        <td colspan="4" class="empty">Loading...</td>
+                        <td colspan="11" class="empty">Loading...</td>
                     </tr>
                 </tbody>
 
@@ -1034,7 +1088,6 @@ async function loadDashboard() {
 
         renderResults();
 
-
         updateSummary();
 
 
@@ -1304,6 +1357,28 @@ async function addSubject() {
    DROPDOWNS
 ========================= */
 
+function getStudentId(student) {
+
+    return String(
+        student.studentId ??
+        student["Student ID"] ??
+        ""
+    ).trim();
+
+}
+
+
+function getStudentName(student) {
+
+    return (
+        student.studentName ??
+        student["Student Name"] ??
+        getStudentId(student)
+    );
+
+}
+
+
 function populateStudentDropdowns() {
 
     const assignmentStudent =
@@ -1323,14 +1398,10 @@ function populateStudentDropdowns() {
     students.forEach(student => {
 
         const id =
-            student.studentId ??
-            student["Student ID"] ??
-            "";
+            getStudentId(student);
 
         const name =
-            student.studentName ??
-            student["Student Name"] ??
-            "";
+            getStudentName(student);
 
 
         const optionText =
@@ -1346,15 +1417,44 @@ function populateStudentDropdowns() {
 
         assignmentStudent.appendChild(option1);
 
+    });
 
-        const option2 =
+
+    /*
+       RESULT DROPDOWN:
+       Only students who have actually
+       submitted an answer sheet.
+    */
+
+    const submittedStudentIds =
+        getSubmittedStudentIds();
+
+
+    submittedStudentIds.forEach(studentId => {
+
+        const student =
+            students.find(item =>
+                getStudentId(item) ===
+                String(studentId).trim()
+            );
+
+
+        const name =
+            student
+            ? getStudentName(student)
+            : studentId;
+
+
+        const option =
             document.createElement("option");
 
-        option2.value = id;
+        option.value =
+            String(studentId).trim();
 
-        option2.textContent = optionText;
+        option.textContent =
+            `${name} (${String(studentId).trim()})`;
 
-        resultStudent.appendChild(option2);
+        resultStudent.appendChild(option);
 
     });
 
@@ -1691,19 +1791,12 @@ async function saveAssignments() {
    QUESTION PAPERS
 ========================= */
 
-
-/*
-   FIX:
-   Correctly detect Published value whether
-   API returns:
-   true / false
-   "true" / "false"
-   Yes / No
-   Published / Unpublished
-   Publish / Unpublish
-   Draft
-*/
 function normalizePaperStatus(paper) {
+
+    /*
+       IMPORTANT:
+       ?? is used so false is not lost.
+    */
 
     const raw =
         paper.published ??
@@ -1711,12 +1804,16 @@ function normalizePaperStatus(paper) {
         "";
 
 
+    const value =
+        String(raw).trim().toLowerCase();
+
+
     if (
         raw === true ||
-        String(raw).trim().toLowerCase() === "true" ||
-        String(raw).trim().toLowerCase() === "yes" ||
-        String(raw).trim().toLowerCase() === "publish" ||
-        String(raw).trim().toLowerCase() === "published"
+        value === "true" ||
+        value === "yes" ||
+        value === "publish" ||
+        value === "published"
     ) {
 
         return "Published";
@@ -1726,10 +1823,10 @@ function normalizePaperStatus(paper) {
 
     if (
         raw === false ||
-        String(raw).trim().toLowerCase() === "false" ||
-        String(raw).trim().toLowerCase() === "no" ||
-        String(raw).trim().toLowerCase() === "unpublish" ||
-        String(raw).trim().toLowerCase() === "unpublished"
+        value === "false" ||
+        value === "no" ||
+        value === "unpublish" ||
+        value === "unpublished"
     ) {
 
         return "Unpublished";
@@ -1737,9 +1834,7 @@ function normalizePaperStatus(paper) {
     }
 
 
-    if (
-        String(raw).trim().toLowerCase() === "draft"
-    ) {
+    if (value === "draft") {
 
         return "Draft";
 
@@ -1767,6 +1862,41 @@ function getPaperSubjectId(paper) {
     return (
         paper.subjectId ??
         paper["Subject ID"] ??
+        ""
+    );
+
+}
+
+
+function getPaperCode(paper) {
+
+    return (
+        paper.paperCode ??
+        paper["Paper Code"] ??
+        ""
+    );
+
+}
+
+
+function getPaperTitle(paper) {
+
+    return (
+        paper.paperTitle ??
+        paper["Paper Title"] ??
+        paper.examName ??
+        paper["Exam Name"] ??
+        ""
+    );
+
+}
+
+
+function getPaperTotalMarks(paper) {
+
+    return (
+        paper.totalMarks ??
+        paper["Total Marks"] ??
         ""
     );
 
@@ -1860,9 +1990,7 @@ function renderPapers() {
 
 
             const paperCode =
-                paper.paperCode ??
-                paper["Paper Code"] ??
-                "";
+                getPaperCode(paper);
 
 
             const subjectId =
@@ -1874,15 +2002,11 @@ function renderPapers() {
 
 
             const title =
-                paper.paperTitle ??
-                paper["Paper Title"] ??
-                "";
+                getPaperTitle(paper);
 
 
             const totalMarks =
-                paper.totalMarks ??
-                paper["Total Marks"] ??
-                "";
+                getPaperTotalMarks(paper);
 
 
             const status =
@@ -1931,7 +2055,7 @@ function renderPapers() {
 
 
             /*
-              ACTION FIX
+              ACTIONS FOLLOW CURRENT STATUS
 
               Published:
               Open | Unpublish | Delete
@@ -2410,6 +2534,512 @@ function fileToBase64(file) {
    SUBMISSIONS
 ========================= */
 
+/*
+   Convert different possible API
+   photo URL formats into an array.
+*/
+
+function getPhotoUrls(item) {
+
+    let value =
+        item.photoUrls ??
+        item["Photo URLs"] ??
+        item.photoURLs ??
+        item["Photo URL"] ??
+        item.photoUrl ??
+        item["Photo Url"] ??
+        item.answerSheetUrl ??
+        item["Answer Sheet URL"] ??
+        item.fileUrl ??
+        item["File URL"] ??
+        "";
+
+
+    if (Array.isArray(value)) {
+
+        return value
+            .map(url => String(url).trim())
+            .filter(Boolean);
+
+    }
+
+
+    if (!value) {
+
+        return [];
+
+    }
+
+
+    const stringValue =
+        String(value).trim();
+
+
+    /*
+       First try JSON array.
+       Example:
+       ["url1","url2"]
+    */
+
+    if (
+        stringValue.startsWith("[") &&
+        stringValue.endsWith("]")
+    ) {
+
+        try {
+
+            const parsed =
+                JSON.parse(stringValue);
+
+
+            if (Array.isArray(parsed)) {
+
+                return parsed
+                    .map(url => String(url).trim())
+                    .filter(Boolean);
+
+            }
+
+        } catch(error) {
+
+            console.log(
+                "Photo URL JSON parsing failed."
+            );
+
+        }
+
+    }
+
+
+    /*
+       Support comma, newline and pipe
+       separated URLs.
+    */
+
+    return stringValue
+        .split(/\s*(?:,|\n|\r|\|)\s*/)
+        .map(url => url.trim())
+        .filter(Boolean);
+
+}
+
+
+function getSubmissionStudentId(item) {
+
+    return String(
+        item.studentId ??
+        item["Student ID"] ??
+        ""
+    ).trim();
+
+}
+
+
+function getSubmissionPaperId(item) {
+
+    return String(
+        item.paperId ??
+        item["Paper ID"] ??
+        ""
+    ).trim();
+
+}
+
+
+function getSubmissionStudentName(item) {
+
+    const directName =
+        item.studentName ??
+        item["Student Name"] ??
+        "";
+
+
+    if (directName) {
+
+        return directName;
+
+    }
+
+
+    const studentId =
+        getSubmissionStudentId(item);
+
+
+    const student =
+        students.find(s =>
+            getStudentId(s) === studentId
+        );
+
+
+    return student
+        ? getStudentName(student)
+        : studentId;
+
+}
+
+
+function getSubmissionPaper(item) {
+
+    const paperId =
+        getSubmissionPaperId(item);
+
+
+    return papers.find(p =>
+        String(getPaperId(p)) === paperId
+    );
+
+}
+
+
+function getSubmissionExamName(item) {
+
+    const directName =
+        item.examName ??
+        item["Exam Name"] ??
+        "";
+
+
+    if (directName) {
+
+        return directName;
+
+    }
+
+
+    const paper =
+        getSubmissionPaper(item);
+
+
+    if (paper) {
+
+        return getPaperTitle(paper);
+
+    }
+
+
+    return "";
+
+}
+
+
+function getSubmissionStatus(item) {
+
+    return (
+        item.status ??
+        item["Status"] ??
+        item.submissionStatus ??
+        item["Submission Status"] ??
+        "Submitted"
+    );
+
+}
+
+
+function getSubmissionType(item) {
+
+    return (
+        item.submissionType ??
+        item["Submission Type"] ??
+        item.type ??
+        item["Type"] ??
+        "Answer Sheet"
+    );
+
+}
+
+
+function getSubmissionMarks(item) {
+
+    const direct =
+        item.marks ??
+        item["Marks"] ??
+        item.marksObtained ??
+        item["Marks Obtained"];
+
+
+    if (
+        direct !== undefined &&
+        direct !== null &&
+        direct !== ""
+    ) {
+
+        return direct;
+
+    }
+
+
+    const studentId =
+        getSubmissionStudentId(item);
+
+    const paperId =
+        getSubmissionPaperId(item);
+
+
+    const resultItem =
+        results.find(result => {
+
+            const resultStudentId =
+                String(
+                    result.studentId ??
+                    result["Student ID"] ??
+                    ""
+                ).trim();
+
+
+            const resultPaperId =
+                String(
+                    result.paperId ??
+                    result["Paper ID"] ??
+                    ""
+                ).trim();
+
+
+            return (
+                resultStudentId === studentId &&
+                resultPaperId === paperId
+            );
+
+        });
+
+
+    if (!resultItem) {
+
+        return "";
+
+    }
+
+
+    return (
+        resultItem.marksObtained ??
+        resultItem["Marks Obtained"] ??
+        resultItem.marks ??
+        resultItem["Marks"] ??
+        ""
+    );
+
+}
+
+
+function getSubmissionRemarks(item) {
+
+    const direct =
+        item.remarks ??
+        item["Remarks"];
+
+
+    if (
+        direct !== undefined &&
+        direct !== null &&
+        direct !== ""
+    ) {
+
+        return direct;
+
+    }
+
+
+    const studentId =
+        getSubmissionStudentId(item);
+
+    const paperId =
+        getSubmissionPaperId(item);
+
+
+    const resultItem =
+        results.find(result => {
+
+            const resultStudentId =
+                String(
+                    result.studentId ??
+                    result["Student ID"] ??
+                    ""
+                ).trim();
+
+
+            const resultPaperId =
+                String(
+                    result.paperId ??
+                    result["Paper ID"] ??
+                    ""
+                ).trim();
+
+
+            return (
+                resultStudentId === studentId &&
+                resultPaperId === paperId
+            );
+
+        });
+
+
+    if (!resultItem) {
+
+        return "";
+
+    }
+
+
+    return (
+        resultItem.remarks ??
+        resultItem["Remarks"] ??
+        ""
+    );
+
+}
+
+
+function getSubmissionPaperCode(item) {
+
+    const direct =
+        item.paperCode ??
+        item["Paper Code"];
+
+
+    if (direct) {
+
+        return direct;
+
+    }
+
+
+    const paper =
+        getSubmissionPaper(item);
+
+
+    return paper
+        ? getPaperCode(paper)
+        : "";
+
+}
+
+
+function getSubmittedAt(item) {
+
+    return (
+        item.submittedAt ??
+        item["Submitted At"] ??
+        item.timestamp ??
+        item["Timestamp"] ??
+        ""
+    );
+
+}
+
+
+function getSubmittedStudentIds() {
+
+    const ids = [];
+
+
+    submissions.forEach(item => {
+
+        const id =
+            getSubmissionStudentId(item);
+
+
+        if (
+            id &&
+            !ids.includes(id)
+        ) {
+
+            ids.push(id);
+
+        }
+
+    });
+
+
+    return ids;
+
+}
+
+
+function getSubmittedPaperIdsForStudent(studentId) {
+
+    const ids = [];
+
+
+    submissions.forEach(item => {
+
+        const itemStudentId =
+            getSubmissionStudentId(item);
+
+        const paperId =
+            getSubmissionPaperId(item);
+
+
+        if (
+            itemStudentId ===
+            String(studentId).trim() &&
+            paperId &&
+            !ids.includes(paperId)
+        ) {
+
+            ids.push(paperId);
+
+        }
+
+    });
+
+
+    return ids;
+
+}
+
+
+function openPhotoUrl(url) {
+
+    if (!url) {
+
+        showMessage(
+            "Photo URL is not available.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    window.open(
+        url,
+        "_blank"
+    );
+
+}
+
+
+function renderPhotoButtons(urls) {
+
+    if (!urls.length) {
+
+        return "No Photos";
+
+    }
+
+
+    return `
+        <div class="photo-buttons">
+
+            ${urls.map((url, index) => {
+
+                return `
+                    <button
+                        class="photo-btn"
+                        onclick="openPhotoUrl('${escapeJs(url)}')"
+                    >
+                        View ${index + 1}
+                    </button>
+                `;
+
+            }).join("")}
+
+        </div>
+    `;
+
+}
+
+
 function renderSubmissions() {
 
     const body =
@@ -2422,7 +3052,7 @@ function renderSubmissions() {
 
         body.innerHTML =
             `<tr>
-                <td colspan="4" class="empty">
+                <td colspan="11" class="empty">
                     No submissions found.
                 </td>
             </tr>`;
@@ -2435,40 +3065,99 @@ function renderSubmissions() {
     body.innerHTML =
         submissions.map(item => {
 
-            const studentId =
-                item.studentId ??
-                item["Student ID"] ??
-                "";
+            const studentName =
+                getSubmissionStudentName(item);
+
 
             const paperId =
-                item.paperId ??
-                item["Paper ID"] ??
-                "";
+                getSubmissionPaperId(item);
+
+
+            const examName =
+                getSubmissionExamName(item);
+
+
+            const photoUrls =
+                getPhotoUrls(item);
+
 
             const submittedAt =
-                item.submittedAt ??
-                item["Submitted At"] ??
-                item.timestamp ??
-                item["Timestamp"] ??
-                "";
+                getSubmittedAt(item);
 
-            const answerSheetUrl =
-                item.answerSheetUrl ??
-                item["Answer Sheet URL"] ??
-                item.fileUrl ??
-                item["File URL"] ??
-                "";
+
+            const status =
+                getSubmissionStatus(item);
+
+
+            const marks =
+                getSubmissionMarks(item);
+
+
+            const remarks =
+                getSubmissionRemarks(item);
+
+
+            const paperCode =
+                getSubmissionPaperCode(item);
+
+
+            const submissionType =
+                getSubmissionType(item);
+
+
+            const photoCount =
+                item.photoCount ??
+                item["Photo Count"] ??
+                photoUrls.length;
+
+
+            let statusClass =
+                "status-other";
+
+
+            const statusValue =
+                String(status)
+                    .trim()
+                    .toLowerCase();
+
+
+            if (
+                statusValue === "submitted" ||
+                statusValue === "complete" ||
+                statusValue === "completed"
+            ) {
+
+                statusClass =
+                    "status-submitted";
+
+            } else if (
+                statusValue === "pending" ||
+                statusValue === "processing"
+            ) {
+
+                statusClass =
+                    "status-pending";
+
+            }
 
 
             return `
                 <tr>
 
                     <td>
-                        ${escapeHtml(studentId)}
+                        ${escapeHtml(studentName)}
                     </td>
 
                     <td>
                         ${escapeHtml(paperId)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(examName)}
+                    </td>
+
+                    <td>
+                        ${renderPhotoButtons(photoUrls)}
                     </td>
 
                     <td>
@@ -2478,20 +3167,31 @@ function renderSubmissions() {
                     </td>
 
                     <td>
+                        <span class="status ${statusClass}">
+                            ${escapeHtml(status)}
+                        </span>
+                    </td>
 
-                        ${
-                            answerSheetUrl
-                            ?
-                            `<button
-                                class="secondary-btn"
-                                onclick="window.open('${escapeJs(answerSheetUrl)}','_blank')"
-                            >
-                                Open
-                            </button>`
-                            :
-                            "No File"
-                        }
+                    <td>
+                        ${escapeHtml(marks)}
+                    </td>
 
+                    <td>
+                        ${escapeHtml(remarks)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(paperCode)}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(submissionType)}
+                    </td>
+
+                    <td>
+                        <span class="photo-count">
+                            ${escapeHtml(photoCount)}
+                        </span>
                     </td>
 
                 </tr>
@@ -2526,6 +3226,21 @@ function loadResultPapers() {
         </option>`;
 
 
+    document.getElementById(
+        "resultTotalMarks"
+    ).value = "";
+
+
+    document.getElementById(
+        "percentageBox"
+    ).textContent = "0.00%";
+
+
+    document.getElementById(
+        "resultStatus"
+    ).value = "";
+
+
     if (!studentId) {
 
         return;
@@ -2533,23 +3248,37 @@ function loadResultPapers() {
     }
 
 
-    const assignedSubjectIds =
-        assignments
-            .filter(item =>
-                getStudentIdFromAssignment(item) ===
-                String(studentId).trim()
-            )
-            .map(
-                getSubjectIdFromAssignment
-            );
+    /*
+       IMPORTANT:
+       Only question papers for which
+       THIS student submitted an answer
+       sheet are shown.
+    */
+
+    const submittedPaperIds =
+        getSubmittedPaperIdsForStudent(
+            studentId
+        );
 
 
     const availablePapers =
         papers.filter(paper =>
-            assignedSubjectIds.includes(
-                String(getPaperSubjectId(paper))
+            submittedPaperIds.includes(
+                String(getPaperId(paper)).trim()
             )
         );
+
+
+    if (!availablePapers.length) {
+
+        select.innerHTML =
+            `<option value="">
+                No submitted question paper
+            </option>`;
+
+        return;
+
+    }
 
 
     availablePapers.forEach(paper => {
@@ -2557,15 +3286,19 @@ function loadResultPapers() {
         const paperId =
             getPaperId(paper);
 
+
         const subjectName =
             getSubjectName(
                 getPaperSubjectId(paper)
             );
 
+
         const title =
-            paper.paperTitle ??
-            paper["Paper Title"] ??
-            "";
+            getPaperTitle(paper);
+
+
+        const paperCode =
+            getPaperCode(paper);
 
 
         const option =
@@ -2576,14 +3309,24 @@ function loadResultPapers() {
             paperId;
 
 
-        option.textContent =
+        let displayText =
             `${subjectName} - ${title}`;
 
 
+        if (paperCode) {
+
+            displayText +=
+                ` (${paperCode})`;
+
+        }
+
+
+        option.textContent =
+            displayText;
+
+
         option.dataset.totalMarks =
-            paper.totalMarks ??
-            paper["Total Marks"] ??
-            "";
+            getPaperTotalMarks(paper);
 
 
         select.appendChild(option);
@@ -2917,9 +3660,7 @@ function renderResults() {
 
 
                 paperTitle =
-                    paper.paperTitle ??
-                    paper["Paper Title"] ??
-                    "";
+                    getPaperTitle(paper);
 
             }
 
