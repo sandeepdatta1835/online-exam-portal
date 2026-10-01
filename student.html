@@ -2,2005 +2,1136 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Student Dashboard | Online Exam Portal</title>
+<title>Student Dashboard - Online Exam Portal</title>
 
 <style>
-/* =========================================================
-   PROFESSIONAL EDUCATION STUDENT PORTAL
-   Mobile + Desktop Responsive Design
-   ========================================================= */
-
-:root{
-  --primary:#174ea6;
-  --primary-dark:#123b80;
-  --primary-light:#eaf2ff;
-  --blue:#2563eb;
-
-  --success:#15803d;
-  --success-bg:#ecfdf3;
-
-  --warning:#b45309;
-  --warning-bg:#fff7ed;
-
-  --danger:#dc2626;
-  --danger-bg:#fef2f2;
-
-  --purple:#6d28d9;
-  --purple-bg:#f5f3ff;
-
-  --text:#172033;
-  --text-light:#64748b;
-  --muted:#94a3b8;
-
-  --bg:#f5f7fb;
-  --card:#ffffff;
-  --border:#e5eaf1;
-
-  --shadow-sm:0 2px 8px rgba(15,23,42,.05);
-  --shadow:0 8px 24px rgba(15,23,42,.07);
-  --shadow-lg:0 16px 40px rgba(15,23,42,.10);
-
-  --radius:16px;
-}
-
 *{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  margin:0;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Arial,
-    sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
 }
 
 button,
-input{
-  font-family:inherit;
+input,
+select{
+    font-family:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
 }
 
-.hidden{
-  display:none !important;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.top-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,.96);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-}
-
-.header-inner{
-  max-width:1250px;
-  min-height:72px;
-  margin:auto;
-  padding:0 24px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+.header{
+    background:#0b5ed7;
+    color:#fff;
+    padding:14px 22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 12px rgba(0,0,0,.12);
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.brand-logo{
-  width:44px;
-  height:44px;
-  border-radius:13px;
-  background:linear-gradient(135deg,#174ea6,#2563eb);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  box-shadow:0 5px 14px rgba(37,99,235,.25);
-  flex-shrink:0;
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#fff;
+    color:#0b5ed7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:bold;
 }
 
-.brand-text{
-  min-width:0;
+.brand-text h1{
+    font-size:20px;
+    margin-bottom:3px;
 }
 
-.brand-title{
-  font-size:17px;
-  font-weight:800;
-  line-height:1.2;
-  color:#122044;
-}
-
-.brand-subtitle{
-  font-size:11px;
-  color:var(--text-light);
-  margin-top:3px;
-}
-
-.student-header{
-  display:flex;
-  align-items:center;
-  gap:12px;
+.brand-text p{
+    font-size:12px;
+    opacity:.85;
 }
 
 .student-info{
-  text-align:right;
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-.student-name{
-  font-size:13px;
-  font-weight:700;
-  color:var(--text);
+.student-details{
+    text-align:right;
 }
 
-.student-id{
-  font-size:11px;
-  color:var(--text-light);
-  margin-top:2px;
+.student-details strong{
+    display:block;
+    font-size:14px;
 }
 
-.avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:var(--primary-light);
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:17px;
-  font-weight:800;
-  border:1px solid #d7e5ff;
+.student-details span{
+    font-size:12px;
+    opacity:.85;
 }
 
 .logout-btn{
-  height:40px;
-  padding:0 14px;
-  border:1px solid #d9e0eb;
-  background:white;
-  color:#475569;
-  border-radius:10px;
-  font-size:12px;
-  font-weight:700;
-  transition:.2s;
+    border:1px solid rgba(255,255,255,.5);
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    padding:9px 15px;
+    border-radius:7px;
+    font-weight:600;
 }
 
 .logout-btn:hover{
-  border-color:#b7c5da;
-  background:#f8fafc;
-  color:var(--danger);
+    background:#fff;
+    color:#0b5ed7;
 }
 
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-.page{
-  max-width:1250px;
-  margin:0 auto;
-  padding:28px 24px 60px;
+.container{
+    width:min(1400px,94%);
+    margin:25px auto;
 }
-
-/* =========================================================
-   WELCOME HERO
-   ========================================================= */
 
 .welcome-card{
-  position:relative;
-  overflow:hidden;
-  border-radius:22px;
-  background:
-    linear-gradient(120deg,#123b80 0%,#174ea6 50%,#2563eb 100%);
-  color:white;
-  padding:30px 34px;
-  box-shadow:var(--shadow-lg);
-  margin-bottom:22px;
+    background:linear-gradient(135deg,#0b5ed7,#084298);
+    color:#fff;
+    padding:24px;
+    border-radius:14px;
+    margin-bottom:22px;
+    box-shadow:0 5px 18px rgba(11,94,215,.18);
 }
 
-.welcome-card::before{
-  content:"";
-  position:absolute;
-  width:240px;
-  height:240px;
-  border-radius:50%;
-  background:rgba(255,255,255,.07);
-  right:-70px;
-  top:-100px;
+.welcome-card h2{
+    font-size:24px;
+    margin-bottom:7px;
 }
 
-.welcome-card::after{
-  content:"";
-  position:absolute;
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  background:rgba(255,255,255,.06);
-  right:110px;
-  bottom:-110px;
+.welcome-card p{
+    opacity:.9;
+    font-size:14px;
 }
-
-.welcome-content{
-  position:relative;
-  z-index:1;
-}
-
-.welcome-small{
-  font-size:12px;
-  opacity:.85;
-  margin-bottom:7px;
-}
-
-.welcome-title{
-  font-size:28px;
-  font-weight:800;
-  margin:0;
-  letter-spacing:-.4px;
-}
-
-.welcome-description{
-  font-size:13px;
-  line-height:1.6;
-  opacity:.88;
-  margin:9px 0 0;
-  max-width:650px;
-}
-
-/* =========================================================
-   DASHBOARD STATS
-   ========================================================= */
 
 .stats-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-bottom:30px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:22px;
 }
 
 .stat-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px;
-  box-shadow:var(--shadow-sm);
-  display:flex;
-  align-items:center;
-  gap:13px;
-  min-width:0;
+    background:#fff;
+    border-radius:12px;
+    padding:18px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 3px 10px rgba(0,0,0,.04);
 }
 
-.stat-icon{
-  width:46px;
-  height:46px;
-  border-radius:13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:21px;
-  flex-shrink:0;
+.stat-card .icon{
+    width:40px;
+    height:40px;
+    border-radius:9px;
+    background:#e8f1ff;
+    color:#0b5ed7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    margin-bottom:10px;
 }
 
-.stat-icon.blue{
-  background:#eaf2ff;
+.stat-card h3{
+    font-size:24px;
+    margin-bottom:3px;
 }
 
-.stat-icon.green{
-  background:#ecfdf3;
+.stat-card p{
+    color:#6b7280;
+    font-size:13px;
 }
-
-.stat-icon.orange{
-  background:#fff7ed;
-}
-
-.stat-icon.purple{
-  background:#f5f3ff;
-}
-
-.stat-content{
-  min-width:0;
-}
-
-.stat-number{
-  font-size:22px;
-  font-weight:800;
-  color:#14213d;
-}
-
-.stat-label{
-  font-size:11px;
-  color:var(--text-light);
-  margin-top:2px;
-  white-space:nowrap;
-}
-
-/* =========================================================
-   SECTION
-   ========================================================= */
 
 .section{
-  margin-bottom:30px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:22px;
+    box-shadow:0 3px 10px rgba(0,0,0,.04);
 }
 
 .section-header{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:14px;
-}
-
-.section-title-wrap{
-  min-width:0;
-}
-
-.section-kicker{
-  font-size:10px;
-  color:var(--primary);
-  font-weight:800;
-  letter-spacing:.8px;
-  text-transform:uppercase;
-  margin-bottom:4px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
 }
 
 .section-title{
-  margin:0;
-  font-size:19px;
-  font-weight:800;
-  color:#172033;
+    font-size:19px;
+    color:#111827;
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
-.section-description{
-  margin:4px 0 0;
-  font-size:12px;
-  color:var(--text-light);
+.section-title span{
+    color:#0b5ed7;
 }
 
-/* =========================================================
-   EMPTY / LOADING
-   ========================================================= */
-
-.loading-card,
-.empty-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:30px 20px;
-  text-align:center;
-  color:var(--text-light);
+.section-subtitle{
+    color:#6b7280;
+    font-size:13px;
+    margin-top:4px;
 }
 
-.loading-icon,
+.empty{
+    padding:35px 20px;
+    text-align:center;
+    color:#6b7280;
+    border:1px dashed #d1d5db;
+    border-radius:10px;
+    background:#fafafa;
+}
+
 .empty-icon{
-  font-size:28px;
-  margin-bottom:9px;
+    font-size:35px;
+    margin-bottom:10px;
 }
-
-.loading-text,
-.empty-title{
-  font-size:13px;
-  font-weight:700;
-  color:#475569;
-}
-
-.empty-description{
-  font-size:11px;
-  margin-top:5px;
-}
-
-/* =========================================================
-   SUBJECT CARDS
-   ========================================================= */
 
 .subject-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
 }
 
 .subject-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:19px;
-  box-shadow:var(--shadow-sm);
-  transition:.22s ease;
-  position:relative;
-  overflow:hidden;
+    border:1px solid #e5e7eb;
+    border-radius:11px;
+    padding:17px;
+    background:#fff;
+    transition:.2s;
 }
 
 .subject-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
-  border-color:#cedcf5;
+    border-color:#0b5ed7;
+    box-shadow:0 4px 14px rgba(11,94,215,.10);
+    transform:translateY(-2px);
 }
 
-.subject-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:10px;
-}
-
-.subject-icon{
-  width:46px;
-  height:46px;
-  border-radius:13px;
-  background:var(--primary-light);
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
+.subject-card h3{
+    font-size:17px;
+    margin-bottom:6px;
 }
 
 .subject-code{
-  background:#f8fafc;
-  color:#64748b;
-  border:1px solid #e6ebf2;
-  border-radius:20px;
-  padding:5px 9px;
-  font-size:9px;
-  font-weight:800;
+    color:#0b5ed7;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:13px;
 }
 
-.subject-name{
-  margin-top:15px;
-  font-size:16px;
-  font-weight:800;
-  color:#172033;
+.subject-card button{
+    width:100%;
+    border:0;
+    background:#0b5ed7;
+    color:#fff;
+    padding:10px;
+    border-radius:7px;
+    font-weight:600;
 }
 
-.subject-meta{
-  margin-top:5px;
-  color:var(--text-light);
-  font-size:11px;
+.subject-card button:hover{
+    background:#084298;
 }
 
-.subject-action{
-  width:100%;
-  margin-top:17px;
-}
-
-/* =========================================================
-   QUESTION PAPER CARDS
-   ========================================================= */
-
-.paper-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.paper-list{
+    display:grid;
+    gap:12px;
 }
 
 .paper-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:19px;
-  box-shadow:var(--shadow-sm);
+    border:1px solid #e5e7eb;
+    border-radius:11px;
+    padding:16px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
 }
 
-.paper-header{
-  display:flex;
-  gap:13px;
-  align-items:flex-start;
+.paper-info h3{
+    font-size:16px;
+    margin-bottom:6px;
 }
 
-.paper-icon{
-  width:45px;
-  height:45px;
-  border-radius:12px;
-  background:#fff1f2;
-  color:#be123c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  flex-shrink:0;
-}
-
-.paper-main{
-  min-width:0;
-  flex:1;
-}
-
-.paper-title{
-  font-size:15px;
-  font-weight:800;
-  color:#172033;
-  line-height:1.4;
-}
-
-.paper-code{
-  color:var(--text-light);
-  font-size:10px;
-  margin-top:3px;
-}
-
-.paper-badge{
-  display:inline-flex;
-  margin-top:8px;
-  padding:4px 8px;
-  border-radius:20px;
-  background:#eef6ff;
-  color:#1757a6;
-  font-size:9px;
-  font-weight:800;
-}
-
-.paper-details{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:16px;
-}
-
-.paper-detail{
-  background:#f8fafc;
-  border:1px solid #edf0f4;
-  border-radius:9px;
-  padding:9px;
-}
-
-.detail-label{
-  font-size:8px;
-  color:#94a3b8;
-  text-transform:uppercase;
-  font-weight:800;
-}
-
-.detail-value{
-  font-size:11px;
-  font-weight:700;
-  color:#334155;
-  margin-top:3px;
-  word-break:break-word;
+.paper-info p{
+    font-size:12px;
+    color:#6b7280;
+    margin:3px 0;
 }
 
 .paper-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:16px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
 .btn{
-  min-height:39px;
-  padding:0 14px;
-  border-radius:10px;
-  border:1px solid transparent;
-  font-size:11px;
-  font-weight:800;
-  transition:.2s;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
+    padding:9px 13px;
+    border-radius:7px;
+    border:0;
+    font-size:13px;
+    font-weight:600;
 }
 
 .btn-primary{
-  background:var(--primary);
-  color:white;
-  border-color:var(--primary);
+    background:#0b5ed7;
+    color:#fff;
 }
 
 .btn-primary:hover{
-  background:var(--primary-dark);
+    background:#084298;
 }
 
-.btn-blue{
-  background:#2563eb;
-  color:white;
-  border-color:#2563eb;
-}
-
-.btn-blue:hover{
-  background:#1d4ed8;
-}
-
-.btn-outline{
-  background:white;
-  color:var(--primary);
-  border-color:#cbd9ee;
-}
-
-.btn-outline:hover{
-  background:#f5f8ff;
-  border-color:#9db8e2;
+.btn-secondary{
+    background:#e8f1ff;
+    color:#0b5ed7;
 }
 
 .btn-success{
-  background:var(--success);
-  color:white;
-  border-color:var(--success);
+    background:#198754;
+    color:#fff;
+}
+
+.btn-warning{
+    background:#ffc107;
+    color:#111;
 }
 
 .btn-danger{
-  background:#fff;
-  color:var(--danger);
-  border-color:#fecaca;
+    background:#dc3545;
+    color:#fff;
 }
 
-.btn:disabled{
-  opacity:.55;
-  cursor:not-allowed;
+.btn-light{
+    background:#f3f4f6;
+    color:#374151;
 }
 
-.button-row{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
 }
 
-/* =========================================================
-   SUBMISSION
-   ========================================================= */
-
-.submission-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:var(--shadow-sm);
+.form-group{
+    margin-bottom:2px;
 }
 
-.submission-intro{
-  background:#f7faff;
-  border:1px solid #e0eaff;
-  border-radius:12px;
-  padding:13px 15px;
-  color:#49617d;
-  font-size:12px;
-  line-height:1.6;
-  margin-bottom:18px;
+.form-group label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:7px;
+    color:#374151;
 }
 
-.submission-status-card{
-  border:1px solid #bbf7d0;
-  background:#f0fdf4;
-  border-radius:15px;
-  padding:17px;
-  margin-bottom:17px;
+.form-control{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+    background:#fff;
 }
 
-.submission-status-card.pending{
-  background:#fffbeb;
-  border-color:#fde68a;
-}
-
-.submission-status-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:12px;
-  margin-bottom:14px;
-}
-
-.submission-status-label{
-  font-size:9px;
-  color:#15803d;
-  text-transform:uppercase;
-  font-weight:800;
-  letter-spacing:.7px;
-}
-
-.submission-status-card.pending .submission-status-label{
-  color:#b45309;
-}
-
-.submission-status-title{
-  font-size:18px;
-  font-weight:800;
-  color:#166534;
-  margin-top:3px;
-}
-
-.submission-status-card.pending .submission-status-title{
-  color:#92400e;
-}
-
-.submission-status-badge{
-  background:#dcfce7;
-  color:#166534;
-  border:1px solid #bbf7d0;
-  padding:6px 10px;
-  border-radius:20px;
-  font-size:9px;
-  font-weight:800;
-  white-space:nowrap;
-}
-
-.submission-status-card.pending .submission-status-badge{
-  background:#fef3c7;
-  color:#92400e;
-  border-color:#fde68a;
-}
-
-.submission-status-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.submission-status-box{
-  background:white;
-  border:1px solid #dcfce7;
-  border-radius:10px;
-  padding:10px;
-}
-
-.submission-status-card.pending .submission-status-box{
-  border-color:#fde68a;
-}
-
-.status-label{
-  font-size:8px;
-  color:#64748b;
-  text-transform:uppercase;
-  font-weight:800;
-  margin-bottom:3px;
-}
-
-.status-value{
-  font-size:12px;
-  font-weight:800;
-  color:#172033;
-  word-break:break-word;
-}
-
-.submission-status-note{
-  margin-top:12px;
-  padding:10px 12px;
-  border-radius:9px;
-  background:white;
-  border:1px solid #dcfce7;
-  color:#166534;
-  font-size:11px;
-  line-height:1.5;
-}
-
-.submission-status-card.pending .submission-status-note{
-  color:#92400e;
-  border-color:#fde68a;
-}
-
-.upload-area{
-  border:2px dashed #cbd8eb;
-  border-radius:15px;
-  background:#fafcff;
-  padding:25px 18px;
-  text-align:center;
-  transition:.2s;
-}
-
-.upload-area:hover{
-  border-color:#8fb0df;
-  background:#f7faff;
-}
-
-.upload-icon{
-  width:58px;
-  height:58px;
-  margin:0 auto 10px;
-  border-radius:17px;
-  background:#eaf2ff;
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:25px;
-}
-
-.upload-title{
-  font-size:15px;
-  font-weight:800;
-  color:#26344d;
-}
-
-.upload-description{
-  max-width:520px;
-  margin:6px auto 15px;
-  color:#718096;
-  font-size:11px;
-  line-height:1.6;
+.form-control:focus{
+    border-color:#0b5ed7;
+    box-shadow:0 0 0 3px rgba(11,94,215,.1);
 }
 
 .file-input{
-  display:none;
+    width:100%;
+    border:2px dashed #b9c8dc;
+    border-radius:10px;
+    padding:18px;
+    background:#f8fbff;
 }
 
-/* =========================================================
-   PHOTO AREA
-   ========================================================= */
-
-.photo-area{
-  margin-top:17px;
+.file-input input{
+    width:100%;
 }
 
-.photo-area-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:10px;
+.camera-box{
+    display:none;
+    margin-top:15px;
+    background:#111827;
+    border-radius:10px;
+    padding:12px;
 }
 
-.photo-count{
-  font-size:12px;
-  color:#475569;
-  font-weight:800;
+.camera-box video{
+    width:100%;
+    max-height:450px;
+    display:block;
+    border-radius:7px;
+    background:#000;
 }
 
-.photo-limit{
-  font-size:10px;
-  color:#94a3b8;
+.camera-controls{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:10px;
 }
 
-.photo-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:9px;
+.preview-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    margin-top:15px;
 }
 
 .photo-item{
-  position:relative;
-  aspect-ratio:1/1;
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  background:#f8fafc;
+    position:relative;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    overflow:hidden;
+    background:#f8fafc;
 }
 
 .photo-item img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    display:block;
 }
 
 .photo-number{
-  position:absolute;
-  top:5px;
-  left:5px;
-  background:rgba(15,23,42,.75);
-  color:white;
-  font-size:8px;
-  font-weight:800;
-  padding:3px 5px;
-  border-radius:5px;
+    position:absolute;
+    top:5px;
+    left:5px;
+    background:#0b5ed7;
+    color:#fff;
+    font-size:11px;
+    padding:3px 6px;
+    border-radius:5px;
 }
 
-.remove-photo{
-  position:absolute;
-  right:5px;
-  top:5px;
-  width:24px;
-  height:24px;
-  border:none;
-  border-radius:50%;
-  background:rgba(220,38,38,.9);
-  color:white;
-  font-size:12px;
-  line-height:24px;
-  padding:0;
+.photo-remove{
+    position:absolute;
+    top:5px;
+    right:5px;
+    width:24px;
+    height:24px;
+    border:0;
+    border-radius:50%;
+    background:#dc3545;
+    color:#fff;
+    font-weight:bold;
 }
 
-/* =========================================================
-   RESULTS
-   ========================================================= */
-
-.result-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.upload-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
 }
 
-.result-card{
-  background:white;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:20px;
-  box-shadow:var(--shadow-sm);
+.status-box{
+    margin-top:15px;
+    padding:12px 14px;
+    border-radius:8px;
+    font-size:13px;
+    display:none;
 }
 
-.result-header{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
+.status-info{
+    display:block;
+    background:#e8f1ff;
+    color:#084298;
 }
 
-.result-title{
-  font-size:15px;
-  font-weight:800;
+.status-success{
+    display:block;
+    background:#d1e7dd;
+    color:#0f5132;
 }
 
-.result-paper{
-  font-size:10px;
-  color:var(--text-light);
-  margin-top:4px;
+.status-warning{
+    display:block;
+    background:#fff3cd;
+    color:#664d03;
 }
 
-.result-score{
-  min-width:75px;
-  text-align:center;
-  background:#ecfdf3;
-  border:1px solid #bbf7d0;
-  color:#166534;
-  border-radius:12px;
-  padding:9px 8px;
+.status-danger{
+    display:block;
+    background:#f8d7da;
+    color:#842029;
 }
 
-.result-marks{
-  font-size:20px;
-  font-weight:900;
+.results-table-wrapper{
+    width:100%;
+    overflow-x:auto;
 }
 
-.result-out-of{
-  font-size:9px;
-  color:#4d7c5c;
+.results-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
 }
 
-.result-details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:16px;
+.results-table th,
+.results-table td{
+    padding:12px 10px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+    font-size:13px;
 }
 
-.result-detail{
-  background:#f8fafc;
-  border-radius:9px;
-  padding:9px;
+.results-table th{
+    background:#f8fafc;
+    color:#374151;
 }
 
-.result-label{
-  font-size:8px;
-  text-transform:uppercase;
-  color:#94a3b8;
-  font-weight:800;
+.result-pass{
+    color:#198754;
+    font-weight:bold;
 }
 
-.result-value{
-  font-size:11px;
-  color:#334155;
-  font-weight:700;
-  margin-top:3px;
-  word-break:break-word;
+.result-fail{
+    color:#dc3545;
+    font-weight:bold;
 }
 
-/* =========================================================
-   CAMERA MODAL
-   ========================================================= */
-
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:2000;
-  background:rgba(15,23,42,.70);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
+.result-pending{
+    color:#f59e0b;
+    font-weight:bold;
 }
 
-.modal-box{
-  width:min(620px,100%);
-  max-height:92vh;
-  overflow:auto;
-  background:white;
-  border-radius:20px;
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
+.loading{
+    text-align:center;
+    padding:25px;
+    color:#6b7280;
 }
 
-.modal-header{
-  padding:17px 19px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+.spinner{
+    width:25px;
+    height:25px;
+    border:3px solid #dbeafe;
+    border-top-color:#0b5ed7;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 10px;
 }
 
-.modal-title{
-  font-size:16px;
-  font-weight:800;
+@keyframes spin{
+    to{transform:rotate(360deg);}
 }
-
-.close-btn{
-  width:34px;
-  height:34px;
-  border:none;
-  background:#f1f5f9;
-  border-radius:9px;
-  color:#475569;
-  font-size:18px;
-}
-
-.camera-body{
-  padding:18px;
-}
-
-.camera-video{
-  width:100%;
-  max-height:60vh;
-  border-radius:13px;
-  background:#0f172a;
-  display:block;
-  object-fit:cover;
-}
-
-.camera-actions{
-  display:flex;
-  gap:9px;
-  margin-top:14px;
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
 
 .toast{
-  position:fixed;
-  z-index:3000;
-  left:50%;
-  bottom:22px;
-  transform:translate(-50%,120px);
-  opacity:0;
-  min-width:260px;
-  max-width:calc(100vw - 30px);
-  background:#172033;
-  color:white;
-  border-radius:12px;
-  padding:12px 15px;
-  box-shadow:var(--shadow-lg);
-  font-size:11px;
-  line-height:1.5;
-  transition:.25s ease;
-  text-align:center;
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    min-width:260px;
+    max-width:400px;
+    background:#111827;
+    color:#fff;
+    padding:13px 16px;
+    border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    z-index:9999;
+    transform:translateY(120px);
+    opacity:0;
+    transition:.3s;
+    font-size:13px;
 }
 
 .toast.show{
-  transform:translate(-50%,0);
-  opacity:1;
+    transform:translateY(0);
+    opacity:1;
 }
 
 .toast.success{
-  background:#166534;
+    background:#198754;
 }
 
 .toast.error{
-  background:#b91c1c;
+    background:#dc3545;
 }
 
 .toast.warning{
-  background:#92400e;
+    background:#ffc107;
+    color:#111;
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
-
-.footer{
-  text-align:center;
-  padding:5px 0 15px;
-  color:#94a3b8;
-  font-size:10px;
+.hidden{
+    display:none!important;
 }
 
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media(max-width:1050px){
-
-  .stats-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .subject-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .photo-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
+.paper-link{
+    color:#0b5ed7;
+    font-weight:600;
+    text-decoration:none;
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+.paper-link:hover{
+    text-decoration:underline;
+}
+
+@media(max-width:1000px){
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .subject-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .preview-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
 
 @media(max-width:700px){
+    .header{
+        padding:12px 14px;
+    }
 
-  .top-header{
-    position:sticky;
-  }
+    .brand-text h1{
+        font-size:16px;
+    }
 
-  .header-inner{
-    min-height:64px;
-    padding:0 13px;
-    gap:9px;
-  }
+    .brand-text p{
+        display:none;
+    }
 
-  .brand-logo{
-    width:38px;
-    height:38px;
-    border-radius:11px;
-    font-size:19px;
-  }
+    .student-details{
+        display:none;
+    }
 
-  .brand-title{
-    font-size:14px;
-  }
+    .container{
+        width:94%;
+        margin:16px auto;
+    }
 
-  .brand-subtitle{
-    font-size:9px;
-  }
+    .welcome-card{
+        padding:18px;
+    }
 
-  .student-info{
-    display:none;
-  }
+    .welcome-card h2{
+        font-size:20px;
+    }
 
-  .avatar{
-    width:36px;
-    height:36px;
-    font-size:14px;
-  }
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:10px;
+    }
 
-  .logout-btn{
-    height:36px;
-    padding:0 10px;
-    font-size:10px;
-  }
+    .section{
+        padding:15px;
+    }
 
-  .page{
-    padding:16px 12px 40px;
-  }
+    .subject-grid{
+        grid-template-columns:1fr;
+    }
 
-  .welcome-card{
-    padding:23px 20px;
-    border-radius:18px;
-    margin-bottom:15px;
-  }
+    .paper-card{
+        align-items:flex-start;
+        flex-direction:column;
+    }
 
-  .welcome-title{
-    font-size:22px;
-  }
+    .paper-actions{
+        width:100%;
+    }
 
-  .welcome-description{
-    font-size:11px;
-  }
+    .paper-actions .btn{
+        flex:1;
+    }
 
-  .stats-grid{
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-    margin-bottom:24px;
-  }
+    .form-grid{
+        grid-template-columns:1fr;
+    }
 
-  .stat-card{
-    padding:13px;
-    border-radius:13px;
-    gap:9px;
-  }
+    .preview-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .stat-icon{
-    width:37px;
-    height:37px;
-    border-radius:10px;
-    font-size:17px;
-  }
-
-  .stat-number{
-    font-size:18px;
-  }
-
-  .stat-label{
-    font-size:9px;
-  }
-
-  .section{
-    margin-bottom:24px;
-  }
-
-  .section-title{
-    font-size:17px;
-  }
-
-  .section-description{
-    font-size:10px;
-  }
-
-  .subject-grid,
-  .paper-grid,
-  .result-grid{
-    grid-template-columns:1fr;
-    gap:11px;
-  }
-
-  .subject-card,
-  .paper-card,
-  .result-card{
-    border-radius:14px;
-    padding:15px;
-  }
-
-  .subject-name{
-    font-size:15px;
-  }
-
-  .paper-details{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .paper-actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-  }
-
-  .paper-actions .btn{
-    width:100%;
-  }
-
-  .submission-card{
-    padding:14px;
-    border-radius:15px;
-  }
-
-  .submission-status-header{
-    flex-direction:column;
-  }
-
-  .submission-status-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .submission-status-box{
-    padding:9px;
-  }
-
-  .status-value{
-    font-size:11px;
-  }
-
-  .upload-area{
-    padding:22px 13px;
-  }
-
-  .button-row{
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .button-row .btn{
-    width:100%;
-  }
-
-  .photo-grid{
-    grid-template-columns:repeat(3,1fr);
-    gap:7px;
-  }
-
-  .photo-area-header{
-    align-items:flex-start;
-    flex-direction:column;
-    gap:3px;
-  }
-
-  .camera-actions{
-    display:grid;
-    grid-template-columns:1fr;
-  }
-
-  .camera-actions .btn{
-    width:100%;
-  }
-
-  .result-header{
-    flex-direction:column;
-  }
-
-  .result-score{
-    width:100%;
-  }
-}
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media(max-width:400px){
-
-  .brand-subtitle{
-    display:none;
-  }
-
-  .welcome-title{
-    font-size:20px;
-  }
-
-  .stats-grid{
-    gap:7px;
-  }
-
-  .stat-card{
-    padding:11px;
-  }
-
-  .stat-icon{
-    width:33px;
-    height:33px;
-    font-size:15px;
-  }
-
-  .stat-number{
-    font-size:16px;
-  }
-
-  .stat-label{
-    font-size:8px;
-  }
-
-  .submission-status-grid{
-    grid-template-columns:1fr;
-  }
-
-  .photo-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
+    .photo-item img{
+        height:140px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- =======================================================
-     HEADER
-     ======================================================= -->
-
-<header class="top-header">
-  <div class="header-inner">
+<header class="header">
 
     <div class="brand">
-      <div class="brand-logo">🎓</div>
+        <div class="brand-icon">🎓</div>
 
-      <div class="brand-text">
-        <div class="brand-title">Online Exam Portal</div>
-        <div class="brand-subtitle">Student Learning & Examination</div>
-      </div>
+        <div class="brand-text">
+            <h1>Online Exam Portal</h1>
+            <p>Student Dashboard</p>
+        </div>
     </div>
 
-    <div class="student-header">
+    <div class="student-info">
 
-      <div class="student-info">
-        <div id="headerStudentName" class="student-name">Student</div>
-        <div id="headerStudentId" class="student-id">Student ID</div>
-      </div>
+        <div class="student-details">
+            <strong id="headerStudentName">Student</strong>
+            <span id="headerStudentId">-</span>
+        </div>
 
-      <div id="studentAvatar" class="avatar">S</div>
-
-      <button class="logout-btn" onclick="logout()">
-        Logout
-      </button>
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
 
     </div>
 
-  </div>
 </header>
 
 
-<!-- =======================================================
-     MAIN PAGE
-     ======================================================= -->
+<main class="container">
 
-<main class="page">
+    <section class="welcome-card">
 
-  <!-- WELCOME -->
-  <section class="welcome-card">
-
-    <div class="welcome-content">
-
-      <div class="welcome-small">
-        STUDENT DASHBOARD
-      </div>
-
-      <h1 class="welcome-title">
-        Welcome back, <span id="welcomeStudentName">Student</span> 👋
-      </h1>
-
-      <p class="welcome-description">
-        Manage your assigned subjects, question papers, answer sheets
-        and examination results from one place.
-      </p>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       DASHBOARD STATISTICS
-       ===================================================== -->
-
-  <section class="stats-grid">
-
-    <div class="stat-card">
-
-      <div class="stat-icon blue">📚</div>
-
-      <div class="stat-content">
-        <div id="subjectCount" class="stat-number">0</div>
-        <div class="stat-label">Assigned Subjects</div>
-      </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <div class="stat-icon orange">📄</div>
-
-      <div class="stat-content">
-        <div id="paperCount" class="stat-number">0</div>
-        <div class="stat-label">Question Papers</div>
-      </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <div class="stat-icon green">✅</div>
-
-      <div class="stat-content">
-        <div id="submissionCount" class="stat-number">0</div>
-        <div class="stat-label">Submitted Papers</div>
-      </div>
-
-    </div>
-
-
-    <div class="stat-card">
-
-      <div class="stat-icon purple">🏆</div>
-
-      <div class="stat-content">
-        <div id="resultCount" class="stat-number">0</div>
-        <div class="stat-label">Results</div>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       ASSIGNED SUBJECTS
-       ===================================================== -->
-
-  <section class="section" id="subjectsSection">
-
-    <div class="section-header">
-
-      <div class="section-title-wrap">
-
-        <div class="section-kicker">
-          Academic
-        </div>
-
-        <h2 class="section-title">
-          My Assigned Subjects
+        <h2 id="welcomeStudent">
+            Welcome, Student
         </h2>
 
-        <p class="section-description">
-          Subjects assigned to you by the administrator.
+        <p>
+            Manage your assigned subjects, question papers,
+            answer-sheet submissions and examination results.
         </p>
 
-      </div>
-
-    </div>
+    </section>
 
 
-    <div id="subjectsLoading" class="loading-card">
-      <div class="loading-icon">⏳</div>
-      <div class="loading-text">Loading your subjects...</div>
-    </div>
+    <!-- STATISTICS -->
 
+    <section class="stats-grid">
 
-    <div id="subjectsEmpty" class="empty-card hidden">
-
-      <div class="empty-icon">📚</div>
-
-      <div class="empty-title">
-        No subjects assigned
-      </div>
-
-      <div class="empty-description">
-        Your assigned subjects will appear here.
-      </div>
-
-    </div>
-
-
-    <div id="subjectsContainer" class="subject-grid"></div>
-
-  </section>
-
-
-  <!-- =====================================================
-       QUESTION PAPERS
-       ===================================================== -->
-
-  <section class="section hidden" id="papersSection">
-
-    <div class="section-header">
-
-      <div class="section-title-wrap">
-
-        <div class="section-kicker">
-          Examination
+        <div class="stat-card">
+            <div class="icon">📚</div>
+            <h3 id="subjectCount">0</h3>
+            <p>Assigned Subjects</p>
         </div>
 
-        <h2 class="section-title">
-          Question Papers
-        </h2>
-
-        <p id="papersDescription" class="section-description">
-          Question papers assigned to you.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div id="papersLoading" class="loading-card">
-
-      <div class="loading-icon">⏳</div>
-
-      <div class="loading-text">
-        Loading question papers...
-      </div>
-
-    </div>
-
-
-    <div id="papersEmpty" class="empty-card hidden">
-
-      <div class="empty-icon">📄</div>
-
-      <div class="empty-title">
-        No question papers available
-      </div>
-
-      <div class="empty-description">
-        Question papers for this subject will appear here.
-      </div>
-
-    </div>
-
-
-    <div id="papersContainer" class="paper-grid"></div>
-
-  </section>
-
-
-  <!-- =====================================================
-       ANSWER SHEET SUBMISSION
-       ===================================================== -->
-
-  <section class="section hidden" id="submissionSection">
-
-    <div class="section-header">
-
-      <div class="section-title-wrap">
-
-        <div class="section-kicker">
-          Submission
+        <div class="stat-card">
+            <div class="icon">📄</div>
+            <h3 id="paperCount">0</h3>
+            <p>Question Papers</p>
         </div>
 
-        <h2 class="section-title">
-          Answer Sheet Submission
-        </h2>
+        <div class="stat-card">
+            <div class="icon">📷</div>
+            <h3 id="submissionCount">0</h3>
+            <p>Submissions</p>
+        </div>
 
-        <p class="section-description">
-          Upload your answer-sheet pages for the selected examination.
-        </p>
+        <div class="stat-card">
+            <div class="icon">🏆</div>
+            <h3 id="resultCount">0</h3>
+            <p>Results</p>
+        </div>
 
-      </div>
-
-    </div>
-
-
-    <div class="submission-card">
-
-      <div class="submission-intro">
-        Please upload clear photos of your complete answer sheet.
-        You can upload up to <strong>20 photos</strong>.
-        Make sure every page is readable before submitting.
-      </div>
+    </section>
 
 
-      <!-- SUBMISSION STATUS -->
+    <!-- ASSIGNED SUBJECTS -->
 
-      <div id="submissionStatusCard"
-           class="submission-status-card hidden">
+    <section class="section">
 
-        <div class="submission-status-header">
+        <div class="section-header">
 
-          <div>
+            <div>
+                <h2 class="section-title">
+                    <span>📚</span>
+                    My Assigned Subjects
+                </h2>
 
-            <div class="submission-status-label">
-              Answer Sheet Status
+                <p class="section-subtitle">
+                    Subjects assigned to your student account.
+                </p>
             </div>
 
-            <div id="submissionStatusTitle"
-                 class="submission-status-title">
-              Answer Sheet Submitted
+        </div>
+
+        <div id="subjectsContainer">
+
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading subjects...
             </div>
 
-          </div>
-
-          <div id="submissionStatusBadge"
-               class="submission-status-badge">
-            SUBMITTED
-          </div>
-
         </div>
 
-
-        <div class="submission-status-grid">
-
-          <div class="submission-status-box">
-            <div class="status-label">Subject</div>
-            <div id="submissionStatusSubject"
-                 class="status-value">-</div>
-          </div>
+    </section>
 
 
-          <div class="submission-status-box">
-            <div class="status-label">Question Paper</div>
-            <div id="submissionStatusPaper"
-                 class="status-value">-</div>
-          </div>
+    <!-- QUESTION PAPERS -->
 
+    <section class="section">
 
-          <div class="submission-status-box">
-            <div class="status-label">Paper Code</div>
-            <div id="submissionStatusCode"
-                 class="status-value">-</div>
-          </div>
+        <div class="section-header">
 
+            <div>
+                <h2 class="section-title">
+                    <span>📄</span>
+                    Question Papers
+                </h2>
 
-          <div class="submission-status-box">
-            <div class="status-label">Photos Submitted</div>
-            <div id="submissionStatusPhotos"
-                 class="status-value">-</div>
-          </div>
-
-
-          <div class="submission-status-box">
-            <div class="status-label">Submitted On</div>
-            <div id="submissionStatusDate"
-                 class="status-value">-</div>
-          </div>
-
-
-          <div class="submission-status-box">
-            <div class="status-label">Edit</div>
-            <div id="submissionStatusEdit"
-                 class="status-value">
-              Available once
+                <p class="section-subtitle">
+                    Select a subject to view your assigned question papers.
+                </p>
             </div>
-          </div>
+
+        </div>
+
+        <div id="papersContainer">
+
+            <div class="empty">
+                <div class="empty-icon">📄</div>
+                <p>Select a subject to view question papers.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ANSWER SHEET SUBMISSION -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2 class="section-title">
+                    <span>📷</span>
+                    Answer Sheet Submission
+                </h2>
+
+                <p class="section-subtitle">
+                    Upload or capture your answer-sheet pages.
+                    Maximum 20 photos per submission.
+                </p>
+            </div>
 
         </div>
 
 
-        <div id="submissionStatusNote"
-             class="submission-status-note">
-          Your answer sheet has been submitted successfully.
-        </div>
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label for="submissionSubject">
+                    Subject
+                </label>
+
+                <select
+                    id="submissionSubject"
+                    class="form-control"
+                    onchange="onSubmissionSubjectChange()">
+
+                    <option value="">
+                        Select Subject
+                    </option>
+
+                </select>
+
+            </div>
 
 
-        <div id="editSubmissionRow"
-             class="button-row"
-             style="margin-top:13px;">
+            <div class="form-group">
 
-          <button id="editSubmissionBtn"
-                  type="button"
-                  class="btn btn-outline"
-                  onclick="startEditSubmission()">
-            ✏️ Edit Answer Sheet Once
-          </button>
+                <label for="submissionPaper">
+                    Question Paper
+                </label>
 
-        </div>
+                <select
+                    id="submissionPaper"
+                    class="form-control"
+                    onchange="onSubmissionPaperChange()">
 
-      </div>
+                    <option value="">
+                        Select Question Paper
+                    </option>
 
+                </select>
 
-      <!-- MESSAGE -->
-
-      <div id="submissionMessage"
-           class="hidden"
-           style="
-             padding:11px 13px;
-             border-radius:10px;
-             margin-bottom:14px;
-             font-size:11px;
-             line-height:1.5;
-           ">
-      </div>
-
-
-      <!-- UPLOAD AREA -->
-
-      <div id="submissionUploadArea"
-           class="upload-area">
-
-        <div class="upload-icon">
-          📷
-        </div>
-
-        <div class="upload-title">
-          Upload Your Answer Sheet
-        </div>
-
-        <div class="upload-description">
-          Take photos using your camera or select photos from your gallery.
-          Please upload pages in the correct order.
-        </div>
-
-
-        <div class="button-row"
-             style="justify-content:center;">
-
-          <button type="button"
-                  class="btn btn-primary"
-                  onclick="openCamera()">
-            📷 Open Camera
-          </button>
-
-
-          <button type="button"
-                  class="btn btn-outline"
-                  onclick="document.getElementById('galleryInput').click()">
-            🖼️ Choose from Gallery
-          </button>
+            </div>
 
         </div>
 
 
-        <input
-          type="file"
-          id="galleryInput"
-          class="file-input"
-          accept="image/*"
-          multiple
-          onchange="handleGallery(event)"
-        >
-
-      </div>
+        <div
+            id="submissionStatus"
+            class="status-box">
+        </div>
 
 
-      <!-- PHOTO PREVIEW -->
+        <div
+            id="submissionArea"
+            class="hidden"
+            style="margin-top:18px;">
 
-      <div id="photoArea"
-           class="photo-area hidden">
+            <div class="file-input">
 
-        <div class="photo-area-header">
+                <label
+                    style="display:block;font-weight:600;font-size:13px;margin-bottom:8px;">
 
-          <div id="photoCount"
-               class="photo-count">
-            0 photos selected
-          </div>
+                    Select Answer Sheet Photos
 
-          <div class="photo-limit">
-            Maximum 20 photos
-          </div>
+                </label>
+
+                <input
+                    id="photoInput"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onchange="handlePhotoFiles(event)">
+
+                <p
+                    style="font-size:12px;color:#6b7280;margin-top:8px;">
+
+                    You can select multiple images.
+                    Maximum 20 pages.
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="upload-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="openCamera()">
+
+                    📷 Open Camera
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    onclick="document.getElementById('photoInput').click()">
+
+                    🖼️ Choose Photos
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="clearPhotos()">
+
+                    Clear Photos
+
+                </button>
+
+            </div>
+
+
+            <!-- CAMERA -->
+
+            <div
+                id="cameraBox"
+                class="camera-box">
+
+                <video
+                    id="cameraVideo"
+                    autoplay
+                    playsinline>
+                </video>
+
+                <div class="camera-controls">
+
+                    <button
+                        type="button"
+                        class="btn btn-success"
+                        onclick="capturePhoto()">
+
+                        📸 Capture
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        onclick="closeCamera()">
+
+                        Close Camera
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="photoPreview"
+                class="preview-grid">
+            </div>
+
+
+            <div
+                style="margin-top:12px;font-size:13px;color:#6b7280;">
+
+                Selected Pages:
+                <strong id="photoCount">
+                    0
+                </strong>
+                / 20
+
+            </div>
+
+
+            <div
+                class="upload-actions">
+
+                <button
+                    id="submitButton"
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="submitAnswerSheet()">
+
+                    Submit Answer Sheet
+
+                </button>
+
+                <button
+                    id="editButton"
+                    type="button"
+                    class="btn btn-warning hidden"
+                    onclick="startEditSubmission()">
+
+                    Edit Submission
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div>
+                <h2 class="section-title">
+                    <span>🏆</span>
+                    My Results
+                </h2>
+
+                <p class="section-subtitle">
+                    View marks and remarks after your paper is checked.
+                </p>
+            </div>
 
         </div>
 
 
-        <div id="photoGrid"
-             class="photo-grid">
-        </div>
+        <div
+            id="resultsContainer">
 
-
-        <div class="button-row"
-             style="margin-top:15px;">
-
-          <button id="submitAnswerBtn"
-                  type="button"
-                  class="btn btn-success"
-                  onclick="submitAnswerSheet()">
-            📤 Submit Answer Sheet
-          </button>
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading results...
+            </div>
 
         </div>
 
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       RESULTS
-       ===================================================== -->
-
-  <section class="section" id="resultsSection">
-
-    <div class="section-header">
-
-      <div class="section-title-wrap">
-
-        <div class="section-kicker">
-          Performance
-        </div>
-
-        <h2 class="section-title">
-          My Results
-        </h2>
-
-        <p class="section-description">
-          Your evaluated examination results and marks.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div id="resultsLoading"
-         class="loading-card">
-
-      <div class="loading-icon">⏳</div>
-
-      <div class="loading-text">
-        Loading your results...
-      </div>
-
-    </div>
-
-
-    <div id="resultsEmpty"
-         class="empty-card hidden">
-
-      <div class="empty-icon">🏆</div>
-
-      <div class="empty-title">
-        No results available
-      </div>
-
-      <div class="empty-description">
-        Your results will appear here after evaluation.
-      </div>
-
-    </div>
-
-
-    <div id="resultsContainer"
-         class="result-grid">
-    </div>
-
-  </section>
-
-
-  <div class="footer">
-    Online Exam Portal • Student Dashboard
-  </div>
+    </section>
 
 </main>
 
 
-<!-- =======================================================
-     CAMERA MODAL
-     ======================================================= -->
-
-<div id="cameraModal"
-     class="modal hidden">
-
-  <div class="modal-box">
-
-    <div class="modal-header">
-
-      <div class="modal-title">
-        📷 Take Answer Sheet Photo
-      </div>
-
-      <button type="button"
-              class="close-btn"
-              onclick="closeCamera()">
-        ×
-      </button>
-
-    </div>
-
-
-    <div class="camera-body">
-
-      <video id="cameraVideo"
-             class="camera-video"
-             autoplay
-             playsinline>
-      </video>
-
-
-      <div class="camera-actions">
-
-        <button type="button"
-                class="btn btn-primary"
-                onclick="capturePhoto()">
-          📸 Capture Photo
-        </button>
-
-        <button type="button"
-                class="btn btn-outline"
-                onclick="closeCamera()">
-          Close
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =======================================================
-     TOAST
-     ======================================================= -->
-
-<div id="toast"
-     class="toast">
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =========================================================
-   CONFIGURATION
-   ========================================================= */
+   API
+========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
+async function api(action, data = {}) {
+
+    const payload = {
+        action: action,
+        ...data
+    };
+
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    const text = await response.text();
+
+    let result;
+
+    try {
+        result = JSON.parse(text);
+    } catch (error) {
+        throw new Error(
+            "Invalid server response."
+        );
+    }
+
+    if (result && result.success === false) {
+        throw new Error(
+            result.message || "Request failed."
+        );
+    }
+
+    return result;
+}
+
+
 /* =========================================================
    GLOBAL VARIABLES
-   ========================================================= */
+========================================================= */
 
 let studentId = "";
 let studentName = "";
@@ -2017,3145 +1148,3389 @@ let selectedPhotos = [];
 let cameraStream = null;
 
 let editingSubmission = false;
+let editCount = 0;
 
 
 /* =========================================================
-   SAFE VALUE HELPER
-   ========================================================= */
+   PAGE LOAD
+========================================================= */
 
-function getValue(obj, keys){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-  if(!obj) return "";
+        loadStudentSession();
 
-  for(let i = 0; i < keys.length; i++){
+    }
+);
 
-    const key = keys[i];
+
+/* =========================================================
+   ROBUST STUDENT SESSION
+   IMPORTANT:
+   This section is the main fix.
+   Code.gs is NOT changed.
+========================================================= */
+
+function cleanSessionValue(value){
 
     if(
-      Object.prototype.hasOwnProperty.call(obj,key) &&
-      obj[key] !== null &&
-      obj[key] !== undefined &&
-      String(obj[key]).trim() !== ""
+        value === null ||
+        value === undefined
     ){
-      return obj[key];
+        return "";
     }
-  }
 
-  return "";
+    if(
+        typeof value === "object"
+    ){
+        return "";
+    }
+
+    return String(value).trim();
 }
 
 
-/* =========================================================
-   API
-   ========================================================= */
+function getStorageValue(keys){
 
-async function api(action, data = {}){
+    for(
+        const key of keys
+    ){
 
-  const payload = {
-    action: action,
-    ...data
-  };
+        try{
 
-  const response = await fetch(API_URL, {
-    method:"POST",
-    headers:{
-      "Content-Type":"text/plain;charset=utf-8"
-    },
-    body:JSON.stringify(payload)
-  });
+            const value =
+                localStorage.getItem(key);
 
-  const text = await response.text();
+            if(
+                value !== null &&
+                String(value).trim() !== ""
+            ){
 
-  let result;
+                return String(value).trim();
 
-  try{
-    result = JSON.parse(text);
-  }catch(error){
-    throw new Error("Invalid server response.");
-  }
+            }
 
-  if(result && result.success === false){
-    throw new Error(result.message || "Request failed.");
-  }
+        }catch(error){}
 
-  return result;
+    }
+
+    return "";
 }
 
 
-/* =========================================================
-   INITIALIZE
-   ========================================================= */
+function getObjectValue(obj, keys){
 
-document.addEventListener("DOMContentLoaded", function(){
+    if(
+        !obj ||
+        typeof obj !== "object"
+    ){
 
-  loadStudentSession();
+        return "";
 
-});
+    }
+
+    for(
+        const key of keys
+    ){
+
+        if(
+            obj[key] !== undefined &&
+            obj[key] !== null &&
+            String(obj[key]).trim() !== ""
+        ){
+
+            return String(
+                obj[key]
+            ).trim();
+
+        }
+
+    }
+
+    return "";
+}
 
 
-/* =========================================================
-   STUDENT SESSION
-   ========================================================= */
+function readStoredObject(keys){
+
+    for(
+        const key of keys
+    ){
+
+        try{
+
+            const raw =
+                localStorage.getItem(key);
+
+            if(!raw){
+                continue;
+            }
+
+            try{
+
+                const obj =
+                    JSON.parse(raw);
+
+                if(
+                    obj &&
+                    typeof obj === "object"
+                ){
+
+                    return obj;
+
+                }
+
+            }catch(error){
+
+                /* Not JSON.
+                   Continue checking. */
+
+            }
+
+        }catch(error){}
+
+    }
+
+    return null;
+}
+
 
 function loadStudentSession(){
 
-  const possibleIdKeys = [
-    "studentId",
-    "studentID",
-    "student_id",
-    "loggedInStudentId"
-  ];
-
-  const possibleNameKeys = [
-    "studentName",
-    "student_name",
-    "loggedInStudentName"
-  ];
+    let foundId = "";
+    let foundName = "";
 
 
-  for(let i=0;i<possibleIdKeys.length;i++){
+    /* -----------------------------------------
+       1. Standard Student ID keys
+    ----------------------------------------- */
 
-    const value = localStorage.getItem(possibleIdKeys[i]);
-
-    if(value){
-      studentId = value;
-      break;
-    }
-
-  }
-
-
-  for(let i=0;i<possibleNameKeys.length;i++){
-
-    const value = localStorage.getItem(possibleNameKeys[i]);
-
-    if(value){
-      studentName = value;
-      break;
-    }
-
-  }
+    foundId = getStorageValue([
+        "studentId",
+        "studentID",
+        "student_id",
+        "loggedInStudentId",
+        "loggedInStudentID",
+        "userId",
+        "userID",
+        "loginId",
+        "loginID",
+        "Student ID",
+        "StudentID",
+        "student"
+    ]);
 
 
-  /* Try stored student object */
+    /* -----------------------------------------
+       2. Standard Student Name keys
+    ----------------------------------------- */
 
-  try{
+    foundName = getStorageValue([
+        "studentName",
+        "student_name",
+        "loggedInStudentName",
+        "loggedInStudent",
+        "userName",
+        "username",
+        "name",
+        "Name",
+        "Student Name",
+        "StudentName"
+    ]);
 
-    const stored =
-      localStorage.getItem("student");
 
-    if(stored){
+    /* -----------------------------------------
+       3. Check stored user objects
+    ----------------------------------------- */
 
-      const student =
-        JSON.parse(stored);
-
-      studentId =
-        studentId ||
-        getValue(student,[
-          "Student ID",
-          "studentId",
-          "studentID",
-          "id",
-          "ID"
+    const storedUser =
+        readStoredObject([
+            "student",
+            "loggedInUser",
+            "currentUser",
+            "user",
+            "loginUser",
+            "studentData",
+            "userData"
         ]);
 
-      studentName =
-        studentName ||
-        getValue(student,[
-          "Student Name",
-          "studentName",
-          "name",
-          "Name"
-        ]);
+
+    if(storedUser){
+
+        if(!foundId){
+
+            foundId =
+                getObjectValue(
+                    storedUser,
+                    [
+                        "Student ID",
+                        "StudentID",
+                        "studentId",
+                        "studentID",
+                        "student_id",
+                        "id",
+                        "ID",
+                        "userId",
+                        "userID",
+                        "loginId",
+                        "loginID"
+                    ]
+                );
+
+        }
+
+
+        if(!foundName){
+
+            foundName =
+                getObjectValue(
+                    storedUser,
+                    [
+                        "Student Name",
+                        "StudentName",
+                        "studentName",
+                        "student_name",
+                        "name",
+                        "Name",
+                        "userName",
+                        "username"
+                    ]
+                );
+
+        }
+
+
+        /*
+         * If the login system stores role information,
+         * do not allow an Admin account to use student.html.
+         */
+
+        const role =
+            getObjectValue(
+                storedUser,
+                [
+                    "role",
+                    "Role",
+                    "userRole",
+                    "User Role",
+                    "type",
+                    "Type"
+                ]
+            ).toLowerCase();
+
+
+        if(
+            role === "admin" ||
+            role === "administrator"
+        ){
+
+            showToast(
+                "Please use the Admin dashboard.",
+                "warning"
+            );
+
+            setTimeout(
+                function(){
+                    window.location.href =
+                        "index.html";
+                },
+                1200
+            );
+
+            return;
+
+        }
 
     }
 
-  }catch(error){
-    console.warn(error);
-  }
+
+    /* -----------------------------------------
+       4. URL fallback
+       Supports:
+       student.html?studentId=ABC
+       student.html?id=ABC
+    ----------------------------------------- */
+
+    try{
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
 
 
-  if(!studentId){
+        if(!foundId){
 
-    showToast(
-      "Student session not found. Please login again.",
-      "error"
-    );
+            foundId =
+                cleanSessionValue(
+                    params.get("studentId") ||
+                    params.get("studentID") ||
+                    params.get("student_id") ||
+                    params.get("id") ||
+                    params.get("ID")
+                );
 
-    setTimeout(function(){
-
-      window.location.href = "index.html";
-
-    },1200);
-
-    return;
-  }
+        }
 
 
-  if(!studentName){
-    studentName = "Student";
-  }
+        if(!foundName){
+
+            foundName =
+                cleanSessionValue(
+                    params.get("studentName") ||
+                    params.get("student_name") ||
+                    params.get("name")
+                );
+
+        }
+
+    }catch(error){}
 
 
-  updateStudentHeader();
+    /* -----------------------------------------
+       5. Final validation
+    ----------------------------------------- */
 
-  loadDashboard();
+    foundId =
+        cleanSessionValue(foundId);
+
+    foundName =
+        cleanSessionValue(foundName);
+
+
+    if(!foundId){
+
+        showToast(
+            "Student session not found. Please login again.",
+            "error"
+        );
+
+        setTimeout(
+            function(){
+
+                window.location.href =
+                    "index.html";
+
+            },
+            1200
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * IMPORTANT:
+     * Save everything back into the standard keys.
+     *
+     * This means the rest of student.html
+     * always uses studentId/studentName.
+     */
+
+    studentId = foundId;
+
+    studentName =
+        foundName || "Student";
+
+
+    try{
+
+        localStorage.setItem(
+            "studentId",
+            studentId
+        );
+
+        localStorage.setItem(
+            "studentName",
+            studentName
+        );
+
+    }catch(error){}
+
+
+    updateStudentHeader();
+
+    loadDashboard();
 
 }
 
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 function updateStudentHeader(){
 
-  document.getElementById(
-    "headerStudentName"
-  ).textContent = studentName;
+    document.getElementById(
+        "headerStudentName"
+    ).textContent =
+        studentName || "Student";
 
 
-  document.getElementById(
-    "headerStudentId"
-  ).textContent = studentId;
+    document.getElementById(
+        "headerStudentId"
+    ).textContent =
+        studentId || "-";
 
 
-  document.getElementById(
-    "welcomeStudentName"
-  ).textContent = studentName;
-
-
-  const firstLetter =
-    String(studentName)
-      .trim()
-      .charAt(0)
-      .toUpperCase() || "S";
-
-
-  document.getElementById(
-    "studentAvatar"
-  ).textContent = firstLetter;
+    document.getElementById(
+        "welcomeStudent"
+    ).textContent =
+        "Welcome, " +
+        (studentName || "Student");
 
 }
 
 
 /* =========================================================
    DASHBOARD
-   ========================================================= */
+========================================================= */
 
 async function loadDashboard(){
 
-  try{
+    try{
 
-    await Promise.all([
-      loadSubjects(),
-      loadResults()
-    ]);
+        await Promise.all([
+            loadSubjects(),
+            loadResults()
+        ]);
 
-  }catch(error){
+    }catch(error){
 
-    console.error(error);
+        console.error(
+            "Dashboard error:",
+            error
+        );
 
-    showToast(
-      error.message || "Unable to load dashboard.",
-      "error"
-    );
+        showToast(
+            error.message ||
+            "Unable to load dashboard.",
+            "error"
+        );
 
-  }
+    }
 
 }
 
 
 /* =========================================================
-   LOAD SUBJECTS
-   ========================================================= */
+   SUBJECTS
+========================================================= */
 
 async function loadSubjects(){
 
-  const loading =
-    document.getElementById("subjectsLoading");
-
-  const empty =
-    document.getElementById("subjectsEmpty");
-
-  const container =
-    document.getElementById("subjectsContainer");
+    const container =
+        document.getElementById(
+            "subjectsContainer"
+        );
 
 
-  loading.classList.remove("hidden");
-  empty.classList.add("hidden");
-  container.innerHTML = "";
+    container.innerHTML =
+        `
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading subjects...
+        </div>
+        `;
 
 
-  try{
+    try{
 
-    const result =
-      await api("getSubjects",{
-        studentId:studentId
-      });
-
-
-    subjects =
-      extractArray(
-        result,
-        [
-          "subjects",
-          "data",
-          "rows",
-          "result"
-        ]
-      );
+        const response =
+            await api(
+                "getSubjects",
+                {
+                    studentId: studentId
+                }
+            );
 
 
-    loading.classList.add("hidden");
+        subjects =
+            Array.isArray(response)
+                ? response
+                : (
+                    Array.isArray(response.data)
+                        ? response.data
+                        : (
+                            Array.isArray(response.subjects)
+                                ? response.subjects
+                                : []
+                        )
+                );
 
 
-    document.getElementById(
-      "subjectCount"
-    ).textContent = subjects.length;
+        renderSubjects();
+
+        populateSubmissionSubjects();
+
+        document.getElementById(
+            "subjectCount"
+        ).textContent =
+            subjects.length;
 
 
-    if(!subjects.length){
+    }catch(error){
 
-      empty.classList.remove("hidden");
+        console.error(error);
 
-      return;
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <p>
+                    Unable to load assigned subjects.
+                </p>
+                <button
+                    class="btn btn-primary"
+                    style="margin-top:12px"
+                    onclick="loadSubjects()">
+                    Try Again
+                </button>
+            </div>
+            `;
+
     }
-
-
-    renderSubjects();
-
-  }catch(error){
-
-    loading.classList.add("hidden");
-
-    empty.classList.remove("hidden");
-
-    document.getElementById(
-      "subjectCount"
-    ).textContent = "0";
-
-    console.error("Subjects:",error);
-
-  }
 
 }
 
 
 /* =========================================================
    RENDER SUBJECTS
-   ========================================================= */
+========================================================= */
 
 function renderSubjects(){
 
-  const container =
-    document.getElementById(
-      "subjectsContainer"
-    );
+    const container =
+        document.getElementById(
+            "subjectsContainer"
+        );
+
+
+    if(
+        !subjects ||
+        subjects.length === 0
+    ){
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">📚</div>
+                <p>No subjects have been assigned yet.</p>
+            </div>
+            `;
+
+        return;
 
-  container.innerHTML = "";
-
-
-  subjects.forEach(function(subject,index){
-
-    const name =
-      getValue(subject,[
-        "Subject Name",
-        "subjectName",
-        "SubjectName",
-        "Name",
-        "name",
-        "Subject"
-      ]) || "Subject";
-
-
-    const code =
-      getValue(subject,[
-        "Subject Code",
-        "subjectCode",
-        "SubjectCode",
-        "Code",
-        "code"
-      ]) || "-";
-
-
-    const id =
-      getValue(subject,[
-        "Subject ID",
-        "subjectId",
-        "SubjectID",
-        "ID",
-        "id"
-      ]) || code;
-
-
-    const card =
-      document.createElement("div");
-
-    card.className = "subject-card";
-
-
-    card.innerHTML = `
-
-      <div class="subject-top">
-
-        <div class="subject-icon">
-          📚
-        </div>
-
-        <div class="subject-code">
-          ${escapeHTML(code)}
-        </div>
-
-      </div>
-
-
-      <div class="subject-name">
-        ${escapeHTML(name)}
-      </div>
-
-
-      <div class="subject-meta">
-        Subject ID: ${escapeHTML(id)}
-      </div>
-
-
-      <button
-        class="btn btn-primary subject-action"
-        onclick="openSubject(${index})">
-        View Question Papers →
-      </button>
-
-    `;
-
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   OPEN SUBJECT
-   ========================================================= */
-
-async function openSubject(index){
-
-  selectedSubject =
-    subjects[index] || null;
-
-
-  if(!selectedSubject){
-    return;
-  }
-
-
-  const name =
-    getValue(selectedSubject,[
-      "Subject Name",
-      "subjectName",
-      "SubjectName",
-      "Name",
-      "name",
-      "Subject"
-    ]) || "Subject";
-
-
-  document.getElementById(
-    "papersDescription"
-  ).textContent =
-    "Question papers available for " + name + ".";
-
-
-  document.getElementById(
-    "papersSection"
-  ).classList.remove("hidden");
-
-
-  document.getElementById(
-    "submissionSection"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "papersSection"
-  ).scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
-
-
-  await loadPapers();
-
-}
-
-
-/* =========================================================
-   LOAD PAPERS
-   ========================================================= */
-
-async function loadPapers(){
-
-  const loading =
-    document.getElementById("papersLoading");
-
-  const empty =
-    document.getElementById("papersEmpty");
-
-  const container =
-    document.getElementById("papersContainer");
-
-
-  loading.classList.remove("hidden");
-  empty.classList.add("hidden");
-  container.innerHTML = "";
-
-
-  try{
-
-    const subjectId =
-      getValue(selectedSubject,[
-        "Subject ID",
-        "subjectId",
-        "SubjectID",
-        "ID",
-        "id"
-      ]);
-
-
-    const subjectCode =
-      getValue(selectedSubject,[
-        "Subject Code",
-        "subjectCode",
-        "SubjectCode",
-        "Code",
-        "code"
-      ]);
-
-
-    const result =
-      await api("getPapers",{
-
-        studentId:studentId,
-
-        subjectId:subjectId,
-
-        subjectCode:subjectCode
-
-      });
-
-
-    papers =
-      extractArray(
-        result,
-        [
-          "papers",
-          "questionPapers",
-          "data",
-          "rows",
-          "result"
-        ]
-      );
-
-
-    loading.classList.add("hidden");
-
-
-    document.getElementById(
-      "paperCount"
-    ).textContent = papers.length;
-
-
-    if(!papers.length){
-
-      empty.classList.remove("hidden");
-
-      return;
     }
 
 
-    renderPapers();
+    container.innerHTML =
+        `
+        <div class="subject-grid">
 
-  }catch(error){
+            ${
+                subjects.map(
+                    function(subject, index){
 
-    loading.classList.add("hidden");
+                        const subjectName =
+                            getField(
+                                subject,
+                                [
+                                    "Subject Name",
+                                    "subjectName",
+                                    "Subject",
+                                    "subject",
+                                    "name",
+                                    "Name"
+                                ]
+                            ) ||
+                            "Subject";
 
-    empty.classList.remove("hidden");
 
-    console.error("Papers:",error);
+                        const subjectCode =
+                            getField(
+                                subject,
+                                [
+                                    "Subject Code",
+                                    "subjectCode",
+                                    "Code",
+                                    "code"
+                                ]
+                            ) ||
+                            "-";
 
-  }
+
+                        const subjectId =
+                            getField(
+                                subject,
+                                [
+                                    "Subject ID",
+                                    "subjectId",
+                                    "subjectID",
+                                    "id",
+                                    "ID"
+                                ]
+                            ) ||
+                            subjectCode;
+
+
+                        return `
+                            <div class="subject-card">
+
+                                <h3>
+                                    ${escapeHtml(subjectName)}
+                                </h3>
+
+                                <div class="subject-code">
+                                    Code:
+                                    ${escapeHtml(subjectCode)}
+                                </div>
+
+                                <button
+                                    onclick="selectSubject(
+                                        '${escapeJs(subjectId)}',
+                                        '${escapeJs(subjectCode)}',
+                                        '${escapeJs(subjectName)}'
+                                    )">
+
+                                    View Question Papers
+
+                                </button>
+
+                            </div>
+                        `;
+
+                    }
+                ).join("")
+            }
+
+        </div>
+        `;
+
+}
+
+
+/* =========================================================
+   SELECT SUBJECT
+========================================================= */
+
+async function selectSubject(
+    subjectId,
+    subjectCode,
+    subjectName
+){
+
+    selectedSubject = {
+        id: subjectId,
+        code: subjectCode,
+        name: subjectName
+    };
+
+
+    await loadPapers(
+        subjectId,
+        subjectCode
+    );
+
+
+    const submissionSubject =
+        document.getElementById(
+            "submissionSubject"
+        );
+
+
+    if(submissionSubject){
+
+        submissionSubject.value =
+            subjectId;
+
+        await onSubmissionSubjectChange();
+
+    }
+
+}
+
+
+/* =========================================================
+   QUESTION PAPERS
+========================================================= */
+
+async function loadPapers(
+    subjectId,
+    subjectCode
+){
+
+    const container =
+        document.getElementById(
+            "papersContainer"
+        );
+
+
+    container.innerHTML =
+        `
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading question papers...
+        </div>
+        `;
+
+
+    try{
+
+        const response =
+            await api(
+                "getPapers",
+                {
+                    studentId: studentId,
+                    subjectId: subjectId,
+                    subjectCode: subjectCode
+                }
+            );
+
+
+        papers =
+            Array.isArray(response)
+                ? response
+                : (
+                    Array.isArray(response.data)
+                        ? response.data
+                        : (
+                            Array.isArray(response.papers)
+                                ? response.papers
+                                : []
+                        )
+                );
+
+
+        renderPapers();
+
+
+        document.getElementById(
+            "paperCount"
+        ).textContent =
+            papers.length;
+
+
+        updateSubmissionCount();
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <p>
+                    Unable to load question papers.
+                </p>
+                <button
+                    class="btn btn-primary"
+                    style="margin-top:12px"
+                    onclick="loadPapers(
+                        '${escapeJs(subjectId)}',
+                        '${escapeJs(subjectCode)}'
+                    )">
+                    Try Again
+                </button>
+            </div>
+            `;
+
+    }
 
 }
 
 
 /* =========================================================
    RENDER PAPERS
-   ========================================================= */
+========================================================= */
 
 function renderPapers(){
 
-  const container =
-    document.getElementById(
-      "papersContainer"
-    );
-
-  container.innerHTML = "";
+    const container =
+        document.getElementById(
+            "papersContainer"
+        );
 
 
-  papers.forEach(function(paper,index){
+    if(
+        !papers ||
+        papers.length === 0
+    ){
 
-    const title =
-      getPaperTitle(paper) ||
-      "Question Paper";
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">📄</div>
+                <p>
+                    No question papers are available for this subject.
+                </p>
+            </div>
+            `;
 
+        return;
 
-    const code =
-      getPaperCode(paper) ||
-      "-";
-
-
-    const totalMarks =
-      getValue(paper,[
-        "Total Marks",
-        "totalMarks",
-        "TotalMarks",
-        "Marks",
-        "marks"
-      ]) || "-";
+    }
 
 
-    const duration =
-      getValue(paper,[
-        "Duration",
-        "duration",
-        "Exam Duration",
-        "examDuration"
-      ]) || "-";
+    container.innerHTML =
+        `
+        <div class="paper-list">
+
+            ${
+                papers.map(
+                    function(paper){
+
+                        const paperId =
+                            getField(
+                                paper,
+                                [
+                                    "Paper ID",
+                                    "paperId",
+                                    "paperID",
+                                    "id",
+                                    "ID"
+                                ]
+                            );
 
 
-    const status =
-      getValue(paper,[
-        "Status",
-        "status",
-        "Published",
-        "published"
-      ]) || "Available";
+                        const paperName =
+                            getField(
+                                paper,
+                                [
+                                    "Paper Name",
+                                    "paperName",
+                                    "Question Paper",
+                                    "questionPaper",
+                                    "Name",
+                                    "name"
+                                ]
+                            ) ||
+                            "Question Paper";
 
 
-    const card =
-      document.createElement("div");
+                        const subjectName =
+                            getField(
+                                paper,
+                                [
+                                    "Subject Name",
+                                    "subjectName",
+                                    "Subject",
+                                    "subject"
+                                ]
+                            ) ||
+                            (
+                                selectedSubject
+                                    ? selectedSubject.name
+                                    : ""
+                            );
 
-    card.className = "paper-card";
+
+                        const totalMarks =
+                            getField(
+                                paper,
+                                [
+                                    "Total Marks",
+                                    "totalMarks",
+                                    "Marks",
+                                    "marks"
+                                ]
+                            );
 
 
-    card.innerHTML = `
+                        const duration =
+                            getField(
+                                paper,
+                                [
+                                    "Duration",
+                                    "duration",
+                                    "Exam Duration"
+                                ]
+                            );
 
-      <div class="paper-header">
 
-        <div class="paper-icon">
-          📄
+                        const pdfUrl =
+                            getField(
+                                paper,
+                                [
+                                    "PDF URL",
+                                    "pdfUrl",
+                                    "PDF",
+                                    "pdf",
+                                    "Question Paper URL",
+                                    "File URL",
+                                    "fileUrl"
+                                ]
+                            );
+
+
+                        return `
+                            <div class="paper-card">
+
+                                <div class="paper-info">
+
+                                    <h3>
+                                        ${escapeHtml(paperName)}
+                                    </h3>
+
+                                    <p>
+                                        <strong>Paper ID:</strong>
+                                        ${escapeHtml(paperId || "-")}
+                                    </p>
+
+                                    <p>
+                                        <strong>Subject:</strong>
+                                        ${escapeHtml(subjectName)}
+                                    </p>
+
+                                    ${
+                                        totalMarks
+                                            ? `
+                                            <p>
+                                                <strong>Total Marks:</strong>
+                                                ${escapeHtml(totalMarks)}
+                                            </p>
+                                            `
+                                            : ""
+                                    }
+
+                                    ${
+                                        duration
+                                            ? `
+                                            <p>
+                                                <strong>Duration:</strong>
+                                                ${escapeHtml(duration)}
+                                            </p>
+                                            `
+                                            : ""
+                                    }
+
+                                </div>
+
+
+                                <div class="paper-actions">
+
+                                    ${
+                                        pdfUrl
+                                            ? `
+                                            <button
+                                                class="btn btn-secondary"
+                                                onclick="openPaper(
+                                                    '${escapeJs(pdfUrl)}'
+                                                )">
+
+                                                📄 Open / Download
+
+                                            </button>
+                                            `
+                                            : ""
+                                    }
+
+
+                                    <button
+                                        class="btn btn-primary"
+                                        onclick="selectPaper(
+                                            '${escapeJs(paperId)}'
+                                        )">
+
+                                        📝 Submit Answer
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+                        `;
+
+                    }
+                ).join("")
+            }
+
         </div>
-
-        <div class="paper-main">
-
-          <div class="paper-title">
-            ${escapeHTML(title)}
-          </div>
-
-          <div class="paper-code">
-            Paper Code: ${escapeHTML(code)}
-          </div>
-
-          <div class="paper-badge">
-            ${escapeHTML(status)}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="paper-details">
-
-        <div class="paper-detail">
-
-          <div class="detail-label">
-            Marks
-          </div>
-
-          <div class="detail-value">
-            ${escapeHTML(String(totalMarks))}
-          </div>
-
-        </div>
-
-
-        <div class="paper-detail">
-
-          <div class="detail-label">
-            Duration
-          </div>
-
-          <div class="detail-value">
-            ${escapeHTML(String(duration))}
-          </div>
-
-        </div>
-
-
-        <div class="paper-detail">
-
-          <div class="detail-label">
-            Subject
-          </div>
-
-          <div class="detail-value">
-            ${escapeHTML(
-              getPaperSubjectName(paper) || "-"
-            )}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="paper-actions">
-
-        <button
-          class="btn btn-outline"
-          onclick="viewPaper(${index})">
-          📄 View Paper
-        </button>
-
-
-        <button
-          class="btn btn-primary"
-          onclick="selectPaper(${index})">
-          📝 Answer Sheet
-        </button>
-
-      </div>
-
-    `;
-
-
-    container.appendChild(card);
-
-  });
+        `;
 
 }
 
 
 /* =========================================================
-   VIEW PAPER
-   ========================================================= */
+   OPEN PAPER
+========================================================= */
 
-function viewPaper(index){
+function openPaper(url){
 
-  const paper =
-    papers[index];
+    if(!url){
 
-  if(!paper){
-    return;
-  }
+        showToast(
+            "Question paper file is not available.",
+            "error"
+        );
 
+        return;
 
-  const url =
-    getValue(paper,[
-      "PDF URL",
-      "pdfUrl",
-      "PDFUrl",
-      "File URL",
-      "fileUrl",
-      "FileURL",
-      "URL",
-      "url",
-      "Question Paper URL",
-      "questionPaperUrl"
-    ]);
+    }
 
-
-  if(!url){
-
-    showToast(
-      "Question paper PDF is not available.",
-      "warning"
+    window.open(
+        url,
+        "_blank"
     );
-
-    return;
-  }
-
-
-  window.open(
-    url,
-    "_blank"
-  );
 
 }
 
 
 /* =========================================================
-   SELECT PAPER
-   ========================================================= */
+   SELECT PAPER FOR SUBMISSION
+========================================================= */
 
-async function selectPaper(index){
+async function selectPaper(paperId){
 
-  selectedPaper =
-    papers[index] || null;
+    const paper =
+        papers.find(
+            function(item){
 
+                return String(
+                    getField(
+                        item,
+                        [
+                            "Paper ID",
+                            "paperId",
+                            "paperID",
+                            "id",
+                            "ID"
+                        ]
+                    )
+                ) === String(paperId);
 
-  if(!selectedPaper){
-    return;
-  }
-
-
-  editingSubmission = false;
-
-  selectedPhotos = [];
-
-  renderPhotoPreview();
-
-
-  document.getElementById(
-    "submissionSection"
-  ).classList.remove("hidden");
-
-
-  document.getElementById(
-    "submissionSection"
-  ).scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
+            }
+        );
 
 
-  resetSubmissionUI();
+    if(!paper){
+
+        showToast(
+            "Question paper not found.",
+            "error"
+        );
+
+        return;
+
+    }
 
 
-  await checkSubmission();
+    selectedPaper = paper;
+
+
+    const subjectId =
+        getField(
+            paper,
+            [
+                "Subject ID",
+                "subjectId",
+                "subjectID"
+            ]
+        ) ||
+        (
+            selectedSubject
+                ? selectedSubject.id
+                : ""
+        );
+
+
+    const submissionSubject =
+        document.getElementById(
+            "submissionSubject"
+        );
+
+
+    if(subjectId){
+
+        submissionSubject.value =
+            subjectId;
+
+    }
+
+
+    await populateSubmissionPapers(
+        subjectId
+    );
+
+
+    const submissionPaper =
+        document.getElementById(
+            "submissionPaper"
+        );
+
+
+    submissionPaper.value =
+        paperId;
+
+
+    resetSubmissionUI();
+
+    await checkSubmission();
+
+    document.getElementById(
+        "submissionArea"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "submissionArea"
+    ).scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
 
 }
 
 
 /* =========================================================
-   RESET SUBMISSION UI
-   ========================================================= */
+   SUBMISSION SUBJECTS
+========================================================= */
 
-function resetSubmissionUI(){
+function populateSubmissionSubjects(){
 
-  const statusCard =
-    document.getElementById(
-      "submissionStatusCard"
+    const select =
+        document.getElementById(
+            "submissionSubject"
+        );
+
+
+    if(!select){
+        return;
+    }
+
+
+    select.innerHTML =
+        `<option value="">Select Subject</option>`;
+
+
+    subjects.forEach(
+        function(subject){
+
+            const id =
+                getField(
+                    subject,
+                    [
+                        "Subject ID",
+                        "subjectId",
+                        "subjectID",
+                        "id",
+                        "ID"
+                    ]
+                );
+
+
+            const code =
+                getField(
+                    subject,
+                    [
+                        "Subject Code",
+                        "subjectCode",
+                        "Code",
+                        "code"
+                    ]
+                );
+
+
+            const name =
+                getField(
+                    subject,
+                    [
+                        "Subject Name",
+                        "subjectName",
+                        "Subject",
+                        "subject",
+                        "name",
+                        "Name"
+                    ]
+                ) ||
+                "Subject";
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                id || code;
+
+
+            option.textContent =
+                code
+                    ? `${name} (${code})`
+                    : name;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
     );
-
-  const uploadArea =
-    document.getElementById(
-      "submissionUploadArea"
-    );
-
-  const photoArea =
-    document.getElementById(
-      "photoArea"
-    );
-
-  const editRow =
-    document.getElementById(
-      "editSubmissionRow"
-    );
-
-
-  statusCard.classList.add("hidden");
-
-  statusCard.classList.remove("pending");
-
-  uploadArea.classList.remove("hidden");
-
-  photoArea.classList.add("hidden");
-
-  editRow.classList.add("hidden");
-
-
-  showSubmissionMessage(
-    "",
-    ""
-  );
 
 }
 
 
 /* =========================================================
-   CHECK SUBMISSION
-   ========================================================= */
+   SUBMISSION SUBJECT CHANGE
+========================================================= */
+
+async function onSubmissionSubjectChange(){
+
+    const subjectId =
+        document.getElementById(
+            "submissionSubject"
+        ).value;
+
+
+    const paperSelect =
+        document.getElementById(
+            "submissionPaper"
+        );
+
+
+    paperSelect.innerHTML =
+        `<option value="">Loading...</option>`;
+
+
+    if(!subjectId){
+
+        paperSelect.innerHTML =
+            `<option value="">Select Question Paper</option>`;
+
+        document.getElementById(
+            "submissionArea"
+        ).classList.add("hidden");
+
+        return;
+
+    }
+
+
+    const subject =
+        subjects.find(
+            function(item){
+
+                const id =
+                    getField(
+                        item,
+                        [
+                            "Subject ID",
+                            "subjectId",
+                            "subjectID",
+                            "id",
+                            "ID"
+                        ]
+                    );
+
+                return String(id) ===
+                    String(subjectId);
+
+            }
+        );
+
+
+    const subjectCode =
+        subject
+            ? getField(
+                subject,
+                [
+                    "Subject Code",
+                    "subjectCode",
+                    "Code",
+                    "code"
+                ]
+            )
+            : "";
+
+
+    try{
+
+        const response =
+            await api(
+                "getPapers",
+                {
+                    studentId: studentId,
+                    subjectId: subjectId,
+                    subjectCode: subjectCode
+                }
+            );
+
+
+        const subjectPapers =
+            Array.isArray(response)
+                ? response
+                : (
+                    Array.isArray(response.data)
+                        ? response.data
+                        : (
+                            Array.isArray(response.papers)
+                                ? response.papers
+                                : []
+                        )
+                );
+
+
+        paperSelect.innerHTML =
+            `<option value="">Select Question Paper</option>`;
+
+
+        subjectPapers.forEach(
+            function(paper){
+
+                const paperId =
+                    getField(
+                        paper,
+                        [
+                            "Paper ID",
+                            "paperId",
+                            "paperID",
+                            "id",
+                            "ID"
+                        ]
+                    );
+
+
+                const paperName =
+                    getField(
+                        paper,
+                        [
+                            "Paper Name",
+                            "paperName",
+                            "Question Paper",
+                            "questionPaper",
+                            "Name",
+                            "name"
+                        ]
+                    ) ||
+                    "Question Paper";
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    paperId;
+
+
+                option.textContent =
+                    paperName +
+                    (
+                        paperId
+                            ? " (" + paperId + ")"
+                            : ""
+                    );
+
+
+                paperSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        paperSelect.innerHTML =
+            `<option value="">Unable to load papers</option>`;
+
+        showToast(
+            error.message ||
+            "Unable to load question papers.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   POPULATE SUBMISSION PAPERS
+========================================================= */
+
+async function populateSubmissionPapers(
+    subjectId
+){
+
+    const subject =
+        subjects.find(
+            function(item){
+
+                const id =
+                    getField(
+                        item,
+                        [
+                            "Subject ID",
+                            "subjectId",
+                            "subjectID",
+                            "id",
+                            "ID"
+                        ]
+                    );
+
+                return String(id) ===
+                    String(subjectId);
+
+            }
+        );
+
+
+    const subjectCode =
+        subject
+            ? getField(
+                subject,
+                [
+                    "Subject Code",
+                    "subjectCode",
+                    "Code",
+                    "code"
+                ]
+            )
+            : "";
+
+
+    try{
+
+        const response =
+            await api(
+                "getPapers",
+                {
+                    studentId: studentId,
+                    subjectId: subjectId,
+                    subjectCode: subjectCode
+                }
+            );
+
+
+        const subjectPapers =
+            Array.isArray(response)
+                ? response
+                : (
+                    Array.isArray(response.data)
+                        ? response.data
+                        : (
+                            Array.isArray(response.papers)
+                                ? response.papers
+                                : []
+                        )
+                );
+
+
+        const select =
+            document.getElementById(
+                "submissionPaper"
+            );
+
+
+        select.innerHTML =
+            `<option value="">Select Question Paper</option>`;
+
+
+        subjectPapers.forEach(
+            function(paper){
+
+                const paperId =
+                    getField(
+                        paper,
+                        [
+                            "Paper ID",
+                            "paperId",
+                            "paperID",
+                            "id",
+                            "ID"
+                        ]
+                    );
+
+
+                const paperName =
+                    getField(
+                        paper,
+                        [
+                            "Paper Name",
+                            "paperName",
+                            "Question Paper",
+                            "questionPaper",
+                            "Name",
+                            "name"
+                        ]
+                    ) ||
+                    "Question Paper";
+
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                option.value =
+                    paperId;
+
+
+                option.textContent =
+                    paperName +
+                    (
+                        paperId
+                            ? " (" + paperId + ")"
+                            : ""
+                    );
+
+
+                select.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =========================================================
+   PAPER CHANGE
+========================================================= */
+
+async function onSubmissionPaperChange(){
+
+    const paperId =
+        document.getElementById(
+            "submissionPaper"
+        ).value;
+
+
+    if(!paperId){
+
+        document.getElementById(
+            "submissionArea"
+        ).classList.add("hidden");
+
+        return;
+
+    }
+
+
+    const paper =
+        papers.find(
+            function(item){
+
+                return String(
+                    getField(
+                        item,
+                        [
+                            "Paper ID",
+                            "paperId",
+                            "paperID",
+                            "id",
+                            "ID"
+                        ]
+                    )
+                ) === String(paperId);
+
+            }
+        );
+
+
+    if(paper){
+
+        selectedPaper =
+            paper;
+
+    }
+
+
+    resetSubmissionUI();
+
+    await checkSubmission();
+
+
+    document.getElementById(
+        "submissionArea"
+    ).classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   CHECK EXISTING SUBMISSION
+========================================================= */
 
 async function checkSubmission(){
 
-  if(!selectedPaper){
-    return;
-  }
+    const paperId =
+        document.getElementById(
+            "submissionPaper"
+        ).value;
 
 
-  const paperId =
-    getPaperId(selectedPaper);
+    if(!paperId){
+
+        return;
+
+    }
 
 
-  if(!paperId){
-    return;
-  }
+    const statusBox =
+        document.getElementById(
+            "submissionStatus"
+        );
 
 
-  try{
+    statusBox.className =
+        "status-box status-info";
 
-    const result =
-      await api(
-        "getStudentSubmissionStatus",
-        {
-          studentId:studentId,
-          paperId:paperId
+
+    statusBox.textContent =
+        "Checking previous submission...";
+
+
+    try{
+
+        const response =
+            await api(
+                "getStudentSubmissionStatus",
+                {
+                    studentId: studentId,
+                    paperId: paperId
+                }
+            );
+
+
+        const data =
+            response &&
+            response.data
+                ? response.data
+                : response;
+
+
+        const submitted =
+            Boolean(
+                data &&
+                (
+                    data.submitted ||
+                    data.Submitted ||
+                    data.exists ||
+                    data.status === "Submitted"
+                )
+            );
+
+
+        const photos =
+            data &&
+            (
+                data.photos ||
+                data.photoUrls
+            );
+
+
+        if(submitted){
+
+            statusBox.className =
+                "status-box status-success";
+
+
+            statusBox.innerHTML =
+                "✅ Your answer sheet has already been submitted.";
+
+
+            document.getElementById(
+                "submitButton"
+            ).classList.add("hidden");
+
+
+            document.getElementById(
+                "editButton"
+            ).classList.remove("hidden");
+
+
+            if(
+                Array.isArray(photos) &&
+                photos.length
+            ){
+
+                renderExistingPhotos(
+                    photos
+                );
+
+            }
+
+        }else{
+
+            statusBox.className =
+                "status-box status-info";
+
+
+            statusBox.innerHTML =
+                "You can upload your answer sheet now.";
+
+
+            document.getElementById(
+                "submitButton"
+            ).classList.remove("hidden");
+
+
+            document.getElementById(
+                "editButton"
+            ).classList.add("hidden");
+
         }
-      );
 
 
-    let submission =
-      result.submission ||
-      result.data ||
-      result.result ||
-      null;
+    }catch(error){
+
+        console.error(error);
+
+        statusBox.className =
+            "status-box status-warning";
 
 
-    if(Array.isArray(submission)){
-      submission =
-        submission[0] || null;
+        statusBox.textContent =
+            "No previous submission status could be loaded. You can continue with a new submission.";
+
     }
+
+}
+
+
+/* =========================================================
+   PHOTO FILES
+========================================================= */
+
+function handlePhotoFiles(event){
+
+    const files =
+        Array.from(
+            event.target.files || []
+        );
 
 
     if(
-      !submission ||
-      !isSubmissionRecordSubmitted(submission)
+        selectedPhotos.length +
+        files.length >
+        20
     ){
 
-      showSubmissionStatusNotSubmitted();
+        showToast(
+            "Maximum 20 photos are allowed.",
+            "warning"
+        );
 
-      return;
+        event.target.value = "";
+
+        return;
+
     }
 
 
-    showSubmissionStatusCard(
-      submission
+    files.forEach(
+        function(file){
+
+            if(
+                !file.type.startsWith(
+                    "image/"
+                )
+            ){
+
+                return;
+
+            }
+
+
+            selectedPhotos.push({
+                file: file,
+                url: URL.createObjectURL(file),
+                name: file.name,
+                mimeType: file.type,
+                uploaded: false
+            });
+
+        }
     );
 
 
-  }catch(error){
+    event.target.value = "";
 
-    console.warn(
-      "Submission status:",
-      error
-    );
-
-
-    /*
-      Do not show a false "submitted" message
-      when the status request fails.
-    */
-
-    document.getElementById(
-      "submissionUploadArea"
-    ).classList.remove("hidden");
-
-  }
-
-}
-
-
-/* =========================================================
-   SHOW NOT SUBMITTED
-   ========================================================= */
-
-function showSubmissionStatusNotSubmitted(){
-
-  const card =
-    document.getElementById(
-      "submissionStatusCard"
-    );
-
-  const uploadArea =
-    document.getElementById(
-      "submissionUploadArea"
-    );
-
-  const photoArea =
-    document.getElementById(
-      "photoArea"
-    );
-
-
-  card.classList.remove("hidden");
-
-  card.classList.add("pending");
-
-
-  document.getElementById(
-    "submissionStatusTitle"
-  ).textContent =
-    "Answer Sheet Not Submitted";
-
-
-  document.getElementById(
-    "submissionStatusBadge"
-  ).textContent =
-    "NOT SUBMITTED";
-
-
-  document.getElementById(
-    "submissionStatusSubject"
-  ).textContent =
-    getPaperSubjectName(
-      selectedPaper
-    ) || "-";
-
-
-  document.getElementById(
-    "submissionStatusPaper"
-  ).textContent =
-    getPaperTitle(
-      selectedPaper
-    ) || "-";
-
-
-  document.getElementById(
-    "submissionStatusCode"
-  ).textContent =
-    getPaperCode(
-      selectedPaper
-    ) || "-";
-
-
-  document.getElementById(
-    "submissionStatusPhotos"
-  ).textContent =
-    "0";
-
-
-  document.getElementById(
-    "submissionStatusDate"
-  ).textContent =
-    "-";
-
-
-  document.getElementById(
-    "submissionStatusEdit"
-  ).textContent =
-    "-";
-
-
-  document.getElementById(
-    "submissionStatusNote"
-  ).textContent =
-    "Please upload your answer sheet for this subject and question paper.";
-
-
-  document.getElementById(
-    "editSubmissionRow"
-  ).classList.add("hidden");
-
-
-  uploadArea.classList.remove("hidden");
-
-  photoArea.classList.add("hidden");
-
-}
-
-
-/* =========================================================
-   SHOW SUBMITTED STATUS
-   ========================================================= */
-
-function showSubmissionStatusCard(
-  submission
-){
-
-  const card =
-    document.getElementById(
-      "submissionStatusCard"
-    );
-
-  const uploadArea =
-    document.getElementById(
-      "submissionUploadArea"
-    );
-
-  const photoArea =
-    document.getElementById(
-      "photoArea"
-    );
-
-
-  const paperId =
-    getPaperId(selectedPaper);
-
-
-  const status =
-    getValue(submission,[
-      "Status",
-      "status",
-      "Submission Status",
-      "submissionStatus"
-    ]) || "Submitted";
-
-
-  const subject =
-    getValue(submission,[
-      "Subject Name",
-      "subjectName",
-      "SubjectName",
-      "Subject",
-      "subject"
-    ]) ||
-    getPaperSubjectName(
-      selectedPaper
-    ) ||
-    "-";
-
-
-  const title =
-    getValue(submission,[
-      "Paper Title",
-      "paperTitle",
-      "PaperTitle",
-      "Question Paper",
-      "questionPaper"
-    ]) ||
-    getPaperTitle(
-      selectedPaper
-    ) ||
-    "-";
-
-
-  const code =
-    getValue(submission,[
-      "Paper Code",
-      "paperCode",
-      "PaperCode",
-      "Code",
-      "code"
-    ]) ||
-    getPaperCode(
-      selectedPaper
-    ) ||
-    "-";
-
-
-  const photoCount =
-    getValue(submission,[
-      "Photo Count",
-      "photoCount",
-      "PhotoCount",
-      "Photos",
-      "photos",
-      "Page Count",
-      "pageCount"
-    ]) || "0";
-
-
-  const submittedAt =
-    getValue(submission,[
-      "Submitted At",
-      "submittedAt",
-      "SubmittedAt",
-      "Submission Date",
-      "submissionDate",
-      "Created At",
-      "createdAt",
-      "Timestamp",
-      "timestamp",
-      "Date",
-      "date"
-    ]) || "-";
-
-
-  const editState =
-    getSubmissionEditState(
-      submission,
-      paperId
-    );
-
-
-  card.classList.remove("hidden");
-
-  card.classList.remove("pending");
-
-
-  document.getElementById(
-    "submissionStatusTitle"
-  ).textContent =
-    "Your Answer Sheet Has Been Submitted";
-
-
-  document.getElementById(
-    "submissionStatusBadge"
-  ).textContent =
-    String(status)
-      .toUpperCase();
-
-
-  document.getElementById(
-    "submissionStatusSubject"
-  ).textContent =
-    subject;
-
-
-  document.getElementById(
-    "submissionStatusPaper"
-  ).textContent =
-    title;
-
-
-  document.getElementById(
-    "submissionStatusCode"
-  ).textContent =
-    code;
-
-
-  document.getElementById(
-    "submissionStatusPhotos"
-  ).textContent =
-    photoCount;
-
-
-  document.getElementById(
-    "submissionStatusDate"
-  ).textContent =
-    formatDate(submittedAt);
-
-
-  document.getElementById(
-    "submissionStatusEdit"
-  ).textContent =
-    editState.canEdit
-      ? "Available once"
-      : "Already used";
-
-
-  if(editState.canEdit){
-
-    document.getElementById(
-      "submissionStatusNote"
-    ).textContent =
-      "Your answer sheet has been submitted successfully. You can edit it once if you need to replace the submitted photos.";
-
-    document.getElementById(
-      "editSubmissionRow"
-    ).classList.remove("hidden");
-
-  }else{
-
-    document.getElementById(
-      "submissionStatusNote"
-    ).textContent =
-      "Your answer sheet has been submitted successfully. Your one-time edit has already been used.";
-
-    document.getElementById(
-      "editSubmissionRow"
-    ).classList.add("hidden");
-
-  }
-
-
-  uploadArea.classList.add("hidden");
-
-  photoArea.classList.add("hidden");
-
-}
-
-
-/* =========================================================
-   START ONE-TIME EDIT
-   ========================================================= */
-
-function startEditSubmission(){
-
-  if(!selectedPaper){
-    return;
-  }
-
-
-  const paperId =
-    getPaperId(selectedPaper);
-
-
-  if(getLocalEditUsed(paperId)){
-
-    showToast(
-      "Your one-time edit has already been used.",
-      "warning"
-    );
-
-    return;
-  }
-
-
-  editingSubmission = true;
-
-  selectedPhotos = [];
-
-  renderPhotoPreview();
-
-
-  document.getElementById(
-    "submissionStatusCard"
-  ).classList.add("hidden");
-
-
-  document.getElementById(
-    "submissionUploadArea"
-  ).classList.remove("hidden");
-
-
-  document.getElementById(
-    "photoArea"
-  ).classList.add("hidden");
-
-
-  showSubmissionMessage(
-    "Edit mode is active. Upload the replacement answer-sheet photos and submit them once.",
-    "success"
-  );
-
-
-  const submitButton =
-    document.getElementById(
-      "submitAnswerBtn"
-    );
-
-
-  submitButton.textContent =
-    "📤 Submit Edited Answer Sheet";
-
-}
-
-
-/* =========================================================
-   GALLERY
-   ========================================================= */
-
-function handleGallery(event){
-
-  const files =
-    Array.from(
-      event.target.files || []
-    );
-
-
-  if(!files.length){
-    return;
-  }
-
-
-  const remaining =
-    20 - selectedPhotos.length;
-
-
-  if(remaining <= 0){
-
-    showToast(
-      "Maximum 20 photos allowed.",
-      "warning"
-    );
-
-    return;
-  }
-
-
-  const selected =
-    files.slice(
-      0,
-      remaining
-    );
-
-
-  selected.forEach(function(file){
-
-    if(
-      !file.type ||
-      file.type.indexOf("image/") !== 0
-    ){
-      return;
-    }
-
-
-    selectedPhotos.push(file);
-
-  });
-
-
-  renderPhotoPreview();
-
-
-  document.getElementById(
-    "galleryInput"
-  ).value = "";
+    renderPhotoPreview();
 
 }
 
 
 /* =========================================================
    CAMERA
-   ========================================================= */
+========================================================= */
 
 async function openCamera(){
 
-  if(
-    selectedPhotos.length >= 20
-  ){
-
-    showToast(
-      "Maximum 20 photos allowed.",
-      "warning"
-    );
-
-    return;
-  }
+    const cameraBox =
+        document.getElementById(
+            "cameraBox"
+        );
 
 
-  const modal =
-    document.getElementById(
-      "cameraModal"
-    );
-
-  const video =
-    document.getElementById(
-      "cameraVideo"
-    );
+    const video =
+        document.getElementById(
+            "cameraVideo"
+        );
 
 
-  try{
+    try{
 
-    cameraStream =
-      await navigator.mediaDevices.getUserMedia({
-        video:{
-          facingMode:{
-            ideal:"environment"
-          }
-        },
-        audio:false
-      });
+        if(
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ){
 
+            showToast(
+                "Camera is not supported in this browser.",
+                "error"
+            );
 
-    video.srcObject =
-      cameraStream;
+            return;
 
-
-    modal.classList.remove(
-      "hidden"
-    );
+        }
 
 
-  }catch(error){
+        cameraStream =
+            await navigator.mediaDevices.getUserMedia({
+                video:{
+                    facingMode:"environment"
+                },
+                audio:false
+            });
 
-    console.error(error);
+
+        video.srcObject =
+            cameraStream;
 
 
-    showToast(
-      "Camera could not be opened. Please allow camera permission or use Gallery.",
-      "error"
-    );
+        cameraBox.style.display =
+            "block";
 
-  }
+
+    }catch(error){
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+
+        showToast(
+            "Camera could not be opened. Please allow camera permission or use Choose Photos.",
+            "error"
+        );
+
+    }
 
 }
 
 
-/* =========================================================
-   CAPTURE PHOTO
-   ========================================================= */
-
 function capturePhoto(){
 
-  if(!cameraStream){
-    return;
-  }
+    if(
+        selectedPhotos.length >= 20
+    ){
 
+        showToast(
+            "Maximum 20 photos are allowed.",
+            "warning"
+        );
 
-  if(selectedPhotos.length >= 20){
-
-    showToast(
-      "Maximum 20 photos allowed.",
-      "warning"
-    );
-
-    return;
-  }
-
-
-  const video =
-    document.getElementById(
-      "cameraVideo"
-    );
-
-
-  const canvas =
-    document.createElement(
-      "canvas"
-    );
-
-
-  canvas.width =
-    video.videoWidth;
-
-
-  canvas.height =
-    video.videoHeight;
-
-
-  const context =
-    canvas.getContext("2d");
-
-
-  context.drawImage(
-    video,
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-
-  canvas.toBlob(
-    function(blob){
-
-      if(!blob){
         return;
-      }
+
+    }
 
 
-      const file =
-        new File(
-          [blob],
-          "answer-page-" +
-          (selectedPhotos.length + 1) +
-          ".jpg",
-          {
-            type:"image/jpeg"
-          }
+    const video =
+        document.getElementById(
+            "cameraVideo"
         );
 
 
-      selectedPhotos.push(
-        file
-      );
+    if(
+        !video.videoWidth ||
+        !video.videoHeight
+    ){
+
+        showToast(
+            "Camera is not ready yet.",
+            "warning"
+        );
+
+        return;
+
+    }
 
 
-      renderPhotoPreview();
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
 
 
-      if(selectedPhotos.length >= 20){
+    canvas.width =
+        video.videoWidth;
 
-        closeCamera();
 
-      }
+    canvas.height =
+        video.videoHeight;
 
-    },
-    "image/jpeg",
-    .85
-  );
+
+    const context =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    canvas.toBlob(
+        function(blob){
+
+            if(!blob){
+                return;
+            }
+
+
+            const file =
+                new File(
+                    [
+                        blob
+                    ],
+                    "answer-page-" +
+                    (
+                        selectedPhotos.length + 1
+                    ) +
+                    ".jpg",
+                    {
+                        type:"image/jpeg"
+                    }
+                );
+
+
+            selectedPhotos.push({
+                file:file,
+                url:URL.createObjectURL(file),
+                name:file.name,
+                mimeType:"image/jpeg",
+                uploaded:false
+            });
+
+
+            renderPhotoPreview();
+
+        },
+        "image/jpeg",
+        0.90
+    );
 
 }
 
 
 /* =========================================================
    CLOSE CAMERA
-   ========================================================= */
+========================================================= */
 
 function closeCamera(){
 
-  if(cameraStream){
+    if(cameraStream){
 
-    cameraStream
-      .getTracks()
-      .forEach(function(track){
+        cameraStream
+            .getTracks()
+            .forEach(
+                function(track){
+                    track.stop();
+                }
+            );
 
-        track.stop();
+        cameraStream = null;
 
-      });
-
-    cameraStream = null;
-
-  }
-
-
-  const video =
-    document.getElementById(
-      "cameraVideo"
-    );
+    }
 
 
-  video.srcObject = null;
+    const video =
+        document.getElementById(
+            "cameraVideo"
+        );
 
 
-  document.getElementById(
-    "cameraModal"
-  ).classList.add(
-    "hidden"
-  );
+    if(video){
+
+        video.srcObject =
+            null;
+
+    }
+
+
+    const cameraBox =
+        document.getElementById(
+            "cameraBox"
+        );
+
+
+    if(cameraBox){
+
+        cameraBox.style.display =
+            "none";
+
+    }
 
 }
 
 
 /* =========================================================
-   RENDER PHOTOS
-   ========================================================= */
+   PHOTO PREVIEW
+========================================================= */
 
 function renderPhotoPreview(){
 
-  const area =
-    document.getElementById(
-      "photoArea"
-    );
-
-  const grid =
-    document.getElementById(
-      "photoGrid"
-    );
-
-  const count =
-    document.getElementById(
-      "photoCount"
-    );
-
-
-  grid.innerHTML = "";
-
-
-  count.textContent =
-    selectedPhotos.length +
-    (
-      selectedPhotos.length === 1
-        ? " photo selected"
-        : " photos selected"
-    );
-
-
-  if(!selectedPhotos.length){
-
-    area.classList.add(
-      "hidden"
-    );
-
-    return;
-  }
-
-
-  area.classList.remove(
-    "hidden"
-  );
-
-
-  selectedPhotos.forEach(
-    function(file,index){
-
-      const item =
-        document.createElement(
-          "div"
-        );
-
-      item.className =
-        "photo-item";
-
-
-      const img =
-        document.createElement(
-          "img"
+    const container =
+        document.getElementById(
+            "photoPreview"
         );
 
 
-      img.src =
-        URL.createObjectURL(
-          file
+    const count =
+        document.getElementById(
+            "photoCount"
         );
 
 
-      img.onload =
-        function(){
-
-          URL.revokeObjectURL(
-            img.src
-          );
-
-        };
+    count.textContent =
+        selectedPhotos.length;
 
 
-      const number =
-        document.createElement(
-          "div"
-        );
+    if(
+        selectedPhotos.length === 0
+    ){
 
+        container.innerHTML = "";
 
-      number.className =
-        "photo-number";
-
-
-      number.textContent =
-        index + 1;
-
-
-      const remove =
-        document.createElement(
-          "button"
-        );
-
-
-      remove.type =
-        "button";
-
-
-      remove.className =
-        "remove-photo";
-
-
-      remove.innerHTML =
-        "×";
-
-
-      remove.onclick =
-        function(){
-
-          removePhoto(index);
-
-        };
-
-
-      item.appendChild(img);
-
-      item.appendChild(number);
-
-      item.appendChild(remove);
-
-      grid.appendChild(item);
+        return;
 
     }
-  );
 
 
-  const submitButton =
-    document.getElementById(
-      "submitAnswerBtn"
-    );
+    container.innerHTML =
+        selectedPhotos.map(
+            function(photo,index){
+
+                return `
+                    <div class="photo-item">
+
+                        <img
+                            src="${escapeHtml(photo.url)}"
+                            alt="Answer page ${index + 1}">
+
+                        <span class="photo-number">
+                            Page ${index + 1}
+                        </span>
+
+                        <button
+                            class="photo-remove"
+                            type="button"
+                            onclick="removePhoto(${index})">
+
+                            ×
+
+                        </button>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
+
+}
 
 
-  submitButton.textContent =
-    editingSubmission
-      ? "📤 Submit Edited Answer Sheet"
-      : "📤 Submit Answer Sheet";
+/* =========================================================
+   EXISTING PHOTOS
+========================================================= */
+
+function renderExistingPhotos(photos){
+
+    const container =
+        document.getElementById(
+            "photoPreview"
+        );
+
+
+    if(
+        !Array.isArray(photos) ||
+        photos.length === 0
+    ){
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        photos.map(
+            function(photo,index){
+
+                const url =
+                    typeof photo === "string"
+                        ? photo
+                        : (
+                            photo.url ||
+                            photo.URL ||
+                            photo.photoUrl ||
+                            ""
+                        );
+
+
+                if(!url){
+                    return "";
+                }
+
+
+                return `
+                    <div class="photo-item">
+
+                        <img
+                            src="${escapeHtml(url)}"
+                            alt="Submitted page ${index + 1}">
+
+                        <span class="photo-number">
+                            Page ${index + 1}
+                        </span>
+
+                    </div>
+                `;
+
+            }
+        ).join("");
 
 }
 
 
 /* =========================================================
    REMOVE PHOTO
-   ========================================================= */
+========================================================= */
 
 function removePhoto(index){
 
-  if(
-    index < 0 ||
-    index >= selectedPhotos.length
-  ){
-    return;
-  }
+    if(
+        index < 0 ||
+        index >= selectedPhotos.length
+    ){
+
+        return;
+
+    }
 
 
-  selectedPhotos.splice(
-    index,
-    1
-  );
+    const photo =
+        selectedPhotos[index];
 
 
-  renderPhotoPreview();
+    if(
+        photo &&
+        photo.url &&
+        photo.url.startsWith("blob:")
+    ){
+
+        try{
+            URL.revokeObjectURL(
+                photo.url
+            );
+        }catch(error){}
+
+    }
+
+
+    selectedPhotos.splice(
+        index,
+        1
+    );
+
+
+    renderPhotoPreview();
 
 }
 
 
 /* =========================================================
-   SUBMIT ANSWER SHEET
-   ========================================================= */
+   CLEAR PHOTOS
+========================================================= */
 
-async function submitAnswerSheet(){
+function clearPhotos(){
 
-  if(!selectedPaper){
+    selectedPhotos.forEach(
+        function(photo){
 
-    showToast(
-      "Please select a question paper first.",
-      "warning"
+            if(
+                photo.url &&
+                photo.url.startsWith("blob:")
+            ){
+
+                try{
+
+                    URL.revokeObjectURL(
+                        photo.url
+                    );
+
+                }catch(error){}
+
+            }
+
+        }
     );
 
-    return;
-  }
-
-
-  if(!selectedPhotos.length){
-
-    showToast(
-      "Please upload at least one answer-sheet photo.",
-      "warning"
-    );
-
-    return;
-  }
-
-
-  if(selectedPhotos.length > 20){
-
-    showToast(
-      "Maximum 20 photos are allowed.",
-      "warning"
-    );
-
-    return;
-  }
-
-
-  const button =
-    document.getElementById(
-      "submitAnswerBtn"
-    );
-
-
-  button.disabled = true;
-
-
-  button.textContent =
-    editingSubmission
-      ? "Submitting edited answer sheet..."
-      : "Submitting answer sheet...";
-
-
-  try{
-
-    /*
-      Upload photos one by one.
-      The existing Apps Script backend can process
-      the uploaded image data.
-    */
-
-    const photoUrls = [];
-
-
-    for(
-      let i=0;
-      i<selectedPhotos.length;
-      i++
-    ){
-
-      const file =
-        selectedPhotos[i];
-
-
-      const base64 =
-        await fileToBase64(file);
-
-
-      const uploadResult =
-        await api(
-          "uploadAnswerPhoto",
-          {
-            studentId:studentId,
-
-            studentName:studentName,
-
-            paperId:getPaperId(
-              selectedPaper
-            ),
-
-            fileName:file.name,
-
-            mimeType:file.type,
-
-            fileData:base64,
-
-            pageNumber:i+1
-          }
-        );
-
-
-      const fileUrl =
-        getValue(
-          uploadResult,
-          [
-            "fileUrl",
-            "url",
-            "photoUrl",
-            "imageUrl"
-          ]
-        );
-
-
-      if(fileUrl){
-
-        photoUrls.push(
-          fileUrl
-        );
-
-      }
-
-    }
-
-
-    /*
-      Save / edit submission.
-    */
-
-    const action =
-      editingSubmission
-        ? "editSubmission"
-        : "saveSubmission";
-
-
-    await api(
-      action,
-      {
-        studentId:studentId,
-
-        studentName:studentName,
-
-        paperId:getPaperId(
-          selectedPaper
-        ),
-
-        subjectId:getSubjectId(
-          selectedPaper
-        ),
-
-        photoUrls:photoUrls,
-
-        photos:photoUrls,
-
-        photoCount:selectedPhotos.length,
-
-        pageCount:selectedPhotos.length,
-
-        isEdit:editingSubmission,
-
-        editCount:
-          editingSubmission ? 1 : 0,
-
-        replaceExisting:
-          editingSubmission
-      }
-    );
-
-
-    /*
-      Lock the one-time edit locally
-      after a successful edit.
-    */
-
-    if(editingSubmission){
-
-      setLocalEditUsed(
-        getPaperId(
-          selectedPaper
-        )
-      );
-
-    }
-
-
-    editingSubmission = false;
 
     selectedPhotos = [];
 
     renderPhotoPreview();
 
 
-    showSubmissionMessage(
-      "Answer sheet submitted successfully.",
-      "success"
-    );
+    document.getElementById(
+        "photoInput"
+    ).value = "";
+
+}
 
 
-    showToast(
-      "Answer sheet submitted successfully.",
-      "success"
-    );
+/* =========================================================
+   RESET SUBMISSION UI
+========================================================= */
+
+function resetSubmissionUI(){
+
+    closeCamera();
+
+    clearPhotos();
+
+    editingSubmission = false;
+
+    editCount = 0;
 
 
-    await checkSubmission();
+    document.getElementById(
+        "submissionStatus"
+    ).className =
+        "status-box";
 
 
-    await updateSubmissionCount();
+    document.getElementById(
+        "submissionStatus"
+    ).textContent =
+        "";
 
 
-  }catch(error){
-
-    console.error(
-      "Submit answer sheet:",
-      error
-    );
+    document.getElementById(
+        "submissionArea"
+    ).classList.remove("hidden");
 
 
-    showSubmissionMessage(
-      error.message ||
-      "Unable to submit answer sheet. Please try again.",
-      "error"
-    );
+    document.getElementById(
+        "submitButton"
+    ).classList.remove("hidden");
 
 
-    showToast(
-      error.message ||
-      "Submission failed.",
-      "error"
-    );
+    document.getElementById(
+        "editButton"
+    ).classList.add("hidden");
+
+}
 
 
-    button.disabled = false;
+/* =========================================================
+   START EDIT SUBMISSION
+========================================================= */
 
+function startEditSubmission(){
+
+    const paperId =
+        document.getElementById(
+            "submissionPaper"
+        ).value;
+
+
+    if(!paperId){
+
+        showToast(
+            "Please select a question paper.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const lockKey =
+        "submissionEdit_" +
+        studentId +
+        "_" +
+        paperId;
+
+
+    let previousEdits = 0;
+
+
+    try{
+
+        previousEdits =
+            parseInt(
+                localStorage.getItem(
+                    lockKey
+                ) || "0",
+                10
+            );
+
+    }catch(error){}
+
+
+    if(
+        previousEdits >= 1
+    ){
+
+        showToast(
+            "You have already used your submission edit option.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    editingSubmission = true;
+
+    editCount =
+        previousEdits + 1;
+
+
+    document.getElementById(
+        "submitButton"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "editButton"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "submissionStatus"
+    ).className =
+        "status-box status-warning";
+
+
+    document.getElementById(
+        "submissionStatus"
+    ).textContent =
+        "Edit mode is active. Upload the complete answer sheet again.";
+
+
+    clearPhotos();
+
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER SHEET
+========================================================= */
+
+async function submitAnswerSheet(){
+
+    const paperId =
+        document.getElementById(
+            "submissionPaper"
+        ).value;
+
+
+    const subjectId =
+        document.getElementById(
+            "submissionSubject"
+        ).value;
+
+
+    if(!paperId){
+
+        showToast(
+            "Please select a question paper.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        selectedPhotos.length === 0
+    ){
+
+        showToast(
+            "Please select or capture at least one answer-sheet photo.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        selectedPhotos.length > 20
+    ){
+
+        showToast(
+            "Maximum 20 photos are allowed.",
+            "warning"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitButton"
+        );
+
+
+    button.disabled = true;
 
     button.textContent =
-      editingSubmission
-        ? "📤 Submit Edited Answer Sheet"
-        : "📤 Submit Answer Sheet";
-
-    return;
-
-  }
+        "Uploading...";
 
 
-  button.disabled = false;
+    const statusBox =
+        document.getElementById(
+            "submissionStatus"
+        );
+
+
+    statusBox.className =
+        "status-box status-info";
+
+
+    statusBox.textContent =
+        "Uploading answer-sheet pages. Please wait...";
+
+
+    try{
+
+        const uploadedUrls = [];
+
+
+        for(
+            let i = 0;
+            i < selectedPhotos.length;
+            i++
+        ){
+
+            const photo =
+                selectedPhotos[i];
+
+
+            statusBox.textContent =
+                "Uploading page " +
+                (i + 1) +
+                " of " +
+                selectedPhotos.length +
+                "...";
+
+
+            const base64 =
+                await fileToBase64(
+                    photo.file
+                );
+
+
+            const cleanBase64 =
+                base64.includes(",")
+                    ? base64.split(",")[1]
+                    : base64;
+
+
+            const response =
+                await api(
+                    "uploadAnswerPhoto",
+                    {
+                        studentId: studentId,
+                        studentName: studentName,
+                        paperId: paperId,
+                        fileName:
+                            photo.name ||
+                            (
+                                "answer-page-" +
+                                (i + 1) +
+                                ".jpg"
+                            ),
+                        mimeType:
+                            photo.mimeType ||
+                            photo.file.type ||
+                            "image/jpeg",
+                        fileData:
+                            cleanBase64,
+                        pageNumber:
+                            i + 1
+                    }
+                );
+
+
+            const url =
+                response &&
+                (
+                    response.url ||
+                    response.fileUrl ||
+                    response.photoUrl ||
+                    (
+                        response.data &&
+                        (
+                            response.data.url ||
+                            response.data.fileUrl ||
+                            response.data.photoUrl
+                        )
+                    )
+                );
+
+
+            if(url){
+
+                uploadedUrls.push(
+                    url
+                );
+
+            }
+
+        }
+
+
+        statusBox.textContent =
+            "Saving your submission...";
+
+
+        const saveResponse =
+            await api(
+                editingSubmission
+                    ? "editSubmission"
+                    : "saveSubmission",
+                {
+                    studentId: studentId,
+                    studentName: studentName,
+                    paperId: paperId,
+                    subjectId: subjectId,
+                    photoUrls: uploadedUrls,
+                    photos: uploadedUrls,
+                    photoCount:
+                        selectedPhotos.length,
+                    pageCount:
+                        selectedPhotos.length,
+                    isEdit:
+                        editingSubmission,
+                    editCount:
+                        editCount,
+                    replaceExisting:
+                        editingSubmission
+                }
+            );
+
+
+        if(
+            editingSubmission
+        ){
+
+            const lockKey =
+                "submissionEdit_" +
+                studentId +
+                "_" +
+                paperId;
+
+
+            try{
+
+                localStorage.setItem(
+                    lockKey,
+                    String(editCount)
+                );
+
+            }catch(error){}
+
+        }
+
+
+        statusBox.className =
+            "status-box status-success";
+
+
+        statusBox.innerHTML =
+            "✅ Answer sheet submitted successfully.";
+
+
+        showToast(
+            "Answer sheet submitted successfully.",
+            "success"
+        );
+
+
+        button.textContent =
+            "Submitted";
+
+
+        button.classList.add(
+            "hidden"
+        );
+
+
+        document.getElementById(
+            "editButton"
+        ).classList.remove("hidden");
+
+
+        selectedPhotos = [];
+
+        renderPhotoPreview();
+
+        closeCamera();
+
+
+        updateSubmissionCount();
+
+
+    }catch(error){
+
+        console.error(
+            "Submission error:",
+            error
+        );
+
+
+        statusBox.className =
+            "status-box status-danger";
+
+
+        statusBox.textContent =
+            error.message ||
+            "Unable to submit answer sheet.";
+
+
+        showToast(
+            error.message ||
+            "Submission failed.",
+            "error"
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "Submit Answer Sheet";
+
+    }
 
 }
 
 
 /* =========================================================
    FILE TO BASE64
-   ========================================================= */
+========================================================= */
 
 function fileToBase64(file){
 
-  return new Promise(
-    function(resolve,reject){
+    return new Promise(
+        function(resolve,reject){
 
-      const reader =
-        new FileReader();
-
-
-      reader.onload =
-        function(){
-
-          const result =
-            String(reader.result);
+            const reader =
+                new FileReader();
 
 
-          const comma =
-            result.indexOf(",");
+            reader.onload =
+                function(){
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
 
 
-          resolve(
-            comma >= 0
-              ? result.substring(
-                  comma + 1
-                )
-              : result
-          );
+            reader.onerror =
+                function(){
 
-        };
+                    reject(
+                        new Error(
+                            "Unable to read image file."
+                        )
+                    );
 
-
-      reader.onerror =
-        reject;
+                };
 
 
-      reader.readAsDataURL(
-        file
-      );
+            reader.readAsDataURL(
+                file
+            );
 
-    }
-  );
+        }
+    );
 
 }
 
 
 /* =========================================================
-   LOAD RESULTS
-   ========================================================= */
+   RESULTS
+========================================================= */
 
 async function loadResults(){
 
-  const loading =
-    document.getElementById(
-      "resultsLoading"
-    );
-
-  const empty =
-    document.getElementById(
-      "resultsEmpty"
-    );
-
-  const container =
-    document.getElementById(
-      "resultsContainer"
-    );
+    const container =
+        document.getElementById(
+            "resultsContainer"
+        );
 
 
-  loading.classList.remove(
-    "hidden"
-  );
-
-  empty.classList.add(
-    "hidden"
-  );
-
-  container.innerHTML = "";
+    container.innerHTML =
+        `
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading results...
+        </div>
+        `;
 
 
-  try{
+    try{
 
-    const result =
-      await api(
-        "getStudentResults",
-        {
-          studentId:studentId
-        }
-      );
-
-
-    results =
-      extractArray(
-        result,
-        [
-          "results",
-          "data",
-          "rows",
-          "result"
-        ]
-      );
+        const response =
+            await api(
+                "getStudentResults",
+                {
+                    studentId: studentId
+                }
+            );
 
 
-    loading.classList.add(
-      "hidden"
-    );
+        results =
+            Array.isArray(response)
+                ? response
+                : (
+                    Array.isArray(response.data)
+                        ? response.data
+                        : (
+                            Array.isArray(response.results)
+                                ? response.results
+                                : []
+                        )
+                );
 
 
-    document.getElementById(
-      "resultCount"
-    ).textContent =
-      results.length;
+        renderResults();
 
 
-    if(!results.length){
+        document.getElementById(
+            "resultCount"
+        ).textContent =
+            results.length;
 
-      empty.classList.remove(
-        "hidden"
-      );
 
-      return;
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">⚠️</div>
+                <p>
+                    Unable to load results.
+                </p>
+                <button
+                    class="btn btn-primary"
+                    style="margin-top:12px"
+                    onclick="loadResults()">
+                    Try Again
+                </button>
+            </div>
+            `;
+
     }
-
-
-    renderResults();
-
-  }catch(error){
-
-    loading.classList.add(
-      "hidden"
-    );
-
-    empty.classList.remove(
-      "hidden"
-    );
-
-    console.error(
-      "Results:",
-      error
-    );
-
-  }
 
 }
 
 
 /* =========================================================
    RENDER RESULTS
-   ========================================================= */
+========================================================= */
 
 function renderResults(){
 
-  const container =
-    document.getElementById(
-      "resultsContainer"
-    );
-
-
-  container.innerHTML = "";
-
-
-  results.forEach(
-    function(result){
-
-      const studentNameValue =
-        getValue(result,[
-          "Student Name",
-          "studentName",
-          "StudentName"
-        ]);
-
-
-      const subject =
-        getValue(result,[
-          "Subject Name",
-          "subjectName",
-          "SubjectName",
-          "Subject",
-          "subject"
-        ]) || "-";
-
-
-      const paper =
-        getValue(result,[
-          "Paper Title",
-          "paperTitle",
-          "PaperTitle",
-          "Question Paper",
-          "questionPaper"
-        ]) || "-";
-
-
-      const marks =
-        getValue(result,[
-          "Marks",
-          "marks",
-          "Obtained Marks",
-          "obtainedMarks"
-        ]) || "0";
-
-
-      const totalMarks =
-        getValue(result,[
-          "Total Marks",
-          "totalMarks",
-          "TotalMarks",
-          "Out Of",
-          "outOf"
-        ]) || "-";
-
-
-      const remarks =
-        getValue(result,[
-          "Remarks",
-          "remarks",
-          "Remark",
-          "remark"
-        ]) || "-";
-
-
-      const date =
-        getValue(result,[
-          "Date",
-          "date",
-          "Result Date",
-          "resultDate",
-          "Evaluated At",
-          "evaluatedAt",
-          "Timestamp",
-          "timestamp"
-        ]) || "-";
-
-
-      const percentage =
-        calculatePercentage(
-          marks,
-          totalMarks
+    const container =
+        document.getElementById(
+            "resultsContainer"
         );
-
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-
-      card.className =
-        "result-card";
-
-
-      card.innerHTML = `
-
-        <div class="result-header">
-
-          <div>
-
-            <div class="result-title">
-              ${escapeHTML(subject)}
-            </div>
-
-            <div class="result-paper">
-              ${escapeHTML(paper)}
-            </div>
-
-          </div>
-
-
-          <div class="result-score">
-
-            <div class="result-marks">
-              ${escapeHTML(String(marks))}
-            </div>
-
-            <div class="result-out-of">
-              out of ${escapeHTML(String(totalMarks))}
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="result-details">
-
-          <div class="result-detail">
-
-            <div class="result-label">
-              Percentage
-            </div>
-
-            <div class="result-value">
-              ${percentage}
-            </div>
-
-          </div>
-
-
-          <div class="result-detail">
-
-            <div class="result-label">
-              Result Date
-            </div>
-
-            <div class="result-value">
-              ${escapeHTML(
-                formatDate(date)
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="result-detail"
-               style="grid-column:1/-1;">
-
-            <div class="result-label">
-              Remarks
-            </div>
-
-            <div class="result-value">
-              ${escapeHTML(remarks)}
-            </div>
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(
-        card
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   UPDATE SUBMISSION COUNT
-   ========================================================= */
-
-async function updateSubmissionCount(){
-
-  /*
-    Keep the dashboard count refreshed without
-    changing the existing backend structure.
-  */
-
-  let count = 0;
-
-
-  for(
-    let i=0;
-    i<papers.length;
-    i++
-  ){
-
-    try{
-
-      const result =
-        await api(
-          "getStudentSubmissionStatus",
-          {
-            studentId:studentId,
-            paperId:getPaperId(
-              papers[i]
-            )
-          }
-        );
-
-
-      let submission =
-        result.submission ||
-        result.data ||
-        result.result ||
-        null;
-
-
-      if(Array.isArray(submission)){
-        submission =
-          submission[0] || null;
-      }
-
-
-      if(
-        submission &&
-        isSubmissionRecordSubmitted(
-          submission
-        )
-      ){
-
-        count++;
-
-      }
-
-    }catch(error){
-
-      console.warn(
-        "Submission count:",
-        error
-      );
-
-    }
-
-  }
-
-
-  document.getElementById(
-    "submissionCount"
-  ).textContent =
-    count;
-
-}
-
-
-/* =========================================================
-   PAPER HELPERS
-   ========================================================= */
-
-function getPaperId(paper){
-
-  return getValue(paper,[
-    "Paper ID",
-    "paperId",
-    "PaperID",
-    "Question Paper ID",
-    "questionPaperId",
-    "ID",
-    "id"
-  ]);
-
-}
-
-
-function getPaperTitle(paper){
-
-  return getValue(paper,[
-    "Paper Title",
-    "paperTitle",
-    "PaperTitle",
-    "Title",
-    "title",
-    "Question Paper",
-    "questionPaper"
-  ]);
-
-}
-
-
-function getPaperCode(paper){
-
-  return getValue(paper,[
-    "Paper Code",
-    "paperCode",
-    "PaperCode",
-    "Code",
-    "code"
-  ]);
-
-}
-
-
-function getSubjectId(subject){
-
-  return getValue(subject,[
-    "Subject ID",
-    "subjectId",
-    "SubjectID",
-    "ID",
-    "id",
-    "Subject Code",
-    "subjectCode",
-    "SubjectCode"
-  ]);
-
-}
-
-
-function getPaperSubjectName(paper){
-
-  const direct =
-    getValue(paper,[
-      "Subject Name",
-      "subjectName",
-      "SubjectName",
-      "Subject",
-      "subject"
-    ]);
-
-
-  if(direct){
-    return direct;
-  }
-
-
-  const subjectId =
-    getValue(paper,[
-      "Subject ID",
-      "subjectId",
-      "SubjectID"
-    ]);
-
-
-  if(subjectId){
-
-    const found =
-      subjects.find(
-        function(subject){
-
-          const id =
-            getValue(subject,[
-              "Subject ID",
-              "subjectId",
-              "SubjectID",
-              "ID",
-              "id"
-            ]);
-
-          return String(id || "")
-            .trim()
-            ===
-            String(subjectId || "")
-              .trim();
-
-        }
-      );
-
-
-    if(found){
-
-      return getValue(found,[
-        "Subject Name",
-        "subjectName",
-        "SubjectName",
-        "Name",
-        "name"
-      ]);
-
-    }
-
-  }
-
-
-  return "";
-
-}
-
-
-/* =========================================================
-   SUBMISSION STATE
-   ========================================================= */
-
-function isSubmissionRecordSubmitted(
-  submission
-){
-
-  if(!submission){
-    return false;
-  }
-
-
-  const status =
-    getValue(submission,[
-      "Status",
-      "status",
-      "Submission Status",
-      "submissionStatus"
-    ]);
-
-
-  const normalized =
-    String(
-      status || "Submitted"
-    )
-    .trim()
-    .toLowerCase();
-
-
-  const blocked = [
-    "not submitted",
-    "not_submitted",
-    "notsubmitted",
-    "draft",
-    "pending upload",
-    "not uploaded"
-  ];
-
-
-  return blocked.indexOf(
-    normalized
-  ) === -1;
-
-}
-
-
-/* =========================================================
-   EDIT STATE
-   ========================================================= */
-
-function getSubmissionEditState(
-  submission,
-  paperId
-){
-
-  const editCount =
-    getValue(submission,[
-      "Edit Count",
-      "editCount",
-      "EditCount"
-    ]);
-
-
-  const editUsed =
-    getValue(submission,[
-      "Edit Used",
-      "editUsed",
-      "EditUsed",
-      "Edited Once",
-      "editedOnce"
-    ]);
-
-
-  const canEdit =
-    getValue(submission,[
-      "Can Edit",
-      "canEdit",
-      "CanEdit"
-    ]);
-
-
-  const editUsedText =
-    String(editUsed)
-      .toLowerCase();
-
-
-  if(
-    editUsedText === "true" ||
-    editUsedText === "1" ||
-    editUsedText === "yes"
-  ){
-
-    return {
-      used:true,
-      canEdit:false
-    };
-
-  }
-
-
-  if(
-    editCount !== "" &&
-    Number(editCount) >= 1
-  ){
-
-    return {
-      used:true,
-      canEdit:false
-    };
-
-  }
-
-
-  if(canEdit !== ""){
-
-    const value =
-      String(canEdit)
-        .toLowerCase();
 
 
     if(
-      value === "false" ||
-      value === "0" ||
-      value === "no"
+        !results ||
+        results.length === 0
     ){
 
-      return {
-        used:true,
-        canEdit:false
-      };
+        container.innerHTML =
+            `
+            <div class="empty">
+                <div class="empty-icon">🏆</div>
+                <p>
+                    No results are available yet.
+                </p>
+            </div>
+            `;
+
+        return;
 
     }
 
+
+    container.innerHTML =
+        `
+        <div class="results-table-wrapper">
+
+            <table class="results-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Question Paper</th>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                        <th>Out Of</th>
+                        <th>Percentage</th>
+                        <th>Remarks</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${
+                        results.map(
+                            function(result){
+
+                                const paper =
+                                    getField(
+                                        result,
+                                        [
+                                            "Paper Name",
+                                            "paperName",
+                                            "Question Paper",
+                                            "questionPaper",
+                                            "Paper ID",
+                                            "paperId"
+                                        ]
+                                    ) ||
+                                    "-";
+
+
+                                const subject =
+                                    getField(
+                                        result,
+                                        [
+                                            "Subject Name",
+                                            "subjectName",
+                                            "Subject",
+                                            "subject"
+                                        ]
+                                    ) ||
+                                    "-";
+
+
+                                const marks =
+                                    getField(
+                                        result,
+                                        [
+                                            "Marks",
+                                            "marks",
+                                            "Obtained Marks",
+                                            "obtainedMarks",
+                                            "Score",
+                                            "score"
+                                        ]
+                                    );
+
+
+                                const outOf =
+                                    getField(
+                                        result,
+                                        [
+                                            "Total Marks",
+                                            "totalMarks",
+                                            "Marks Out Of",
+                                            "marksOutOf",
+                                            "Out Of",
+                                            "outOf"
+                                        ]
+                                    );
+
+
+                                const percentage =
+                                    getField(
+                                        result,
+                                        [
+                                            "Percentage",
+                                            "percentage"
+                                        ]
+                                    );
+
+
+                                const remarks =
+                                    getField(
+                                        result,
+                                        [
+                                            "Remarks",
+                                            "remarks",
+                                            "Remark",
+                                            "remark"
+                                        ]
+                                    );
+
+
+                                const status =
+                                    getField(
+                                        result,
+                                        [
+                                            "Status",
+                                            "status",
+                                            "Result",
+                                            "result"
+                                        ]
+                                    );
+
+
+                                let statusClass =
+                                    "result-pending";
+
+
+                                const statusText =
+                                    String(
+                                        status || ""
+                                    ).toLowerCase();
+
+
+                                if(
+                                    statusText.includes(
+                                        "pass"
+                                    ) ||
+                                    statusText === "passed"
+                                ){
+
+                                    statusClass =
+                                        "result-pass";
+
+                                }else if(
+                                    statusText.includes(
+                                        "fail"
+                                    ) ||
+                                    statusText === "failed"
+                                ){
+
+                                    statusClass =
+                                        "result-fail";
+
+                                }
+
+
+                                let calculatedPercentage =
+                                    percentage;
+
+
+                                if(
+                                    (
+                                        calculatedPercentage === "" ||
+                                        calculatedPercentage === null ||
+                                        calculatedPercentage === undefined
+                                    ) &&
+                                    marks !== "" &&
+                                    outOf &&
+                                    !isNaN(
+                                        Number(marks)
+                                    ) &&
+                                    !isNaN(
+                                        Number(outOf)
+                                    ) &&
+                                    Number(outOf) > 0
+                                ){
+
+                                    calculatedPercentage =
+                                        (
+                                            Number(marks) /
+                                            Number(outOf)
+                                        ) *
+                                        100;
+
+                                    calculatedPercentage =
+                                        calculatedPercentage
+                                            .toFixed(2) +
+                                        "%";
+
+                                }
+
+
+                                return `
+                                    <tr>
+
+                                        <td>
+                                            <strong>
+                                                ${escapeHtml(paper)}
+                                            </strong>
+                                        </td>
+
+                                        <td>
+                                            ${escapeHtml(subject)}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHtml(
+                                                marks !== undefined &&
+                                                marks !== null &&
+                                                marks !== ""
+                                                    ? marks
+                                                    : "-"
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHtml(
+                                                outOf !== undefined &&
+                                                outOf !== null &&
+                                                outOf !== ""
+                                                    ? outOf
+                                                    : "-"
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHtml(
+                                                calculatedPercentage ||
+                                                "-"
+                                            )}
+                                        </td>
+
+                                        <td>
+                                            ${escapeHtml(
+                                                remarks ||
+                                                "-"
+                                            )}
+                                        </td>
+
+                                        <td class="${statusClass}">
+                                            ${escapeHtml(
+                                                status ||
+                                                "Pending"
+                                            )}
+                                        </td>
+
+                                    </tr>
+                                `;
+
+                            }
+                        ).join("")
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+        `;
+
+}
+
+
+/* =========================================================
+   SUBMISSION COUNT
+========================================================= */
+
+function updateSubmissionCount(){
+
+    /*
+     * Keep the dashboard count safe.
+     * Actual submission status is checked paper-by-paper.
+     */
 
     if(
-      value === "true" ||
-      value === "1" ||
-      value === "yes"
+        !Array.isArray(papers)
     ){
 
-      return {
-        used:false,
-        canEdit:true
-      };
+        return;
 
     }
-
-  }
-
-
-  if(
-    getLocalEditUsed(
-      paperId
-    )
-  ){
-
-    return {
-      used:true,
-      canEdit:false
-    };
-
-  }
-
-
-  return {
-    used:false,
-    canEdit:true
-  };
-
-}
-
-
-/* =========================================================
-   LOCAL ONE-TIME EDIT LOCK
-   ========================================================= */
-
-function getSubmissionStorageKey(
-  paperId
-){
-
-  return (
-    "answerSheetEditUsed_" +
-    String(studentId || "") +
-    "_" +
-    String(paperId || "")
-  );
-
-}
-
-
-function getLocalEditUsed(
-  paperId
-){
-
-  try{
-
-    return (
-      localStorage.getItem(
-        getSubmissionStorageKey(
-          paperId
-        )
-      ) === "1"
-    );
-
-  }catch(error){
-
-    return false;
-
-  }
-
-}
-
-
-function setLocalEditUsed(
-  paperId
-){
-
-  try{
-
-    localStorage.setItem(
-      getSubmissionStorageKey(
-        paperId
-      ),
-      "1"
-    );
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-}
-
-
-/* =========================================================
-   SUBMISSION MESSAGE
-   ========================================================= */
-
-function showSubmissionMessage(
-  message,
-  type
-){
-
-  const box =
-    document.getElementById(
-      "submissionMessage"
-    );
-
-
-  if(!message){
-
-    box.classList.add(
-      "hidden"
-    );
-
-    box.textContent = "";
-
-    return;
-  }
-
-
-  box.classList.remove(
-    "hidden"
-  );
-
-
-  box.textContent =
-    message;
-
-
-  if(type === "success"){
-
-    box.style.background =
-      "#ecfdf3";
-
-    box.style.border =
-      "1px solid #bbf7d0";
-
-    box.style.color =
-      "#166534";
-
-  }else if(type === "error"){
-
-    box.style.background =
-      "#fef2f2";
-
-    box.style.border =
-      "1px solid #fecaca";
-
-    box.style.color =
-      "#991b1b";
-
-  }else{
-
-    box.style.background =
-      "#eff6ff";
-
-    box.style.border =
-      "1px solid #dbeafe";
-
-    box.style.color =
-      "#1e40af";
-
-  }
-
-}
-
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-let toastTimer = null;
-
-
-function showToast(
-  message,
-  type = ""
-){
-
-  const toast =
-    document.getElementById(
-      "toast"
-    );
-
-
-  toast.textContent =
-    message;
-
-
-  toast.className =
-    "toast show " +
-    (type || "");
-
-
-  clearTimeout(
-    toastTimer
-  );
-
-
-  toastTimer =
-    setTimeout(
-      function(){
-
-        toast.className =
-          "toast";
-
-      },
-      3000
-    );
-
-}
-
-
-/* =========================================================
-   RESULTS HELPERS
-   ========================================================= */
-
-function calculatePercentage(
-  marks,
-  total
-){
-
-  const m =
-    Number(marks);
-
-  const t =
-    Number(total);
-
-
-  if(
-    !isFinite(m) ||
-    !isFinite(t) ||
-    t <= 0
-  ){
-
-    return "-";
-
-  }
-
-
-  return (
-    Math.round(
-      (m / t) * 10000
-    ) / 100
-  ) + "%";
-
-}
-
-
-/* =========================================================
-   DATE FORMAT
-   ========================================================= */
-
-function formatDate(value){
-
-  if(!value){
-    return "-";
-  }
-
-
-  const date =
-    new Date(value);
-
-
-  if(
-    isNaN(
-      date.getTime()
-    )
-  ){
-
-    return String(value);
-
-  }
-
-
-  return date.toLocaleString(
-    "en-IN",
-    {
-      day:"2-digit",
-      month:"short",
-      year:"numeric",
-      hour:"2-digit",
-      minute:"2-digit"
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ARRAY EXTRACTION
-   ========================================================= */
-
-function extractArray(
-  result,
-  keys
-){
-
-  if(Array.isArray(result)){
-    return result;
-  }
-
-
-  if(!result){
-    return [];
-  }
-
-
-  for(
-    let i=0;
-    i<keys.length;
-    i++
-  ){
-
-    const value =
-      result[keys[i]];
-
-
-    if(Array.isArray(value)){
-
-      return value;
-
-    }
-
-  }
-
-
-  return [];
-
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
-
-function escapeHTML(value){
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.textContent =
-    value === null ||
-    value === undefined
-      ? ""
-      : String(value);
-
-
-  return div.innerHTML;
 
 }
 
 
 /* =========================================================
    LOGOUT
-   ========================================================= */
+========================================================= */
 
 function logout(){
 
-  try{
+    closeCamera();
 
-    localStorage.removeItem(
-      "studentId"
+
+    const keys = [
+        "studentId",
+        "studentID",
+        "student_id",
+        "loggedInStudentId",
+        "loggedInStudentID",
+        "studentName",
+        "student_name",
+        "loggedInStudentName",
+        "loggedInStudent",
+        "student",
+        "loggedInUser",
+        "currentUser",
+        "user",
+        "loginUser",
+        "studentData",
+        "userData"
+    ];
+
+
+    keys.forEach(
+        function(key){
+
+            try{
+
+                localStorage.removeItem(
+                    key
+                );
+
+            }catch(error){}
+
+        }
     );
 
-    localStorage.removeItem(
-      "studentID"
-    );
 
-    localStorage.removeItem(
-      "student_id"
-    );
-
-    localStorage.removeItem(
-      "loggedInStudentId"
-    );
-
-    localStorage.removeItem(
-      "studentName"
-    );
-
-    localStorage.removeItem(
-      "student_name"
-    );
-
-    localStorage.removeItem(
-      "loggedInStudentName"
-    );
-
-    localStorage.removeItem(
-      "student"
-    );
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-
-  closeCamera();
-
-
-  window.location.href =
-    "index.html";
+    window.location.href =
+        "index.html";
 
 }
 
 
 /* =========================================================
-   PREVENT CAMERA WHEN PAGE IS LEFT
-   ========================================================= */
+   TOAST
+========================================================= */
 
-window.addEventListener(
-  "beforeunload",
-  function(){
+let toastTimer = null;
 
-    if(cameraStream){
 
-      cameraStream
-        .getTracks()
-        .forEach(function(track){
+function showToast(
+    message,
+    type = ""
+){
 
-          track.stop();
+    const toast =
+        document.getElementById(
+            "toast"
+        );
 
-        });
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        "toast show " +
+        type;
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.className =
+                    "toast";
+
+            },
+            3500
+        );
+
+}
+
+
+/* =========================================================
+   GENERIC FIELD HELPER
+========================================================= */
+
+function getField(
+    object,
+    possibleKeys
+){
+
+    if(
+        !object ||
+        typeof object !== "object"
+    ){
+
+        return "";
 
     }
 
-  }
+
+    for(
+        const key of possibleKeys
+    ){
+
+        if(
+            Object.prototype.hasOwnProperty.call(
+                object,
+                key
+            )
+        ){
+
+            const value =
+                object[key];
+
+
+            if(
+                value !== undefined &&
+                value !== null
+            ){
+
+                return String(
+                    value
+                ).trim();
+
+            }
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value){
+
+    if(
+        value === undefined ||
+        value === null
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   JAVASCRIPT STRING ESCAPE
+========================================================= */
+
+function escapeJs(value){
+
+    if(
+        value === undefined ||
+        value === null
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        )
+        .replace(
+            /"/g,
+            '\\"'
+        )
+        .replace(
+            /\r/g,
+            "\\r"
+        )
+        .replace(
+            /\n/g,
+            "\\n"
+        );
+
+}
+
+
+/* =========================================================
+   PAGE CLEANUP
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        closeCamera();
+
+    }
 );
 
 </script>
