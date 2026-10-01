@@ -4,811 +4,288 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Student Dashboard - Online Examination Portal</title>
+<title>Student API Test</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    color: #222;
-}
-
-/* ================= HEADER ================= */
-
-.header {
-    background: linear-gradient(135deg, #174ea6, #4285f4);
-    color: white;
-    padding: 18px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 3px 10px rgba(0,0,0,.15);
-}
-
-.header-left h1 {
-    margin: 0;
-    font-size: 22px;
-}
-
-.header-left p {
-    margin: 5px 0 0;
-    font-size: 13px;
-    opacity: .9;
-}
-
-.logout-btn {
-    border: none;
-    background: white;
-    color: #174ea6;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.logout-btn:hover {
-    background: #eaf1ff;
-}
-
-/* ================= CONTAINER ================= */
-
-.container {
-    width: 95%;
-    max-width: 1200px;
-    margin: 25px auto;
-}
-
-/* ================= WELCOME ================= */
-
-.welcome-card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    margin-bottom: 20px;
-}
-
-.welcome-card h2 {
-    margin: 0 0 8px;
-    color: #174ea6;
-}
-
-.welcome-card p {
-    margin: 5px 0;
-}
-
-/* ================= SUMMARY ================= */
-
-.summary-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    margin-bottom: 20px;
-}
-
-.summary-card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    text-align: center;
-}
-
-.summary-card h3 {
-    margin: 0;
-    color: #666;
-    font-size: 15px;
-}
-
-.summary-number {
-    font-size: 30px;
-    font-weight: bold;
-    color: #174ea6;
-    margin-top: 10px;
-}
-
-/* ================= CARD ================= */
-
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-}
-
-.card h2 {
-    margin-top: 0;
-    color: #174ea6;
-    font-size: 20px;
-}
-
-/* ================= TABLE ================= */
-
-.table-wrapper {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
-
-th {
-    background: #174ea6;
-    color: white;
-    padding: 12px;
-    text-align: left;
-    white-space: nowrap;
-}
-
-td {
-    padding: 11px;
-    border-bottom: 1px solid #ddd;
-}
-
-tr:hover td {
-    background: #f7faff;
-}
-
-/* ================= FORM ================= */
-
-label {
-    display: block;
-    margin-bottom: 7px;
-}
-
-select,
-input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccd4df;
-    border-radius: 8px;
-    background: white;
-    font-size: 14px;
-}
-
-/* ================= PAPER INFO ================= */
-
-.paper-info {
-    margin-top: 18px;
-    background: #f7faff;
-    border-left: 4px solid #174ea6;
-    padding: 18px;
-    border-radius: 8px;
-    display: none;
-}
-
-.paper-info p {
-    margin: 8px 0;
-}
-
-/* ================= BUTTONS ================= */
-
-.btn {
-    display: inline-block;
-    border: none;
-    padding: 11px 17px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 5px 5px 5px 0;
-}
-
-.primary {
-    background: #174ea6;
-    color: white;
-}
-
-.primary:hover {
-    background: #123d83;
-}
-
-.success {
-    background: #188038;
-    color: white;
-}
-
-.warning {
-    background: #f9ab00;
-    color: #222;
-}
-
-.danger {
-    background: #d93025;
-    color: white;
-}
-
-.secondary {
-    background: #5f6368;
-    color: white;
-}
-
-.btn:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
-
-/* ================= STATUS ================= */
-
-.status {
-    padding: 12px;
-    border-radius: 8px;
-    margin: 12px 0;
-    display: none;
-}
-
-.success-status {
-    display: block;
-    background: #e6f4ea;
-    color: #137333;
-}
-
-.error-status {
-    display: block;
-    background: #fce8e6;
-    color: #c5221f;
-}
-
-.info-status {
-    display: block;
-    background: #e8f0fe;
-    color: #174ea6;
-}
-
-/* ================= UPLOAD ================= */
-
-.upload-box {
-    border: 2px dashed #b7c5d9;
-    padding: 20px;
-    border-radius: 10px;
-    background: #fafcff;
-    margin-top: 15px;
-}
-
-.file-count {
-    margin-top: 10px;
-    color: #555;
-    font-size: 14px;
-}
-
-.note {
-    font-size: 13px;
-    color: #666;
-}
-
-/* ================= SUBMISSION ================= */
-
-.submission-details {
-    background: #f7f7f7;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-}
-
-/* ================= MODAL ================= */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,.75);
-    padding: 20px;
-}
-
-.modal-content {
-    background: white;
-    width: 100%;
-    max-width: 1000px;
-    height: 90vh;
-    margin: auto;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-}
-
-.modal-header {
-    height: 55px;
-    background: #174ea6;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 17px;
-}
-
-.close-modal {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-#pdfFrame {
-    width: 100%;
-    height: calc(100% - 55px);
-    border: none;
-}
-
-/* ================= MESSAGES ================= */
-
-.loading {
-    text-align: center;
-    padding: 25px;
-    color: #666;
-}
-
-.empty {
-    text-align: center;
-    padding: 20px;
-    color: #777;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:700px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background: #f4f7fb;
+        color: #222;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
 
     .header {
-        align-items: flex-start;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        padding: 22px;
+        border-radius: 15px;
+        margin-bottom: 20px;
     }
 
-    .header-left h1 {
-        font-size: 18px;
+    .header h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
     }
 
-    .summary-grid {
-        grid-template-columns: 1fr;
+    .header p {
+        margin: 0;
+        opacity: 0.9;
     }
 
     .card {
-        padding: 16px;
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
-    .welcome-card {
-        padding: 17px;
+    .card h2 {
+        margin-top: 0;
+        font-size: 20px;
     }
 
-    table {
-        min-width: 700px;
+    .info {
+        background: #eef4ff;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        word-break: break-word;
     }
-}
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+
+    button {
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        margin: 5px;
+    }
+
+    .primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .success {
+        background: #16a34a;
+        color: white;
+    }
+
+    .warning {
+        background: #d97706;
+        color: white;
+    }
+
+    .dark {
+        background: #374151;
+        color: white;
+    }
+
+    .danger {
+        background: #dc2626;
+        color: white;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .status {
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 12px;
+        font-weight: bold;
+    }
+
+    .status.loading {
+        background: #fff7ed;
+        color: #9a3412;
+    }
+
+    .status.success {
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .status.error {
+        background: #fef2f2;
+        color: #991b1b;
+    }
+
+    pre {
+        background: #111827;
+        color: #e5e7eb;
+        padding: 15px;
+        border-radius: 10px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 13px;
+        line-height: 1.5;
+        min-height: 100px;
+    }
+
+    .result-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
+
+    .paper {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
+        background: #fafafa;
+    }
+
+    .paper strong {
+        display: inline-block;
+        min-width: 130px;
+    }
+
+    .small {
+        font-size: 13px;
+        color: #666;
+    }
 </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="header">
-
-    <div class="header-left">
-        <h1>Online Examination Portal</h1>
-        <p>Student Dashboard</p>
-    </div>
-
-    <button
-        class="logout-btn"
-        onclick="logout()">
-        Logout
-    </button>
-
-</header>
-
-
 <div class="container">
 
-<!-- =====================================================
-     WELCOME
-===================================================== -->
+    <div class="header">
+        <h1>Online Examination Portal</h1>
+        <p>Temporary Student API Diagnostic Page</p>
+    </div>
 
-<div class="welcome-card">
+    <!-- STUDENT INFORMATION -->
+    <div class="card">
 
-    <h2>
-        Welcome,
-        <span id="studentName">Student</span>
-    </h2>
+        <h2>1. Student Information</h2>
 
-    <p>
-        <strong>Student ID:</strong>
-        <span id="studentIdDisplay">-</span>
-    </p>
-
-</div>
-
-
-<!-- =====================================================
-     SUMMARY
-===================================================== -->
-
-<div class="summary-grid">
-
-    <div class="summary-card">
-
-        <h3>Assigned Subjects</h3>
-
-        <div
-            class="summary-number"
-            id="subjectCount">
-            0
+        <div class="info">
+            <strong>Student ID from Session:</strong>
+            <span id="sessionStudentId">Checking...</span>
         </div>
 
-    </div>
+        <label for="studentIdInput">Student ID</label>
 
+        <input
+            type="text"
+            id="studentIdInput"
+            placeholder="Enter Student ID, e.g. ST001"
+        >
 
-    <div class="summary-card">
-
-        <h3>Published Question Papers</h3>
-
-        <div
-            class="summary-number"
-            id="paperCount">
-            0
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ASSIGNED SUBJECTS
-===================================================== -->
-
-<div class="card">
-
-    <h2>My Assigned Subjects</h2>
-
-    <div class="table-wrapper">
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Subject ID</th>
-                    <th>Subject Name</th>
-                    <th>Subject Code</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="subjectsTableBody">
-
-                <tr>
-                    <td
-                        colspan="3"
-                        class="loading">
-                        Loading subjects...
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     QUESTION PAPERS
-===================================================== -->
-
-<div class="card">
-
-    <h2>Question Papers</h2>
-
-    <label>
-        <strong>Select Question Paper</strong>
-    </label>
-
-    <select
-        id="paperSelect"
-        onchange="showSelectedPaper()">
-
-        <option value="">
-            Select a question paper
-        </option>
-
-    </select>
-
-
-    <div
-        id="paperInfo"
-        class="paper-info">
-
-        <p>
-            <strong>Paper ID:</strong>
-            <span id="selectedPaperId">-</span>
-        </p>
-
-        <p>
-            <strong>Subject:</strong>
-            <span id="selectedPaperSubject">-</span>
-        </p>
-
-        <p>
-            <strong>Subject Code:</strong>
-            <span id="selectedPaperCode">-</span>
-        </p>
-
-        <p>
-            <strong>Paper Title:</strong>
-            <span id="selectedPaperTitle">-</span>
-        </p>
-
-        <p>
-            <strong>Total Marks:</strong>
-            <span id="selectedPaperMarks">-</span>
-        </p>
-
-        <p>
-            <strong>Exam Start:</strong>
-            <span id="selectedExamStart">-</span>
-        </p>
-
-        <p>
-            <strong>Exam End:</strong>
-            <span id="selectedExamEnd">-</span>
-        </p>
-
-
-        <button
-            class="btn primary"
-            onclick="openSelectedPaper()">
-            View Paper
-        </button>
-
-
-        <button
-            class="btn success"
-            onclick="downloadSelectedPaper()">
-            Download Paper
+        <button class="primary" onclick="saveStudentId()">
+            Save Student ID
         </button>
 
     </div>
 
 
-    <div
-        id="paperEmpty"
-        class="empty">
+    <!-- TEST BUTTONS -->
+    <div class="card">
 
-        Select a question paper from the dropdown.
+        <h2>2. API Tests</h2>
 
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ANSWER SHEET SUBMISSION
-===================================================== -->
-
-<div class="card">
-
-    <h2>Answer Sheet Submission</h2>
-
-
-    <div
-        id="submissionStatus"
-        class="status">
-    </div>
-
-
-    <div id="submissionSection">
-
-        <p>
-
-            <strong>Selected Paper:</strong>
-
-            <span id="submissionPaperTitle">
-                Please select a question paper above.
-            </span>
-
+        <p class="small">
+            Run the tests one by one. Do not change Code.gs.
         </p>
 
+        <button class="primary" onclick="testGetPapers()">
+            Test getPapers
+        </button>
 
-        <!-- NEW SUBMISSION -->
+        <button class="success" onclick="testGetSubjects()">
+            Test getSubjects
+        </button>
 
-        <div class="upload-box">
+        <button class="warning" onclick="testGetAssignments()">
+            Test getAssignments
+        </button>
 
-            <label>
-                <strong>
-                    Upload Answer Sheet
-                </strong>
-            </label>
+        <button class="dark" onclick="runAllTests()">
+            Run All Tests
+        </button>
 
-            <p class="note">
-                You can upload maximum 20 image files.
-            </p>
+        <button class="danger" onclick="clearOutput()">
+            Clear
+        </button>
 
-
-            <input
-                type="file"
-                id="answerFiles"
-                accept="image/*"
-                multiple
-                onchange="handleAnswerFiles()"
-            >
-
-
-            <div
-                class="file-count"
-                id="fileCount">
-                No files selected.
-            </div>
-
-
-            <button
-                class="btn success"
-                id="submitAnswerBtn"
-                onclick="submitAnswerSheet()"
-                disabled>
-                Submit Answer Sheet
-            </button>
-
-        </div>
-
-
-        <!-- EDIT SUBMISSION -->
-
-        <div
-            id="editSubmissionBox"
-            style="display:none; margin-top:20px;">
-
-            <h3>Edit Answer Sheet</h3>
-
-            <p class="note">
-                One-time edit is allowed.
-                You can upload maximum 20 images.
-            </p>
-
-
-            <input
-                type="file"
-                id="editAnswerFiles"
-                accept="image/*"
-                multiple
-                onchange="handleEditAnswerFiles()"
-            >
-
-
-            <div
-                class="file-count"
-                id="editFileCount">
-                No files selected.
-            </div>
-
-
-            <button
-                class="btn warning"
-                id="editAnswerBtn"
-                onclick="editAnswerSheet()"
-                disabled>
-                Update Answer Sheet
-            </button>
-
-        </div>
-
-
-        <div
-            id="submissionDetails"
-            class="submission-details"
-            style="display:none;">
-        </div>
+        <div id="status"></div>
 
     </div>
 
-</div>
 
+    <!-- PAPERS RESULT -->
+    <div class="card">
 
-<!-- =====================================================
-     RESULTS
-===================================================== -->
+        <h2>3. Question Papers Found</h2>
 
-<div class="card">
+        <div id="paperSummary">
+            No test run yet.
+        </div>
 
-    <h2>My Results</h2>
-
-    <div class="table-wrapper">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Subject Name</th>
-
-                    <th>Title</th>
-
-                    <th>Marks Obtained</th>
-
-                    <th>Total Marks</th>
-
-                    <th>Percentage</th>
-
-                    <th>Result</th>
-
-                    <th>Remark</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="resultsTableBody">
-
-                <tr>
-
-                    <td
-                        colspan="7"
-                        class="loading">
-                        Loading results...
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
+        <div id="papersDisplay"></div>
 
     </div>
 
-</div>
 
-</div>
+    <!-- RAW API RESPONSE -->
+    <div class="card">
 
+        <h2>4. Raw API Response</h2>
 
-<!-- =====================================================
-     PDF MODAL
-===================================================== -->
-
-<div
-    id="pdfModal"
-    class="modal">
-
-    <div class="modal-content">
-
-        <div class="modal-header">
-
-            <h3 id="pdfModalTitle">
-                Question Paper
-            </h3>
-
-
-            <button
-                class="close-modal"
-                onclick="closePdfModal()">
-                &times;
-            </button>
-
+        <div class="result-title">
+            getPapers
         </div>
 
+        <pre id="papersRaw">No response yet.</pre>
 
-        <iframe
-            id="pdfFrame">
-        </iframe>
+
+        <div class="result-title">
+            getSubjects
+        </div>
+
+        <pre id="subjectsRaw">No response yet.</pre>
+
+
+        <div class="result-title">
+            getAssignments
+        </div>
+
+        <pre id="assignmentsRaw">No response yet.</pre>
 
     </div>
 
@@ -818,3197 +295,603 @@ input[type="file"] {
 <script>
 
 /* =========================================================
-   API URL
-========================================================= */
+   YOUR EXISTING API
+   ========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
 /* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
+   VARIABLES
+   ========================================================= */
 
-let studentId = "";
+let currentStudentId = "";
 
-let studentName = "";
 
-let assignedSubjects = [];
+/* =========================================================
+   GET STUDENT ID
+   ========================================================= */
 
-let publishedPapers = [];
+function getStoredStudentId() {
 
-let allResults = [];
+    let id = "";
 
-let selectedPaper = null;
+    try {
+        id =
+            sessionStorage.getItem("studentId") ||
+            sessionStorage.getItem("studentID") ||
+            sessionStorage.getItem("Student ID") ||
+            "";
+    } catch (error) {
+        console.log("Session storage error:", error);
+    }
 
-let answerFiles = [];
+    if (!id) {
 
-let editAnswerFiles = [];
+        try {
+            id = localStorage.getItem("studentId") || "";
+        } catch (error) {
+            console.log("Local storage error:", error);
+        }
+
+    }
+
+    return String(id).trim();
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    currentStudentId = getStoredStudentId();
+
+    document.getElementById("sessionStudentId").textContent =
+        currentStudentId || "No Student ID found";
+
+    document.getElementById("studentIdInput").value =
+        currentStudentId;
+
+});
+
+
+/* =========================================================
+   SAVE STUDENT ID
+   ========================================================= */
+
+function saveStudentId() {
+
+    const input =
+        document.getElementById("studentIdInput").value.trim();
+
+    if (!input) {
+
+        setStatus(
+            "Please enter Student ID.",
+            "error"
+        );
+
+        return;
+    }
+
+    currentStudentId = input;
+
+    try {
+        sessionStorage.setItem("studentId", input);
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        localStorage.setItem("studentId", input);
+    } catch (error) {
+        console.log(error);
+    }
+
+    document.getElementById("sessionStudentId").textContent =
+        input;
+
+    setStatus(
+        "Student ID saved: " + input,
+        "success"
+    );
+}
 
 
 /* =========================================================
    API FUNCTION
-========================================================= */
+   ========================================================= */
 
-async function api(action, data = {}) {
+async function api(action, params = {}) {
 
-    const payload = {
-        action: action,
-        ...data
-    };
+    const url = new URL(API_URL);
 
+    url.searchParams.set("action", action);
 
-    const response = await fetch(
-        API_URL,
-        {
-            method: "POST",
+    Object.keys(params).forEach(function(key) {
 
-            headers: {
-                "Content-Type":
-                    "text/plain;charset=utf-8"
-            },
+        const value = params[key];
 
-            body: JSON.stringify(payload)
+        if (
+            value !== undefined &&
+            value !== null
+        ) {
+
+            url.searchParams.set(
+                key,
+                value
+            );
+
         }
-    );
 
+    });
 
-    const text =
-        await response.text();
+    console.log("API REQUEST:", url.toString());
 
+    const response = await fetch(url.toString(), {
+        method: "GET",
+        redirect: "follow"
+    });
 
-    let result;
+    const text = await response.text();
 
+    console.log("RAW API RESPONSE:", text);
 
     try {
 
-        result =
-            JSON.parse(text);
+        return JSON.parse(text);
 
     } catch (error) {
 
-        console.error(
-            "API returned non-JSON:",
-            text
-        );
+        return {
+            _parseError: true,
+            _rawText: text
+        };
 
-        throw new Error(
-            "Invalid response from Google Sheets API."
-        );
     }
-
-
-    if (
-        result &&
-        result.success === false
-    ) {
-
-        throw new Error(
-            result.message ||
-            result.error ||
-            "API request failed."
-        );
-    }
-
-
-    return result;
 }
 
 
 /* =========================================================
-   HELPERS
-========================================================= */
+   STATUS
+   ========================================================= */
 
-function normalizeKey(value) {
+function setStatus(message, type) {
 
-    return String(value ?? "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
+    const box =
+        document.getElementById("status");
+
+    box.className = "status " + type;
+
+    box.textContent = message;
+
 }
 
 
-function extractArray(
-    data,
-    keys = []
-) {
+/* =========================================================
+   DISPLAY JSON
+   ========================================================= */
+
+function displayJSON(elementId, data) {
+
+    document.getElementById(elementId).textContent =
+        JSON.stringify(data, null, 2);
+
+}
+
+
+/* =========================================================
+   GET ARRAY FROM API
+   ========================================================= */
+
+function extractArray(data) {
 
     if (Array.isArray(data)) {
         return data;
     }
 
+    if (!data || typeof data !== "object") {
+        return [];
+    }
 
-    for (const key of keys) {
+    const possibleKeys = [
+        "papers",
+        "subjects",
+        "assignments",
+        "results",
+        "data"
+    ];
 
-        if (
-            Array.isArray(
-                data?.[key]
-            )
-        ) {
+    for (const key of possibleKeys) {
 
+        if (Array.isArray(data[key])) {
             return data[key];
         }
+
     }
-
-
-    if (
-        Array.isArray(data?.data)
-    ) {
-
-        return data.data;
-    }
-
-
-    if (
-        Array.isArray(data?.results)
-    ) {
-
-        return data.results;
-    }
-
 
     return [];
 }
 
 
 /* =========================================================
-   STUDENT HELPERS
-========================================================= */
+   TEST getPapers
+   ========================================================= */
 
-function getStudentId(student) {
+async function testGetPapers() {
 
-    return String(
-        student?.["Student ID"] ??
-        student?.studentId ??
-        student?.StudentID ??
-        student?.id ??
-        ""
-    ).trim();
-}
-
-
-function getStudentName(student) {
-
-    return String(
-        student?.["Student Name"] ??
-        student?.studentName ??
-        student?.Name ??
-        student?.name ??
-        ""
-    ).trim();
-}
-
-
-/* =========================================================
-   SUBJECT HELPERS
-========================================================= */
-
-function getSubjectId(subject) {
-
-    return String(
-        subject?.["Subject ID"] ??
-        subject?.subjectId ??
-        subject?.SubjectID ??
-        subject?.id ??
-        ""
-    ).trim();
-}
-
-
-function getSubjectName(subject) {
-
-    return String(
-        subject?.["Subject Name"] ??
-        subject?.subjectName ??
-        subject?.SubjectName ??
-        subject?.name ??
-        ""
-    ).trim();
-}
-
-
-function getSubjectCode(subject) {
-
-    return String(
-        subject?.["Subject Code"] ??
-        subject?.subjectCode ??
-        subject?.SubjectCode ??
-        subject?.code ??
-        ""
-    ).trim();
-}
-
-
-/* =========================================================
-   ASSIGNMENT HELPERS
-========================================================= */
-
-function getAssignmentStudentId(
-    assignment
-) {
-
-    return String(
-        assignment?.["Student ID"] ??
-        assignment?.studentId ??
-        assignment?.StudentID ??
-        ""
-    ).trim();
-}
-
-
-function getAssignmentSubjectId(
-    assignment
-) {
-
-    return String(
-        assignment?.["Subject ID"] ??
-        assignment?.subjectId ??
-        assignment?.SubjectID ??
-        ""
-    ).trim();
-}
-
-
-/* =========================================================
-   PAPER HELPERS
-========================================================= */
-
-function getPaperId(paper) {
-
-    return String(
-        paper?.["Paper ID"] ??
-        paper?.paperId ??
-        paper?.PaperID ??
-        paper?.id ??
-        ""
-    ).trim();
-}
-
-
-function getPaperSubjectId(paper) {
-
-    return String(
-        paper?.__studentSubjectId ||
-        paper?.["Subject ID"] ||
-        paper?.subjectId ||
-        paper?.SubjectID ||
-        ""
-    ).trim();
-}
-
-
-function getPaperSubjectName(paper) {
-
-    return String(
-        paper?.__studentSubjectName ||
-        paper?.["Subject Name"] ||
-        paper?.subjectName ||
-        paper?.SubjectName ||
-        ""
-    ).trim();
-}
-
-
-function getPaperSubjectCode(paper) {
-
-    return String(
-        paper?.__studentSubjectCode ||
-        paper?.["Subject Code"] ||
-        paper?.subjectCode ||
-        paper?.SubjectCode ||
-        ""
-    ).trim();
-}
-
-
-function getPaperTitle(paper) {
-
-    return String(
-        paper?.["Paper Title"] ??
-        paper?.paperTitle ??
-        paper?.title ??
-        ""
-    ).trim();
-}
-
-
-function getPaperMarks(paper) {
-
-    return String(
-        paper?.["Total Marks"] ??
-        paper?.totalMarks ??
-        paper?.marks ??
-        ""
-    ).trim();
-}
-
-
-function getPaperUrl(paper) {
-
-    return String(
-        paper?.["File URL"] ??
-        paper?.fileUrl ??
-        paper?.url ??
-        ""
-    ).trim();
-}
-
-
-function getExamStart(paper) {
-
-    return String(
-        paper?.["Exam Start"] ??
-        paper?.examStart ??
-        ""
-    ).trim();
-}
-
-
-function getExamEnd(paper) {
-
-    return String(
-        paper?.["Exam End"] ??
-        paper?.examEnd ??
-        ""
-    ).trim();
-}
-
-
-/* =========================================================
-   PUBLISHED PAPER CHECK
-========================================================= */
-
-function isPublishedPaper(paper) {
-
-    const status = String(
-
-        paper?.["Published"] ??
-
-        paper?.published ??
-
-        paper?.["Published Status"] ??
-
-        paper?.publishedStatus ??
-
-        ""
-
-    )
-    .trim()
-    .toLowerCase();
-
-
-    /*
-       Student can see:
-
-       Yes
-       Publish
-       Published
-
-       Student cannot see:
-
-       Draft
-       No
-       Unpublish
-       Unpublished
-       blank
-    */
-
-    return (
-        status === "yes" ||
-        status === "publish" ||
-        status === "published"
+    setStatus(
+        "Testing getPapers...",
+        "loading"
     );
-}
 
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-window.addEventListener(
-    "DOMContentLoaded",
-    async function() {
-
-        studentId =
-            sessionStorage.getItem(
-                "studentId"
-            ) ||
-
-            sessionStorage.getItem(
-                "studentID"
-            ) ||
-
-            sessionStorage.getItem(
-                "Student ID"
-            ) ||
-
-            "";
-
-
-        studentName =
-            sessionStorage.getItem(
-                "studentName"
-            ) ||
-
-            sessionStorage.getItem(
-                "student_name"
-            ) ||
-
-            "";
-
-
-        if (!studentId) {
-
-            alert(
-                "Student session not found. Please login again."
-            );
-
-
-            window.location.replace(
-                "https://sandeepdatta1835.github.io/online-exam-portal/"
-            );
-
-
-            return;
-        }
-
-
-        document.getElementById(
-            "studentIdDisplay"
-        ).textContent =
-            studentId;
-
-
-        if (studentName) {
-
-            document.getElementById(
-                "studentName"
-            ).textContent =
-                studentName;
-        }
-
-
-        await loadDashboard();
-    }
-);
-
-
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard() {
+    document.getElementById("papersDisplay").innerHTML =
+        "";
 
     try {
 
-        await loadStudentDetails();
+        const data = await api(
+            "getPapers",
+            {
+                studentId: currentStudentId
+            }
+        );
 
-        await loadSubjects();
+        displayJSON(
+            "papersRaw",
+            data
+        );
 
-        await loadQuestionPapers();
+        const papers =
+            extractArray(data);
 
-        await loadResults();
+        document.getElementById("paperSummary").innerHTML =
+            "<strong>Total records returned:</strong> " +
+            papers.length;
+
+        displayPapers(papers);
+
+        setStatus(
+            "getPapers completed successfully. Records returned: " +
+            papers.length,
+            "success"
+        );
 
     } catch (error) {
 
         console.error(error);
 
-        showStatus(
-            "Unable to load dashboard: " +
-            error.message,
+        setStatus(
+            "getPapers ERROR: " + error.message,
             "error"
         );
+
+        document.getElementById("papersRaw").textContent =
+            String(error);
+
     }
+
 }
 
 
 /* =========================================================
-   LOAD STUDENT DETAILS
-========================================================= */
+   DISPLAY PAPERS
+   ========================================================= */
 
-async function loadStudentDetails() {
+function displayPapers(papers) {
+
+    const container =
+        document.getElementById("papersDisplay");
+
+    if (!papers.length) {
+
+        container.innerHTML =
+            "<div class='status error'>" +
+            "API returned ZERO paper records." +
+            "</div>";
+
+        return;
+    }
+
+    let html = "";
+
+    papers.forEach(function(paper, index) {
+
+        html += `
+            <div class="paper">
+
+                <div>
+                    <strong>Record:</strong>
+                    ${index + 1}
+                </div>
+
+                <div>
+                    <strong>Paper ID:</strong>
+                    ${safeValue(
+                        paper["Paper ID"] ||
+                        paper.paperId ||
+                        paper.PaperID
+                    )}
+                </div>
+
+                <div>
+                    <strong>Paper Code:</strong>
+                    ${safeValue(
+                        paper["Paper Code"] ||
+                        paper.paperCode ||
+                        paper.PaperCode
+                    )}
+                </div>
+
+                <div>
+                    <strong>Subject ID:</strong>
+                    ${safeValue(
+                        paper["Subject ID"] ||
+                        paper.subjectId ||
+                        paper.SubjectID
+                    )}
+                </div>
+
+                <div>
+                    <strong>Subject:</strong>
+                    ${safeValue(
+                        paper["Subject"] ||
+                        paper.subject
+                    )}
+                </div>
+
+                <div>
+                    <strong>Paper Title:</strong>
+                    ${safeValue(
+                        paper["Paper Title"] ||
+                        paper.paperTitle ||
+                        paper.Title ||
+                        paper.title
+                    )}
+                </div>
+
+                <div>
+                    <strong>Total Marks:</strong>
+                    ${safeValue(
+                        paper["Total Marks"] ||
+                        paper.totalMarks
+                    )}
+                </div>
+
+                <div>
+                    <strong>Published:</strong>
+                    ${safeValue(
+                        paper["Published"] ||
+                        paper.published ||
+                        paper["Published Status"] ||
+                        paper.publishedStatus
+                    )}
+                </div>
+
+                <div>
+                    <strong>File URL:</strong>
+                    ${safeValue(
+                        paper["File URL"] ||
+                        paper.fileUrl ||
+                        paper.fileURL
+                    )}
+                </div>
+
+                <div>
+                    <strong>Exam Start:</strong>
+                    ${safeValue(
+                        paper["Exam Start"] ||
+                        paper.examStart
+                    )}
+                </div>
+
+                <div>
+                    <strong>Exam End:</strong>
+                    ${safeValue(
+                        paper["Exam End"] ||
+                        paper.examEnd
+                    )}
+                </div>
+
+            </div>
+        `;
+
+    });
+
+    container.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   TEST getSubjects
+   ========================================================= */
+
+async function testGetSubjects() {
+
+    setStatus(
+        "Testing getSubjects...",
+        "loading"
+    );
 
     try {
 
         const data =
-            await api(
-                "getStudents"
-            );
+            await api("getSubjects");
 
+        displayJSON(
+            "subjectsRaw",
+            data
+        );
 
-        const students =
-            extractArray(
-                data,
-                [
-                    "students",
-                    "data",
-                    "results"
-                ]
-            );
+        const subjects =
+            extractArray(data);
 
-
-        const currentStudent =
-            students.find(
-                student =>
-                    normalizeKey(
-                        getStudentId(student)
-                    ) ===
-                    normalizeKey(
-                        studentId
-                    )
-            );
-
-
-        if (currentStudent) {
-
-            const name =
-                getStudentName(
-                    currentStudent
-                );
-
-
-            if (name) {
-
-                studentName =
-                    name;
-
-
-                document.getElementById(
-                    "studentName"
-                ).textContent =
-                    name;
-
-
-                sessionStorage.setItem(
-                    "studentName",
-                    name
-                );
-            }
-        }
+        setStatus(
+            "getSubjects completed successfully. Records returned: " +
+            subjects.length,
+            "success"
+        );
 
     } catch (error) {
 
-        console.warn(
-            "Could not load student details:",
-            error
+        console.error(error);
+
+        setStatus(
+            "getSubjects ERROR: " + error.message,
+            "error"
         );
+
+        document.getElementById("subjectsRaw").textContent =
+            String(error);
+
     }
+
 }
 
 
 /* =========================================================
-   LOAD ASSIGNED SUBJECTS
-========================================================= */
+   TEST getAssignments
+   ========================================================= */
 
-async function loadSubjects() {
+async function testGetAssignments() {
 
-    const tbody =
-        document.getElementById(
-            "subjectsTableBody"
-        );
-
-
-    tbody.innerHTML =
-        `
-        <tr>
-            <td
-                colspan="3"
-                class="loading">
-                Loading subjects...
-            </td>
-        </tr>
-        `;
-
+    setStatus(
+        "Testing getAssignments...",
+        "loading"
+    );
 
     try {
 
-        /*
-         * Get Admin Subject Management.
-         */
-
-        const subjectData =
-            await api(
-                "getSubjects"
-            );
-
-
-        const allSubjects =
-            extractArray(
-                subjectData,
-                [
-                    "subjects",
-                    "data",
-                    "results"
-                ]
-            );
-
-
-        /*
-         * Get student assignments.
-         */
-
-        const assignmentData =
+        const data =
             await api(
                 "getAssignments",
                 {
-                    studentId:
-                        studentId
+                    studentId: currentStudentId
                 }
             );
 
-
-        const allAssignments =
-            extractArray(
-                assignmentData,
-                [
-                    "assignments",
-                    "data",
-                    "results"
-                ]
-            );
-
-
-        /*
-         * Only this student's assignments.
-         */
-
-        const studentAssignments =
-            allAssignments.filter(
-                assignment =>
-                    normalizeKey(
-                        getAssignmentStudentId(
-                            assignment
-                        )
-                    ) ===
-                    normalizeKey(
-                        studentId
-                    )
-            );
-
-
-        /*
-         * Build Subject ID map.
-         */
-
-        const subjectMap =
-            new Map();
-
-
-        allSubjects.forEach(
-            subject => {
-
-                const id =
-                    normalizeKey(
-                        getSubjectId(
-                            subject
-                        )
-                    );
-
-
-                if (id) {
-
-                    subjectMap.set(
-                        id,
-                        subject
-                    );
-                }
-            }
+        displayJSON(
+            "assignmentsRaw",
+            data
         );
 
-
-        assignedSubjects = [];
-
-
-        /*
-         * Convert assignments into
-         * actual Admin subjects.
-         */
-
-        studentAssignments.forEach(
-            assignment => {
-
-                const subjectId =
-                    normalizeKey(
-                        getAssignmentSubjectId(
-                            assignment
-                        )
-                    );
-
-
-                if (!subjectId) {
-                    return;
-                }
-
-
-                const subject =
-                    subjectMap.get(
-                        subjectId
-                    );
-
-
-                if (subject) {
-
-                    const exists =
-                        assignedSubjects.some(
-                            item =>
-                                normalizeKey(
-                                    getSubjectId(
-                                        item
-                                    )
-                                ) ===
-                                subjectId
-                        );
-
-
-                    if (!exists) {
-
-                        assignedSubjects.push(
-                            subject
-                        );
-                    }
-                }
-            }
-        );
-
-
-        /*
-         * Fallback if assignment already
-         * contains subject information.
-         */
-
-        studentAssignments.forEach(
-            assignment => {
-
-                const subjectId =
-                    getAssignmentSubjectId(
-                        assignment
-                    );
-
-
-                if (!subjectId) {
-                    return;
-                }
-
-
-                const exists =
-                    assignedSubjects.some(
-                        subject =>
-                            normalizeKey(
-                                getSubjectId(
-                                    subject
-                                )
-                            ) ===
-                            normalizeKey(
-                                subjectId
-                            )
-                    );
-
-
-                if (!exists) {
-
-                    assignedSubjects.push({
-
-                        "Subject ID":
-                            subjectId,
-
-                        "Subject Name":
-                            String(
-                                assignment?.[
-                                    "Subject Name"
-                                ] ||
-                                assignment?.subjectName ||
-                                ""
-                            ).trim(),
-
-                        "Subject Code":
-                            String(
-                                assignment?.[
-                                    "Subject Code"
-                                ] ||
-                                assignment?.subjectCode ||
-                                ""
-                            ).trim()
-                    });
-                }
-            }
-        );
-
-
-        renderAssignedSubjects();
-
-
-        document.getElementById(
-            "subjectCount"
-        ).textContent =
-            assignedSubjects.length;
-
-    } catch (error) {
-
-        console.error(
-            "Subject loading error:",
-            error
-        );
-
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td
-                    colspan="3"
-                    class="empty">
-                    Unable to load assigned subjects.
-                </td>
-            </tr>
-            `;
-
-
-        throw error;
-    }
-}
-
-
-/* =========================================================
-   RENDER ASSIGNED SUBJECTS
-========================================================= */
-
-function renderAssignedSubjects() {
-
-    const tbody =
-        document.getElementById(
-            "subjectsTableBody"
-        );
-
-
-    tbody.innerHTML = "";
-
-
-    if (
-        assignedSubjects.length === 0
-    ) {
-
-        tbody.innerHTML =
-            `
-            <tr>
-                <td
-                    colspan="3"
-                    class="empty">
-                    No subjects assigned to this student.
-                </td>
-            </tr>
-            `;
-
-
-        return;
-    }
-
-
-    assignedSubjects.forEach(
-        subject => {
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML =
-                `
-                <td>
-                    ${escapeHtml(
-                        getSubjectId(
-                            subject
-                        ) || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        getSubjectName(
-                            subject
-                        ) || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        getSubjectCode(
-                            subject
-                        ) || "-"
-                    )}
-                </td>
-                `;
-
-
-            tbody.appendChild(row);
-        }
-    );
-}
-
-
-/* =========================================================
-   LOAD QUESTION PAPERS
-========================================================= */
-
-async function loadQuestionPapers() {
-
-    publishedPapers = [];
-
-
-    try {
-
-        /*
-         * IMPORTANT CHANGE:
-         *
-         * Get ALL papers from Admin.
-         *
-         * We do NOT depend on getPapers
-         * filtering by subjectId.
-         */
-
-        const paperData =
-            await api(
-                "getPapers",
-                {
-                    studentId:
-                        studentId
-                }
-            );
-
-
-        const allPapers =
-            extractArray(
-                paperData,
-                [
-                    "papers",
-                    "data",
-                    "results"
-                ]
-            );
-
-
-        /*
-         * Create Set containing only
-         * Subject IDs assigned to this student.
-         */
-
-        const assignedSubjectIds =
-            new Set();
-
-
-        assignedSubjects.forEach(
-            subject => {
-
-                const subjectId =
-                    normalizeKey(
-                        getSubjectId(
-                            subject
-                        )
-                    );
-
-
-                if (subjectId) {
-
-                    assignedSubjectIds.add(
-                        subjectId
-                    );
-                }
-            }
-        );
-
-
-        /*
-         * Check every paper.
-         */
-
-        allPapers.forEach(
-            paper => {
-
-                /*
-                 * STEP 1
-                 * Published check.
-                 */
-
-                if (
-                    !isPublishedPaper(
-                        paper
-                    )
-                ) {
-
-                    return;
-                }
-
-
-                /*
-                 * STEP 2
-                 * Get Paper ID.
-                 */
-
-                const paperId =
-                    getPaperId(
-                        paper
-                    );
-
-
-                if (!paperId) {
-
-                    return;
-                }
-
-
-                /*
-                 * STEP 3
-                 * Get Subject ID directly
-                 * from Paper Sheet.
-                 */
-
-                const paperSubjectId =
-                    normalizeKey(
-
-                        paper?.[
-                            "Subject ID"
-                        ] ||
-
-                        paper?.subjectId ||
-
-                        paper?.SubjectID ||
-
-                        ""
-                    );
-
-
-                /*
-                 * Paper without Subject ID
-                 * cannot be linked safely.
-                 */
-
-                if (!paperSubjectId) {
-
-                    console.warn(
-                        "Paper skipped because Subject ID is missing:",
-                        paper
-                    );
-
-                    return;
-                }
-
-
-                /*
-                 * STEP 4
-                 *
-                 * Student must be assigned
-                 * to the same Subject ID.
-                 */
-
-                if (
-                    !assignedSubjectIds.has(
-                        paperSubjectId
-                    )
-                ) {
-
-                    return;
-                }
-
-
-                /*
-                 * STEP 5
-                 *
-                 * Find the Admin Subject.
-                 */
-
-                const actualSubject =
-                    assignedSubjects.find(
-                        subject =>
-                            normalizeKey(
-                                getSubjectId(
-                                    subject
-                                )
-                            ) ===
-                            paperSubjectId
-                    );
-
-
-                if (!actualSubject) {
-
-                    return;
-                }
-
-
-                /*
-                 * STEP 6
-                 *
-                 * Store correct subject data.
-                 */
-
-                paper.__studentSubjectId =
-                    getSubjectId(
-                        actualSubject
-                    );
-
-
-                paper.__studentSubjectName =
-                    getSubjectName(
-                        actualSubject
-                    );
-
-
-                paper.__studentSubjectCode =
-                    getSubjectCode(
-                        actualSubject
-                    );
-
-
-                /*
-                 * STEP 7
-                 *
-                 * Avoid duplicates.
-                 */
-
-                const duplicateKey =
-                    normalizeKey(
-                        paperId
-                    ) +
-                    "::" +
-                    paperSubjectId;
-
-
-                const duplicate =
-                    publishedPapers.some(
-                        existing =>
-                            existing.__studentPaperKey ===
-                            duplicateKey
-                    );
-
-
-                if (duplicate) {
-
-                    return;
-                }
-
-
-                paper.__studentPaperKey =
-                    duplicateKey;
-
-
-                publishedPapers.push(
-                    paper
-                );
-            }
-        );
-
-
-        /*
-         * Sort papers.
-         */
-
-        publishedPapers.sort(
-            (a, b) => {
-
-                const subjectA =
-                    getPaperSubjectName(
-                        a
-                    ).toLowerCase();
-
-
-                const subjectB =
-                    getPaperSubjectName(
-                        b
-                    ).toLowerCase();
-
-
-                if (
-                    subjectA < subjectB
-                ) {
-
-                    return -1;
-                }
-
-
-                if (
-                    subjectA > subjectB
-                ) {
-
-                    return 1;
-                }
-
-
-                return getPaperTitle(
-                    a
-                ).localeCompare(
-                    getPaperTitle(
-                        b
-                    )
-                );
-            }
-        );
-
-
-        renderPaperDropdown();
-
-
-        document.getElementById(
-            "paperCount"
-        ).textContent =
-            publishedPapers.length;
-
-
-    } catch (error) {
-
-        console.error(
-            "Question paper loading error:",
-            error
-        );
-
-
-        publishedPapers = [];
-
-
-        renderPaperDropdown();
-
-
-        document.getElementById(
-            "paperCount"
-        ).textContent =
-            "0";
-    }
-}
-
-
-/* =========================================================
-   RENDER PAPER DROPDOWN
-========================================================= */
-
-function renderPaperDropdown() {
-
-    const select =
-        document.getElementById(
-            "paperSelect"
-        );
-
-
-    select.innerHTML =
-        `
-        <option value="">
-            Select a question paper
-        </option>
-        `;
-
-
-    const empty =
-        document.getElementById(
-            "paperEmpty"
-        );
-
-
-    if (
-        publishedPapers.length === 0
-    ) {
-
-        const option =
-            document.createElement(
-                "option"
-            );
-
-
-        option.disabled = true;
-
-
-        option.textContent =
-            "No published question paper available";
-
-
-        select.appendChild(
-            option
-        );
-
-
-        empty.style.display =
-            "block";
-
-
-        return;
-    }
-
-
-    empty.style.display =
-        "none";
-
-
-    /*
-     * Create dropdown options.
-     *
-     * Example:
-     *
-     * English - Practice Test
-     *
-     * No empty "-" separators.
-     */
-
-    publishedPapers.forEach(
-        (paper, index) => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                String(index);
-
-
-            const subjectName =
-                getPaperSubjectName(
-                    paper
-                );
-
-
-            const title =
-                getPaperTitle(
-                    paper
-                );
-
-
-            const parts = [];
-
-
-            if (subjectName) {
-
-                parts.push(
-                    subjectName
-                );
-            }
-
-
-            if (title) {
-
-                parts.push(
-                    title
-                );
-            }
-
-
-            option.textContent =
-                parts.join(
-                    " - "
-                ) ||
-                "Question Paper";
-
-
-            select.appendChild(
-                option
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   SHOW SELECTED PAPER
-========================================================= */
-
-function showSelectedPaper() {
-
-    const select =
-        document.getElementById(
-            "paperSelect"
-        );
-
-
-    const value =
-        select.value;
-
-
-    if (
-        value === "" ||
-        !publishedPapers[
-            Number(value)
-        ]
-    ) {
-
-        selectedPaper =
-            null;
-
-
-        document.getElementById(
-            "paperInfo"
-        ).style.display =
-            "none";
-
-
-        document.getElementById(
-            "paperEmpty"
-        ).style.display =
-            "block";
-
-
-        document.getElementById(
-            "submissionPaperTitle"
-        ).textContent =
-            "Please select a question paper above.";
-
-
-        document.getElementById(
-            "submitAnswerBtn"
-        ).disabled =
-            true;
-
-
-        return;
-    }
-
-
-    selectedPaper =
-        publishedPapers[
-            Number(value)
-        ];
-
-
-    document.getElementById(
-        "paperEmpty"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "paperInfo"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "selectedPaperId"
-    ).textContent =
-        getPaperId(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedPaperSubject"
-    ).textContent =
-        getPaperSubjectName(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedPaperCode"
-    ).textContent =
-        getPaperSubjectCode(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedPaperTitle"
-    ).textContent =
-        getPaperTitle(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedPaperMarks"
-    ).textContent =
-        getPaperMarks(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedExamStart"
-    ).textContent =
-        getExamStart(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "selectedExamEnd"
-    ).textContent =
-        getExamEnd(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "submissionPaperTitle"
-    ).textContent =
-        getPaperTitle(
-            selectedPaper
-        ) || "-";
-
-
-    document.getElementById(
-        "submitAnswerBtn"
-    ).disabled =
-        false;
-
-
-    /*
-     * Reset new upload selection.
-     */
-
-    answerFiles = [];
-
-
-    document.getElementById(
-        "answerFiles"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "fileCount"
-    ).textContent =
-        "No files selected.";
-
-
-    /*
-     * Load existing submission.
-     */
-
-    loadSubmissionStatus();
-}
-
-
-/* =========================================================
-   OPEN SELECTED PAPER
-========================================================= */
-
-function openSelectedPaper() {
-
-    if (!selectedPaper) {
-
-        alert(
-            "Please select a question paper."
-        );
-
-        return;
-    }
-
-
-    const url =
-        getPaperUrl(
-            selectedPaper
-        );
-
-
-    if (!url) {
-
-        alert(
-            "Question paper PDF link is not available."
-        );
-
-        return;
-    }
-
-
-    document.getElementById(
-        "pdfModalTitle"
-    ).textContent =
-        getPaperTitle(
-            selectedPaper
-        ) ||
-        "Question Paper";
-
-
-    document.getElementById(
-        "pdfFrame"
-    ).src =
-        url;
-
-
-    document.getElementById(
-        "pdfModal"
-    ).style.display =
-        "block";
-}
-
-
-/* =========================================================
-   DOWNLOAD PAPER
-========================================================= */
-
-function downloadSelectedPaper() {
-
-    if (!selectedPaper) {
-
-        alert(
-            "Please select a question paper."
-        );
-
-        return;
-    }
-
-
-    const url =
-        getPaperUrl(
-            selectedPaper
-        );
-
-
-    if (!url) {
-
-        alert(
-            "Question paper PDF link is not available."
-        );
-
-        return;
-    }
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-}
-
-
-/* =========================================================
-   CLOSE PDF MODAL
-========================================================= */
-
-function closePdfModal() {
-
-    document.getElementById(
-        "pdfModal"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "pdfFrame"
-    ).src =
-        "";
-}
-
-
-window.addEventListener(
-    "click",
-    function(event) {
-
-        const modal =
-            document.getElementById(
-                "pdfModal"
-            );
-
-
-        if (
-            event.target === modal
-        ) {
-
-            closePdfModal();
-        }
-    }
-);
-
-
-/* =========================================================
-   ANSWER FILES
-========================================================= */
-
-function handleAnswerFiles() {
-
-    const input =
-        document.getElementById(
-            "answerFiles"
-        );
-
-
-    answerFiles =
-        Array.from(
-            input.files || []
-        );
-
-
-    if (
-        answerFiles.length > 20
-    ) {
-
-        alert(
-            "Maximum 20 images are allowed."
-        );
-
-
-        input.value =
-            "";
-
-
-        answerFiles = [];
-
-
-        document.getElementById(
-            "fileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        document.getElementById(
-            "submitAnswerBtn"
-        ).disabled =
-            true;
-
-
-        return;
-    }
-
-
-    const invalid =
-        answerFiles.some(
-            file =>
-                !file.type.startsWith(
-                    "image/"
-                )
-        );
-
-
-    if (invalid) {
-
-        alert(
-            "Please select image files only."
-        );
-
-
-        input.value =
-            "";
-
-
-        answerFiles = [];
-
-
-        document.getElementById(
-            "fileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        document.getElementById(
-            "submitAnswerBtn"
-        ).disabled =
-            true;
-
-
-        return;
-    }
-
-
-    document.getElementById(
-        "fileCount"
-    ).textContent =
-        answerFiles.length +
-        " image(s) selected.";
-
-
-    document.getElementById(
-        "submitAnswerBtn"
-    ).disabled =
-        answerFiles.length === 0;
-}
-
-
-/* =========================================================
-   EDIT ANSWER FILES
-========================================================= */
-
-function handleEditAnswerFiles() {
-
-    const input =
-        document.getElementById(
-            "editAnswerFiles"
-        );
-
-
-    editAnswerFiles =
-        Array.from(
-            input.files || []
-        );
-
-
-    if (
-        editAnswerFiles.length > 20
-    ) {
-
-        alert(
-            "Maximum 20 images are allowed."
-        );
-
-
-        input.value =
-            "";
-
-
-        editAnswerFiles = [];
-
-
-        document.getElementById(
-            "editFileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        document.getElementById(
-            "editAnswerBtn"
-        ).disabled =
-            true;
-
-
-        return;
-    }
-
-
-    const invalid =
-        editAnswerFiles.some(
-            file =>
-                !file.type.startsWith(
-                    "image/"
-                )
-        );
-
-
-    if (invalid) {
-
-        alert(
-            "Please select image files only."
-        );
-
-
-        input.value =
-            "";
-
-
-        editAnswerFiles = [];
-
-
-        document.getElementById(
-            "editFileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        document.getElementById(
-            "editAnswerBtn"
-        ).disabled =
-            true;
-
-
-        return;
-    }
-
-
-    document.getElementById(
-        "editFileCount"
-    ).textContent =
-        editAnswerFiles.length +
-        " image(s) selected.";
-
-
-    document.getElementById(
-        "editAnswerBtn"
-    ).disabled =
-        editAnswerFiles.length === 0;
-}
-
-
-/* =========================================================
-   FILE TO BASE64
-========================================================= */
-
-function fileToBase64(file) {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function() {
-
-                    const result =
-                        String(
-                            reader.result
-                        );
-
-
-                    const base64 =
-                        result.includes(",")
-                            ? result.split(",")[1]
-                            : result;
-
-
-                    resolve(
-                        base64
-                    );
-                };
-
-
-            reader.onerror =
-                function() {
-
-                    reject(
-                        new Error(
-                            "Could not read file."
-                        )
-                    );
-                };
-
-
-            reader.readAsDataURL(
-                file
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   SUBMIT ANSWER SHEET
-========================================================= */
-
-async function submitAnswerSheet() {
-
-    if (!selectedPaper) {
-
-        alert(
-            "Please select a question paper first."
-        );
-
-        return;
-    }
-
-
-    if (
-        !answerFiles.length
-    ) {
-
-        alert(
-            "Please select answer-sheet images."
-        );
-
-        return;
-    }
-
-
-    if (
-        answerFiles.length > 20
-    ) {
-
-        alert(
-            "Maximum 20 images are allowed."
-        );
-
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "submitAnswerBtn"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    showStatus(
-        "Uploading answer sheet. Please wait...",
-        "info"
-    );
-
-
-    try {
-
-        const uploadedFiles = [];
-
-
-        for (
-            let i = 0;
-            i < answerFiles.length;
-            i++
-        ) {
-
-            const file =
-                answerFiles[i];
-
-
-            showStatus(
-                "Uploading image " +
-                (i + 1) +
-                " of " +
-                answerFiles.length +
-                "...",
-                "info"
-            );
-
-
-            const base64 =
-                await fileToBase64(
-                    file
-                );
-
-
-            const result =
-                await api(
-                    "uploadAnswerPhoto",
-                    {
-
-                        studentId:
-                            studentId,
-
-                        paperId:
-                            getPaperId(
-                                selectedPaper
-                            ),
-
-                        fileName:
-                            file.name,
-
-                        mimeType:
-                            file.type ||
-                            "image/jpeg",
-
-                        fileBase64:
-                            base64,
-
-                        pageNumber:
-                            i + 1
-                    }
-                );
-
-
-            uploadedFiles.push(
-                result
-            );
-        }
-
-
-        await api(
-            "saveSubmission",
-            {
-
-                studentId:
-                    studentId,
-
-                paperId:
-                    getPaperId(
-                        selectedPaper
-                    ),
-
-                paperTitle:
-                    getPaperTitle(
-                        selectedPaper
-                    ),
-
-                subjectId:
-                    getPaperSubjectId(
-                        selectedPaper
-                    ),
-
-                files:
-                    uploadedFiles
-            }
-        );
-
-
-        showStatus(
-            "Answer sheet submitted successfully.",
+        const assignments =
+            extractArray(data);
+
+        setStatus(
+            "getAssignments completed successfully. Records returned: " +
+            assignments.length,
             "success"
         );
 
-
-        answerFiles = [];
-
-
-        document.getElementById(
-            "answerFiles"
-        ).value =
-            "";
-
-
-        document.getElementById(
-            "fileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        await loadSubmissionStatus();
-
     } catch (error) {
 
-        console.error(
-            "Submission error:",
-            error
-        );
+        console.error(error);
 
-
-        showStatus(
-            "Submission failed: " +
-            error.message,
+        setStatus(
+            "getAssignments ERROR: " + error.message,
             "error"
         );
 
+        document.getElementById("assignmentsRaw").textContent =
+            String(error);
 
-        button.disabled =
-            false;
     }
+
 }
 
 
 /* =========================================================
-   LOAD SUBMISSION STATUS
-========================================================= */
+   RUN ALL
+   ========================================================= */
 
-async function loadSubmissionStatus() {
+async function runAllTests() {
 
-    if (!selectedPaper) {
-        return;
-    }
+    clearOutput();
 
-
-    const paperId =
-        getPaperId(
-            selectedPaper
-        );
-
-
-    if (!paperId) {
-        return;
-    }
-
-
-    try {
-
-        const data =
-            await api(
-                "getStudentSubmissionStatus",
-                {
-
-                    studentId:
-                        studentId,
-
-                    paperId:
-                        paperId
-                }
-            );
-
-
-        let submission =
-            data;
-
-
-        if (
-            Array.isArray(
-                data?.submissions
-            )
-        ) {
-
-            submission =
-                data.submissions[0] ||
-                null;
-        }
-
-
-        if (
-            Array.isArray(
-                data?.data
-            )
-        ) {
-
-            submission =
-                data.data[0] ||
-                null;
-        }
-
-
-        renderSubmissionStatus(
-            submission
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Submission status could not be loaded:",
-            error
-        );
-    }
-}
-
-
-/* =========================================================
-   RENDER SUBMISSION STATUS
-========================================================= */
-
-function renderSubmissionStatus(
-    submission
-) {
-
-    const details =
-        document.getElementById(
-            "submissionDetails"
-        );
-
-
-    const editBox =
-        document.getElementById(
-            "editSubmissionBox"
-        );
-
-
-    if (!submission) {
-
-        details.style.display =
-            "none";
-
-
-        editBox.style.display =
-            "none";
-
-
-        return;
-    }
-
-
-    details.style.display =
-        "block";
-
-
-    const status =
-        String(
-
-            submission?.["Status"] ||
-
-            submission?.status ||
-
-            submission?.[
-                "Submission Status"
-            ] ||
-
-            submission?.submissionStatus ||
-
-            "Submitted"
-
-        ).trim();
-
-
-    const submittedAt =
-        String(
-
-            submission?.[
-                "Submitted At"
-            ] ||
-
-            submission?.submittedAt ||
-
-            submission?.Timestamp ||
-
-            submission?.timestamp ||
-
-            ""
-
-        ).trim();
-
-
-    const editUsed =
-        String(
-
-            submission?.[
-                "Edit Used"
-            ] ||
-
-            submission?.editUsed ||
-
-            submission?.Edited ||
-
-            submission?.edited ||
-
-            ""
-
-        )
-        .trim()
-        .toLowerCase();
-
-
-    details.innerHTML =
-        `
-        <p>
-            <strong>
-                Submission Status:
-            </strong>
-
-            ${escapeHtml(
-                status ||
-                "Submitted"
-            )}
-        </p>
-
-        ${
-            submittedAt
-            ?
-            `
-            <p>
-                <strong>
-                    Submitted At:
-                </strong>
-
-                ${escapeHtml(
-                    submittedAt
-                )}
-            </p>
-            `
-            :
-            ""
-        }
-        `;
-
-
-    const editAlreadyUsed =
-        editUsed === "yes" ||
-        editUsed === "true" ||
-        editUsed === "1";
-
-
-    if (
-        !editAlreadyUsed
-    ) {
-
-        editBox.style.display =
-            "block";
-
-    } else {
-
-        editBox.style.display =
-            "none";
-    }
-}
-
-
-/* =========================================================
-   EDIT ANSWER SHEET
-========================================================= */
-
-async function editAnswerSheet() {
-
-    if (!selectedPaper) {
-
-        alert(
-            "Please select a question paper."
-        );
-
-        return;
-    }
-
-
-    if (
-        !editAnswerFiles.length
-    ) {
-
-        alert(
-            "Please select answer-sheet images."
-        );
-
-        return;
-    }
-
-
-    if (
-        editAnswerFiles.length > 20
-    ) {
-
-        alert(
-            "Maximum 20 images are allowed."
-        );
-
-        return;
-    }
-
-
-    const button =
-        document.getElementById(
-            "editAnswerBtn"
-        );
-
-
-    button.disabled =
-        true;
-
-
-    showStatus(
-        "Updating answer sheet. Please wait...",
-        "info"
+    setStatus(
+        "Running all API tests...",
+        "loading"
     );
 
+    await testGetSubjects();
 
-    try {
+    await testGetAssignments();
 
-        const uploadedFiles = [];
+    await testGetPapers();
 
+    setStatus(
+        "ALL TESTS COMPLETED.",
+        "success"
+    );
 
-        for (
-            let i = 0;
-            i < editAnswerFiles.length;
-            i++
-        ) {
-
-            const file =
-                editAnswerFiles[i];
-
-
-            showStatus(
-                "Uploading updated image " +
-                (i + 1) +
-                " of " +
-                editAnswerFiles.length +
-                "...",
-                "info"
-            );
-
-
-            const base64 =
-                await fileToBase64(
-                    file
-                );
-
-
-            const result =
-                await api(
-                    "uploadAnswerPhoto",
-                    {
-
-                        studentId:
-                            studentId,
-
-                        paperId:
-                            getPaperId(
-                                selectedPaper
-                            ),
-
-                        fileName:
-                            file.name,
-
-                        mimeType:
-                            file.type ||
-                            "image/jpeg",
-
-                        fileBase64:
-                            base64,
-
-                        pageNumber:
-                            i + 1,
-
-                        isEdit:
-                            true
-                    }
-                );
-
-
-            uploadedFiles.push(
-                result
-            );
-        }
-
-
-        await api(
-            "editSubmission",
-            {
-
-                studentId:
-                    studentId,
-
-                paperId:
-                    getPaperId(
-                        selectedPaper
-                    ),
-
-                files:
-                    uploadedFiles
-            }
-        );
-
-
-        showStatus(
-            "Answer sheet updated successfully.",
-            "success"
-        );
-
-
-        editAnswerFiles = [];
-
-
-        document.getElementById(
-            "editAnswerFiles"
-        ).value =
-            "";
-
-
-        document.getElementById(
-            "editFileCount"
-        ).textContent =
-            "No files selected.";
-
-
-        document.getElementById(
-            "editSubmissionBox"
-        ).style.display =
-            "none";
-
-
-        await loadSubmissionStatus();
-
-    } catch (error) {
-
-        console.error(
-            "Edit submission error:",
-            error
-        );
-
-
-        showStatus(
-            "Update failed: " +
-            error.message,
-            "error"
-        );
-
-
-        button.disabled =
-            false;
-    }
 }
 
 
 /* =========================================================
-   LOAD RESULTS
-========================================================= */
+   CLEAR
+   ========================================================= */
 
-async function loadResults() {
+function clearOutput() {
 
-    const tbody =
-        document.getElementById(
-            "resultsTableBody"
-        );
+    document.getElementById("papersRaw").textContent =
+        "No response yet.";
 
+    document.getElementById("subjectsRaw").textContent =
+        "No response yet.";
 
-    try {
+    document.getElementById("assignmentsRaw").textContent =
+        "No response yet.";
 
-        const data =
-            await api(
-                "getResults"
-            );
-
-
-        const results =
-            extractArray(
-                data,
-                [
-                    "results",
-                    "data"
-                ]
-            );
-
-
-        /*
-         * Only show current student's results.
-         */
-
-        allResults =
-            results.filter(
-                result => {
-
-                    const resultStudentId =
-                        String(
-
-                            result?.[
-                                "Student ID"
-                            ] ??
-
-                            result?.studentId ??
-
-                            result?.StudentID ??
-
-                            ""
-
-                        ).trim();
-
-
-                    return (
-                        normalizeKey(
-                            resultStudentId
-                        ) ===
-                        normalizeKey(
-                            studentId
-                        )
-                    );
-                }
-            );
-
-
-        renderResults();
-
-    } catch (error) {
-
-        console.error(
-            "Results error:",
-            error
-        );
-
-
-        tbody.innerHTML =
-            `
-            <tr>
-
-                <td
-                    colspan="7"
-                    class="empty">
-
-                    No result available.
-
-                </td>
-
-            </tr>
-            `;
-    }
-}
-
-
-/* =========================================================
-   RENDER RESULTS
-========================================================= */
-
-function renderResults() {
-
-    const tbody =
-        document.getElementById(
-            "resultsTableBody"
-        );
-
-
-    tbody.innerHTML =
+    document.getElementById("papersDisplay").innerHTML =
         "";
 
+    document.getElementById("paperSummary").textContent =
+        "No test run yet.";
+
+    document.getElementById("status").innerHTML =
+        "";
+
+}
+
+
+/* =========================================================
+   SAFE VALUE
+   ========================================================= */
+
+function safeValue(value) {
 
     if (
-        !allResults.length
+        value === undefined ||
+        value === null ||
+        value === ""
     ) {
-
-        tbody.innerHTML =
-            `
-            <tr>
-
-                <td
-                    colspan="7"
-                    class="empty">
-
-                    No result available.
-
-                </td>
-
-            </tr>
-            `;
-
-
-        return;
+        return "<span style='color:#dc2626'>EMPTY</span>";
     }
 
+    return escapeHtml(String(value));
 
-    const subjectMaps =
-        buildSubjectMaps();
-
-
-    allResults.forEach(
-        result => {
-
-            /*
-             * Subject ID
-             */
-
-            const subjectId =
-                String(
-
-                    result?.[
-                        "Subject ID"
-                    ] ??
-
-                    result?.subjectId ??
-
-                    result?.SubjectID ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Subject Name
-             */
-
-            const subject =
-                subjectMaps.byId.get(
-                    normalizeKey(
-                        subjectId
-                    )
-                );
-
-
-            const subjectName =
-                subject
-
-                    ? getSubjectName(
-                        subject
-                    )
-
-                    : String(
-
-                        result?.[
-                            "Subject Name"
-                        ] ??
-
-                        result?.subjectName ??
-
-                        ""
-
-                    ).trim();
-
-
-            /*
-             * Title
-             */
-
-            const title =
-                String(
-
-                    result?.[
-                        "Paper Title"
-                    ] ??
-
-                    result?.Title ??
-
-                    result?.title ??
-
-                    result?.paperTitle ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Marks Obtained
-             */
-
-            const marksObtained =
-                String(
-
-                    result?.[
-                        "Marks Obtained"
-                    ] ??
-
-                    result?.marksObtained ??
-
-                    result?.Marks ??
-
-                    result?.marks ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Total Marks
-             */
-
-            const totalMarks =
-                String(
-
-                    result?.[
-                        "Total Marks"
-                    ] ??
-
-                    result?.totalMarks ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Result
-             */
-
-            const resultStatus =
-                String(
-
-                    result?.[
-                        "Result"
-                    ] ??
-
-                    result?.result ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Remark
-             */
-
-            const remark =
-                String(
-
-                    result?.[
-                        "Remark"
-                    ] ??
-
-                    result?.[
-                        "Remarks"
-                    ] ??
-
-                    result?.remark ??
-
-                    result?.remarks ??
-
-                    ""
-
-                ).trim();
-
-
-            /*
-             * Calculate percentage.
-             */
-
-            let percentage =
-                "";
-
-
-            const total =
-                parseFloat(
-                    totalMarks
-                );
-
-
-            const obtained =
-                parseFloat(
-                    marksObtained
-                );
-
-
-            if (
-                !isNaN(total) &&
-                total > 0 &&
-                !isNaN(obtained)
-            ) {
-
-                percentage =
-                    (
-                        obtained /
-                        total *
-                        100
-                    ).toFixed(2) +
-                    "%";
-            }
-
-
-            /*
-             * If Admin already has
-             * Percentage, use it.
-             */
-
-            if (!percentage) {
-
-                percentage =
-                    String(
-
-                        result?.[
-                            "Percentage"
-                        ] ??
-
-                        result?.percentage ??
-
-                        ""
-
-                    ).trim();
-            }
-
-
-            /*
-             * IMPORTANT:
-             * NO PAPER ID COLUMN.
-             */
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML =
-                `
-                <td>
-                    ${escapeHtml(
-                        subjectName ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        title ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        marksObtained ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        totalMarks ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        percentage ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        resultStatus ||
-                        "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        remark ||
-                        "-"
-                    )}
-                </td>
-                `;
-
-
-            tbody.appendChild(
-                row
-            );
-        }
-    );
 }
 
 
 /* =========================================================
-   SUBJECT MAP FOR RESULTS
-========================================================= */
-
-function buildSubjectMaps() {
-
-    const byId =
-        new Map();
-
-
-    const byCode =
-        new Map();
-
-
-    assignedSubjects.forEach(
-        subject => {
-
-            const id =
-                normalizeKey(
-                    getSubjectId(
-                        subject
-                    )
-                );
-
-
-            const code =
-                normalizeKey(
-                    getSubjectCode(
-                        subject
-                    )
-                );
-
-
-            if (id) {
-
-                byId.set(
-                    id,
-                    subject
-                );
-            }
-
-
-            if (code) {
-
-                byCode.set(
-                    code,
-                    subject
-                );
-            }
-        }
-    );
-
-
-    return {
-        byId,
-        byCode
-    };
-}
-
-
-/* =========================================================
-   STATUS MESSAGE
-========================================================= */
-
-function showStatus(
-    message,
-    type
-) {
-
-    const box =
-        document.getElementById(
-            "submissionStatus"
-        );
-
-
-    box.textContent =
-        message;
-
-
-    box.className =
-        "status " +
-        (
-            type === "success"
-
-                ? "success-status"
-
-                : type === "error"
-
-                    ? "error-status"
-
-                    : "info-status"
-        );
-}
-
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
+   ESCAPE HTML
+   ========================================================= */
 
 function escapeHtml(value) {
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
 }
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function logout() {
-
-    /*
-     * Clear student session.
-     */
-
-    try {
-
-        sessionStorage.clear();
-
-    } catch (error) {
-
-        console.warn(
-            "Session clear error:",
-            error
-        );
-    }
-
-
-    /*
-     * Clear common localStorage
-     * login values as well.
-     */
-
-    try {
-
-        localStorage.removeItem(
-            "studentId"
-        );
-
-        localStorage.removeItem(
-            "studentName"
-        );
-
-        localStorage.removeItem(
-            "examPortalRole"
-        );
-
-    } catch (error) {
-
-        console.warn(
-            "Local storage clear error:",
-            error
-        );
-    }
-
-
-    /*
-     * Direct GitHub Pages homepage.
-     */
-
-    window.location.replace(
-        "https://sandeepdatta1835.github.io/online-exam-portal/"
-    );
-}
-
-
-/* =========================================================
-   ESCAPE KEY
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closePdfModal();
-        }
-    }
-);
 
 </script>
 
