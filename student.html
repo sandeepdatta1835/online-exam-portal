@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student API Test</title>
+
+<title>Student Dashboard - Online Examination Portal</title>
 
 <style>
 * {
@@ -12,252 +13,867 @@
 
 body {
     margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f4f7fb;
-    color: #263238;
-}
-
-.container {
-    max-width: 1000px;
-    margin: auto;
+    color: #1f2937;
 }
 
 .header {
-    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    background: linear-gradient(135deg, #173b8f, #2563eb);
     color: white;
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 20px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
 }
 
-.header h1 {
-    margin: 0 0 6px;
+.header-left h1 {
+    margin: 0;
     font-size: 22px;
 }
 
-.header p {
-    margin: 0;
-    opacity: .9;
+.header-left p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    opacity: 0.9;
 }
 
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-}
-
-h2 {
-    margin-top: 0;
-    color: #12395b;
-}
-
-input {
-    width: 100%;
-    height: 44px;
-    padding: 0 12px;
-    border: 1px solid #cbd5df;
-    border-radius: 8px;
-    font-size: 15px;
-    margin: 8px 0 12px;
-}
-
-button {
+.logout-btn {
     border: none;
+    background: white;
+    color: #173b8f;
+    padding: 10px 16px;
     border-radius: 8px;
-    padding: 11px 16px;
-    margin: 4px;
     cursor: pointer;
     font-weight: bold;
 }
 
-.primary {
-    background: #1976d2;
-    color: white;
+.logout-btn:hover {
+    background: #eef3ff;
 }
 
-.success {
-    background: #2e7d32;
-    color: white;
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 22px;
 }
 
-.warning {
-    background: #ef6c00;
-    color: white;
+.welcome-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
 }
 
-.dark {
-    background: #37474f;
-    color: white;
+.welcome-card h2 {
+    margin: 0 0 7px;
+    color: #173b8f;
 }
 
-.danger {
-    background: #c62828;
-    color: white;
+.welcome-card p {
+    margin: 5px 0;
 }
 
-.status {
-    margin-top: 15px;
+.student-id {
+    display: inline-block;
+    background: #eaf1ff;
+    color: #173b8f;
+    padding: 6px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.summary-card .number {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.summary-card .label {
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.section {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+}
+
+.section-title {
+    margin: 0 0 16px;
+    color: #173b8f;
+    font-size: 19px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+th {
+    background: #eef3ff;
+    color: #173b8f;
     padding: 12px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.empty {
+    text-align: center;
+    color: #64748b;
+    padding: 25px;
+}
+
+.paper-selector {
+    margin-bottom: 18px;
+}
+
+.paper-selector label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+select,
+input[type="file"],
+input[type="text"] {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
+    background: white;
+}
+
+.paper-info {
+    display: none;
+    background: #f8faff;
+    border: 1px solid #dbe6ff;
+    border-radius: 12px;
+    padding: 17px;
+    margin-top: 15px;
+}
+
+.paper-info.show {
+    display: block;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.info-box {
+    background: white;
+    border-radius: 8px;
+    padding: 11px;
+    border: 1px solid #e5e7eb;
+}
+
+.info-label {
+    color: #64748b;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    font-weight: bold;
+}
+
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-success {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #15803d;
+}
+
+.btn-secondary {
+    background: #64748b;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #475569;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.status-box {
+    padding: 13px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.status-success {
+    background: #ecfdf5;
+    color: #166534;
+}
+
+.status-warning {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.status-danger {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.file-info {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.result-pass {
+    color: #15803d;
+    font-weight: bold;
+}
+
+.result-fail {
+    color: #dc2626;
     font-weight: bold;
 }
 
 .loading {
-    background: #fff3e0;
-    color: #e65100;
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
 }
 
-.ok {
-    background: #e8f5e9;
-    color: #2e7d32;
+.error-box {
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    padding: 14px;
+    border-radius: 9px;
+    margin-bottom: 18px;
+    display: none;
 }
 
-.error {
-    background: #ffebee;
-    color: #c62828;
-}
-
-pre {
-    background: #111827;
-    color: #e5e7eb;
-    padding: 15px;
-    border-radius: 10px;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-break: break-word;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.paper {
-    border: 1px solid #dce5ec;
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 10px;
-    background: #fafcff;
-}
-
-.paper div {
-    margin: 6px 0;
-}
-
-.paper strong {
-    display: inline-block;
-    min-width: 130px;
-}
-
-.info {
-    background: #edf6ff;
-    padding: 12px;
+.notice {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1e40af;
+    padding: 13px;
     border-radius: 8px;
+    font-size: 13px;
     margin-bottom: 15px;
+}
+
+.progress-wrap {
+    display: none;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #2563eb;
+    transition: width 0.2s;
+}
+
+.progress-text {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #64748b;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 1000px;
+    height: 90vh;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #173b8f;
+    color: white;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.close-modal {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.image-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.footer {
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+    padding: 10px 20px 25px;
+}
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 14px;
+    }
+
+    .header-left h1 {
+        font-size: 18px;
+    }
+
+    .container {
+        padding: 14px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logout-btn {
+        padding: 9px 11px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <header class="header">
-    <h1>Online Examination Portal</h1>
-    <p>Temporary Student API Diagnostic</p>
+
+    <div class="header-left">
+        <h1>Online Examination Portal</h1>
+        <p>Student Dashboard</p>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+
 </header>
 
 
-<div class="card">
+<main class="container">
 
-    <h2>Student ID</h2>
+    <div id="errorBox" class="error-box"></div>
 
-    <div class="info">
-        Student ID currently detected:
-        <strong id="currentStudentId">Checking...</strong>
+    <!-- WELCOME -->
+    <section class="welcome-card">
+
+        <h2 id="welcomeName">Welcome</h2>
+
+        <p>
+            Student ID:
+            <span class="student-id" id="studentIdDisplay">Loading...</span>
+        </p>
+
+    </section>
+
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+
+        <div class="summary-card">
+            <div class="number" id="assignedCount">0</div>
+            <div class="label">Assigned Subjects</div>
+        </div>
+
+        <div class="summary-card">
+            <div class="number" id="publishedCount">0</div>
+            <div class="label">Published / Active Question Papers</div>
+        </div>
+
+    </section>
+
+
+    <!-- ASSIGNED SUBJECTS -->
+    <section class="section">
+
+        <h2 class="section-title">Assigned Subjects</h2>
+
+        <div id="subjectsLoading" class="loading">
+            Loading subjects...
+        </div>
+
+        <div class="table-wrap">
+
+            <table id="subjectsTable" class="hidden">
+
+                <thead>
+                    <tr>
+                        <th>Subject ID</th>
+                        <th>Subject Name</th>
+                        <th>Subject Code</th>
+                    </tr>
+                </thead>
+
+                <tbody id="subjectsBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div id="subjectsEmpty" class="empty hidden">
+            No subjects assigned to this student.
+        </div>
+
+    </section>
+
+
+    <!-- QUESTION PAPERS -->
+    <section class="section">
+
+        <h2 class="section-title">Question Papers</h2>
+
+        <div class="notice">
+            Only question papers published by the administrator and assigned to your subjects are shown here.
+        </div>
+
+        <div class="paper-selector">
+
+            <label for="paperSelect">Select Question Paper</label>
+
+            <select id="paperSelect" onchange="showSelectedPaper()">
+
+                <option value="">
+                    Select a question paper
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div id="paperEmpty" class="empty">
+            Loading question papers...
+        </div>
+
+
+        <div id="paperInfo" class="paper-info">
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <div class="info-label">Paper Code</div>
+                    <div class="info-value" id="paperCode">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Subject</div>
+                    <div class="info-value" id="paperSubject">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Paper Title</div>
+                    <div class="info-value" id="paperTitle">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Total Marks</div>
+                    <div class="info-value" id="paperMarks">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Exam Start</div>
+                    <div class="info-value" id="paperStart">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Exam End</div>
+                    <div class="info-value" id="paperEnd">-</div>
+                </div>
+
+            </div>
+
+
+            <div class="btn-row">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="viewPaper()">
+                    View Paper
+                </button>
+
+                <button
+                    class="btn btn-success"
+                    onclick="downloadPaper()">
+                    Download Paper
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ANSWER SHEET -->
+    <section class="section">
+
+        <h2 class="section-title">Answer Sheet Submission</h2>
+
+        <div id="submissionStatus" class="status-box">
+            Select a question paper to check submission status.
+        </div>
+
+
+        <div class="paper-selector">
+
+            <label for="submissionPaperSelect">
+                Select Question Paper
+            </label>
+
+            <select
+                id="submissionPaperSelect"
+                onchange="loadSubmissionStatus()">
+
+                <option value="">
+                    Select a question paper
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div id="submissionDetails" class="hidden">
+
+            <div class="info-grid">
+
+                <div class="info-box">
+                    <div class="info-label">Paper</div>
+                    <div class="info-value" id="submissionPaperTitle">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Subject</div>
+                    <div class="info-value" id="submissionSubject">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Paper ID</div>
+                    <div class="info-value" id="submissionPaperId">-</div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-label">Total Marks</div>
+                    <div class="info-value" id="submissionTotalMarks">-</div>
+                </div>
+
+            </div>
+
+
+            <div style="margin-top:20px;">
+
+                <label>
+                    <strong>Upload Answer Sheet</strong>
+                </label>
+
+                <p style="font-size:13px;color:#64748b;">
+                    Select up to 20 clear images of your answer sheet.
+                </p>
+
+                <input
+                    type="file"
+                    id="answerFiles"
+                    accept="image/*"
+                    multiple
+                    onchange="previewImages()">
+
+                <div
+                    id="fileInfo"
+                    class="file-info">
+                </div>
+
+                <div
+                    id="imagePreview"
+                    class="image-preview">
+                </div>
+
+            </div>
+
+
+            <div class="progress-wrap" id="progressWrap">
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="progressFill">
+                    </div>
+                </div>
+
+                <div
+                    class="progress-text"
+                    id="progressText">
+                    Uploading...
+                </div>
+
+            </div>
+
+
+            <div class="btn-row">
+
+                <button
+                    class="btn btn-primary"
+                    id="submitAnswerBtn"
+                    onclick="submitAnswerSheet()">
+                    Submit Answer Sheet
+                </button>
+
+                <button
+                    class="btn btn-danger hidden"
+                    id="editAnswerBtn"
+                    onclick="enableEditMode()">
+                    Edit Answer Sheet
+                </button>
+
+                <button
+                    class="btn btn-secondary hidden"
+                    id="cancelEditBtn"
+                    onclick="cancelEditMode()">
+                    Cancel Edit
+                </button>
+
+            </div>
+
+
+            <div
+                id="editNotice"
+                class="notice hidden"
+                style="margin-top:15px;">
+                You are editing your answer sheet. You can upload up to 20 images.
+                The edit option is available only once.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+    <section class="section">
+
+        <h2 class="section-title">My Results</h2>
+
+        <div
+            id="resultsLoading"
+            class="loading">
+            Loading results...
+        </div>
+
+        <div class="table-wrap">
+
+            <table
+                id="resultsTable"
+                class="hidden">
+
+                <thead>
+
+                    <tr>
+                        <th>Subject Name</th>
+                        <th>Title</th>
+                        <th>Marks Obtained</th>
+                        <th>Total Marks</th>
+                        <th>Percentage</th>
+                        <th>Result</th>
+                        <th>Remark</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="resultsBody"></tbody>
+
+            </table>
+
+        </div>
+
+        <div
+            id="resultsEmpty"
+            class="empty hidden">
+            No result available yet.
+        </div>
+
+    </section>
+
+</main>
+
+
+<div class="footer">
+    Online Examination Portal
+</div>
+
+
+<!-- PDF MODAL -->
+
+<div
+    id="pdfModal"
+    class="modal"
+    onclick="closePdfOutside(event)">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 id="pdfModalTitle">
+                Question Paper
+            </h3>
+
+            <button
+                class="close-modal"
+                onclick="closePdf()">
+                &times;
+            </button>
+
+        </div>
+
+        <iframe
+            id="pdfFrame"
+            class="pdf-frame">
+        </iframe>
+
     </div>
-
-    <input
-        type="text"
-        id="studentIdInput"
-        placeholder="Enter Student ID"
-    >
-
-    <button
-        class="primary"
-        onclick="saveStudentId()">
-        Save Student ID
-    </button>
-
-</div>
-
-
-<div class="card">
-
-    <h2>API Tests</h2>
-
-    <button
-        class="primary"
-        onclick="testSubjects()">
-        Test getSubjects
-    </button>
-
-    <button
-        class="warning"
-        onclick="testAssignments()">
-        Test getAssignments
-    </button>
-
-    <button
-        class="success"
-        onclick="testPapers()">
-        Test getPapers
-    </button>
-
-    <button
-        class="dark"
-        onclick="runAllTests()">
-        Run All Tests
-    </button>
-
-    <button
-        class="danger"
-        onclick="clearResults()">
-        Clear
-    </button>
-
-    <div id="status"></div>
-
-</div>
-
-
-<div class="card">
-
-    <h2>Question Papers</h2>
-
-    <div id="paperSummary">
-        No test completed yet.
-    </div>
-
-    <div id="papersDisplay"></div>
-
-</div>
-
-
-<div class="card">
-
-    <h2>Raw API Response</h2>
-
-    <h3>getSubjects</h3>
-    <pre id="subjectsRaw">No response yet.</pre>
-
-    <h3>getAssignments</h3>
-    <pre id="assignmentsRaw">No response yet.</pre>
-
-    <h3>getPapers</h3>
-    <pre id="papersRaw">No response yet.</pre>
-
-</div>
 
 </div>
 
@@ -265,97 +881,36 @@ pre {
 <script>
 
 /* =========================================================
-   EXACT SAME API URL AS ADMIN.HTML
+   API CONFIGURATION
 ========================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
 
 
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
+
 let currentStudentId = "";
+let currentStudentName = "";
+
+let allSubjects = [];
+let allAssignments = [];
+let allPapers = [];
+let assignedSubjects = [];
+let publishedPapers = [];
+let allResults = [];
+
+let selectedPaper = null;
+
+let currentSubmission = null;
+let editMode = false;
 
 
 /* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        currentStudentId =
-            sessionStorage.getItem("studentId") ||
-            sessionStorage.getItem("studentID") ||
-            sessionStorage.getItem("Student ID") ||
-            localStorage.getItem("studentId") ||
-            "";
-
-        currentStudentId =
-            String(currentStudentId).trim();
-
-        document.getElementById(
-            "currentStudentId"
-        ).textContent =
-            currentStudentId ||
-            "No Student ID found";
-
-        document.getElementById(
-            "studentIdInput"
-        ).value =
-            currentStudentId;
-
-    }
-);
-
-
-/* =========================================================
-   SAVE STUDENT ID
-========================================================= */
-
-function saveStudentId() {
-
-    const id =
-        document.getElementById(
-            "studentIdInput"
-        ).value.trim();
-
-    if (!id) {
-
-        setStatus(
-            "Please enter Student ID.",
-            "error"
-        );
-
-        return;
-    }
-
-    currentStudentId = id;
-
-    sessionStorage.setItem(
-        "studentId",
-        id
-    );
-
-    localStorage.setItem(
-        "studentId",
-        id
-    );
-
-    document.getElementById(
-        "currentStudentId"
-    ).textContent =
-        id;
-
-    setStatus(
-        "Student ID saved: " + id,
-        "ok"
-    );
-
-}
-
-
-/* =========================================================
-   EXACT SAME API METHOD AS ADMIN.HTML
+   API FUNCTION
+   SAME POST JSON METHOD AS ADMIN.HTML
 ========================================================= */
 
 async function api(action, data = {}) {
@@ -365,198 +920,2212 @@ async function api(action, data = {}) {
         ...data
     };
 
-    console.log(
-        "API REQUEST:",
-        action,
-        payload
-    );
+    const response = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+    });
 
-    const response =
-        await fetch(
-            API_URL,
-            {
-                method: "POST",
-                body: JSON.stringify(payload)
-            }
-        );
-
-    const text =
-        await response.text();
-
-    console.log(
-        "API RESPONSE:",
-        action,
-        text
-    );
+    const text = await response.text();
 
     if (!text) {
-
-        throw new Error(
-            "Empty server response."
-        );
-
+        throw new Error("Empty server response.");
     }
 
     let result;
 
     try {
 
-        result =
-            JSON.parse(text);
+        result = JSON.parse(text);
 
-    } catch(error) {
+    } catch (error) {
 
-        console.error(
-            "Invalid JSON:",
-            text
-        );
+        console.error("API response:", text);
 
         throw new Error(
-            "Invalid response from server: " +
-            text
+            "Invalid response from server."
         );
-
     }
 
-    if (
-        result.success === false
-    ) {
+    if (result.success === false) {
 
         throw new Error(
-            result.message ||
-            "Request failed."
+            result.message || "Request failed."
         );
-
     }
 
     return result;
+}
+
+
+/* =========================================================
+   SESSION
+========================================================= */
+
+function getSessionStudentId() {
+
+    return (
+        sessionStorage.getItem("studentId") ||
+        sessionStorage.getItem("studentID") ||
+        sessionStorage.getItem("Student ID") ||
+        localStorage.getItem("studentId") ||
+        ""
+    );
+}
+
+
+function getSessionStudentName() {
+
+    return (
+        sessionStorage.getItem("studentName") ||
+        sessionStorage.getItem("student_name") ||
+        sessionStorage.getItem("Student Name") ||
+        localStorage.getItem("studentName") ||
+        "Student"
+    );
+}
+
+
+/* =========================================================
+   PAGE START
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    currentStudentId = String(
+        getSessionStudentId()
+    ).trim();
+
+    currentStudentName =
+        getSessionStudentName();
+
+    document.getElementById(
+        "studentIdDisplay"
+    ).textContent =
+        currentStudentId || "Not available";
+
+    document.getElementById(
+        "welcomeName"
+    ).textContent =
+        "Welcome, " + currentStudentName;
+
+    if (!currentStudentId) {
+
+        showError(
+            "Student session not found. Please login again."
+        );
+
+        return;
+    }
+
+    loadDashboard();
+
+});
+
+
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
+
+async function loadDashboard() {
+
+    try {
+
+        clearError();
+
+        /*
+         * IMPORTANT:
+         * We call the APIs WITHOUT studentId parameters,
+         * exactly like admin.html.
+         *
+         * Then we filter assignments locally.
+         */
+
+        const subjectResponse =
+            await api("getSubjects");
+
+        allSubjects =
+            subjectResponse.subjects ||
+            subjectResponse.data ||
+            [];
+
+
+        const assignmentResponse =
+            await api("getAssignments");
+
+        allAssignments =
+            assignmentResponse.assignments ||
+            assignmentResponse.data ||
+            [];
+
+
+        const paperResponse =
+            await api("getPapers");
+
+        allPapers =
+            paperResponse.papers ||
+            paperResponse.data ||
+            [];
+
+
+        /*
+         * Filter assignments for current student.
+         */
+
+        assignedSubjects =
+            getAssignedSubjectsForStudent();
+
+
+        /*
+         * Only published papers belonging to
+         * assigned subjects.
+         */
+
+        publishedPapers =
+            getPublishedPapersForStudent();
+
+
+        renderSubjects();
+
+        renderPapers();
+
+        await loadResults();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showError(
+            error.message ||
+            "Unable to load student dashboard."
+        );
+
+    }
 
 }
 
 
 /* =========================================================
-   STATUS
+   ASSIGNED SUBJECTS
 ========================================================= */
 
-function setStatus(
-    message,
-    type
-) {
+function getAssignedSubjectsForStudent() {
 
-    const box =
+    const studentAssignments =
+        allAssignments.filter(function(item) {
+
+            return String(
+                item.studentId || ""
+            ).trim() ===
+            String(
+                currentStudentId
+            ).trim();
+
+        });
+
+
+    const subjectIds = [
+        ...new Set(
+            studentAssignments.map(function(item) {
+
+                return String(
+                    item.subjectId || ""
+                ).trim();
+
+            }).filter(Boolean)
+        )
+    ];
+
+
+    return subjectIds
+        .map(function(subjectId) {
+
+            return allSubjects.find(function(subject) {
+
+                return String(
+                    subject.subjectId || ""
+                ).trim() === subjectId;
+
+            });
+
+        })
+        .filter(Boolean);
+
+}
+
+
+/* =========================================================
+   GET SUBJECT
+========================================================= */
+
+function getSubjectById(subjectId) {
+
+    return allSubjects.find(function(subject) {
+
+        return String(
+            subject.subjectId || ""
+        ).trim() ===
+        String(
+            subjectId || ""
+        ).trim();
+
+    }) || null;
+
+}
+
+
+/* =========================================================
+   RENDER SUBJECTS
+========================================================= */
+
+function renderSubjects() {
+
+    const loading =
         document.getElementById(
-            "status"
+            "subjectsLoading"
         );
 
-    box.className =
-        "status " + type;
+    const table =
+        document.getElementById(
+            "subjectsTable"
+        );
 
-    box.textContent =
+    const body =
+        document.getElementById(
+            "subjectsBody"
+        );
+
+    const empty =
+        document.getElementById(
+            "subjectsEmpty"
+        );
+
+
+    loading.classList.add("hidden");
+
+    body.innerHTML = "";
+
+
+    document.getElementById(
+        "assignedCount"
+    ).textContent =
+        assignedSubjects.length;
+
+
+    if (!assignedSubjects.length) {
+
+        table.classList.add("hidden");
+        empty.classList.remove("hidden");
+
+        return;
+    }
+
+
+    empty.classList.add("hidden");
+    table.classList.remove("hidden");
+
+
+    assignedSubjects.forEach(function(subject) {
+
+        const row =
+            document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHtml(
+                    subject.subjectId || ""
+                )}
+            </td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(
+                        subject.subjectName || ""
+                    )}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    subject.subjectCode || ""
+                )}
+            </td>
+
+        `;
+
+        body.appendChild(row);
+
+    });
+
+}
+
+
+/* =========================================================
+   PUBLISHED PAPERS FOR CURRENT STUDENT
+========================================================= */
+
+function getPublishedPapersForStudent() {
+
+    const assignedIds =
+        new Set(
+            assignedSubjects.map(function(subject) {
+
+                return String(
+                    subject.subjectId || ""
+                ).trim();
+
+            })
+        );
+
+
+    return allPapers.filter(function(paper) {
+
+        const subjectId =
+            String(
+                paper.subjectId || ""
+            ).trim();
+
+
+        const isAssigned =
+            assignedIds.has(subjectId);
+
+
+        const isPublished =
+            paper.published === true ||
+            String(
+                paper.published || ""
+            ).toLowerCase() === "true" ||
+            String(
+                paper.published || ""
+            ).toLowerCase() === "yes" ||
+            String(
+                paper.published || ""
+            ).toLowerCase() === "published";
+
+
+        return (
+            isAssigned &&
+            isPublished
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER PAPERS
+========================================================= */
+
+function renderPapers() {
+
+    const select =
+        document.getElementById(
+            "paperSelect"
+        );
+
+    const submissionSelect =
+        document.getElementById(
+            "submissionPaperSelect"
+        );
+
+    const empty =
+        document.getElementById(
+            "paperEmpty"
+        );
+
+
+    select.innerHTML = `
+        <option value="">
+            Select a question paper
+        </option>
+    `;
+
+    submissionSelect.innerHTML = `
+        <option value="">
+            Select a question paper
+        </option>
+    `;
+
+
+    document.getElementById(
+        "publishedCount"
+    ).textContent =
+        publishedPapers.length;
+
+
+    if (!publishedPapers.length) {
+
+        empty.textContent =
+            "No published question paper available.";
+
+        empty.classList.remove("hidden");
+
+        return;
+    }
+
+
+    empty.classList.add("hidden");
+
+
+    publishedPapers.forEach(function(paper) {
+
+        const subject =
+            getSubjectById(
+                paper.subjectId
+            );
+
+
+        const subjectName =
+            subject
+                ? subject.subjectName
+                : "Unknown Subject";
+
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            paper.paperId;
+
+        option.textContent =
+            subjectName +
+            " - " +
+            (paper.paperTitle || "Question Paper");
+
+
+        select.appendChild(option);
+
+
+        const submissionOption =
+            document.createElement("option");
+
+        submissionOption.value =
+            paper.paperId;
+
+        submissionOption.textContent =
+            subjectName +
+            " - " +
+            (paper.paperTitle || "Question Paper");
+
+
+        submissionSelect.appendChild(
+            submissionOption
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   SELECT PAPER
+========================================================= */
+
+function showSelectedPaper() {
+
+    const paperId =
+        document.getElementById(
+            "paperSelect"
+        ).value;
+
+
+    if (!paperId) {
+
+        selectedPaper = null;
+
+        document.getElementById(
+            "paperInfo"
+        ).classList.remove("show");
+
+        return;
+    }
+
+
+    selectedPaper =
+        publishedPapers.find(function(paper) {
+
+            return String(
+                paper.paperId
+            ) === String(
+                paperId
+            );
+
+        });
+
+
+    if (!selectedPaper) {
+
+        return;
+    }
+
+
+    const subject =
+        getSubjectById(
+            selectedPaper.subjectId
+        );
+
+
+    document.getElementById(
+        "paperCode"
+    ).textContent =
+        selectedPaper.paperCode || "-";
+
+
+    document.getElementById(
+        "paperSubject"
+    ).textContent =
+        subject
+            ? subject.subjectName
+            : "-";
+
+
+    document.getElementById(
+        "paperTitle"
+    ).textContent =
+        selectedPaper.paperTitle || "-";
+
+
+    document.getElementById(
+        "paperMarks"
+    ).textContent =
+        selectedPaper.totalMarks ?? "-";
+
+
+    document.getElementById(
+        "paperStart"
+    ).textContent =
+        formatDate(
+            selectedPaper.examStart
+        );
+
+
+    document.getElementById(
+        "paperEnd"
+    ).textContent =
+        formatDate(
+            selectedPaper.examEnd
+        );
+
+
+    document.getElementById(
+        "paperInfo"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================================
+   VIEW PDF
+========================================================= */
+
+function viewPaper() {
+
+    if (!selectedPaper) {
+
+        alert(
+            "Please select a question paper first."
+        );
+
+        return;
+    }
+
+
+    if (!selectedPaper.fileUrl) {
+
+        alert(
+            "Question paper PDF is not available."
+        );
+
+        return;
+    }
+
+
+    let url =
+        selectedPaper.fileUrl;
+
+
+    /*
+     * Google Drive preview URL
+     */
+
+    const driveId =
+        selectedPaper.driveFileId ||
+        extractDriveFileId(url);
+
+
+    if (driveId) {
+
+        url =
+            "https://drive.google.com/file/d/" +
+            driveId +
+            "/preview";
+
+    }
+
+
+    document.getElementById(
+        "pdfModalTitle"
+    ).textContent =
+        selectedPaper.paperTitle ||
+        "Question Paper";
+
+
+    document.getElementById(
+        "pdfFrame"
+    ).src = url;
+
+
+    document.getElementById(
+        "pdfModal"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================================
+   DOWNLOAD PDF
+========================================================= */
+
+function downloadPaper() {
+
+    if (!selectedPaper) {
+
+        alert(
+            "Please select a question paper first."
+        );
+
+        return;
+    }
+
+
+    if (!selectedPaper.fileUrl) {
+
+        alert(
+            "Question paper PDF is not available."
+        );
+
+        return;
+    }
+
+
+    const driveId =
+        selectedPaper.driveFileId ||
+        extractDriveFileId(
+            selectedPaper.fileUrl
+        );
+
+
+    if (driveId) {
+
+        const downloadUrl =
+            "https://drive.google.com/uc?export=download&id=" +
+            encodeURIComponent(driveId);
+
+
+        window.open(
+            downloadUrl,
+            "_blank"
+        );
+
+        return;
+    }
+
+
+    window.open(
+        selectedPaper.fileUrl,
+        "_blank"
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE PDF
+========================================================= */
+
+function closePdf() {
+
+    document.getElementById(
+        "pdfFrame"
+    ).src = "";
+
+    document.getElementById(
+        "pdfModal"
+    ).classList.remove("show");
+
+}
+
+
+function closePdfOutside(event) {
+
+    if (
+        event.target ===
+        document.getElementById("pdfModal")
+    ) {
+
+        closePdf();
+
+    }
+
+}
+
+
+/* =========================================================
+   SUBMISSION STATUS
+========================================================= */
+
+async function loadSubmissionStatus() {
+
+    const paperId =
+        document.getElementById(
+            "submissionPaperSelect"
+        ).value;
+
+
+    const details =
+        document.getElementById(
+            "submissionDetails"
+        );
+
+    const status =
+        document.getElementById(
+            "submissionStatus"
+        );
+
+
+    details.classList.add("hidden");
+
+    currentSubmission = null;
+    editMode = false;
+
+
+    document.getElementById(
+        "editAnswerBtn"
+    ).classList.add("hidden");
+
+    document.getElementById(
+        "cancelEditBtn"
+    ).classList.add("hidden");
+
+    document.getElementById(
+        "editNotice"
+    ).classList.add("hidden");
+
+
+    if (!paperId) {
+
+        status.className =
+            "status-box";
+
+        status.textContent =
+            "Select a question paper to check submission status.";
+
+        return;
+    }
+
+
+    const paper =
+        publishedPapers.find(function(item) {
+
+            return String(
+                item.paperId
+            ) === String(
+                paperId
+            );
+
+        });
+
+
+    if (!paper) {
+
+        return;
+    }
+
+
+    const subject =
+        getSubjectById(
+            paper.subjectId
+        );
+
+
+    document.getElementById(
+        "submissionPaperTitle"
+    ).textContent =
+        paper.paperTitle || "-";
+
+
+    document.getElementById(
+        "submissionSubject"
+    ).textContent =
+        subject
+            ? subject.subjectName
+            : "-";
+
+
+    document.getElementById(
+        "submissionPaperId"
+    ).textContent =
+        paper.paperId || "-";
+
+
+    document.getElementById(
+        "submissionTotalMarks"
+    ).textContent =
+        paper.totalMarks ?? "-";
+
+
+    details.classList.remove("hidden");
+
+
+    status.className =
+        "status-box";
+
+
+    status.textContent =
+        "Checking submission status...";
+
+
+    try {
+
+        const response =
+            await api(
+                "getStudentSubmissionStatus",
+                {
+                    studentId:
+                        currentStudentId,
+
+                    paperId:
+                        paperId
+                }
+            );
+
+
+        /*
+         * Keep response flexible because the status
+         * object may be returned directly or inside data.
+         */
+
+        currentSubmission =
+            response.submission ||
+            response.data ||
+            null;
+
+
+        const submitted =
+            response.submitted === true ||
+            response.hasSubmission === true ||
+            response.status === "Submitted" ||
+            (
+                currentSubmission &&
+                (
+                    currentSubmission.status === "Submitted" ||
+                    currentSubmission.Status === "Submitted"
+                )
+            );
+
+
+        const editCount =
+            Number(
+                (
+                    currentSubmission &&
+                    (
+                        currentSubmission.editCount ??
+                        currentSubmission["Edit Count"] ??
+                        0
+                    )
+                ) || 0
+            );
+
+
+        if (submitted) {
+
+            status.className =
+                "status-box status-success";
+
+            status.textContent =
+                "Answer sheet submitted successfully.";
+
+
+            document.getElementById(
+                "submitAnswerBtn"
+            ).classList.add("hidden");
+
+
+            if (editCount < 1) {
+
+                document.getElementById(
+                    "editAnswerBtn"
+                ).classList.remove("hidden");
+
+            } else {
+
+                document.getElementById(
+                    "editAnswerBtn"
+                ).classList.add("hidden");
+
+            }
+
+        } else {
+
+            status.className =
+                "status-box status-warning";
+
+            status.textContent =
+                "Answer sheet has not been submitted yet.";
+
+
+            document.getElementById(
+                "submitAnswerBtn"
+            ).classList.remove("hidden");
+
+
+            document.getElementById(
+                "editAnswerBtn"
+            ).classList.add("hidden");
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.className =
+            "status-box status-warning";
+
+        status.textContent =
+            "Submission status could not be loaded. You can still try submitting.";
+
+        document.getElementById(
+            "submitAnswerBtn"
+        ).classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function previewImages() {
+
+    const input =
+        document.getElementById(
+            "answerFiles"
+        );
+
+    const preview =
+        document.getElementById(
+            "imagePreview"
+        );
+
+    const info =
+        document.getElementById(
+            "fileInfo"
+        );
+
+
+    preview.innerHTML = "";
+
+
+    const files =
+        Array.from(
+            input.files || []
+        );
+
+
+    if (!files.length) {
+
+        info.textContent = "";
+
+        return;
+    }
+
+
+    if (files.length > 20) {
+
+        alert(
+            "Maximum 20 images are allowed."
+        );
+
+        input.value = "";
+
+        info.textContent = "";
+
+        return;
+    }
+
+
+    info.textContent =
+        files.length +
+        " image(s) selected. Maximum 20 images.";
+
+
+    files.forEach(function(file) {
+
+        if (!file.type.startsWith("image/")) {
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function(event) {
+
+            const img =
+                document.createElement("img");
+
+            img.src =
+                event.target.result;
+
+            preview.appendChild(img);
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+/* =========================================================
+   SUBMIT ANSWER SHEET
+========================================================= */
+
+async function submitAnswerSheet() {
+
+    const paperId =
+        document.getElementById(
+            "submissionPaperSelect"
+        ).value;
+
+
+    const input =
+        document.getElementById(
+            "answerFiles"
+        );
+
+
+    const files =
+        Array.from(
+            input.files || []
+        );
+
+
+    if (!paperId) {
+
+        alert(
+            "Please select a question paper."
+        );
+
+        return;
+    }
+
+
+    if (!files.length) {
+
+        alert(
+            "Please select answer sheet images."
+        );
+
+        return;
+    }
+
+
+    if (files.length > 20) {
+
+        alert(
+            "Maximum 20 images are allowed."
+        );
+
+        return;
+    }
+
+
+    const paper =
+        publishedPapers.find(function(item) {
+
+            return String(
+                item.paperId
+            ) === String(
+                paperId
+            );
+
+        });
+
+
+    if (!paper) {
+
+        alert(
+            "Selected question paper not found."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Submit " +
+            files.length +
+            " answer-sheet image(s)?\n\n" +
+            "Please make sure all pages are clear and in the correct order."
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitAnswerBtn"
+        );
+
+
+    button.disabled = true;
+
+    showProgress(
+        0,
+        "Preparing upload..."
+    );
+
+
+    try {
+
+        const uploadedUrls = [];
+
+
+        /*
+         * Upload every photo separately.
+         */
+
+        for (
+            let i = 0;
+            i < files.length;
+            i++
+        ) {
+
+            const file =
+                files[i];
+
+
+            const base64 =
+                await fileToBase64(file);
+
+
+            const response =
+                await api(
+                    "uploadAnswerPhoto",
+                    {
+                        studentId:
+                            currentStudentId,
+
+                        paperId:
+                            paperId,
+
+                        fileName:
+                            file.name,
+
+                        fileBase64:
+                            base64,
+
+                        mimeType:
+                            file.type ||
+                            "image/jpeg"
+                    }
+                );
+
+
+            const url =
+                response.fileUrl ||
+                response.url ||
+                response.photoUrl ||
+                (
+                    response.data &&
+                    (
+                        response.data.fileUrl ||
+                        response.data.url ||
+                        response.data.photoUrl
+                    )
+                );
+
+
+            if (url) {
+
+                uploadedUrls.push(url);
+
+            }
+
+
+            const percent =
+                Math.round(
+                    ((i + 1) /
+                    files.length) *
+                    90
+                );
+
+
+            showProgress(
+                percent,
+                "Uploading image " +
+                (i + 1) +
+                " of " +
+                files.length
+            );
+
+        }
+
+
+        showProgress(
+            95,
+            "Saving submission..."
+        );
+
+
+        /*
+         * Save submission.
+         *
+         * photoUrls is sent as an array.
+         */
+
+        await api(
+            "saveSubmission",
+            {
+                studentId:
+                    currentStudentId,
+
+                paperId:
+                    paperId,
+
+                photoUrls:
+                    uploadedUrls,
+
+                photoCount:
+                    uploadedUrls.length,
+
+                submissionType:
+                    "New"
+            }
+        );
+
+
+        showProgress(
+            100,
+            "Submission completed."
+        );
+
+
+        alert(
+            "Answer sheet submitted successfully."
+        );
+
+
+        input.value = "";
+
+        document.getElementById(
+            "imagePreview"
+        ).innerHTML = "";
+
+        document.getElementById(
+            "fileInfo"
+        ).textContent = "";
+
+
+        await loadSubmissionStatus();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Submission failed:\n" +
+            error.message
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        setTimeout(function() {
+
+            hideProgress();
+
+        }, 1000);
+
+    }
+
+}
+
+
+/* =========================================================
+   ENABLE EDIT MODE
+========================================================= */
+
+function enableEditMode() {
+
+    if (!currentSubmission) {
+
+        alert(
+            "Submission information is not available."
+        );
+
+        return;
+    }
+
+
+    const editCount =
+        Number(
+            currentSubmission.editCount ??
+            currentSubmission["Edit Count"] ??
+            0
+        );
+
+
+    if (editCount >= 1) {
+
+        alert(
+            "You have already used your one-time edit option."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "You can edit your answer sheet only once.\n\n" +
+            "Do you want to continue?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    editMode = true;
+
+
+    document.getElementById(
+        "submitAnswerBtn"
+    ).textContent =
+        "Save Edited Answer Sheet";
+
+
+    document.getElementById(
+        "submitAnswerBtn"
+    ).onclick =
+        editAnswerSheet;
+
+
+    document.getElementById(
+        "editAnswerBtn"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "cancelEditBtn"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "editNotice"
+    ).classList.remove("hidden");
+
+
+    document.getElementById(
+        "answerFiles"
+    ).value = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "fileInfo"
+    ).textContent =
+        "Select up to 20 new images for your edited answer sheet.";
+
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+========================================================= */
+
+function cancelEditMode() {
+
+    editMode = false;
+
+
+    document.getElementById(
+        "answerFiles"
+    ).value = "";
+
+
+    document.getElementById(
+        "imagePreview"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "fileInfo"
+    ).textContent = "";
+
+
+    document.getElementById(
+        "submitAnswerBtn"
+    ).textContent =
+        "Submit Answer Sheet";
+
+
+    document.getElementById(
+        "submitAnswerBtn"
+    ).onclick =
+        submitAnswerSheet;
+
+
+    document.getElementById(
+        "cancelEditBtn"
+    ).classList.add("hidden");
+
+
+    document.getElementById(
+        "editNotice"
+    ).classList.add("hidden");
+
+
+    loadSubmissionStatus();
+
+}
+
+
+/* =========================================================
+   EDIT ANSWER SHEET
+========================================================= */
+
+async function editAnswerSheet() {
+
+    const paperId =
+        document.getElementById(
+            "submissionPaperSelect"
+        ).value;
+
+
+    const input =
+        document.getElementById(
+            "answerFiles"
+        );
+
+
+    const files =
+        Array.from(
+            input.files || []
+        );
+
+
+    if (!paperId) {
+
+        alert(
+            "Please select a question paper."
+        );
+
+        return;
+    }
+
+
+    if (!files.length) {
+
+        alert(
+            "Please select the new answer sheet images."
+        );
+
+        return;
+    }
+
+
+    if (files.length > 20) {
+
+        alert(
+            "Maximum 20 images are allowed."
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Save the edited answer sheet?\n\n" +
+            "This is your one-time edit."
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitAnswerBtn"
+        );
+
+
+    button.disabled = true;
+
+
+    showProgress(
+        0,
+        "Preparing edited upload..."
+    );
+
+
+    try {
+
+        const uploadedUrls = [];
+
+
+        for (
+            let i = 0;
+            i < files.length;
+            i++
+        ) {
+
+            const file =
+                files[i];
+
+
+            const base64 =
+                await fileToBase64(file);
+
+
+            const response =
+                await api(
+                    "uploadAnswerPhoto",
+                    {
+                        studentId:
+                            currentStudentId,
+
+                        paperId:
+                            paperId,
+
+                        fileName:
+                            file.name,
+
+                        fileBase64:
+                            base64,
+
+                        mimeType:
+                            file.type ||
+                            "image/jpeg"
+                    }
+                );
+
+
+            const url =
+                response.fileUrl ||
+                response.url ||
+                response.photoUrl ||
+                (
+                    response.data &&
+                    (
+                        response.data.fileUrl ||
+                        response.data.url ||
+                        response.data.photoUrl
+                    )
+                );
+
+
+            if (url) {
+
+                uploadedUrls.push(url);
+
+            }
+
+
+            showProgress(
+                Math.round(
+                    ((i + 1) /
+                    files.length) *
+                    90
+                ),
+                "Uploading edited image " +
+                (i + 1) +
+                " of " +
+                files.length
+            );
+
+        }
+
+
+        showProgress(
+            95,
+            "Saving edited submission..."
+        );
+
+
+        await api(
+            "editSubmission",
+            {
+                studentId:
+                    currentStudentId,
+
+                paperId:
+                    paperId,
+
+                photoUrls:
+                    uploadedUrls,
+
+                photoCount:
+                    uploadedUrls.length
+            }
+        );
+
+
+        showProgress(
+            100,
+            "Edit completed."
+        );
+
+
+        alert(
+            "Answer sheet edited successfully."
+        );
+
+
+        editMode = false;
+
+
+        input.value = "";
+
+        document.getElementById(
+            "imagePreview"
+        ).innerHTML = "";
+
+        document.getElementById(
+            "fileInfo"
+        ).textContent = "";
+
+
+        document.getElementById(
+            "submitAnswerBtn"
+        ).textContent =
+            "Submit Answer Sheet";
+
+
+        document.getElementById(
+            "submitAnswerBtn"
+        ).onclick =
+            submitAnswerSheet;
+
+
+        document.getElementById(
+            "cancelEditBtn"
+        ).classList.add("hidden");
+
+
+        document.getElementById(
+            "editNotice"
+        ).classList.add("hidden");
+
+
+        await loadSubmissionStatus();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Edit failed:\n" +
+            error.message
+        );
+
+    } finally {
+
+        button.disabled = false;
+
+        setTimeout(function() {
+
+            hideProgress();
+
+        }, 1000);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+async function loadResults() {
+
+    const loading =
+        document.getElementById(
+            "resultsLoading"
+        );
+
+    const table =
+        document.getElementById(
+            "resultsTable"
+        );
+
+    const body =
+        document.getElementById(
+            "resultsBody"
+        );
+
+    const empty =
+        document.getElementById(
+            "resultsEmpty"
+        );
+
+
+    try {
+
+        const response =
+            await api(
+                "getResults"
+            );
+
+
+        allResults =
+            response.results ||
+            response.data ||
+            [];
+
+
+        /*
+         * Filter results locally for student.
+         */
+
+        const studentResults =
+            allResults.filter(function(result) {
+
+                const id =
+                    result.studentId ||
+                    result["Student ID"] ||
+                    "";
+
+
+                return String(id).trim() ===
+                    String(currentStudentId).trim();
+
+            });
+
+
+        loading.classList.add("hidden");
+
+        body.innerHTML = "";
+
+
+        if (!studentResults.length) {
+
+            table.classList.add("hidden");
+
+            empty.classList.remove("hidden");
+
+            return;
+        }
+
+
+        empty.classList.add("hidden");
+
+        table.classList.remove("hidden");
+
+
+        studentResults.forEach(function(result) {
+
+            const paper =
+                allPapers.find(function(item) {
+
+                    const paperId =
+                        result.paperId ||
+                        result["Paper ID"] ||
+                        "";
+
+
+                    return String(
+                        item.paperId || ""
+                    ) === String(
+                        paperId
+                    );
+
+                });
+
+
+            const subject =
+                paper
+                    ? getSubjectById(
+                        paper.subjectId
+                    )
+                    : null;
+
+
+            const subjectName =
+                result.subjectName ||
+                result["Subject Name"] ||
+                (
+                    subject
+                        ? subject.subjectName
+                        : "-"
+                );
+
+
+            const title =
+                result.paperTitle ||
+                result["Paper Title"] ||
+                (
+                    paper
+                        ? paper.paperTitle
+                        : "-"
+                );
+
+
+            const marksObtained =
+                result.marksObtained ??
+                result["Marks Obtained"] ??
+                "";
+
+
+            const totalMarks =
+                result.totalMarks ??
+                result["Total Marks"] ??
+                (
+                    paper
+                        ? paper.totalMarks
+                        : ""
+                );
+
+
+            const percentage =
+                result.percentage ??
+                result["Percentage"] ??
+                "";
+
+
+            const resultValue =
+                result.result ||
+                result["Result"] ||
+                "";
+
+
+            const remarks =
+                result.remarks ||
+                result["Remarks"] ||
+                result.remark ||
+                result["Remark"] ||
+                "";
+
+
+            const row =
+                document.createElement("tr");
+
+
+            let resultClass = "";
+
+
+            if (
+                String(
+                    resultValue
+                ).toLowerCase() === "pass"
+            ) {
+
+                resultClass =
+                    "result-pass";
+
+            } else if (
+                String(
+                    resultValue
+                ).toLowerCase() === "fail"
+            ) {
+
+                resultClass =
+                    "result-fail";
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(
+                        subjectName
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        title
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        String(
+                            marksObtained
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        String(
+                            totalMarks
+                        )
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        String(
+                            percentage
+                        )
+                    )}%
+                </td>
+
+                <td class="${resultClass}">
+                    ${escapeHtml(
+                        resultValue
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        remarks
+                    )}
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Results error:",
+            error
+        );
+
+
+        loading.classList.add("hidden");
+
+        empty.classList.remove("hidden");
+
+        empty.textContent =
+            "No result available yet.";
+
+    }
+
+}
+
+
+/* =========================================================
+   FILE TO BASE64
+========================================================= */
+
+function fileToBase64(file) {
+
+    return new Promise(function(resolve, reject) {
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload = function() {
+
+            const result =
+                reader.result || "";
+
+
+            const commaIndex =
+                result.indexOf(",");
+
+
+            if (commaIndex >= 0) {
+
+                resolve(
+                    result.substring(
+                        commaIndex + 1
+                    )
+                );
+
+            } else {
+
+                resolve(result);
+
+            }
+
+        };
+
+
+        reader.onerror =
+            function() {
+
+                reject(
+                    new Error(
+                        "Unable to read file."
+                    )
+                );
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    });
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function showProgress(
+    percent,
+    message
+) {
+
+    document.getElementById(
+        "progressWrap"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
         message;
 
 }
 
 
-/* =========================================================
-   JSON DISPLAY
-========================================================= */
-
-function showJSON(
-    elementId,
-    data
-) {
+function hideProgress() {
 
     document.getElementById(
-        elementId
-    ).textContent =
-        JSON.stringify(
-            data,
-            null,
-            2
-        );
+        "progressWrap"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "progressFill"
+    ).style.width =
+        "0%";
 
 }
 
 
 /* =========================================================
-   ARRAY EXTRACTION
+   DRIVE FILE ID
 ========================================================= */
 
-function getArray(
-    data,
-    key
-) {
+function extractDriveFileId(url) {
+
+    if (!url) {
+        return "";
+    }
+
+
+    const match =
+        String(url).match(
+            /\/d\/([a-zA-Z0-9_-]+)/
+        );
+
+
+    if (match && match[1]) {
+
+        return match[1];
+
+    }
+
+
+    const idMatch =
+        String(url).match(
+            /[?&]id=([a-zA-Z0-9_-]+)/
+        );
+
 
     if (
-        data &&
-        Array.isArray(data[key])
+        idMatch &&
+        idMatch[1]
     ) {
 
-        return data[key];
+        return idMatch[1];
 
     }
 
-    if (
-        data &&
-        Array.isArray(data.data)
-    ) {
 
-        return data.data;
-
-    }
-
-    return [];
+    return "";
 
 }
 
 
 /* =========================================================
-   TEST SUBJECTS
+   DATE FORMAT
 ========================================================= */
 
-async function testSubjects() {
+function formatDate(value) {
 
-    setStatus(
-        "Testing getSubjects...",
-        "loading"
-    );
+    if (!value) {
+        return "-";
+    }
+
 
     try {
 
-        const data =
-            await api(
-                "getSubjects"
-            );
+        const date =
+            new Date(value);
 
-        showJSON(
-            "subjectsRaw",
-            data
+
+        if (isNaN(date.getTime())) {
+
+            return String(value);
+
+        }
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
         );
 
-        const subjects =
-            getArray(
-                data,
-                "subjects"
-            );
+    } catch (error) {
 
-        setStatus(
-            "getSubjects completed. Records returned: " +
-            subjects.length,
-            "ok"
-        );
-
-    } catch(error) {
-
-        document.getElementById(
-            "subjectsRaw"
-        ).textContent =
-            error.message;
-
-        setStatus(
-            "getSubjects ERROR: " +
-            error.message,
-            "error"
-        );
+        return String(value);
 
     }
 
@@ -564,367 +3133,118 @@ async function testSubjects() {
 
 
 /* =========================================================
-   TEST ASSIGNMENTS
+   HTML ESCAPE
 ========================================================= */
 
-async function testAssignments() {
+function escapeHtml(value) {
 
-    setStatus(
-        "Testing getAssignments...",
-        "loading"
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
     );
 
-    try {
-
-        const data =
-            await api(
-                "getAssignments",
-                {
-                    studentId:
-                        currentStudentId
-                }
-            );
-
-        showJSON(
-            "assignmentsRaw",
-            data
-        );
-
-        const assignments =
-            getArray(
-                data,
-                "assignments"
-            );
-
-        setStatus(
-            "getAssignments completed. Records returned: " +
-            assignments.length,
-            "ok"
-        );
-
-    } catch(error) {
-
-        document.getElementById(
-            "assignmentsRaw"
-        ).textContent =
-            error.message;
-
-        setStatus(
-            "getAssignments ERROR: " +
-            error.message,
-            "error"
-        );
-
-    }
-
 }
 
 
 /* =========================================================
-   TEST PAPERS
+   ERROR
 ========================================================= */
 
-async function testPapers() {
-
-    setStatus(
-        "Testing getPapers...",
-        "loading"
-    );
-
-    try {
-
-        const data =
-            await api(
-                "getPapers"
-            );
-
-        showJSON(
-            "papersRaw",
-            data
-        );
-
-        const papers =
-            getArray(
-                data,
-                "papers"
-            );
-
-        document.getElementById(
-            "paperSummary"
-        ).innerHTML =
-            "<strong>Records returned:</strong> " +
-            papers.length;
-
-        displayPapers(
-            papers
-        );
-
-        setStatus(
-            "getPapers completed. Records returned: " +
-            papers.length,
-            "ok"
-        );
-
-    } catch(error) {
-
-        document.getElementById(
-            "papersRaw"
-        ).textContent =
-            error.message;
-
-        setStatus(
-            "getPapers ERROR: " +
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY PAPERS
-========================================================= */
-
-function displayPapers(
-    papers
-) {
+function showError(message) {
 
     const box =
         document.getElementById(
-            "papersDisplay"
+            "errorBox"
         );
 
-    box.innerHTML = "";
 
-    if (!papers.length) {
+    box.textContent =
+        message;
 
-        box.innerHTML =
-            "<div class='status error'>" +
-            "No paper records returned by API." +
-            "</div>";
 
-        return;
-
-    }
-
-    papers.forEach(
-        function(paper, index) {
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-            div.className =
-                "paper";
-
-            div.innerHTML = `
-
-                <div>
-                    <strong>Record:</strong>
-                    ${index + 1}
-                </div>
-
-                <div>
-                    <strong>Paper ID:</strong>
-                    ${value(
-                        paper["Paper ID"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Paper Code:</strong>
-                    ${value(
-                        paper["Paper Code"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Subject ID:</strong>
-                    ${value(
-                        paper["Subject ID"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Paper Title:</strong>
-                    ${value(
-                        paper["Paper Title"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Total Marks:</strong>
-                    ${value(
-                        paper["Total Marks"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Published:</strong>
-                    ${value(
-                        paper["Published"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>File URL:</strong>
-                    ${value(
-                        paper["File URL"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Exam Start:</strong>
-                    ${value(
-                        paper["Exam Start"]
-                    )}
-                </div>
-
-                <div>
-                    <strong>Exam End:</strong>
-                    ${value(
-                        paper["Exam End"]
-                    )}
-                </div>
-
-            `;
-
-            box.appendChild(div);
-
-        }
-    );
+    box.style.display =
+        "block";
 
 }
 
 
-/* =========================================================
-   VALUE
-========================================================= */
+function clearError() {
 
-function value(
-    val
-) {
-
-    if (
-        val === undefined ||
-        val === null ||
-        val === ""
-    ) {
-
-        return "<span style='color:#c62828'>EMPTY</span>";
-
-    }
-
-    return escapeHtml(
-        String(val)
-    );
-
-}
-
-
-/* =========================================================
-   RUN ALL
-========================================================= */
-
-async function runAllTests() {
-
-    clearResults();
-
-    setStatus(
-        "Running all tests...",
-        "loading"
-    );
-
-    await testSubjects();
-
-    await testAssignments();
-
-    await testPapers();
-
-    setStatus(
-        "ALL TESTS COMPLETED.",
-        "ok"
-    );
-
-}
-
-
-/* =========================================================
-   CLEAR
-========================================================= */
-
-function clearResults() {
-
-    document.getElementById(
-        "subjectsRaw"
-    ).textContent =
-        "No response yet.";
-
-    document.getElementById(
-        "assignmentsRaw"
-    ).textContent =
-        "No response yet.";
-
-    document.getElementById(
-        "papersRaw"
-    ).textContent =
-        "No response yet.";
-
-    document.getElementById(
-        "papersDisplay"
-    ).innerHTML =
-        "";
-
-    document.getElementById(
-        "paperSummary"
-    ).textContent =
-        "No test completed yet.";
-
-    document.getElementById(
-        "status"
-    ).innerHTML =
-        "";
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    value
-) {
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
+    const box =
+        document.getElementById(
+            "errorBox"
         );
+
+
+    box.textContent = "";
+
+    box.style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "studentId"
+    );
+
+    sessionStorage.removeItem(
+        "studentID"
+    );
+
+    sessionStorage.removeItem(
+        "Student ID"
+    );
+
+    sessionStorage.removeItem(
+        "studentName"
+    );
+
+    sessionStorage.removeItem(
+        "student_name"
+    );
+
+    sessionStorage.removeItem(
+        "Student Name"
+    );
+
+
+    localStorage.removeItem(
+        "studentId"
+    );
+
+    localStorage.removeItem(
+        "studentName"
+    );
+
+
+    window.location.href =
+        "login.html";
 
 }
 
