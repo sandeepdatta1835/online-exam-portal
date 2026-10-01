@@ -198,7 +198,7 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 650px;
+  min-width: 500px;
 }
 
 th {
@@ -729,7 +729,6 @@ input[type="file"]:focus {
             <th>Subject ID</th>
             <th>Subject Name</th>
             <th>Subject Code</th>
-            <th>Status</th>
           </tr>
 
         </thead>
@@ -739,7 +738,7 @@ input[type="file"]:focus {
 
           <tr>
 
-            <td colspan="4">
+            <td colspan="3">
 
               <div class="loading">
 
@@ -782,7 +781,7 @@ input[type="file"]:focus {
         onchange="selectQuestionPaper()">
 
         <option value="">
-          Select a published question paper
+          Select a question paper
         </option>
 
       </select>
@@ -1548,14 +1547,10 @@ async function loadDashboard() {
 
 /* =========================================================
    ASSIGNED SUBJECTS
-   ONLY SUBJECTS ASSIGNED TO THIS STUDENT
+   ONLY ASSIGNED SUBJECTS ARE SHOWN
 ========================================================= */
 
 async function loadAssignedSubjects() {
-
-  /*
-    Get all subjects.
-  */
 
   const subjectData =
     await api(
@@ -1574,10 +1569,6 @@ async function loadAssignedSubjects() {
       ]
     );
 
-
-  /*
-    Get assignments.
-  */
 
   const assignmentData =
     await api(
@@ -1681,6 +1672,7 @@ async function loadAssignedSubjects() {
 
 /* =========================================================
    SUBJECT TABLE
+   NO STATUS COLUMN
 ========================================================= */
 
 function renderAssignedSubjects() {
@@ -1697,7 +1689,7 @@ function renderAssignedSubjects() {
 
       <tr>
 
-        <td colspan="4">
+        <td colspan="3">
 
           <div class="empty">
 
@@ -1765,17 +1757,6 @@ function renderAssignedSubjects() {
                 )}
               </td>
 
-              <td>
-
-                <span
-                  class="status status-submitted">
-
-                  Assigned
-
-                </span>
-
-              </td>
-
             </tr>
 
           `;
@@ -1788,6 +1769,7 @@ function renderAssignedSubjects() {
 
 /* =========================================================
    QUESTION PAPERS
+   ONLY PAPERS FOR ASSIGNED SUBJECTS
 ========================================================= */
 
 async function loadQuestionPapers() {
@@ -1796,8 +1778,8 @@ async function loadQuestionPapers() {
 
 
   /*
-    Load papers ONLY for the subjects
-    actually assigned to this student.
+    Load papers only for subjects
+    assigned to this student.
   */
 
   for (
@@ -1849,6 +1831,13 @@ async function loadQuestionPapers() {
         const paper of papers
       ) {
 
+        /*
+          IMPORTANT:
+          Only Published papers are allowed.
+          Draft / Unpublished / blank papers
+          will NOT be shown.
+        */
+
         if (
           !isPublishedPaper(
             paper
@@ -1883,30 +1872,19 @@ async function loadQuestionPapers() {
 
         if (!alreadyExists) {
 
-          if (
-            !getPaperSubjectName(
-              paper
-            )
-          ) {
+          /*
+            Always use the Subject Name
+            given by Admin.
+          */
 
-            paper.__studentSubjectName =
-              getSubjectName(
-                subject
-              );
-
-          }
+          paper.__studentSubjectName =
+            getSubjectName(
+              subject
+            );
 
 
-          if (
-            !getPaperSubjectId(
-              paper
-            )
-          ) {
-
-            paper.__studentSubjectId =
-              subjectId;
-
-          }
+          paper.__studentSubjectId =
+            subjectId;
 
 
           publishedPapers.push(
@@ -1936,6 +1914,8 @@ async function loadQuestionPapers() {
 
 /* =========================================================
    PAPER DROPDOWN
+   FORMAT:
+   PAPER CODE - SUBJECT NAME - TITLE
 ========================================================= */
 
 function renderPaperDropdown() {
@@ -1949,7 +1929,7 @@ function renderPaperDropdown() {
   select.innerHTML = `
 
     <option value="">
-      Select a published question paper
+      Select a question paper
     </option>
 
   `;
@@ -1991,11 +1971,22 @@ function renderPaperDropdown() {
         );
 
 
+      const paperCode =
+        getPaperCode(
+          paper
+        );
+
+
       const title =
         getPaperTitle(
           paper
         );
 
+
+      /*
+        Subject Name comes directly
+        from Admin's Subject Management.
+      */
 
       const subject =
         getPaperSubjectName(
@@ -2014,8 +2005,15 @@ function renderPaperDropdown() {
         paperId;
 
 
+      /*
+        Student sees:
+        Paper Code - Subject Name - Title
+
+        No status is shown.
+      */
+
       option.textContent =
-        `${subject} - ${title}`;
+        `${paperCode || "-"} - ${subject} - ${title}`;
 
 
       select.appendChild(
@@ -2103,6 +2101,11 @@ async function selectQuestionPaper() {
 
   renderSelectedPaper();
 
+
+  /*
+    Answer sheet submission depends
+    completely on selected question paper.
+  */
 
   await loadSelectedPaperSubmission();
 }
@@ -2819,10 +2822,6 @@ function renderSubmissionDetails() {
   `;
 
 
-  /*
-    ONLY ONE EDIT ALLOWED
-  */
-
   if (
     editCount < 1
   ) {
@@ -3511,6 +3510,7 @@ async function editAnswerSheet() {
 
 /* =========================================================
    RESULTS
+   NO CHANGE
 ========================================================= */
 
 async function loadResults() {
@@ -3542,7 +3542,6 @@ async function loadResults() {
 
 /* =========================================================
    RENDER RESULTS
-   UPDATED COLUMN REMOVED
 ========================================================= */
 
 function renderResults() {
@@ -4397,16 +4396,22 @@ function getPaperSubjectId(
 }
 
 
+/*
+  IMPORTANT:
+  Subject Name from Admin's Subject Management
+  is preferred.
+*/
+
 function getPaperSubjectName(
   paper
 ) {
 
   return (
 
+    paper?.__studentSubjectName ||
     paper?.["Subject Name"] ||
     paper?.subjectName ||
     paper?.SubjectName ||
-    paper?.__studentSubjectName ||
     ""
 
   );
@@ -4474,16 +4479,25 @@ function getPaperEnd(
 }
 
 
+/* =========================================================
+   PUBLISHED PAPER CHECK
+   ONLY YES / PUBLISHED PAPERS ARE SHOWN
+========================================================= */
+
 function isPublishedPaper(
   paper
 ) {
 
   const value =
     paper?.["Published"] ??
-    paper?.published ??
-    paper?.["Status"] ??
-    paper?.status;
+    paper?.published;
 
+
+  /*
+    IMPORTANT:
+    Blank status is NOT published.
+    This prevents Draft papers from appearing.
+  */
 
   if (
     value === undefined ||
@@ -4493,7 +4507,7 @@ function isPublishedPaper(
     ).trim() === ""
   ) {
 
-    return true;
+    return false;
 
   }
 
