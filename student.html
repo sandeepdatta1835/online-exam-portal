@@ -572,6 +572,142 @@ select:focus {
   margin-bottom: 17px;
 }
 
+/* =========================
+   SUBMISSION STATUS CARD
+========================= */
+
+.submission-status-card {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 17px;
+}
+
+.submission-status-card.not-submitted {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.submission-status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.submission-status-label {
+  font-size: 11px;
+  color: #15803d;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+.submission-status-card.not-submitted .submission-status-label {
+  color: #b45309;
+}
+
+.submission-status-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #166534;
+  margin-top: 3px;
+}
+
+.submission-status-card.not-submitted .submission-status-title {
+  color: #92400e;
+}
+
+.submission-status-badge {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.submission-status-card.not-submitted .submission-status-badge {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.submission-status-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.submission-status-box {
+  background: #fff;
+  border: 1px solid #dcfce7;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.submission-status-card.not-submitted .submission-status-box {
+  border-color: #fde68a;
+}
+
+.status-label {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.status-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: #172033;
+  word-break: break-word;
+}
+
+.submission-status-note {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid #dcfce7;
+  color: #166534;
+  font-size: 12px;
+}
+
+.submission-status-card.not-submitted .submission-status-note {
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.submission-edit-row {
+  margin-top: 13px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.edit-limit-text {
+  font-size: 12px;
+  color: #166534;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+
+.submission-status-card.not-submitted .edit-limit-text {
+  color: #92400e;
+}
+
+/* =========================
+   UPLOAD
+========================= */
+
 .upload-area {
   border: 2px dashed #bfdbfe;
   background: #f8fbff;
@@ -905,6 +1041,14 @@ select:focus {
    MOBILE
 ========================= */
 
+@media (max-width: 1000px) {
+
+  .submission-status-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
 @media (max-width: 900px) {
 
   .subject-grid {
@@ -917,6 +1061,10 @@ select:focus {
 
   .photo-grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .submission-status-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
 }
@@ -998,6 +1146,19 @@ select:focus {
     width: 100%;
   }
 
+  .submission-status-header {
+    flex-direction: column;
+  }
+
+  .submission-status-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .edit-limit-text {
+    width: 100%;
+    margin-bottom: 3px;
+  }
+
 }
 
 @media (max-width: 400px) {
@@ -1017,6 +1178,10 @@ select:focus {
 
   .photo-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .submission-status-grid {
+    grid-template-columns: 1fr;
   }
 
 }
@@ -1439,7 +1604,6 @@ select:focus {
 </section>
 
 
-<!-- ONLY CHANGE: hidden until question paper is selected -->
 <section
   class="section hidden"
   id="submissionSection"
@@ -1478,17 +1642,180 @@ select:focus {
     ></div>
 
 
-    <div class="upload-area">
+    <!-- SUBMISSION STATUS -->
+
+    <div
+      id="submissionStatusCard"
+      class="submission-status-card not-submitted"
+    >
+
+      <div class="submission-status-header">
+
+        <div>
+
+          <div class="submission-status-label">
+            Answer Sheet Status
+          </div>
+
+          <div
+            id="submissionStatusTitle"
+            class="submission-status-title"
+          >
+            Not Submitted Yet
+          </div>
+
+        </div>
+
+        <div
+          id="submissionStatusBadge"
+          class="submission-status-badge"
+        >
+          NOT SUBMITTED
+        </div>
+
+      </div>
+
+
+      <div class="submission-status-grid">
+
+        <div class="submission-status-box">
+
+          <div class="status-label">
+            Subject
+          </div>
+
+          <div
+            id="submissionStatusSubject"
+            class="status-value"
+          >
+            -
+          </div>
+
+        </div>
+
+
+        <div class="submission-status-box">
+
+          <div class="status-label">
+            Question Paper
+          </div>
+
+          <div
+            id="submissionStatusPaper"
+            class="status-value"
+          >
+            -
+          </div>
+
+        </div>
+
+
+        <div class="submission-status-box">
+
+          <div class="status-label">
+            Paper Code
+          </div>
+
+          <div
+            id="submissionStatusCode"
+            class="status-value"
+          >
+            -
+          </div>
+
+        </div>
+
+
+        <div class="submission-status-box">
+
+          <div class="status-label">
+            Photos Submitted
+          </div>
+
+          <div
+            id="submissionStatusPhotos"
+            class="status-value"
+          >
+            -
+          </div>
+
+        </div>
+
+
+        <div class="submission-status-box">
+
+          <div class="status-label">
+            Submitted On
+          </div>
+
+          <div
+            id="submissionStatusDate"
+            class="status-value"
+          >
+            -
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="submissionStatusNote"
+        class="submission-status-note"
+      >
+        Please upload your answer sheet photos below.
+      </div>
+
+
+      <div
+        id="submissionEditRow"
+        class="submission-edit-row hidden"
+      >
+
+        <div
+          id="editLimitText"
+          class="edit-limit-text"
+        >
+          ✏️ Edit remaining: 1
+        </div>
+
+        <button
+          id="editSubmissionBtn"
+          type="button"
+          class="btn btn-primary"
+          onclick="startSubmissionEdit()"
+        >
+          ✏️ Edit Answer Sheet – 1 Time
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- UPLOAD AREA -->
+
+    <div
+      id="submissionUploadArea"
+      class="upload-area"
+    >
 
       <div class="upload-icon">
         📸
       </div>
 
-      <div class="upload-title">
+      <div
+        id="uploadTitle"
+        class="upload-title"
+      >
         Upload Answer Sheet Photos
       </div>
 
-      <div class="upload-description">
+      <div
+        id="uploadDescription"
+        class="upload-description"
+      >
         Take photos directly using camera or select
         existing photos from your device.
       </div>
@@ -1836,6 +2163,12 @@ var selectedPhotos = [];
 var editingSubmission = false;
 
 var cameraStream = null;
+
+
+/*
+   Tracks the submission currently displayed.
+*/
+var currentSubmission = null;
 
 
 /* =========================================================
@@ -2317,15 +2650,8 @@ function renderPapers() {
 
 
       var subject =
-        getValue(
-          paper,
-          [
-            "Subject Name",
-            "subjectName",
-            "SubjectName",
-            "Subject",
-            "subject"
-          ]
+        getPaperSubjectName(
+          paper
         );
 
 
@@ -2378,6 +2704,8 @@ document.getElementById(
     if (!value) {
 
       selectedPaper = null;
+
+      currentSubmission = null;
 
       document.getElementById(
         "paperDetails"
@@ -2448,7 +2776,11 @@ document.getElementById(
 
       editingSubmission = false;
 
+      currentSubmission = null;
+
       renderPhotoPreview();
+
+      resetSubmissionStatusCard();
 
       showPaper(
         selectedPaper
@@ -2474,41 +2806,20 @@ function showPaper(paper) {
 
 
   var title =
-    getValue(
-      paper,
-      [
-        "Title",
-        "title",
-        "Paper Title",
-        "paperTitle",
-        "PaperTitle"
-      ]
+    getPaperTitle(
+      paper
     );
 
 
   var code =
-    getValue(
-      paper,
-      [
-        "Paper Code",
-        "paperCode",
-        "PaperCode",
-        "Code",
-        "code"
-      ]
+    getPaperCode(
+      paper
     );
 
 
   var subject =
-    getValue(
-      paper,
-      [
-        "Subject Name",
-        "subjectName",
-        "SubjectName",
-        "Subject",
-        "subject"
-      ]
+    getPaperSubjectName(
+      paper
     );
 
 
@@ -2714,6 +3025,9 @@ async function checkSubmission() {
   }
 
 
+  resetSubmissionStatusCard();
+
+
   try {
 
     var result =
@@ -2726,56 +3040,829 @@ async function checkSubmission() {
       );
 
 
-    if (
-      result.submission
-    ) {
-
-      var submission =
-        result.submission;
+    var submission =
+      result.submission ||
+      result.data ||
+      null;
 
 
-      var status =
-        getValue(
-          submission,
-          [
-            "Status",
-            "status"
-          ]
-        );
+    if (Array.isArray(submission)) {
 
-
-      var photoCount =
-        getValue(
-          submission,
-          [
-            "Photo Count",
-            "photoCount",
-            "PhotoCount"
-          ]
-        );
-
-
-      if (status) {
-
-        showSubmissionMessage(
-          "Your answer sheet has already been submitted. Status: " +
-          status +
-          (
-            photoCount
-              ? " (" + photoCount + " photos)"
-              : ""
-          ),
-          "success"
-        );
-
-      }
+      submission =
+        submission[0] ||
+        null;
 
     }
+
+
+    if (!submission) {
+
+      setSubmissionNotSubmitted();
+
+      return;
+
+    }
+
+
+    currentSubmission =
+      submission;
+
+
+    showSubmittedStatus(
+      submission
+    );
 
   } catch (error) {
 
     console.warn(
       "Submission status:",
+      error
+    );
+
+    setSubmissionNotSubmitted();
+
+  }
+
+}
+
+
+/* =========================================================
+   RESET SUBMISSION STATUS
+========================================================= */
+
+function resetSubmissionStatusCard() {
+
+  var card =
+    document.getElementById(
+      "submissionStatusCard"
+    );
+
+  card.classList.remove(
+    "hidden"
+  );
+
+  card.classList.add(
+    "not-submitted"
+  );
+
+
+  document.getElementById(
+    "submissionStatusTitle"
+  ).textContent =
+    "Not Submitted Yet";
+
+
+  document.getElementById(
+    "submissionStatusBadge"
+  ).textContent =
+    "NOT SUBMITTED";
+
+
+  document.getElementById(
+    "submissionStatusSubject"
+  ).textContent =
+    getPaperSubjectName(
+      selectedPaper
+    ) || "-";
+
+
+  document.getElementById(
+    "submissionStatusPaper"
+  ).textContent =
+    getPaperTitle(
+      selectedPaper
+    ) || "-";
+
+
+  document.getElementById(
+    "submissionStatusCode"
+  ).textContent =
+    getPaperCode(
+      selectedPaper
+    ) || "-";
+
+
+  document.getElementById(
+    "submissionStatusPhotos"
+  ).textContent =
+    "-";
+
+
+  document.getElementById(
+    "submissionStatusDate"
+  ).textContent =
+    "-";
+
+
+  document.getElementById(
+    "submissionStatusNote"
+  ).textContent =
+    "Please upload your answer sheet photos below.";
+
+
+  document.getElementById(
+    "submissionEditRow"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "submissionUploadArea"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "uploadTitle"
+  ).textContent =
+    "Upload Answer Sheet Photos";
+
+
+  document.getElementById(
+    "uploadDescription"
+  ).textContent =
+    "Take photos directly using camera or select existing photos from your device.";
+
+}
+
+
+/* =========================================================
+   NOT SUBMITTED
+========================================================= */
+
+function setSubmissionNotSubmitted() {
+
+  currentSubmission =
+    null;
+
+  editingSubmission =
+    false;
+
+  resetSubmissionStatusCard();
+
+}
+
+
+/* =========================================================
+   SHOW SUBMITTED STATUS
+========================================================= */
+
+function showSubmittedStatus(
+  submission
+) {
+
+  var card =
+    document.getElementById(
+      "submissionStatusCard"
+    );
+
+
+  card.classList.remove(
+    "not-submitted"
+  );
+
+
+  var status =
+    getValue(
+      submission,
+      [
+        "Status",
+        "status",
+        "Submission Status",
+        "submissionStatus"
+      ]
+    );
+
+
+  var photoCount =
+    getValue(
+      submission,
+      [
+        "Photo Count",
+        "photoCount",
+        "PhotoCount",
+        "Photos",
+        "photos"
+      ]
+    );
+
+
+  var submittedAt =
+    getValue(
+      submission,
+      [
+        "Submitted At",
+        "submittedAt",
+        "SubmittedAt",
+        "Submission Date",
+        "submissionDate",
+        "Created At",
+        "createdAt",
+        "Timestamp",
+        "timestamp",
+        "Date",
+        "date"
+      ]
+    );
+
+
+  var subject =
+    getValue(
+      submission,
+      [
+        "Subject Name",
+        "subjectName",
+        "SubjectName",
+        "Subject",
+        "subject"
+      ]
+    );
+
+
+  var title =
+    getValue(
+      submission,
+      [
+        "Paper Title",
+        "paperTitle",
+        "PaperTitle",
+        "Title",
+        "title"
+      ]
+    );
+
+
+  var code =
+    getValue(
+      submission,
+      [
+        "Paper Code",
+        "paperCode",
+        "PaperCode",
+        "Code",
+        "code"
+      ]
+    );
+
+
+  if (!subject) {
+
+    subject =
+      getPaperSubjectName(
+        selectedPaper
+      );
+
+  }
+
+
+  if (!title) {
+
+    title =
+      getPaperTitle(
+        selectedPaper
+      );
+
+  }
+
+
+  if (!code) {
+
+    code =
+      getPaperCode(
+        selectedPaper
+      );
+
+  }
+
+
+  var displayStatus =
+    status ||
+    "Submitted";
+
+
+  document.getElementById(
+    "submissionStatusTitle"
+  ).textContent =
+    "Your Answer Sheet Has Been Submitted";
+
+
+  document.getElementById(
+    "submissionStatusBadge"
+  ).textContent =
+    String(
+      displayStatus
+    ).toUpperCase();
+
+
+  document.getElementById(
+    "submissionStatusSubject"
+  ).textContent =
+    subject ||
+    "-";
+
+
+  document.getElementById(
+    "submissionStatusPaper"
+  ).textContent =
+    title ||
+    "-";
+
+
+  document.getElementById(
+    "submissionStatusCode"
+  ).textContent =
+    code ||
+    "-";
+
+
+  document.getElementById(
+    "submissionStatusPhotos"
+  ).textContent =
+    photoCount !== ""
+      ? String(photoCount) + " photos"
+      : "Submitted";
+
+
+  document.getElementById(
+    "submissionStatusDate"
+  ).textContent =
+    submittedAt
+      ? formatDateTime(submittedAt)
+      : "Submitted";
+
+
+  document.getElementById(
+    "submissionStatusNote"
+  ).textContent =
+    "Your answer sheet has been submitted for " +
+    (
+      subject ||
+      "this subject"
+    ) +
+    " - " +
+    (
+      title ||
+      "this question paper"
+    ) +
+    ".";
+
+
+  var editInfo =
+    getEditInformation(
+      submission
+    );
+
+
+  if (editInfo.canEdit) {
+
+    showEditButton(
+      editInfo.remaining
+    );
+
+  } else {
+
+    hideEditButton();
+
+  }
+
+
+  if (!editingSubmission) {
+
+    document.getElementById(
+      "submissionUploadArea"
+    ).classList.add(
+      "hidden"
+    );
+
+    document.getElementById(
+      "photoArea"
+    ).classList.add(
+      "hidden"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   GET EDIT INFORMATION
+========================================================= */
+
+function getEditInformation(
+  submission
+) {
+
+  var paperId =
+    getValue(
+      selectedPaper,
+      [
+        "Paper ID",
+        "paperId",
+        "PaperID"
+      ]
+    );
+
+
+  /*
+    Backend-supported edit count fields.
+  */
+
+  var editCountValue =
+    getValue(
+      submission,
+      [
+        "Edit Count",
+        "editCount",
+        "EditCount",
+        "Edits",
+        "edits"
+      ]
+    );
+
+
+  var editUsedValue =
+    getValue(
+      submission,
+      [
+        "Edit Used",
+        "editUsed",
+        "EditUsed",
+        "Is Edited",
+        "isEdited"
+      ]
+    );
+
+
+  var canEditValue =
+    getValue(
+      submission,
+      [
+        "Can Edit",
+        "canEdit",
+        "CanEdit",
+        "Edit Allowed",
+        "editAllowed"
+      ]
+    );
+
+
+  var editCount =
+    Number(
+      editCountValue
+    );
+
+
+  var backendExplicit =
+    (
+      editCountValue !== "" ||
+      editUsedValue !== "" ||
+      canEditValue !== ""
+    );
+
+
+  if (
+    backendExplicit &&
+    !isNaN(editCount)
+  ) {
+
+    if (editCount >= 1) {
+
+      return {
+        canEdit: false,
+        remaining: 0
+      };
+
+    }
+
+    return {
+      canEdit: true,
+      remaining: 1
+    };
+
+  }
+
+
+  if (backendExplicit) {
+
+    var used =
+      String(
+        editUsedValue
+      ).toLowerCase();
+
+
+    if (
+      used === "true" ||
+      used === "yes" ||
+      used === "1" ||
+      used === "used"
+    ) {
+
+      return {
+        canEdit: false,
+        remaining: 0
+      };
+
+    }
+
+
+    if (
+      String(
+        canEditValue
+      ).toLowerCase()
+      === "false"
+    ) {
+
+      return {
+        canEdit: false,
+        remaining: 0
+      };
+
+    }
+
+
+    return {
+      canEdit: true,
+      remaining: 1
+    };
+
+  }
+
+
+  /*
+    Browser fallback.
+    This remembers the one edit on this device/browser.
+  */
+
+  var usedLocal =
+    isEditUsedLocally(
+      studentId,
+      paperId
+    );
+
+
+  return {
+    canEdit: !usedLocal,
+    remaining: usedLocal ? 0 : 1
+  };
+
+}
+
+
+/* =========================================================
+   SHOW EDIT BUTTON
+========================================================= */
+
+function showEditButton(
+  remaining
+) {
+
+  document.getElementById(
+    "submissionEditRow"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "editLimitText"
+  ).textContent =
+    "✏️ Edit remaining: " +
+    remaining;
+
+
+  document.getElementById(
+    "editSubmissionBtn"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "editSubmissionBtn"
+  ).textContent =
+    "✏️ Edit Answer Sheet – 1 Time";
+
+}
+
+
+/* =========================================================
+   HIDE EDIT BUTTON
+========================================================= */
+
+function hideEditButton() {
+
+  document.getElementById(
+    "submissionEditRow"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "editSubmissionBtn"
+  ).classList.add(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "editLimitText"
+  ).textContent =
+    "✏️ Edit remaining: 0";
+
+}
+
+
+/* =========================================================
+   START ONE-TIME EDIT
+========================================================= */
+
+function startSubmissionEdit() {
+
+  if (!selectedPaper) {
+
+    showSubmissionMessage(
+      "Please select a question paper first.",
+      "warning"
+    );
+
+    return;
+
+  }
+
+
+  var paperId =
+    getValue(
+      selectedPaper,
+      [
+        "Paper ID",
+        "paperId",
+        "PaperID"
+      ]
+    );
+
+
+  if (
+    isEditUsedLocally(
+      studentId,
+      paperId
+    )
+  ) {
+
+    showSubmissionMessage(
+      "You have already used your one-time answer sheet edit.",
+      "warning"
+    );
+
+    hideEditButton();
+
+    return;
+
+  }
+
+
+  editingSubmission =
+    true;
+
+
+  selectedPhotos =
+    [];
+
+
+  renderPhotoPreview();
+
+
+  document.getElementById(
+    "submissionUploadArea"
+  ).classList.remove(
+    "hidden"
+  );
+
+
+  document.getElementById(
+    "uploadTitle"
+  ).textContent =
+    "Edit Answer Sheet Photos";
+
+
+  document.getElementById(
+    "uploadDescription"
+  ).textContent =
+    "Upload the corrected answer sheet photos. This edit can be used only once.";
+
+
+  document.getElementById(
+    "submitAnswerBtn"
+  ).textContent =
+    "✏️ Update Answer Sheet";
+
+
+  document.getElementById(
+    "submissionStatusNote"
+  ).textContent =
+    "You are editing your submitted answer sheet. This is your one allowed edit. After updating, editing will be locked.";
+
+
+  document.getElementById(
+    "submissionUploadArea"
+  ).scrollIntoView(
+    {
+      behavior: "smooth",
+      block: "center"
+    }
+  );
+
+
+  showSubmissionMessage(
+    "One-time edit enabled. Upload the corrected answer sheet photos and submit.",
+    "warning"
+  );
+
+}
+
+
+/* =========================================================
+   LOCAL EDIT TRACKING
+========================================================= */
+
+function getEditStorageKey(
+  student,
+  paper
+) {
+
+  return (
+    "answerSheetEditUsed_" +
+    String(student || "") +
+    "_" +
+    String(paper || "")
+  );
+
+}
+
+
+function isEditUsedLocally(
+  student,
+  paper
+) {
+
+  if (!student || !paper) {
+    return false;
+  }
+
+
+  try {
+
+    return (
+      localStorage.getItem(
+        getEditStorageKey(
+          student,
+          paper
+        )
+      ) ===
+      "1"
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Edit tracking:",
+      error
+    );
+
+    return false;
+
+  }
+
+}
+
+
+function markEditUsedLocally(
+  student,
+  paper
+) {
+
+  if (!student || !paper) {
+    return;
+  }
+
+
+  try {
+
+    localStorage.setItem(
+      getEditStorageKey(
+        student,
+        paper
+      ),
+      "1"
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Edit tracking:",
       error
     );
 
@@ -3262,9 +4349,50 @@ async function submitAnswerSheet() {
   if (!selectedPhotos.length) {
 
     showSubmissionMessage(
-      "Please upload at least one answer sheet photo.",
+      editingSubmission
+        ? "Please upload at least one corrected answer sheet photo."
+        : "Please upload at least one answer sheet photo.",
       "warning"
     );
+
+    return;
+
+  }
+
+
+  /*
+    Extra frontend protection.
+    If edit has already been used, do not send another edit request.
+  */
+
+  var paperIdForCheck =
+    getValue(
+      selectedPaper,
+      [
+        "Paper ID",
+        "paperId",
+        "PaperID"
+      ]
+    );
+
+
+  if (
+    editingSubmission &&
+    isEditUsedLocally(
+      studentId,
+      paperIdForCheck
+    )
+  ) {
+
+    editingSubmission =
+      false;
+
+    showSubmissionMessage(
+      "Your one-time edit has already been used.",
+      "warning"
+    );
+
+    await checkSubmission();
 
     return;
 
@@ -3281,7 +4409,9 @@ async function submitAnswerSheet() {
     true;
 
   button.textContent =
-    "⏳ Uploading...";
+    editingSubmission
+      ? "⏳ Updating..."
+      : "⏳ Uploading...";
 
 
   try {
@@ -3321,11 +4451,17 @@ async function submitAnswerSheet() {
     ) {
 
       button.textContent =
-        "⏳ Processing " +
-        (i + 1) +
-        "/" +
-        selectedPhotos.length +
-        "...";
+        editingSubmission
+          ? "⏳ Processing " +
+            (i + 1) +
+            "/" +
+            selectedPhotos.length +
+            "..."
+          : "⏳ Processing " +
+            (i + 1) +
+            "/" +
+            selectedPhotos.length +
+            "...";
 
 
       var base64 =
@@ -3342,11 +4478,17 @@ async function submitAnswerSheet() {
 
 
     button.textContent =
-      "⏳ Submitting...";
+      editingSubmission
+        ? "⏳ Updating..."
+        : "⏳ Submitting...";
+
+
+    var wasEditing =
+      editingSubmission;
 
 
     var action =
-      editingSubmission
+      wasEditing
         ? "editSubmission"
         : "saveSubmission";
 
@@ -3370,14 +4512,45 @@ async function submitAnswerSheet() {
             photos,
 
           photoCount:
-            photos.length
+            photos.length,
+
+          /*
+            Sent to the backend so Code.gs can
+            enforce one edit per submission.
+          */
+          editCount:
+            wasEditing
+              ? 1
+              : 0,
+
+          isEdit:
+            wasEditing
         }
       );
 
 
+    /*
+      If this was the one allowed edit,
+      remember it locally.
+    */
+
+    if (wasEditing) {
+
+      markEditUsedLocally(
+        studentId,
+        paperId
+      );
+
+    }
+
+
     showSubmissionMessage(
       result.message ||
-      "Answer sheet submitted successfully.",
+      (
+        wasEditing
+          ? "Answer sheet updated successfully."
+          : "Answer sheet submitted successfully."
+      ),
       "success"
     );
 
@@ -3392,8 +4565,27 @@ async function submitAnswerSheet() {
     renderPhotoPreview();
 
 
+    document.getElementById(
+      "submissionUploadArea"
+    ).classList.add(
+      "hidden"
+    );
+
+
     button.textContent =
-      "✅ Submitted";
+      wasEditing
+        ? "✅ Updated"
+        : "✅ Submitted";
+
+
+    /*
+      IMPORTANT:
+      Refresh submission status immediately.
+      This makes the student see the new
+      submission/edit status without reloading.
+    */
+
+    await checkSubmission();
 
 
     setTimeout(
@@ -3416,7 +4608,11 @@ async function submitAnswerSheet() {
 
     showSubmissionMessage(
       error.message ||
-      "Unable to submit answer sheet.",
+      (
+        editingSubmission
+          ? "Unable to update answer sheet."
+          : "Unable to submit answer sheet."
+      ),
       "danger"
     );
 
@@ -3425,7 +4621,9 @@ async function submitAnswerSheet() {
       false;
 
     button.textContent =
-      "📤 Submit Answer Sheet";
+      editingSubmission
+        ? "✏️ Update Answer Sheet"
+        : "📤 Submit Answer Sheet";
 
   }
 
@@ -3589,8 +4787,6 @@ function renderResults() {
       var paperTitle =
         "";
 
-
-      /* Same Subject ID -> Subject Name mapping used by Admin */
 
       if (questionPaper) {
 
@@ -3951,6 +5147,149 @@ function renderResults() {
       );
 
     }
+  );
+
+}
+
+
+/* =========================================================
+   PAPER HELPER FUNCTIONS
+========================================================= */
+
+function getPaperTitle(
+  paper
+) {
+
+  if (!paper) {
+    return "";
+  }
+
+
+  return getValue(
+    paper,
+    [
+      "Paper Title",
+      "paperTitle",
+      "PaperTitle",
+      "Title",
+      "title"
+    ]
+  );
+
+}
+
+
+function getPaperCode(
+  paper
+) {
+
+  if (!paper) {
+    return "";
+  }
+
+
+  return getValue(
+    paper,
+    [
+      "Paper Code",
+      "paperCode",
+      "PaperCode",
+      "Code",
+      "code"
+    ]
+  );
+
+}
+
+
+function getPaperSubjectName(
+  paper
+) {
+
+  if (!paper) {
+    return "";
+  }
+
+
+  var direct =
+    getValue(
+      paper,
+      [
+        "Subject Name",
+        "subjectName",
+        "SubjectName",
+        "Subject",
+        "subject"
+      ]
+    );
+
+
+  if (direct) {
+    return direct;
+  }
+
+
+  var subjectId =
+    getValue(
+      paper,
+      [
+        "Subject ID",
+        "subjectId",
+        "SubjectID",
+        "Subject Code",
+        "subjectCode",
+        "SubjectCode"
+      ]
+    );
+
+
+  if (!subjectId) {
+    return "";
+  }
+
+
+  var matchingSubject =
+    subjects.find(
+      function(subject) {
+
+        var id =
+          getValue(
+            subject,
+            [
+              "Subject ID",
+              "subjectId",
+              "SubjectID",
+              "Subject Code",
+              "subjectCode",
+              "SubjectCode"
+            ]
+          );
+
+
+        return (
+          String(id || "").trim()
+          ===
+          String(subjectId || "").trim()
+        );
+
+      }
+    );
+
+
+  if (!matchingSubject) {
+    return "";
+  }
+
+
+  return getValue(
+    matchingSubject,
+    [
+      "Subject Name",
+      "subjectName",
+      "SubjectName",
+      "Name",
+      "name"
+    ]
   );
 
 }
