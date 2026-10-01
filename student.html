@@ -53,10 +53,6 @@ body {
   line-height: 1.5;
 }
 
-/* =========================
-   GENERAL
-========================= */
-
 .hidden {
   display: none !important;
 }
@@ -1142,10 +1138,6 @@ select:focus {
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="top-header">
 
   <div class="container header-inner">
@@ -1214,10 +1206,6 @@ select:focus {
 <div class="container">
 
 
-<!-- =========================
-     WELCOME
-========================= -->
-
 <section class="welcome-card">
 
   <div>
@@ -1244,19 +1232,11 @@ select:focus {
 </section>
 
 
-<!-- =========================
-     MESSAGE
-========================= -->
-
 <div
   id="messageBox"
   class="hidden"
 ></div>
 
-
-<!-- =========================
-     ASSIGNED SUBJECTS
-========================= -->
 
 <section class="section">
 
@@ -1291,10 +1271,6 @@ select:focus {
 
 </section>
 
-
-<!-- =========================
-     QUESTION PAPERS
-========================= -->
 
 <section class="section">
 
@@ -1463,11 +1439,11 @@ select:focus {
 </section>
 
 
-<!-- =========================
-     ANSWER SHEET SUBMISSION
-========================= -->
-
-<section class="section">
+<!-- ONLY CHANGE: hidden until question paper is selected -->
+<section
+  class="section hidden"
+  id="submissionSection"
+>
 
   <div class="section-heading">
 
@@ -1617,10 +1593,6 @@ select:focus {
 </section>
 
 
-<!-- =========================
-     RESULTS
-========================= -->
-
 <section class="section">
 
   <div class="section-heading">
@@ -1682,7 +1654,7 @@ select:focus {
               </th>
 
               <th>
-                Remarks
+                Remark
               </th>
 
             </tr>
@@ -1709,10 +1681,6 @@ select:focus {
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer class="footer">
 
   Online Exam Portal
@@ -1721,10 +1689,6 @@ select:focus {
 
 </footer>
 
-
-<!-- =========================
-     CAMERA MODAL
-========================= -->
 
 <div
   id="cameraModal"
@@ -1791,10 +1755,6 @@ select:focus {
 
 </div>
 
-
-<!-- =========================
-     TOAST
-========================= -->
 
 <div
   id="toastContainer"
@@ -2425,6 +2385,18 @@ document.getElementById(
         "hidden"
       );
 
+      document.getElementById(
+        "submissionSection"
+      ).classList.add(
+        "hidden"
+      );
+
+      selectedPhotos = [];
+
+      editingSubmission = false;
+
+      renderPhotoPreview();
+
       return;
 
     }
@@ -2465,6 +2437,18 @@ document.getElementById(
 
 
     if (selectedPaper) {
+
+      document.getElementById(
+        "submissionSection"
+      ).classList.remove(
+        "hidden"
+      );
+
+      selectedPhotos = [];
+
+      editingSubmission = false;
+
+      renderPhotoPreview();
 
       showPaper(
         selectedPaper
@@ -3606,36 +3590,102 @@ function renderResults() {
         "";
 
 
-      /*
-        IMPORTANT:
-        Subject and Title are taken from
-        Question Paper Management first.
-      */
+      /* Same Subject ID -> Subject Name mapping used by Admin */
 
       if (questionPaper) {
 
-        subjectName =
+        var questionPaperSubjectId =
           getValue(
             questionPaper,
             [
-              "Subject Name",
-              "subjectName",
-              "SubjectName",
-              "Subject",
-              "subject"
+              "Subject ID",
+              "subjectId",
+              "SubjectID",
+              "Subject Code",
+              "subjectCode",
+              "SubjectCode"
             ]
           );
+
+
+        if (questionPaperSubjectId) {
+
+          var matchingSubject =
+            subjects.find(
+              function(subject) {
+
+                var subjectId =
+                  getValue(
+                    subject,
+                    [
+                      "Subject ID",
+                      "subjectId",
+                      "SubjectID",
+                      "Subject Code",
+                      "subjectCode",
+                      "SubjectCode"
+                    ]
+                  );
+
+                return (
+                  String(
+                    subjectId || ""
+                  ).trim()
+                  ===
+                  String(
+                    questionPaperSubjectId || ""
+                  ).trim()
+                );
+
+              }
+            );
+
+
+          if (matchingSubject) {
+
+            subjectName =
+              getValue(
+                matchingSubject,
+                [
+                  "Subject Name",
+                  "subjectName",
+                  "SubjectName",
+                  "Name",
+                  "name"
+                ]
+              );
+
+          }
+
+        }
+
+
+        if (!subjectName) {
+
+          subjectName =
+            getValue(
+              questionPaper,
+              [
+                "Subject Name",
+                "subjectName",
+                "SubjectName",
+                "Subject",
+                "subject"
+              ]
+            );
+
+        }
 
 
         paperTitle =
           getValue(
             questionPaper,
             [
-              "Title",
-              "title",
               "Paper Title",
               "paperTitle",
-              "PaperTitle"
+              "PaperTitle",
+              "Title",
+              "title"
             ]
           );
 
@@ -3665,11 +3715,11 @@ function renderResults() {
           getValue(
             result,
             [
-              "Title",
-              "title",
               "Paper Title",
               "paperTitle",
-              "PaperTitle"
+              "PaperTitle",
+              "Title",
+              "title"
             ]
           );
 
@@ -3686,23 +3736,23 @@ function renderResults() {
       ) {
 
         subjectTitle =
-          subjectName.trim() +
+          String(subjectName).trim() +
           " - " +
-          paperTitle.trim();
+          String(paperTitle).trim();
 
       } else if (
         paperTitle
       ) {
 
         subjectTitle =
-          paperTitle.trim();
+          String(paperTitle).trim();
 
       } else if (
         subjectName
       ) {
 
         subjectTitle =
-          subjectName.trim();
+          String(subjectName).trim();
 
       } else {
 
@@ -3800,7 +3850,9 @@ function renderResults() {
           result,
           [
             "Remarks",
-            "remarks"
+            "remarks",
+            "Remark",
+            "remark"
           ]
         );
 
