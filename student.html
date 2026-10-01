@@ -2334,8 +2334,10 @@ function hideProgress() {
 
 /* =========================================================
    RESULTS
-   UPDATED:
-   Paper → Subject - Title
+   DISPLAY:
+   SUBJECT NAME - PAPER TITLE
+
+   Paper ID is used internally only.
 ========================================================= */
 
 function renderResults() {
@@ -2392,9 +2394,10 @@ function renderResults() {
         );
 
 
-      /*
-       * Get Paper ID / Paper Code from Result
-       */
+      /* -----------------------------------------------------
+         PAPER ID
+         Used internally to find the question paper.
+      ----------------------------------------------------- */
 
       var paperId =
         getValue(
@@ -2407,6 +2410,10 @@ function renderResults() {
         );
 
 
+      /* -----------------------------------------------------
+         PAPER CODE
+      ----------------------------------------------------- */
+
       var paperCode =
         getValue(
           result,
@@ -2418,10 +2425,9 @@ function renderResults() {
         );
 
 
-      /*
-       * Find the matching question paper
-       * from Question Paper Management data.
-       */
+      /* -----------------------------------------------------
+         FIND QUESTION PAPER
+      ----------------------------------------------------- */
 
       var questionPaper =
         null;
@@ -2455,10 +2461,10 @@ function renderResults() {
       }
 
 
-      /*
-       * If Paper ID does not match,
-       * try Paper Code.
-       */
+      /* -----------------------------------------------------
+         IF PAPER ID DOES NOT MATCH,
+         TRY PAPER CODE
+      ----------------------------------------------------- */
 
       if (
         !questionPaper &&
@@ -2491,11 +2497,9 @@ function renderResults() {
       }
 
 
-      /*
-       * First try Subject + Title from Result.
-       * If unavailable, get them from
-       * Question Paper Management.
-       */
+      /* -----------------------------------------------------
+         GET SUBJECT NAME DIRECTLY FROM RESULT
+      ----------------------------------------------------- */
 
       var subject =
         getValue(
@@ -2508,6 +2512,25 @@ function renderResults() {
           ]
         );
 
+
+      /* -----------------------------------------------------
+         GET SUBJECT ID FROM RESULT
+      ----------------------------------------------------- */
+
+      var resultSubjectId =
+        getValue(
+          result,
+          [
+            "Subject ID",
+            "subjectId",
+            "SubjectID"
+          ]
+        );
+
+
+      /* -----------------------------------------------------
+         GET TITLE FROM RESULT
+      ----------------------------------------------------- */
 
       var title =
         getValue(
@@ -2522,6 +2545,10 @@ function renderResults() {
         );
 
 
+      /* -----------------------------------------------------
+         GET DATA FROM QUESTION PAPER
+      ----------------------------------------------------- */
+
       if (questionPaper) {
 
         if (!subject) {
@@ -2534,6 +2561,21 @@ function renderResults() {
                 "subjectName",
                 "SubjectName",
                 "Subject"
+              ]
+            );
+
+        }
+
+
+        if (!resultSubjectId) {
+
+          resultSubjectId =
+            getValue(
+              questionPaper,
+              [
+                "Subject ID",
+                "subjectId",
+                "SubjectID"
               ]
             );
 
@@ -2559,9 +2601,128 @@ function renderResults() {
       }
 
 
-      /*
-       * Build Subject - Title
-       */
+      /* -----------------------------------------------------
+         IMPORTANT FIX:
+         IF ONLY SUBJECT ID IS AVAILABLE,
+         FIND SUBJECT NAME FROM SUBJECT LIST.
+      ----------------------------------------------------- */
+
+      if (
+        !subject &&
+        resultSubjectId
+      ) {
+
+        var matchingSubject =
+          subjects.find(
+            function(item) {
+
+              var id =
+                getValue(
+                  item,
+                  [
+                    "Subject ID",
+                    "subjectId",
+                    "SubjectID"
+                  ]
+                );
+
+
+              return (
+                String(id || "").trim() ===
+                String(resultSubjectId).trim()
+              );
+
+            }
+          );
+
+
+        if (matchingSubject) {
+
+          subject =
+            getValue(
+              matchingSubject,
+              [
+                "Subject Name",
+                "subjectName",
+                "SubjectName"
+              ]
+            );
+
+        }
+
+      }
+
+
+      /* -----------------------------------------------------
+         SECOND SUBJECT LOOKUP:
+         IF QUESTION PAPER HAS SUBJECT ID,
+         FIND SUBJECT NAME FROM SUBJECT LIST.
+      ----------------------------------------------------- */
+
+      if (
+        !subject &&
+        questionPaper
+      ) {
+
+        var questionPaperSubjectId =
+          getValue(
+            questionPaper,
+            [
+              "Subject ID",
+              "subjectId",
+              "SubjectID"
+            ]
+          );
+
+
+        if (questionPaperSubjectId) {
+
+          var matchingPaperSubject =
+            subjects.find(
+              function(item) {
+
+                var id =
+                  getValue(
+                    item,
+                    [
+                      "Subject ID",
+                      "subjectId",
+                      "SubjectID"
+                    ]
+                  );
+
+
+                return (
+                  String(id || "").trim() ===
+                  String(questionPaperSubjectId).trim()
+                );
+
+              }
+            );
+
+
+          if (matchingPaperSubject) {
+
+            subject =
+              getValue(
+                matchingPaperSubject,
+                [
+                  "Subject Name",
+                  "subjectName",
+                  "SubjectName"
+                ]
+              );
+
+          }
+
+        }
+
+      }
+
+
+      /* -----------------------------------------------------
+         BUILD SUBJECT - TITLE
+      ----------------------------------------------------- */
 
       var subjectTitle = "";
 
@@ -2589,17 +2750,20 @@ function renderResults() {
       } else {
 
         /*
-         * Final fallback only if
-         * Subject and Title are unavailable.
+         * Do NOT show Paper ID here.
+         * If subject/title are unavailable,
+         * display a neutral message instead.
          */
 
         subjectTitle =
-          paperCode ||
-          paperId ||
-          "-";
+          "Question Paper";
 
       }
 
+
+      /* -----------------------------------------------------
+         MARKS
+      ----------------------------------------------------- */
 
       var marks =
         getValue(
@@ -2612,6 +2776,10 @@ function renderResults() {
         );
 
 
+      /* -----------------------------------------------------
+         TOTAL
+      ----------------------------------------------------- */
+
       var total =
         getValue(
           result,
@@ -2623,6 +2791,10 @@ function renderResults() {
         );
 
 
+      /* -----------------------------------------------------
+         PERCENTAGE
+      ----------------------------------------------------- */
+
       var percentage =
         getValue(
           result,
@@ -2632,6 +2804,10 @@ function renderResults() {
           ]
         );
 
+
+      /* -----------------------------------------------------
+         RESULT
+      ----------------------------------------------------- */
 
       var resultText =
         getValue(
@@ -2643,6 +2819,10 @@ function renderResults() {
         );
 
 
+      /* -----------------------------------------------------
+         REMARKS
+      ----------------------------------------------------- */
+
       var remarks =
         getValue(
           result,
@@ -2652,6 +2832,10 @@ function renderResults() {
           ]
         );
 
+
+      /* -----------------------------------------------------
+         DISPLAY RESULT
+      ----------------------------------------------------- */
 
       row.innerHTML =
 
