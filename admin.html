@@ -11,127 +11,200 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #1565c0;
+    --primary-dark: #0d47a1;
+    --primary-light: #eaf3ff;
+    --secondary: #00897b;
+    --success: #2e7d32;
+    --warning: #ef6c00;
+    --danger: #c62828;
+    --text: #263238;
+    --muted: #718096;
+    --border: #dce5ec;
+    --bg: #f3f7fb;
+    --white: #ffffff;
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f4f7fb;
-    color: #263238;
+    background:
+        linear-gradient(180deg, #eef5fb 0%, #f7faff 260px, #f3f7fb 100%);
+    color: var(--text);
 }
 
-/* =========================
-   HEADER
-========================= */
+/* ================= HEADER ================= */
 
 .header {
-    background: linear-gradient(135deg,#0d47a1,#1976d2);
+    background:
+        linear-gradient(135deg, #0b3d91 0%, #1565c0 55%, #1976d2 100%);
     color: white;
     padding: 18px 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 3px 12px rgba(0,0,0,.15);
+    box-shadow: 0 4px 18px rgba(13, 71, 161, .22);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
 }
 
 .header-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(255,255,255,.18);
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.18);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 26px;
 }
 
 .header h1 {
     margin: 0;
     font-size: 21px;
+    letter-spacing: .2px;
 }
 
 .header small {
-    opacity: .85;
+    opacity: .88;
+    display: block;
+    margin-top: 3px;
 }
 
 .logout-btn {
     border: none;
-    background: #fff;
-    color: #0d47a1;
-    padding: 10px 16px;
-    border-radius: 8px;
+    background: white;
+    color: var(--primary-dark);
+    padding: 10px 17px;
+    border-radius: 9px;
     font-weight: bold;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.10);
 }
 
-/* =========================
-   MAIN
-========================= */
+.logout-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* ================= MAIN ================= */
 
 .container {
     width: 95%;
-    max-width: 1400px;
-    margin: 22px auto;
+    max-width: 1450px;
+    margin: 24px auto;
 }
 
-/* =========================
-   SUMMARY
-========================= */
+/* ================= MESSAGE ================= */
+
+.message {
+    display: none;
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.message.success {
+    display: block;
+    background: #eaf7ed;
+    color: #216b2a;
+    border: 1px solid #bce0c2;
+}
+
+.message.error {
+    display: block;
+    background: #fff0f0;
+    color: #a52222;
+    border: 1px solid #f0c3c3;
+}
+
+.message.loading {
+    display: block;
+    background: #edf6ff;
+    color: #155b91;
+    border: 1px solid #c8e0f5;
+}
+
+/* ================= SUMMARY ================= */
 
 .summary {
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: 15px;
-    margin-bottom: 22px;
+    gap: 16px;
+    margin-bottom: 23px;
 }
 
 .summary-card {
     background: white;
-    border-radius: 13px;
+    border-radius: 15px;
     padding: 18px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.07);
+    box-shadow: 0 4px 15px rgba(26, 61, 92, .08);
+    border: 1px solid #e8eef4;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card::after {
+    content: "";
+    position: absolute;
+    right: -25px;
+    top: -25px;
+    width: 80px;
+    height: 80px;
+    background: #edf5ff;
+    border-radius: 50%;
 }
 
 .summary-card .number {
-    font-size: 27px;
+    font-size: 29px;
     font-weight: bold;
-    color: #0d47a1;
+    color: var(--primary-dark);
+    position: relative;
+    z-index: 1;
 }
 
 .summary-card .label {
-    color: #718096;
-    margin-top: 5px;
+    color: var(--muted);
+    margin-top: 6px;
     font-size: 13px;
+    position: relative;
+    z-index: 1;
 }
 
-/* =========================
-   SECTION
-========================= */
+/* ================= SECTION ================= */
 
 .section {
     background: white;
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 21px;
     margin-bottom: 22px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.07);
+    box-shadow: 0 4px 15px rgba(26, 61, 92, .07);
+    border: 1px solid #e7edf3;
 }
 
 .section-title {
     font-size: 19px;
     font-weight: bold;
     color: #12395b;
-    margin-bottom: 18px;
-    padding-bottom: 10px;
+    margin-bottom: 19px;
+    padding-bottom: 12px;
     border-bottom: 1px solid #e6edf4;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* =========================
-   FORMS
-========================= */
+/* ================= FORMS ================= */
 
 .form-grid {
     display: grid;
@@ -154,44 +227,60 @@ body {
 input,
 select {
     width: 100%;
-    height: 42px;
+    height: 43px;
     border: 1px solid #cbd5df;
-    border-radius: 8px;
+    border-radius: 9px;
     padding: 0 11px;
     font-size: 14px;
     outline: none;
     background: white;
+    color: #263238;
 }
 
 input:focus,
 select:focus {
     border-color: #1976d2;
-    box-shadow: 0 0 0 3px rgba(25,118,210,.08);
+    box-shadow: 0 0 0 3px rgba(25,118,210,.09);
 }
 
-input[type="file"] {
+input[type=file] {
     padding-top: 9px;
 }
 
 textarea {
     width: 100%;
     border: 1px solid #cbd5df;
-    border-radius: 8px;
+    border-radius: 9px;
     padding: 10px;
     resize: vertical;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    outline: none;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+textarea:focus {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 3px rgba(25,118,210,.09);
+}
+
+/* ================= BUTTONS ================= */
 
 .btn {
     border: none;
     border-radius: 8px;
-    padding: 10px 15px;
+    padding: 9px 13px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
+    display: inline-block;
+    text-decoration: none;
+    margin: 2px;
+    transition: .15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,.10);
 }
 
 .btn-primary {
@@ -227,105 +316,22 @@ textarea {
 .btn:disabled {
     opacity: .55;
     cursor: not-allowed;
+    transform: none;
 }
 
-/* =========================
-   QUESTION PAPER ACTIONS
-========================= */
-
-.paper-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-}
-
-.paper-action-btn {
-    border: none;
-    border-radius: 7px;
-    padding: 7px 10px;
-    cursor: pointer;
-    font-size: 11px;
-    font-weight: bold;
-    white-space: nowrap;
-    transition: .2s;
-}
-
-.paper-action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 7px rgba(0,0,0,.12);
-}
-
-.paper-open {
-    background: #edf3f8;
-    color: #29445d;
-}
-
-.paper-publish {
-    background: #e7f6ea;
-    color: #2e7d32;
-}
-
-.paper-unpublish {
-    background: #fff2df;
-    color: #ef6c00;
-}
-
-.paper-delete {
-    background: #fff0f0;
-    color: #c62828;
-}
-
-.paper-status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 86px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-.paper-status-draft {
-    background: #f3e8ff;
-    color: #7b1fa2;
-}
-
-.paper-status-published {
-    background: #e7f6ea;
-    color: #2e7d32;
-}
-
-.paper-status-unpublished {
-    background: #fff2df;
-    color: #ef6c00;
-}
-
-.paper-status-select {
-    width: auto;
-    min-width: 115px;
-    height: 32px;
-    padding: 0 8px;
-    border-radius: 18px;
-    font-size: 11px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* =========================
-   TABLE
-========================= */
+/* ================= TABLE ================= */
 
 .table-wrap {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     min-width: 750px;
+    overflow: hidden;
 }
 
 th {
@@ -333,24 +339,23 @@ th {
     color: #24445f;
     font-size: 12px;
     text-align: left;
-    padding: 11px 9px;
+    padding: 12px 9px;
     white-space: nowrap;
+    border-bottom: 1px solid #dbe6ef;
 }
 
 td {
-    padding: 10px 9px;
+    padding: 11px 9px;
     border-bottom: 1px solid #edf0f3;
     font-size: 13px;
     vertical-align: middle;
 }
 
-tr:hover td {
+tbody tr:hover td {
     background: #fafcff;
 }
 
-/* =========================
-   ASSIGNMENTS
-========================= */
+/* ================= ASSIGNMENTS ================= */
 
 .assignment-area {
     display: grid;
@@ -364,13 +369,14 @@ tr:hover td {
     padding: 13px;
     max-height: 280px;
     overflow-y: auto;
+    background: #fbfdff;
 }
 
 .subject-check {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 4px;
+    padding: 9px 4px;
     border-bottom: 1px solid #edf1f4;
     font-size: 13px;
 }
@@ -380,16 +386,15 @@ tr:hover td {
     height: auto;
 }
 
-/* =========================
-   PAPER STATUS
-========================= */
+/* ================= STATUS ================= */
 
 .status {
     display: inline-block;
-    padding: 4px 8px;
+    padding: 5px 9px;
     border-radius: 20px;
     font-size: 11px;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .status-published {
@@ -412,42 +417,7 @@ tr:hover td {
     color: #7b1fa2;
 }
 
-/* =========================
-   MESSAGE
-========================= */
-
-.message {
-    display: none;
-    padding: 11px 13px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    font-size: 13px;
-}
-
-.message.success {
-    display: block;
-    background: #eaf7ed;
-    color: #216b2a;
-    border: 1px solid #bce0c2;
-}
-
-.message.error {
-    display: block;
-    background: #fff0f0;
-    color: #a52222;
-    border: 1px solid #f0c3c3;
-}
-
-.message.loading {
-    display: block;
-    background: #edf6ff;
-    color: #155b91;
-    border: 1px solid #c8e0f5;
-}
-
-/* =========================
-   UPLOAD PROGRESS
-========================= */
+/* ================= UPLOAD PROGRESS ================= */
 
 .progress-box {
     display: none;
@@ -475,12 +445,17 @@ tr:hover td {
     margin-top: 5px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* ================= RESULT PAPER SELECT ================= */
 
-@media(max-width:900px) {
+.paper-option-info {
+    color: #607d8b;
+    font-size: 12px;
+    margin-top: 5px;
+}
 
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px) {
     .summary {
         grid-template-columns: repeat(2,1fr);
     }
@@ -495,17 +470,32 @@ tr:hover td {
 }
 
 @media(max-width:600px) {
-
     .header {
-        padding: 14px;
+        padding: 13px;
+    }
+
+    .header-icon {
+        width: 43px;
+        height: 43px;
+        font-size: 22px;
     }
 
     .header h1 {
-        font-size: 17px;
+        font-size: 16px;
+    }
+
+    .header small {
+        font-size: 11px;
+    }
+
+    .logout-btn {
+        padding: 9px 11px;
+        font-size: 12px;
     }
 
     .container {
         width: 94%;
+        margin: 17px auto;
     }
 
     .summary {
@@ -514,7 +504,11 @@ tr:hover td {
     }
 
     .summary-card {
-        padding: 13px;
+        padding: 14px;
+    }
+
+    .summary-card .number {
+        font-size: 24px;
     }
 
     .form-grid {
@@ -525,13 +519,8 @@ tr:hover td {
         padding: 15px;
     }
 
-    .paper-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .paper-action-btn {
-        width: 100%;
+    .section-title {
+        font-size: 17px;
     }
 }
 </style>
@@ -539,108 +528,49 @@ tr:hover td {
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header class="header">
-
     <div class="header-left">
-
-        <div class="header-icon">
-            🎓
-        </div>
-
+        <div class="header-icon">🎓</div>
         <div>
             <h1>Online Examination Portal</h1>
             <small>Administrator Dashboard</small>
         </div>
-
     </div>
 
-    <button
-        class="logout-btn"
-        onclick="logout()"
-    >
-        Logout
-    </button>
-
+    <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
-
 
 <div class="container">
 
+<div id="message" class="message"></div>
 
-<!-- =========================
-     MESSAGE
-========================= -->
-
-<div
-    id="message"
-    class="message"
-></div>
-
-
-<!-- =========================
-     SUMMARY
-========================= -->
+<!-- ================= SUMMARY ================= -->
 
 <div class="summary">
 
     <div class="summary-card">
-        <div
-            class="number"
-            id="studentCount"
-        >
-            0
-        </div>
-        <div class="label">
-            Students
-        </div>
+        <div class="number" id="studentCount">0</div>
+        <div class="label">Students</div>
     </div>
 
     <div class="summary-card">
-        <div
-            class="number"
-            id="subjectCount"
-        >
-            0
-        </div>
-        <div class="label">
-            Subjects
-        </div>
+        <div class="number" id="subjectCount">0</div>
+        <div class="label">Subjects</div>
     </div>
 
     <div class="summary-card">
-        <div
-            class="number"
-            id="paperCount"
-        >
-            0
-        </div>
-        <div class="label">
-            Question Papers
-        </div>
+        <div class="number" id="paperCount">0</div>
+        <div class="label">Question Papers</div>
     </div>
 
     <div class="summary-card">
-        <div
-            class="number"
-            id="submissionCount"
-        >
-            0
-        </div>
-        <div class="label">
-            Submissions
-        </div>
+        <div class="number" id="submissionCount">0</div>
+        <div class="label">Submissions</div>
     </div>
 
 </div>
 
-
-<!-- =========================
-     STUDENT MANAGEMENT
-========================= -->
+<!-- ================= STUDENT MANAGEMENT ================= -->
 
 <section class="section">
 
@@ -651,87 +581,45 @@ tr:hover td {
 <div class="form-grid">
 
     <div class="form-group">
-
         <label>Student ID</label>
-
-        <input
-            type="text"
-            id="studentId"
-            placeholder="Enter Student ID"
-        >
-
+        <input type="text" id="studentId" placeholder="Enter Student ID">
     </div>
 
-
     <div class="form-group">
-
         <label>Student Password</label>
-
-        <input
-            type="text"
-            id="studentPassword"
-            placeholder="Enter Password"
-        >
-
+        <input type="text" id="studentPassword" placeholder="Enter Password">
     </div>
 
-
     <div class="form-group">
-
         <label>Student Name</label>
-
-        <input
-            type="text"
-            id="studentName"
-            placeholder="Enter Student Name"
-        >
-
+        <input type="text" id="studentName" placeholder="Enter Student Name">
     </div>
 
-
     <div class="form-group">
-
         <label>Active</label>
-
         <select id="studentActive">
-
-            <option value="Yes">
-                Yes
-            </option>
-
-            <option value="No">
-                No
-            </option>
-
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
         </select>
-
     </div>
 
 </div>
 
-<button
-    class="btn btn-primary"
-    onclick="createStudent()"
->
+<button class="btn btn-primary" onclick="createStudent()">
     + Create Student
 </button>
-
 
 <div class="table-wrap" style="margin-top:18px">
 
 <table>
 
 <thead>
-
 <tr>
-
-<th>Student ID</th>
-<th>Student Name</th>
-<th>Active</th>
-<th>Created At</th>
-
+    <th>Student ID</th>
+    <th>Student Name</th>
+    <th>Active</th>
+    <th>Created At</th>
 </tr>
-
 </thead>
 
 <tbody id="studentsTable"></tbody>
@@ -742,10 +630,7 @@ tr:hover td {
 
 </section>
 
-
-<!-- =========================
-     SUBJECT MANAGEMENT
-========================= -->
+<!-- ================= SUBJECT MANAGEMENT ================= -->
 
 <section class="section">
 
@@ -756,66 +641,37 @@ tr:hover td {
 <div class="form-grid">
 
     <div class="form-group">
-
         <label>Subject ID</label>
-
-        <input
-            type="text"
-            id="subjectId"
-            placeholder="Example: SUB001"
-        >
-
+        <input type="text" id="subjectId" placeholder="Example: SUB001">
     </div>
 
-
     <div class="form-group">
-
         <label>Subject Name</label>
-
-        <input
-            type="text"
-            id="subjectName"
-            placeholder="Subject Name"
-        >
-
+        <input type="text" id="subjectName" placeholder="Subject Name">
     </div>
 
-
     <div class="form-group">
-
         <label>Subject Code</label>
-
-        <input
-            type="text"
-            id="subjectCode"
-            placeholder="Subject Code"
-        >
-
+        <input type="text" id="subjectCode" placeholder="Subject Code">
     </div>
 
 </div>
 
-<button
-    class="btn btn-primary"
-    onclick="addSubject()"
->
+<button class="btn btn-primary" onclick="addSubject()">
     + Add Subject
 </button>
-
 
 <div class="table-wrap" style="margin-top:18px">
 
 <table>
 
 <thead>
-
 <tr>
-<th>Subject ID</th>
-<th>Subject Name</th>
-<th>Subject Code</th>
-<th>Created At</th>
+    <th>Subject ID</th>
+    <th>Subject Name</th>
+    <th>Subject Code</th>
+    <th>Created At</th>
 </tr>
-
 </thead>
 
 <tbody id="subjectsTable"></tbody>
@@ -826,10 +682,7 @@ tr:hover td {
 
 </section>
 
-
-<!-- =========================
-     ASSIGN SUBJECTS
-========================= -->
+<!-- ================= ASSIGN SUBJECT ================= -->
 
 <section class="section">
 
@@ -843,55 +696,46 @@ tr:hover td {
 
         <div class="form-group">
 
-            <label>
-                Select Student
-            </label>
+            <label>Select Student</label>
 
-            <select
-                id="assignmentStudent"
-                onchange="loadAssignmentCheckboxes()"
-            >
-                <option value="">
-                    Select Student
-                </option>
+            <select id="assignmentStudent"
+                    onchange="loadAssignmentCheckboxes()">
+
+                <option value="">Select Student</option>
+
             </select>
 
         </div>
 
     </div>
 
-
     <div>
 
-        <label
-            style="
+        <label style="
             display:block;
             font-size:13px;
             font-weight:bold;
             margin-bottom:7px;
             color:#425466;
-            "
-        >
-            Select Subjects
-            (Maximum 10)
+        ">
+            Select Subjects (Maximum 10)
         </label>
 
-        <div
-            class="subject-box"
-            id="subjectCheckboxes"
-        >
+        <div class="subject-box" id="subjectCheckboxes">
+
             <div style="color:#78909c">
                 Select a student first.
             </div>
+
         </div>
 
         <div style="margin-top:12px">
 
-            <button
-                class="btn btn-success"
-                onclick="saveAssignments()"
-            >
+            <button class="btn btn-success"
+                    onclick="saveAssignments()">
+
                 Save Assignments
+
             </button>
 
         </div>
@@ -902,10 +746,7 @@ tr:hover td {
 
 </section>
 
-
-<!-- =========================
-     QUESTION PAPER MANAGEMENT
-========================= -->
+<!-- ================= QUESTION PAPER MANAGEMENT ================= -->
 
 <section class="section">
 
@@ -915,186 +756,117 @@ tr:hover td {
 
 <div class="form-grid">
 
-
-    <!-- PAPER CODE -->
-
     <div class="form-group">
-
-        <label>
-            Paper Code *
-        </label>
-
-        <input
-            type="text"
-            id="paperCode"
-            placeholder="Example: BS-05"
-        >
-
+        <label>Paper Code *</label>
+        <input type="text"
+               id="paperCode"
+               placeholder="Example: BS-05">
     </div>
 
-
-    <!-- SUBJECT -->
-
     <div class="form-group">
-
-        <label>
-            Subject *
-        </label>
+        <label>Subject *</label>
 
         <select id="paperSubject">
-
-            <option value="">
-                Select Subject
-            </option>
-
+            <option value="">Select Subject</option>
         </select>
 
     </div>
 
-
-    <!-- TITLE -->
-
     <div class="form-group">
+        <label>Paper Title *</label>
 
-        <label>
-            Paper Title *
-        </label>
-
-        <input
-            type="text"
-            id="paperTitle"
-            placeholder="Question Paper Title"
-        >
+        <input type="text"
+               id="paperTitle"
+               placeholder="Question Paper Title">
 
     </div>
 
-
-    <!-- TOTAL MARKS -->
-
     <div class="form-group">
 
-        <label>
-            Total Marks
-        </label>
+        <label>Total Marks</label>
 
-        <input
-            type="number"
-            id="totalMarks"
-            placeholder="20"
-            min="1"
-        >
+        <input type="number"
+               id="totalMarks"
+               placeholder="20"
+               min="1">
 
     </div>
 
-
-    <!-- EXAM START -->
-
     <div class="form-group">
 
-        <label>
-            Exam Start
-        </label>
+        <label>Exam Start</label>
 
-        <input
-            type="datetime-local"
-            id="examStart"
-        >
+        <input type="datetime-local"
+               id="examStart">
 
     </div>
 
-
-    <!-- EXAM END -->
-
     <div class="form-group">
 
-        <label>
-            Exam End
-        </label>
+        <label>Exam End</label>
 
-        <input
-            type="datetime-local"
-            id="examEnd"
-        >
+        <input type="datetime-local"
+               id="examEnd">
 
     </div>
 
+    <div class="form-group"
+         style="grid-column:1/-1">
 
-    <!-- PDF -->
+        <label>Question Paper PDF *</label>
 
-    <div
-        class="form-group"
-        style="grid-column:1/-1"
-    >
-
-        <label>
-            Question Paper PDF *
-        </label>
-
-        <input
-            type="file"
-            id="paperFile"
-            accept="application/pdf,.pdf"
-        >
+        <input type="file"
+               id="paperFile"
+               accept="application/pdf,.pdf">
 
     </div>
 
 </div>
 
+<button class="btn btn-primary"
+        id="uploadPaperBtn"
+        onclick="uploadPaper()">
 
-<button
-    class="btn btn-primary"
-    id="uploadPaperBtn"
-    onclick="uploadPaper()"
->
     📤 Upload Question Paper
+
 </button>
 
-
-<div
-    class="progress-box"
-    id="uploadProgressBox"
->
+<div class="progress-box"
+     id="uploadProgressBox">
 
     <div class="progress-bg">
 
-        <div
-            class="progress-bar"
-            id="uploadProgressBar"
-        ></div>
+        <div class="progress-bar"
+             id="uploadProgressBar"></div>
 
     </div>
 
-    <div
-        class="progress-text"
-        id="uploadProgressText"
-    >
+    <div class="progress-text"
+         id="uploadProgressText">
+
         Preparing PDF...
+
     </div>
 
 </div>
 
-
-<div
-    class="table-wrap"
-    style="margin-top:20px"
->
+<div class="table-wrap"
+     style="margin-top:20px">
 
 <table>
 
 <thead>
 
 <tr>
-
-<th>Paper Code</th>
-<th>Subject</th>
-<th>Title</th>
-<th>Total Marks</th>
-<th>Published</th>
-<th>Exam Start</th>
-<th>Exam End</th>
-<th>Uploaded</th>
-<th>Actions</th>
-
+    <th>Paper Code</th>
+    <th>Subject</th>
+    <th>Title</th>
+    <th>Total Marks</th>
+    <th>Published</th>
+    <th>Exam Start</th>
+    <th>Exam End</th>
+    <th>Uploaded</th>
+    <th>Actions</th>
 </tr>
 
 </thead>
@@ -1107,10 +879,7 @@ tr:hover td {
 
 </section>
 
-
-<!-- =========================
-     STUDENT SUBMISSIONS
-========================= -->
+<!-- ================= STUDENT SUBMISSIONS ================= -->
 
 <section class="section">
 
@@ -1125,19 +894,17 @@ tr:hover td {
 <thead>
 
 <tr>
-
-<th>Student ID</th>
-<th>Student Name</th>
-<th>Subject</th>
-<th>Paper ID</th>
-<th>Paper Code</th>
-<th>Type</th>
-<th>Photos</th>
-<th>Submitted</th>
-<th>Status</th>
-<th>Edit Count</th>
-<th>Photos</th>
-
+    <th>Student ID</th>
+    <th>Student Name</th>
+    <th>Subject</th>
+    <th>Paper ID</th>
+    <th>Paper Code</th>
+    <th>Type</th>
+    <th>Photos</th>
+    <th>Submitted</th>
+    <th>Status</th>
+    <th>Edit Count</th>
+    <th>Photos</th>
 </tr>
 
 </thead>
@@ -1150,10 +917,7 @@ tr:hover td {
 
 </section>
 
-
-<!-- =========================
-     RESULTS
-========================= -->
+<!-- ================= RESULT MANAGEMENT ================= -->
 
 <section class="section">
 
@@ -1161,20 +925,14 @@ tr:hover td {
     🏆 Result Management
 </div>
 
-
 <div class="form-grid">
-
 
     <div class="form-group">
 
-        <label>
-            Student
-        </label>
+        <label>Student</label>
 
-        <select
-            id="resultStudent"
-            onchange="loadResultPapers()"
-        >
+        <select id="resultStudent"
+                onchange="loadResultPapers()">
 
             <option value="">
                 Select Student
@@ -1184,12 +942,9 @@ tr:hover td {
 
     </div>
 
-
     <div class="form-group">
 
-        <label>
-            Paper
-        </label>
+        <label>Paper</label>
 
         <select id="resultPaper">
 
@@ -1199,73 +954,59 @@ tr:hover td {
 
         </select>
 
-    </div>
+        <div class="paper-option-info">
+            Paper is displayed as Subject Name - Title
+        </div>
 
+    </div>
 
     <div class="form-group">
 
-        <label>
-            Marks Obtained
-        </label>
+        <label>Marks Obtained</label>
 
-        <input
-            type="number"
-            id="resultMarks"
-            min="0"
-            placeholder="Marks"
-        >
+        <input type="number"
+               id="resultMarks"
+               min="0"
+               placeholder="Marks">
 
     </div>
 
+    <div class="form-group"
+         style="grid-column:1/-1">
 
-    <div
-        class="form-group"
-        style="grid-column:1/-1"
-    >
+        <label>Remarks</label>
 
-        <label>
-            Remarks
-        </label>
-
-        <textarea
-            id="resultRemarks"
-            rows="3"
-            placeholder="Remarks"
-        ></textarea>
+        <textarea id="resultRemarks"
+                  rows="3"
+                  placeholder="Remarks"></textarea>
 
     </div>
 
 </div>
 
+<button class="btn btn-success"
+        onclick="saveResult()">
 
-<button
-    class="btn btn-success"
-    onclick="saveResult()"
->
     Save / Update Result
+
 </button>
 
-
-<div
-    class="table-wrap"
-    style="margin-top:18px"
->
+<div class="table-wrap"
+     style="margin-top:18px">
 
 <table>
 
 <thead>
 
 <tr>
-
-<th>Student Name</th>
-<th>Paper ID - Title</th>
-<th>Marks</th>
-<th>Total</th>
-<th>Percentage</th>
-<th>Result</th>
-<th>Remarks</th>
-<th>Updated</th>
-
+    <th>Student Name</th>
+    <th>Subject - Title</th>
+    <th>Marks</th>
+    <th>Total</th>
+    <th>Percentage</th>
+    <th>Result</th>
+    <th>Remarks</th>
+    <th>Updated</th>
 </tr>
 
 </thead>
@@ -1278,23 +1019,12 @@ tr:hover td {
 
 </section>
 
-
 </div>
-
 
 <script>
 
-/* =========================================================
-   API
-========================================================= */
-
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
-
-
-/* =========================================================
-   DATA
-========================================================= */
 
 let students = [];
 let subjects = [];
@@ -1303,47 +1033,28 @@ let papers = [];
 let submissions = [];
 let results = [];
 
+/* ================= START ================= */
 
-/* =========================================================
-   SESSION CHECK
-========================================================= */
+document.addEventListener("DOMContentLoaded", function() {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+    const role =
+        sessionStorage.getItem("examPortalRole");
 
-        const role =
-            sessionStorage.getItem(
-                "examPortalRole"
-            );
+    const adminId =
+        sessionStorage.getItem("adminId");
 
-        const adminId =
-            sessionStorage.getItem(
-                "adminId"
-            );
+    if(role !== "admin" || !adminId) {
 
+        window.location.href = "index.html";
 
-        if (
-            role !== "admin" ||
-            !adminId
-        ) {
-
-            window.location.href =
-                "index.html";
-
-            return;
-        }
-
-
-        loadAll();
-
+        return;
     }
-);
 
+    loadAll();
 
-/* =========================================================
-   API HELPER
-========================================================= */
+});
+
+/* ================= API ================= */
 
 async function api(action, data = {}) {
 
@@ -1352,53 +1063,27 @@ async function api(action, data = {}) {
         ...data
     };
 
+    const response = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+    });
 
-    const response =
-        await fetch(
-            API_URL,
-            {
-                method: "POST",
+    const text = await response.text();
 
-                body:
-                    JSON.stringify(payload)
-            }
-        );
+    console.log(action, text);
 
-
-    const text =
-        await response.text();
-
-
-    console.log(
-        action,
-        text
-    );
-
-
-    if (!text) {
-
-        throw new Error(
-            "Empty server response."
-        );
-
-    }
-
+    if(!text)
+        throw new Error("Empty server response.");
 
     let result;
 
     try {
 
-        result =
-            JSON.parse(text);
+        result = JSON.parse(text);
 
-    }
+    } catch(error) {
 
-    catch(error) {
-
-        console.error(
-            "Invalid JSON:",
-            text
-        );
+        console.error("Invalid JSON:", text);
 
         throw new Error(
             "Invalid response from server."
@@ -1406,36 +1091,20 @@ async function api(action, data = {}) {
 
     }
 
-
-    if (
-        result.success === false
-    ) {
-
+    if(result.success === false)
         throw new Error(
-            result.message ||
-            "Request failed."
+            result.message || "Request failed."
         );
-
-    }
-
 
     return result;
 }
 
+/* ================= MESSAGE ================= */
 
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-function showMessage(
-    message,
-    type = "success"
-) {
+function showMessage(message, type = "success") {
 
     const box =
-        document.getElementById(
-            "message"
-        );
+        document.getElementById("message");
 
     box.className =
         "message " + type;
@@ -1446,33 +1115,24 @@ function showMessage(
     box.style.display =
         "block";
 
-
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
-
     if(type === "success") {
 
-        setTimeout(
-            function() {
+        setTimeout(function() {
 
-                box.style.display =
-                    "none";
+            box.style.display = "none";
 
-            },
-            3500
-        );
+        }, 3500);
 
     }
 
 }
 
-
-/* =========================================================
-   LOAD ALL
-========================================================= */
+/* ================= LOAD ALL ================= */
 
 async function loadAll() {
 
@@ -1492,9 +1152,7 @@ async function loadAll() {
 
         updateSummary();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         console.error(error);
 
@@ -1507,31 +1165,23 @@ async function loadAll() {
 
 }
 
-
-/* =========================================================
-   STUDENTS
-========================================================= */
+/* ================= STUDENTS ================= */
 
 async function loadStudents() {
 
     const data =
-        await api(
-            "getStudents"
-        );
-
+        await api("getStudents");
 
     students =
         data.students ||
         data.data ||
         [];
 
-
     renderStudents();
 
     populateStudentDropdowns();
 
 }
-
 
 function renderStudents() {
 
@@ -1540,53 +1190,52 @@ function renderStudents() {
             "studentsTable"
         );
 
-
     tbody.innerHTML = "";
 
+    students.forEach(function(student) {
 
-    students.forEach(
-        function(student) {
+        const tr =
+            document.createElement("tr");
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+        tr.innerHTML = `
 
-
-            tr.innerHTML = `
-
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     student["Student ID"] ||
                     student.studentId ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     student["Student Name"] ||
                     student.studentName ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     student["Active"] ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     student["Created At"] ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-            `;
+        `;
 
+        tbody.appendChild(tr);
 
-            tbody.appendChild(tr);
-
-        }
-    );
+    });
 
 }
-
 
 function populateStudentDropdowns() {
 
@@ -1595,7 +1244,6 @@ function populateStudentDropdowns() {
             "assignmentStudent"
         );
 
-
     if(assignmentSelect) {
 
         assignmentSelect.innerHTML =
@@ -1603,37 +1251,38 @@ function populateStudentDropdowns() {
                 Select Student
             </option>`;
 
-        students.forEach(
-            function(student) {
+        students.forEach(function(student) {
 
-                const id =
-                    student["Student ID"] ||
-                    student.studentId ||
-                    "";
+            const id =
+                student["Student ID"] ||
+                student.studentId ||
+                "";
 
-                const name =
-                    student["Student Name"] ||
-                    student.studentName ||
-                    "";
+            const name =
+                student["Student Name"] ||
+                student.studentName ||
+                "";
 
-                const text =
-                    id +
-                    (name ? " - " + name : "");
+            const text =
+                id +
+                (name ? " - " + name : "");
 
-                assignmentSelect.innerHTML +=
-                    `<option value="${escapeHtml(id)}">
-                        ${escapeHtml(text)}
-                    </option>`;
+            const option =
+                document.createElement("option");
 
-            }
-        );
+            option.value = id;
+
+            option.textContent = text;
+
+            assignmentSelect.appendChild(option);
+
+        });
 
     }
 
     populateResultStudentDropdown();
 
 }
-
 
 function populateResultStudentDropdown() {
 
@@ -1642,57 +1291,57 @@ function populateResultStudentDropdown() {
             "resultStudent"
         );
 
-    if(!resultSelect) return;
+    if(!resultSelect)
+        return;
 
-    const oldValue = resultSelect.value;
+    const oldValue =
+        resultSelect.value;
 
     resultSelect.innerHTML =
         `<option value="">
             Select Student
         </option>`;
 
-    const seen = new Set();
+    const seen =
+        new Set();
 
-    submissions.forEach(
-        function(submission) {
+    submissions.forEach(function(submission) {
 
-            const id =
-                submission["Student ID"] ||
-                submission.studentId ||
-                "";
+        const id =
+            submission["Student ID"] ||
+            submission.studentId ||
+            "";
 
-            const name =
-                submission["Student Name"] ||
-                submission.studentName ||
-                "";
+        const name =
+            submission["Student Name"] ||
+            submission.studentName ||
+            "";
 
-            if(!id || seen.has(String(id))) return;
+        if(!id ||
+           seen.has(String(id)))
+            return;
 
-            seen.add(String(id));
+        seen.add(String(id));
 
-            const option =
-                document.createElement("option");
+        const option =
+            document.createElement("option");
 
-            option.value = id;
-            option.textContent =
-                id +
-                (name ? " - " + name : "");
+        option.value = id;
 
-            resultSelect.appendChild(option);
+        option.textContent =
+            id +
+            (name ? " - " + name : "");
 
-        }
-    );
+        resultSelect.appendChild(option);
 
-    if(oldValue) {
+    });
+
+    if(oldValue)
         resultSelect.value = oldValue;
-    }
 
 }
 
-
-/* =========================================================
-   CREATE STUDENT
-========================================================= */
+/* ================= CREATE STUDENT ================= */
 
 async function createStudent() {
 
@@ -1701,30 +1350,24 @@ async function createStudent() {
             "studentId"
         ).value.trim();
 
-
     const password =
         document.getElementById(
             "studentPassword"
         ).value;
-
 
     const studentName =
         document.getElementById(
             "studentName"
         ).value.trim();
 
-
     const active =
         document.getElementById(
             "studentActive"
         ).value;
 
-
-    if (
-        !studentId ||
-        !password ||
-        !studentName
-    ) {
+    if(!studentId ||
+       !password ||
+       !studentName) {
 
         showMessage(
             "Student ID, password and Student Name are required.",
@@ -1734,55 +1377,40 @@ async function createStudent() {
         return;
     }
 
-
     try {
 
         await api(
             "createStudent",
             {
-                studentId:
-                    studentId,
-
-                password:
-                    password,
-
-                studentName:
-                    studentName,
-
-                active:
-                    active
+                studentId,
+                password,
+                studentName,
+                active
             }
         );
-
 
         document.getElementById(
             "studentId"
         ).value = "";
 
-
         document.getElementById(
             "studentPassword"
         ).value = "";
 
-
         document.getElementById(
             "studentName"
         ).value = "";
-
 
         showMessage(
             "Student created successfully.",
             "success"
         );
 
-
         await loadStudents();
 
         updateSummary();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -1793,31 +1421,23 @@ async function createStudent() {
 
 }
 
-
-/* =========================================================
-   SUBJECTS
-========================================================= */
+/* ================= SUBJECTS ================= */
 
 async function loadSubjects() {
 
     const data =
-        await api(
-            "getSubjects"
-        );
-
+        await api("getSubjects");
 
     subjects =
         data.subjects ||
         data.data ||
         [];
 
-
     renderSubjects();
 
     populatePaperSubjects();
 
 }
-
 
 function renderSubjects() {
 
@@ -1826,54 +1446,53 @@ function renderSubjects() {
             "subjectsTable"
         );
 
-
     tbody.innerHTML = "";
 
+    subjects.forEach(function(subject) {
 
-    subjects.forEach(
-        function(subject) {
+        const tr =
+            document.createElement("tr");
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+        tr.innerHTML = `
 
-
-            tr.innerHTML = `
-
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     subject["Subject ID"] ||
                     subject.subjectId ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     subject["Subject Name"] ||
                     subject.subjectName ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     subject["Subject Code"] ||
                     subject.subjectCode ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-                <td>${escapeHtml(
+            <td>
+                ${escapeHtml(
                     subject["Created At"] ||
                     ""
-                )}</td>
+                )}
+            </td>
 
-            `;
+        `;
 
+        tbody.appendChild(tr);
 
-            tbody.appendChild(tr);
-
-        }
-    );
+    });
 
 }
-
 
 function populatePaperSubjects() {
 
@@ -1882,47 +1501,42 @@ function populatePaperSubjects() {
             "paperSubject"
         );
 
-
     select.innerHTML =
         `<option value="">
             Select Subject
         </option>`;
 
+    subjects.forEach(function(subject) {
 
-    subjects.forEach(
-        function(subject) {
+        const id =
+            subject["Subject ID"] ||
+            subject.subjectId ||
+            "";
 
-            const id =
-                subject["Subject ID"] ||
-                subject.subjectId ||
-                "";
+        const name =
+            subject["Subject Name"] ||
+            subject.subjectName ||
+            "";
 
-            const name =
-                subject["Subject Name"] ||
-                subject.subjectName ||
-                "";
+        const code =
+            subject["Subject Code"] ||
+            subject.subjectCode ||
+            "";
 
-            const code =
-                subject["Subject Code"] ||
-                subject.subjectCode ||
-                "";
+        const option =
+            document.createElement("option");
 
+        option.value = id;
 
-            select.innerHTML +=
-                `<option value="${escapeHtml(id)}">
-                    ${escapeHtml(
-                        name +
-                        (code ?
-                            " (" + code + ")" :
-                            "")
-                    )}
-                </option>`;
+        option.textContent =
+            name +
+            (code ? " (" + code + ")" : "");
 
-        }
-    );
+        select.appendChild(option);
+
+    });
 
 }
-
 
 async function addSubject() {
 
@@ -1931,23 +1545,18 @@ async function addSubject() {
             "subjectId"
         ).value.trim();
 
-
     const subjectName =
         document.getElementById(
             "subjectName"
         ).value.trim();
-
 
     const subjectCode =
         document.getElementById(
             "subjectCode"
         ).value.trim();
 
-
-    if (
-        !subjectId ||
-        !subjectName
-    ) {
+    if(!subjectId ||
+       !subjectName) {
 
         showMessage(
             "Subject ID and Subject Name are required.",
@@ -1957,52 +1566,39 @@ async function addSubject() {
         return;
     }
 
-
     try {
 
         await api(
             "addSubject",
             {
-                subjectId:
-                    subjectId,
-
-                subjectName:
-                    subjectName,
-
-                subjectCode:
-                    subjectCode
+                subjectId,
+                subjectName,
+                subjectCode
             }
         );
-
 
         document.getElementById(
             "subjectId"
         ).value = "";
 
-
         document.getElementById(
             "subjectName"
         ).value = "";
 
-
         document.getElementById(
             "subjectCode"
         ).value = "";
-
 
         showMessage(
             "Subject added successfully.",
             "success"
         );
 
-
         await loadSubjects();
 
         updateSummary();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -2013,18 +1609,12 @@ async function addSubject() {
 
 }
 
-
-/* =========================================================
-   ASSIGNMENTS
-========================================================= */
+/* ================= ASSIGNMENTS ================= */
 
 async function loadAssignments() {
 
     const data =
-        await api(
-            "getAssignments"
-        );
-
+        await api("getAssignments");
 
     assignments =
         data.assignments ||
@@ -2033,7 +1623,6 @@ async function loadAssignments() {
 
 }
 
-
 function loadAssignmentCheckboxes() {
 
     const studentId =
@@ -2041,17 +1630,14 @@ function loadAssignmentCheckboxes() {
             "assignmentStudent"
         ).value;
 
-
     const box =
         document.getElementById(
             "subjectCheckboxes"
         );
 
-
     box.innerHTML = "";
 
-
-    if (!studentId) {
+    if(!studentId) {
 
         box.innerHTML =
             `<div style="color:#78909c">
@@ -2061,97 +1647,86 @@ function loadAssignmentCheckboxes() {
         return;
     }
 
-
     const assignedIds =
         assignments
-        .filter(
-            function(a) {
+        .filter(function(a) {
 
-                return String(
-                    a["Student ID"] ||
-                    a.studentId ||
-                    ""
-                ) ===
-                String(studentId);
+            return String(
+                a["Student ID"] ||
+                a.studentId ||
+                ""
+            ) === String(studentId);
 
-            }
-        )
-        .map(
-            function(a) {
+        })
+        .map(function(a) {
 
-                return String(
-                    a["Subject ID"] ||
-                    a.subjectId ||
-                    ""
-                );
+            return String(
+                a["Subject ID"] ||
+                a.subjectId ||
+                ""
+            );
 
-            }
-        );
+        });
 
+    subjects.forEach(function(subject) {
 
-    subjects.forEach(
-        function(subject) {
+        const id =
+            subject["Subject ID"] ||
+            subject.subjectId ||
+            "";
 
-            const id =
-                subject["Subject ID"] ||
-                subject.subjectId ||
-                "";
+        const name =
+            subject["Subject Name"] ||
+            subject.subjectName ||
+            "";
 
-            const name =
-                subject["Subject Name"] ||
-                subject.subjectName ||
-                "";
+        const code =
+            subject["Subject Code"] ||
+            subject.subjectCode ||
+            "";
 
-            const code =
-                subject["Subject Code"] ||
-                subject.subjectCode ||
-                "";
+        const checked =
+            assignedIds.includes(
+                String(id)
+            );
 
+        const label =
+            document.createElement("label");
 
-            const checked =
-                assignedIds.includes(
-                    String(id)
-                );
+        label.className =
+            "subject-check";
 
+        const checkbox =
+            document.createElement("input");
 
-            const div =
-                document.createElement(
-                    "label"
-                );
+        checkbox.type =
+            "checkbox";
 
+        checkbox.className =
+            "subjectAssignment";
 
-            div.className =
-                "subject-check";
+        checkbox.value =
+            id;
 
+        checkbox.checked =
+            checked;
 
-            div.innerHTML = `
+        const span =
+            document.createElement("span");
 
-                <input
-                    type="checkbox"
-                    class="subjectAssignment"
-                    value="${escapeHtml(id)}"
-                    ${checked ? "checked" : ""}
-                >
+        span.textContent =
+            name +
+            (code ? " (" + code + ")" : "");
 
-                <span>
-                    ${escapeHtml(name)}
-                    ${code ?
-                        " (" +
-                        escapeHtml(code) +
-                        ")" :
-                        ""}
-                </span>
+        label.appendChild(checkbox);
 
-            `;
+        label.appendChild(span);
 
+        box.appendChild(label);
 
-            box.appendChild(div);
-
-        }
-    );
+    });
 
 }
-
 
 async function saveAssignments() {
 
@@ -2160,8 +1735,7 @@ async function saveAssignments() {
             "assignmentStudent"
         ).value;
 
-
-    if (!studentId) {
+    if(!studentId) {
 
         showMessage(
             "Please select a student.",
@@ -2171,30 +1745,19 @@ async function saveAssignments() {
         return;
     }
 
-
     const checkboxes =
         document.querySelectorAll(
             ".subjectAssignment"
         );
 
-
     const selected = [];
 
+    checkboxes.forEach(function(cb) {
 
-    checkboxes.forEach(
-        function(cb) {
+        if(cb.checked)
+            selected.push(cb.value);
 
-            if(cb.checked) {
-
-                selected.push(
-                    cb.value
-                );
-
-            }
-
-        }
-    );
-
+    });
 
     if(selected.length > 10) {
 
@@ -2206,76 +1769,55 @@ async function saveAssignments() {
         return;
     }
 
-
     try {
 
         const old =
-            assignments.filter(
-                function(a) {
+            assignments.filter(function(a) {
 
-                    return String(
-                        a["Student ID"] ||
-                        a.studentId ||
-                        ""
-                    ) ===
-                    String(studentId);
+                return String(
+                    a["Student ID"] ||
+                    a.studentId ||
+                    ""
+                ) === String(studentId);
 
-                }
-            );
+            });
 
-
-        for(
-            const assignment of old
-        ) {
+        for(const assignment of old) {
 
             await api(
                 "removeAssignment",
                 {
-                    studentId:
-                        studentId,
-
+                    studentId: studentId,
                     subjectId:
-                        assignment[
-                            "Subject ID"
-                        ] ||
+                        assignment["Subject ID"] ||
                         assignment.subjectId
                 }
             );
 
         }
 
-
-        for(
-            const subjectId of selected
-        ) {
+        for(const subjectId of selected) {
 
             await api(
                 "assignSubject",
                 {
-                    studentId:
-                        studentId,
-
-                    subjectId:
-                        subjectId
+                    studentId,
+                    subjectId
                 }
             );
 
         }
-
 
         showMessage(
             "Subject assignments updated successfully.",
             "success"
         );
 
-
         await loadAssignments();
 
         loadAssignmentCheckboxes();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -2286,35 +1828,23 @@ async function saveAssignments() {
 
 }
 
-
-/* =========================================================
-   QUESTION PAPERS
-========================================================= */
+/* ================= PAPERS ================= */
 
 async function loadPapers() {
 
     const data =
-        await api(
-            "getPapers"
-        );
-
+        await api("getPapers");
 
     papers =
         data.papers ||
         data.data ||
         [];
 
-
     renderPapers();
 
     updateSummary();
 
 }
-
-
-/* =========================================================
-   GET PAPER SUBJECT NAME
-========================================================= */
 
 function getPaperSubjectName(paper) {
 
@@ -2323,171 +1853,36 @@ function getPaperSubjectName(paper) {
         paper.subjectId ||
         "";
 
-
     const subject =
-        subjects.find(
-            function(s) {
+        subjects.find(function(s) {
 
-                return String(
-                    s["Subject ID"] ||
-                    s.subjectId ||
-                    ""
-                ) ===
-                String(subjectId);
+            return String(
+                s["Subject ID"] ||
+                s.subjectId ||
+                ""
+            ) === String(subjectId);
 
-            }
-        );
+        });
 
+    if(subject)
 
-    if(subject) {
+        return subject["Subject Name"] ||
+               subject.subjectName ||
+               "";
 
-        return (
-            subject["Subject Name"] ||
-            subject.subjectName ||
-            ""
-        );
-
-    }
-
-
-    return (
-        paper["Subject Name"] ||
-        paper.subjectName ||
-        subjectId
-    );
+    return paper["Subject Name"] ||
+           paper.subjectName ||
+           subjectId;
 
 }
-
-
-/* =========================================================
-   GET PAPER CODE
-========================================================= */
 
 function getPaperCode(paper) {
 
-    return (
-        paper["Paper Code"] ||
-        paper.paperCode ||
-        ""
-    );
+    return paper["Paper Code"] ||
+           paper.paperCode ||
+           "";
 
 }
-
-
-/* =========================================================
-   GET PAPER STATUS
-========================================================= */
-
-function getPaperStatus(paper) {
-
-    const raw =
-        paper["Published"] ??
-        paper.published ??
-        paper["Status"] ??
-        paper.status ??
-        "";
-
-
-    const value =
-        String(raw)
-        .trim()
-        .toLowerCase();
-
-
-    /*
-       Supported values:
-
-       Draft
-       Published / Yes
-       Unpublished / No
-
-       This also keeps compatibility
-       with the existing Yes / No data.
-    */
-
-    if(
-        value === "draft"
-    ) {
-
-        return "Draft";
-
-    }
-
-
-    if(
-        value === "yes" ||
-        value === "published" ||
-        value === "true" ||
-        value === "1"
-    ) {
-
-        return "Published";
-
-    }
-
-
-    if(
-        value === "no" ||
-        value === "unpublished" ||
-        value === "false" ||
-        value === "0"
-    ) {
-
-        return "Unpublished";
-
-    }
-
-
-    /*
-       Existing old records without a
-       status are treated as Unpublished.
-    */
-
-    return "Unpublished";
-
-}
-
-
-/* =========================================================
-   STATUS HTML
-========================================================= */
-
-function getPaperStatusHtml(status) {
-
-    if(status === "Published") {
-
-        return `
-            <span class="paper-status paper-status-published">
-                ● Published
-            </span>
-        `;
-
-    }
-
-
-    if(status === "Draft") {
-
-        return `
-            <span class="paper-status paper-status-draft">
-                ● Draft
-            </span>
-        `;
-
-    }
-
-
-    return `
-        <span class="paper-status paper-status-unpublished">
-            ● Unpublished
-        </span>
-    `;
-
-}
-
-
-/* =========================================================
-   RENDER QUESTION PAPERS
-========================================================= */
 
 function renderPapers() {
 
@@ -2496,197 +1891,162 @@ function renderPapers() {
             "papersTable"
         );
 
-
     tbody.innerHTML = "";
 
+    papers.forEach(function(paper) {
 
-    papers.forEach(
-        function(paper) {
+        const paperId =
+            paper["Paper ID"] ||
+            paper.paperId ||
+            "";
 
-            const paperId =
-                paper["Paper ID"] ||
-                paper.paperId ||
-                "";
+        const paperCode =
+            getPaperCode(paper);
 
+        const title =
+            paper["Paper Title"] ||
+            paper.paperTitle ||
+            "";
 
-            const paperCode =
-                getPaperCode(paper);
+        const totalMarks =
+            paper["Total Marks"] ||
+            paper.totalMarks ||
+            "";
 
+        const published =
+            String(
+                paper["Published"] ||
+                paper.published ||
+                "No"
+            );
 
-            const title =
-                paper["Paper Title"] ||
-                paper.paperTitle ||
-                "";
+        const publishedYes =
+            published.toLowerCase() === "yes";
 
+        const fileUrl =
+            paper["File URL"] ||
+            paper.fileUrl ||
+            "";
 
-            const totalMarks =
-                paper["Total Marks"] ||
-                paper.totalMarks ||
-                "";
+        const tr =
+            document.createElement("tr");
 
+        tr.innerHTML = `
 
-            const status =
-                getPaperStatus(paper);
+            <td>
+                ${escapeHtml(paperCode)}
+            </td>
 
+            <td>
+                ${escapeHtml(
+                    getPaperSubjectName(paper)
+                )}
+            </td>
 
-            const fileUrl =
-                paper["File URL"] ||
-                paper.fileUrl ||
-                "";
+            <td>
+                ${escapeHtml(title)}
+            </td>
 
+            <td>
+                ${escapeHtml(totalMarks)}
+            </td>
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+            <td>
 
+                <span class="status ${
+                    publishedYes
+                    ? "status-published"
+                    : "status-unpublished"
+                }">
 
-            /*
-               Action buttons are deliberately
-               kept separate:
+                    ${
+                        publishedYes
+                        ? "Published"
+                        : "Unpublished"
+                    }
 
-               OPEN
-               PUBLISH
-               UNPUBLISH
-               DELETE
-            */
+                </span>
 
-            tr.innerHTML = `
+            </td>
 
-                <td>
-                    <strong>
-                        ${escapeHtml(
-                            paperCode
-                        )}
-                    </strong>
-                </td>
+            <td>
+                ${escapeHtml(
+                    paper["Exam Start"] ||
+                    paper.examStart ||
+                    ""
+                )}
+            </td>
 
-                <td>
-                    ${escapeHtml(
-                        getPaperSubjectName(
-                            paper
-                        )
-                    )}
-                </td>
+            <td>
+                ${escapeHtml(
+                    paper["Exam End"] ||
+                    paper.examEnd ||
+                    ""
+                )}
+            </td>
 
-                <td>
-                    ${escapeHtml(
-                        title
-                    )}
-                </td>
+            <td>
+                ${escapeHtml(
+                    paper["Uploaded At"] ||
+                    paper.uploadedAt ||
+                    ""
+                )}
+            </td>
 
-                <td>
-                    ${escapeHtml(
-                        totalMarks
-                    )}
-                </td>
+            <td>
 
-                <td>
+                ${
+                    fileUrl
+                    ?
+                    `<a href="${escapeHtml(fileUrl)}"
+                        target="_blank"
+                        class="btn btn-light">
+                        Open
+                    </a>`
+                    :
+                    ""
+                }
 
-                    ${getPaperStatusHtml(status)}
+                <button
+                    class="btn ${
+                        publishedYes
+                        ? "btn-warning"
+                        : "btn-success"
+                    }"
+                    onclick="togglePaperPublish(
+                        '${escapeJs(paperId)}',
+                        '${publishedYes ? "No" : "Yes"}'
+                    )">
 
-                </td>
+                    ${
+                        publishedYes
+                        ? "Unpublish"
+                        : "Publish"
+                    }
 
-                <td>
-                    ${escapeHtml(
-                        paper["Exam Start"] ||
-                        paper.examStart ||
-                        ""
-                    )}
-                </td>
+                </button>
 
-                <td>
-                    ${escapeHtml(
-                        paper["Exam End"] ||
-                        paper.examEnd ||
-                        ""
-                    )}
-                </td>
+                <button
+                    class="btn btn-danger"
+                    onclick="deletePaper(
+                        '${escapeJs(paperId)}'
+                    )">
 
-                <td>
-                    ${escapeHtml(
-                        paper["Uploaded At"] ||
-                        paper.uploadedAt ||
-                        ""
-                    )}
-                </td>
+                    Delete
 
-                <td>
+                </button>
 
-                    <div class="paper-actions">
+            </td>
 
-                        ${
-                            fileUrl
-                            ?
-                            `
-                            <a
-                                href="${escapeHtml(fileUrl)}"
-                                target="_blank"
-                                class="paper-action-btn paper-open"
-                                style="text-decoration:none;text-align:center"
-                            >
-                                ↗ Open
-                            </a>
-                            `
-                            :
-                            `
-                            <button
-                                class="paper-action-btn paper-open"
-                                disabled
-                            >
-                                ↗ Open
-                            </button>
-                            `
-                        }
+        `;
 
+        tbody.appendChild(tr);
 
-                        <button
-                            class="paper-action-btn paper-publish"
-                            onclick="publishPaperAction(
-                                '${escapeJs(paperId)}'
-                            )"
-                        >
-                            ✓ Publish
-                        </button>
-
-
-                        <button
-                            class="paper-action-btn paper-unpublish"
-                            onclick="unpublishPaperAction(
-                                '${escapeJs(paperId)}'
-                            )"
-                        >
-                            ↩ Unpublish
-                        </button>
-
-
-                        <button
-                            class="paper-action-btn paper-delete"
-                            onclick="deletePaper(
-                                '${escapeJs(paperId)}'
-                            )"
-                        >
-                            🗑 Delete
-                        </button>
-
-                    </div>
-
-                </td>
-
-            `;
-
-
-            tbody.appendChild(tr);
-
-        }
-    );
+    });
 
 }
 
-
-/* =========================================================
-   UPLOAD PAPER
-========================================================= */
+/* ================= UPLOAD PAPER ================= */
 
 async function uploadPaper() {
 
@@ -2695,46 +2055,38 @@ async function uploadPaper() {
             "paperCode"
         ).value.trim();
 
-
     const subjectId =
         document.getElementById(
             "paperSubject"
         ).value;
-
 
     const paperTitle =
         document.getElementById(
             "paperTitle"
         ).value.trim();
 
-
     const totalMarks =
         document.getElementById(
             "totalMarks"
         ).value;
-
 
     const examStart =
         document.getElementById(
             "examStart"
         ).value;
 
-
     const examEnd =
         document.getElementById(
             "examEnd"
         ).value;
-
 
     const fileInput =
         document.getElementById(
             "paperFile"
         );
 
-
     const file =
         fileInput.files[0];
-
 
     if(!paperCode) {
 
@@ -2746,7 +2098,6 @@ async function uploadPaper() {
         return;
     }
 
-
     if(!subjectId) {
 
         showMessage(
@@ -2756,7 +2107,6 @@ async function uploadPaper() {
 
         return;
     }
-
 
     if(!paperTitle) {
 
@@ -2768,7 +2118,6 @@ async function uploadPaper() {
         return;
     }
 
-
     if(!file) {
 
         showMessage(
@@ -2779,10 +2128,11 @@ async function uploadPaper() {
         return;
     }
 
-
     if(
         file.type !== "application/pdf" &&
-        !file.name.toLowerCase().endsWith(".pdf")
+        !file.name
+            .toLowerCase()
+            .endsWith(".pdf")
     ) {
 
         showMessage(
@@ -2793,10 +2143,8 @@ async function uploadPaper() {
         return;
     }
 
-
     const maxSize =
         25 * 1024 * 1024;
-
 
     if(file.size > maxSize) {
 
@@ -2808,106 +2156,72 @@ async function uploadPaper() {
         return;
     }
 
-
     const button =
         document.getElementById(
             "uploadPaperBtn"
         );
-
 
     button.disabled = true;
 
     button.textContent =
         "Uploading...";
 
-
     const progressBox =
         document.getElementById(
             "uploadProgressBox"
         );
-
 
     const progressBar =
         document.getElementById(
             "uploadProgressBar"
         );
 
-
     const progressText =
         document.getElementById(
             "uploadProgressText"
         );
 
-
     progressBox.style.display =
         "block";
-
 
     progressBar.style.width =
         "10%";
 
-
     progressText.textContent =
         "Reading PDF...";
-
 
     try {
 
         const base64 =
             await fileToBase64(file);
 
-
         progressBar.style.width =
             "40%";
 
-
         progressText.textContent =
             "Uploading PDF to Google Drive...";
-
 
         const data =
             await api(
                 "uploadPaper",
                 {
-
-                    paperCode:
-                        paperCode,
-
-                    subjectId:
-                        subjectId,
-
-                    paperTitle:
-                        paperTitle,
-
-                    totalMarks:
-                        totalMarks,
-
-                    fileName:
-                        file.name,
-
-                    fileBase64:
-                        base64,
-
-                    mimeType:
-                        "application/pdf",
-
-                    examStart:
-                        examStart,
-
-                    examEnd:
-                        examEnd
-
+                    paperCode,
+                    subjectId,
+                    paperTitle,
+                    totalMarks,
+                    fileName: file.name,
+                    fileBase64: base64,
+                    mimeType: "application/pdf",
+                    examStart,
+                    examEnd
                 }
             );
-
 
         progressBar.style.width =
             "100%";
 
-
         progressText.textContent =
             "Upload completed.";
-
 
         showMessage(
             data.message ||
@@ -2915,61 +2229,47 @@ async function uploadPaper() {
             "success"
         );
 
-
         document.getElementById(
             "paperCode"
         ).value = "";
-
 
         document.getElementById(
             "paperSubject"
         ).value = "";
 
-
         document.getElementById(
             "paperTitle"
         ).value = "";
-
 
         document.getElementById(
             "totalMarks"
         ).value = "";
 
-
         document.getElementById(
             "examStart"
         ).value = "";
-
 
         document.getElementById(
             "examEnd"
         ).value = "";
 
-
         document.getElementById(
             "paperFile"
         ).value = "";
 
-
         await loadPapers();
 
+        setTimeout(function() {
 
-        setTimeout(
-            function() {
+            progressBox.style.display =
+                "none";
 
-                progressBox.style.display =
-                    "none";
+            progressBar.style.width =
+                "0%";
 
-                progressBar.style.width =
-                    "0%";
+        },1200);
 
-            },
-            1200
-        );
-
-    }
-
-    catch(error) {
+    } catch(error) {
 
         console.error(error);
 
@@ -2979,13 +2279,10 @@ async function uploadPaper() {
             "error"
         );
 
-
         progressBox.style.display =
             "none";
 
-    }
-
-    finally {
+    } finally {
 
         button.disabled = false;
 
@@ -2996,78 +2293,61 @@ async function uploadPaper() {
 
 }
 
-
-/* =========================================================
-   FILE TO BASE64
-========================================================= */
-
 function fileToBase64(file) {
 
-    return new Promise(
-        function(resolve,reject) {
+    return new Promise(function(resolve,reject) {
 
-            const reader =
-                new FileReader();
+        const reader =
+            new FileReader();
 
+        reader.onload = function() {
 
-            reader.onload =
-                function() {
+            const result =
+                reader.result;
 
-                    const result =
-                        reader.result;
+            const comma =
+                result.indexOf(",");
 
+            if(comma === -1) {
 
-                    const comma =
-                        result.indexOf(",");
+                reject(
+                    new Error(
+                        "Unable to read PDF."
+                    )
+                );
 
+                return;
+            }
 
-                    if(comma === -1) {
+            resolve(
+                result.substring(
+                    comma + 1
+                )
+            );
 
-                        reject(
-                            new Error(
-                                "Unable to read PDF."
-                            )
-                        );
+        };
 
-                        return;
-                    }
+        reader.onerror = function() {
 
+            reject(
+                new Error(
+                    "Unable to read PDF file."
+                )
+            );
 
-                    resolve(
-                        result.substring(
-                            comma + 1
-                        )
-                    );
+        };
 
-                };
+        reader.readAsDataURL(file);
 
-
-            reader.onerror =
-                function() {
-
-                    reject(
-                        new Error(
-                            "Unable to read PDF file."
-                        )
-                    );
-
-                };
-
-
-            reader.readAsDataURL(file);
-
-        }
-    );
+    });
 
 }
 
+/* ================= PUBLISH PAPER ================= */
 
-/* =========================================================
-   PUBLISH PAPER
-========================================================= */
-
-async function publishPaperAction(
-    paperId
+async function togglePaperPublish(
+    paperId,
+    published
 ) {
 
     if(!paperId) {
@@ -3080,90 +2360,28 @@ async function publishPaperAction(
         return;
     }
 
-
-    const paper =
-        papers.find(
-            function(item) {
-
-                return String(
-                    item["Paper ID"] ||
-                    item.paperId ||
-                    ""
-                ) ===
-                String(paperId);
-
-            }
-        );
-
-
-    if(!paper) {
-
-        showMessage(
-            "Question paper not found.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const subjectName =
-        getPaperSubjectName(paper);
-
-
-    const confirmPublish =
-        confirm(
-            "Publish this question paper?\n\n" +
-            "Subject: " +
-            subjectName +
-            "\n\n" +
-            "Students assigned to this subject will be able to access the published paper."
-        );
-
-
-    if(!confirmPublish) {
-
-        return;
-    }
-
-
     try {
-
-        /*
-           Existing backend action is retained.
-
-           "Yes" = Published
-
-           The student side should therefore
-           display this paper only for students
-           assigned to the corresponding subject.
-        */
 
         await api(
             "publishPaper",
             {
-
-                paperId:
-                    paperId,
-
-                published:
-                    "Yes"
-
+                paperId,
+                published
             }
         );
 
-
         showMessage(
-            "Question paper published successfully. Students assigned to this subject can now see it.",
+            published === "Yes"
+            ?
+            "Paper published successfully. Assigned students can now see it."
+            :
+            "Paper unpublished successfully.",
             "success"
         );
 
-
         await loadPapers();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -3174,14 +2392,9 @@ async function publishPaperAction(
 
 }
 
+/* ================= DELETE PAPER ================= */
 
-/* =========================================================
-   UNPUBLISH PAPER
-========================================================= */
-
-async function unpublishPaperAction(
-    paperId
-) {
+async function deletePaper(paperId) {
 
     if(!paperId) {
 
@@ -3192,111 +2405,32 @@ async function unpublishPaperAction(
 
         return;
     }
-
-
-    const confirmUnpublish =
-        confirm(
-            "Unpublish this question paper?\n\nThe paper will no longer be available as a published paper to students."
-        );
-
-
-    if(!confirmUnpublish) {
-
-        return;
-    }
-
-
-    try {
-
-        await api(
-            "publishPaper",
-            {
-
-                paperId:
-                    paperId,
-
-                published:
-                    "No"
-
-            }
-        );
-
-
-        showMessage(
-            "Question paper unpublished successfully.",
-            "success"
-        );
-
-
-        await loadPapers();
-
-    }
-
-    catch(error) {
-
-        showMessage(
-            error.message,
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DELETE PAPER
-========================================================= */
-
-async function deletePaper(
-    paperId
-) {
-
-    if(!paperId) {
-
-        showMessage(
-            "Paper ID is missing.",
-            "error"
-        );
-
-        return;
-    }
-
 
     const confirmDelete =
         confirm(
             "Are you sure you want to delete this question paper?"
         );
 
-
-    if(!confirmDelete) {
-
+    if(!confirmDelete)
         return;
-    }
-
 
     try {
 
         await api(
             "deletePaper",
             {
-                paperId:
-                    paperId
+                paperId
             }
         );
-
 
         showMessage(
             "Question paper deleted successfully.",
             "success"
         );
 
-
         await loadPapers();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -3307,10 +2441,7 @@ async function deletePaper(
 
 }
 
-
-/* =========================================================
-   SUBMISSIONS
-========================================================= */
+/* ================= SUBMISSIONS ================= */
 
 async function loadSubmissions() {
 
@@ -3319,12 +2450,10 @@ async function loadSubmissions() {
             "getSubmissions"
         );
 
-
     submissions =
         data.submissions ||
         data.data ||
         [];
-
 
     renderSubmissions();
 
@@ -3336,7 +2465,6 @@ async function loadSubmissions() {
 
 }
 
-
 function renderSubmissions() {
 
     const tbody =
@@ -3344,216 +2472,174 @@ function renderSubmissions() {
             "submissionsTable"
         );
 
-
     tbody.innerHTML = "";
 
+    submissions.forEach(function(submission) {
 
-    submissions.forEach(
-        function(submission) {
-
-            const urls =
-                parsePhotoUrls(
-                    submission[
-                        "Photo URLs"
-                    ] ||
-                    submission.photoUrls ||
-                    ""
-                );
-
-
-            let photoLinks = "";
-
-
-            urls.forEach(
-                function(url,index) {
-
-                    photoLinks +=
-                        `<a
-                            href="${escapeHtml(url)}"
-                            target="_blank"
-                            class="btn btn-light"
-                            style="margin:2px"
-                        >
-                            ${index + 1}
-                        </a>`;
-
-                }
+        const urls =
+            parsePhotoUrls(
+                submission["Photo URLs"] ||
+                submission.photoUrls ||
+                ""
             );
 
+        let photoLinks = "";
 
-            const status =
-                submission["Status"] ||
-                submission.status ||
-                "";
+        urls.forEach(function(url,index) {
 
+            photoLinks += `
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
+                <a href="${escapeHtml(url)}"
+                   target="_blank"
+                   class="btn btn-light"
+                   style="margin:2px">
 
+                    ${index + 1}
 
-            tr.innerHTML = `
-
-                <td>
-                    ${escapeHtml(
-                        submission["Student ID"] ||
-                        submission.studentId ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Student Name"] ||
-                        submission.studentName ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Subject Name"] ||
-                        submission.subjectName ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Paper ID"] ||
-                        submission.paperId ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Paper Code"] ||
-                        submission.paperCode ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Submission Type"] ||
-                        submission.submissionType ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Photo Count"] ||
-                        submission.photoCount ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Submitted At"] ||
-                        submission.submittedAt ||
-                        ""
-                    )}
-                </td>
-
-                <td>
-
-                    <span class="status ${
-                        String(status)
-                        .toLowerCase()
-                        === "edited"
-                        ?
-                        "status-edited"
-                        :
-                        "status-submitted"
-                    }">
-
-                        ${escapeHtml(status)}
-
-                    </span>
-
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        submission["Edit Count"] ||
-                        submission.editCount ||
-                        "0"
-                    )}
-                </td>
-
-                <td>
-                    ${photoLinks || "-"}
-                </td>
+                </a>
 
             `;
 
+        });
 
-            tbody.appendChild(tr);
+        const status =
+            submission["Status"] ||
+            submission.status ||
+            "";
 
-        }
-    );
+        const tr =
+            document.createElement("tr");
+
+        tr.innerHTML = `
+
+            <td>
+                ${escapeHtml(
+                    submission["Student ID"] ||
+                    submission.studentId ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Student Name"] ||
+                    submission.studentName ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Subject Name"] ||
+                    submission.subjectName ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Paper ID"] ||
+                    submission.paperId ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Paper Code"] ||
+                    submission.paperCode ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Submission Type"] ||
+                    submission.submissionType ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Photo Count"] ||
+                    submission.photoCount ||
+                    ""
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Submitted At"] ||
+                    submission.submittedAt ||
+                    ""
+                )}
+            </td>
+
+            <td>
+
+                <span class="status ${
+                    String(status).toLowerCase() === "edited"
+                    ? "status-edited"
+                    : "status-submitted"
+                }">
+
+                    ${escapeHtml(status)}
+
+                </span>
+
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    submission["Edit Count"] ||
+                    submission.editCount ||
+                    "0"
+                )}
+            </td>
+
+            <td>
+                ${photoLinks || "-"}
+            </td>
+
+        `;
+
+        tbody.appendChild(tr);
+
+    });
 
 }
 
-
 function parsePhotoUrls(value) {
 
-    if(!value) {
-
+    if(!value)
         return [];
 
-    }
-
-
-    if(
-        Array.isArray(value)
-    ) {
-
+    if(Array.isArray(value))
         return value;
-
-    }
-
 
     try {
 
         const parsed =
             JSON.parse(value);
 
-
-        if(
-            Array.isArray(parsed)
-        ) {
-
+        if(Array.isArray(parsed))
             return parsed;
 
-        }
-
-    }
-
-    catch(e) {}
-
+    } catch(e) {}
 
     return String(value)
         .split(/\n|,/)
-        .map(
-            function(x) {
+        .map(function(x) {
 
-                return x.trim();
+            return x.trim();
 
-            }
-        )
+        })
         .filter(Boolean);
 
 }
 
-
-/* =========================================================
-   RESULTS
-========================================================= */
+/* ================= RESULTS ================= */
 
 async function loadResults() {
 
@@ -3562,17 +2648,78 @@ async function loadResults() {
             "getResults"
         );
 
-
     results =
         data.results ||
         data.data ||
         [];
 
-
     renderResults();
 
 }
 
+/*
+==================================================
+RESULT PAPER DISPLAY CHANGE
+
+OLD:
+Paper ID - Title
+
+NEW:
+Subject Name - Title
+
+Paper ID remains the actual value internally.
+==================================================
+*/
+
+function getResultPaperLabel(paper) {
+
+    if(!paper)
+        return "";
+
+    const subjectId =
+        paper["Subject ID"] ||
+        paper.subjectId ||
+        "";
+
+    const subject =
+        subjects.find(function(item) {
+
+            return String(
+                item["Subject ID"] ||
+                item.subjectId ||
+                ""
+            ) === String(subjectId);
+
+        });
+
+    const subjectName =
+        subject
+        ?
+        (
+            subject["Subject Name"] ||
+            subject.subjectName ||
+            ""
+        )
+        :
+        (
+            paper["Subject Name"] ||
+            paper.subjectName ||
+            subjectId
+        );
+
+    const title =
+        paper["Paper Title"] ||
+        paper.paperTitle ||
+        paper["Title"] ||
+        paper.title ||
+        "";
+
+    return subjectName +
+           (title
+                ? " - " + title
+                : "");
+
+}
 
 function renderResults() {
 
@@ -3581,193 +2728,179 @@ function renderResults() {
             "resultsTable"
         );
 
-
     tbody.innerHTML = "";
 
+    results.forEach(function(result) {
 
-    results.forEach(
-        function(result) {
+        const studentId =
+            result["Student ID"] ||
+            result.studentId ||
+            "";
 
-            const studentId =
-                result["Student ID"] ||
-                result.studentId ||
-                "";
+        const paperId =
+            result["Paper ID"] ||
+            result.paperId ||
+            "";
 
-            const paperId =
-                result["Paper ID"] ||
-                result.paperId ||
-                "";
+        const submission =
+            submissions.find(function(item) {
 
-            const submission =
-                submissions.find(
-                    function(item) {
+                return String(
+                    item["Student ID"] ||
+                    item.studentId ||
+                    ""
+                ) === String(studentId)
 
-                        return String(
-                            item["Student ID"] ||
-                            item.studentId ||
-                            ""
-                        ) === String(studentId) &&
-                        String(
-                            item["Paper ID"] ||
-                            item.paperId ||
-                            ""
-                        ) === String(paperId);
+                &&
 
-                    }
-                );
+                String(
+                    item["Paper ID"] ||
+                    item.paperId ||
+                    ""
+                ) === String(paperId);
 
-            const studentName =
-                submission
+            });
+
+        const studentName =
+            submission
+            ?
+            (
+                submission["Student Name"] ||
+                submission.studentName ||
+                studentId
+            )
+            :
+            (
+                result["Student Name"] ||
+                result.studentName ||
+                studentId
+            );
+
+        const paper =
+            papers.find(function(item) {
+
+                return String(
+                    item["Paper ID"] ||
+                    item.paperId ||
+                    ""
+                ) === String(paperId);
+
+            });
+
+        /*
+         * IMPORTANT:
+         * Display Subject Name - Title
+         * instead of Paper ID - Title.
+         */
+
+        const paperLabel =
+            getResultPaperLabel(paper);
+
+        const marksObtained =
+            result["Marks Obtained"] ||
+            result.marksObtained ||
+            "";
+
+        const totalMarks =
+            paper
+            ?
+            (
+                paper["Total Marks"] ||
+                paper.totalMarks ||
+                result["Total Marks"] ||
+                result.totalMarks ||
+                ""
+            )
+            :
+            (
+                result["Total Marks"] ||
+                result.totalMarks ||
+                ""
+            );
+
+        const percentage =
+            result["Percentage"] ||
+            result.percentage ||
+
+            (
+                Number(totalMarks) > 0
+
                 ?
+
                 (
-                    submission["Student Name"] ||
-                    submission.studentName ||
-                    studentId
-                )
+                    Number(marksObtained) /
+                    Number(totalMarks) *
+                    100
+                ).toFixed(2)
+
                 :
-                (
-                    result["Student Name"] ||
-                    result.studentName ||
-                    studentId
-                );
 
-            const paper =
-                papers.find(
-                    function(item) {
+                ""
+            );
 
-                        return String(
-                            item["Paper ID"] ||
-                            item.paperId ||
-                            ""
-                        ) === String(paperId);
+        const resultStatus =
+            result["Result"] ||
+            result.result ||
+            "";
 
-                    }
-                );
+        const remarks =
+            result["Remarks"] ||
+            result.remarks ||
+            "";
 
-            const title = paper
-                ?
-                (
-                    paper["Paper Title"] ||
-                    paper.paperTitle ||
-                    paper["Title"] ||
-                    paper.title ||
-                    ""
-                )
-                :
-                "";
+        const updated =
+            result["Updated At"] ||
+            result.updatedAt ||
+            "";
 
-            const paperLabel =
-                String(paperId) +
-                (title ? " - " + title : "");
+        const tr =
+            document.createElement("tr");
 
-            const marksObtained =
-                result["Marks Obtained"] ||
-                result.marksObtained ||
-                "";
+        tr.innerHTML = `
 
-            const totalMarks =
-                paper
-                ?
-                (
-                    paper["Total Marks"] ||
-                    paper.totalMarks ||
-                    result["Total Marks"] ||
-                    result.totalMarks ||
-                    ""
-                )
-                :
-                (
-                    result["Total Marks"] ||
-                    result.totalMarks ||
-                    ""
-                );
+            <td>
+                ${escapeHtml(studentName)}
+            </td>
 
-            const percentage =
-                result["Percentage"] ||
-                result.percentage ||
-                (
-                    Number(totalMarks) > 0
-                    ?
-                    (
-                        (
-                            Number(marksObtained) /
-                            Number(totalMarks)
-                        ) * 100
-                    ).toFixed(2)
-                    :
-                    ""
-                );
-
-            const resultStatus =
-                result["Result"] ||
-                result.result ||
-                "";
-
-            const remarks =
-                result["Remarks"] ||
-                result.remarks ||
-                "";
-
-            const updated =
-                result["Updated At"] ||
-                result.updatedAt ||
-                "";
-
-
-            const tr =
-                document.createElement(
-                    "tr"
-                );
-
-
-            tr.innerHTML = `
-
-                <td>
-                    ${escapeHtml(studentName)}
-                </td>
-
-                <td>
+            <td>
+                <strong style="color:#1565c0">
                     ${escapeHtml(paperLabel)}
-                </td>
+                </strong>
+            </td>
 
-                <td>
-                    ${escapeHtml(marksObtained)}
-                </td>
+            <td>
+                ${escapeHtml(marksObtained)}
+            </td>
 
-                <td>
-                    ${escapeHtml(totalMarks)}
-                </td>
+            <td>
+                ${escapeHtml(totalMarks)}
+            </td>
 
-                <td>
-                    ${escapeHtml(percentage)}
-                </td>
+            <td>
+                ${escapeHtml(percentage)}
+            </td>
 
-                <td>
-                    ${escapeHtml(resultStatus)}
-                </td>
+            <td>
+                ${escapeHtml(resultStatus)}
+            </td>
 
-                <td>
-                    ${escapeHtml(remarks)}
-                </td>
+            <td>
+                ${escapeHtml(remarks)}
+            </td>
 
-                <td>
-                    ${escapeHtml(updated)}
-                </td>
+            <td>
+                ${escapeHtml(updated)}
+            </td>
 
-            `;
+        `;
 
+        tbody.appendChild(tr);
 
-            tbody.appendChild(tr);
-
-        }
-    );
+    });
 
 }
 
-
-/* =========================================================
-   RESULT PAPERS
-========================================================= */
+/* ================= RESULT PAPERS ================= */
 
 async function loadResultPapers() {
 
@@ -3776,114 +2909,98 @@ async function loadResultPapers() {
             "resultStudent"
         ).value;
 
-
     const select =
         document.getElementById(
             "resultPaper"
         );
-
 
     select.innerHTML =
         `<option value="">
             Select Paper
         </option>`;
 
-
-    if(!studentId) {
-
+    if(!studentId)
         return;
 
-    }
+    const seen =
+        new Set();
 
+    submissions.forEach(function(submission) {
 
-    const seen = new Set();
+        const sid =
+            submission["Student ID"] ||
+            submission.studentId ||
+            "";
 
+        const paperId =
+            submission["Paper ID"] ||
+            submission.paperId ||
+            "";
 
-    submissions.forEach(
-        function(submission) {
+        if(
+            String(sid) !==
+            String(studentId)
 
-            const sid =
-                submission["Student ID"] ||
-                submission.studentId ||
-                "";
+            ||
 
-            const paperId =
-                submission["Paper ID"] ||
-                submission.paperId ||
-                "";
+            !paperId
 
+            ||
 
-            if(
-                String(sid) !== String(studentId) ||
-                !paperId ||
-                seen.has(String(paperId))
-            ) {
+            seen.has(
+                String(paperId)
+            )
+        ) {
 
-                return;
-
-            }
-
-
-            seen.add(String(paperId));
-
-
-            const paper =
-                papers.find(
-                    function(item) {
-
-                        return String(
-                            item["Paper ID"] ||
-                            item.paperId ||
-                            ""
-                        ) === String(paperId);
-
-                    }
-                );
-
-
-            const title = paper
-                ?
-                (
-                    paper["Paper Title"] ||
-                    paper.paperTitle ||
-                    paper["Title"] ||
-                    paper.title ||
-                    ""
-                )
-                :
-                "";
-
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                paperId;
-
-
-            option.textContent =
-                String(paperId) +
-                (title ?
-                    " - " + title :
-                    "");
-
-
-            select.appendChild(
-                option
-            );
+            return;
 
         }
-    );
+
+        seen.add(
+            String(paperId)
+        );
+
+        const paper =
+            papers.find(function(item) {
+
+                return String(
+                    item["Paper ID"] ||
+                    item.paperId ||
+                    ""
+                ) === String(paperId);
+
+            });
+
+        if(!paper)
+            return;
+
+        /*
+         * IMPORTANT:
+         * Dropdown displays:
+         * Subject Name - Title
+         *
+         * But option value remains:
+         * Paper ID
+         */
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            paperId;
+
+        option.textContent =
+            getResultPaperLabel(
+                paper
+            );
+
+        select.appendChild(option);
+
+    });
 
 }
 
-
-/* =========================================================
-   SAVE RESULT
-========================================================= */
+/* ================= SAVE RESULT ================= */
 
 async function saveResult() {
 
@@ -3892,24 +3009,20 @@ async function saveResult() {
             "resultStudent"
         ).value;
 
-
     const paperId =
         document.getElementById(
             "resultPaper"
         ).value;
-
 
     const marks =
         document.getElementById(
             "resultMarks"
         ).value;
 
-
     const remarks =
         document.getElementById(
             "resultRemarks"
         ).value.trim();
-
 
     if(
         !studentId ||
@@ -3925,21 +3038,16 @@ async function saveResult() {
         return;
     }
 
-
     const paper =
-        papers.find(
-            function(p) {
+        papers.find(function(p) {
 
-                return String(
-                    p["Paper ID"] ||
-                    p.paperId ||
-                    ""
-                ) ===
-                String(paperId);
+            return String(
+                p["Paper ID"] ||
+                p.paperId ||
+                ""
+            ) === String(paperId);
 
-            }
-        );
-
+        });
 
     if(!paper) {
 
@@ -3951,7 +3059,6 @@ async function saveResult() {
         return;
     }
 
-
     const totalMarks =
         Number(
             paper["Total Marks"] ||
@@ -3959,14 +3066,10 @@ async function saveResult() {
             0
         );
 
-
     const marksObtained =
         Number(marks);
 
-
-    if(
-        totalMarks <= 0
-    ) {
+    if(totalMarks <= 0) {
 
         showMessage(
             "Total Marks is not valid for this paper.",
@@ -3975,7 +3078,6 @@ async function saveResult() {
 
         return;
     }
-
 
     if(
         marksObtained < 0 ||
@@ -3992,74 +3094,48 @@ async function saveResult() {
         return;
     }
 
-
     const percentage =
-        (
-            marksObtained /
-            totalMarks
-        ) * 100;
-
+        (marksObtained /
+         totalMarks) *
+        100;
 
     const result =
         percentage >= 35
-        ?
-        "Pass"
-        :
-        "Fail";
-
+        ? "Pass"
+        : "Fail";
 
     try {
 
         await api(
             "saveResult",
             {
-
-                studentId:
-                    studentId,
-
-                paperId:
-                    paperId,
-
-                marksObtained:
-                    marksObtained,
-
-                totalMarks:
-                    totalMarks,
-
+                studentId,
+                paperId,
+                marksObtained,
+                totalMarks,
                 percentage:
                     percentage.toFixed(2),
-
-                result:
-                    result,
-
-                remarks:
-                    remarks
-
+                result,
+                remarks
             }
         );
-
 
         showMessage(
             "Result saved successfully.",
             "success"
         );
 
-
         document.getElementById(
             "resultMarks"
         ).value = "";
-
 
         document.getElementById(
             "resultRemarks"
         ).value = "";
 
-
         await loadResults();
 
-    }
-
-    catch(error) {
+    } catch(error) {
 
         showMessage(
             error.message,
@@ -4070,10 +3146,7 @@ async function saveResult() {
 
 }
 
-
-/* =========================================================
-   SUMMARY
-========================================================= */
+/* ================= SUMMARY ================= */
 
 function updateSummary() {
 
@@ -4082,18 +3155,15 @@ function updateSummary() {
     ).textContent =
         students.length;
 
-
     document.getElementById(
         "subjectCount"
     ).textContent =
         subjects.length;
 
-
     document.getElementById(
         "paperCount"
     ).textContent =
         papers.length;
-
 
     document.getElementById(
         "submissionCount"
@@ -4102,10 +3172,7 @@ function updateSummary() {
 
 }
 
-
-/* =========================================================
-   LOGOUT
-========================================================= */
+/* ================= LOGOUT ================= */
 
 function logout() {
 
@@ -4122,20 +3189,16 @@ function logout() {
 
 }
 
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* ================= SECURITY HELPERS ================= */
 
 function escapeHtml(value) {
 
-    if(value === null ||
-       value === undefined) {
+    if(
+        value === null ||
+        value === undefined
+    )
 
         return "";
-
-    }
-
 
     return String(value)
         .replace(/&/g,"&amp;")
@@ -4146,20 +3209,14 @@ function escapeHtml(value) {
 
 }
 
-
-/* =========================================================
-   ESCAPE JAVASCRIPT
-========================================================= */
-
 function escapeJs(value) {
 
-    if(value === null ||
-       value === undefined) {
+    if(
+        value === null ||
+        value === undefined
+    )
 
         return "";
-
-    }
-
 
     return String(value)
         .replace(/\\/g,"\\\\")
