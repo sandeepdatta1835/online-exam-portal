@@ -18,10 +18,6 @@ html, body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* =========================
-   EDUCATION BACKGROUND
-========================= */
-
 body {
     min-height: 100vh;
     display: flex;
@@ -36,8 +32,6 @@ body {
     position: relative;
     overflow-x: hidden;
 }
-
-/* Education floating symbols */
 
 .education-bg {
     position: fixed;
@@ -103,10 +97,6 @@ body {
     font-size: 42px;
 }
 
-/* =========================
-   MAIN CONTAINER
-========================= */
-
 .main-container {
     width: 100%;
     max-width: 1050px;
@@ -114,10 +104,6 @@ body {
     position: relative;
     z-index: 2;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header {
     text-align: center;
@@ -153,10 +139,6 @@ body {
     color: #5d7185;
     font-size: 15px;
 }
-
-/* =========================
-   LOGIN SELECTOR
-========================= */
 
 .login-selection {
     display: grid;
@@ -218,10 +200,6 @@ body {
     font-size: 13px;
 }
 
-/* =========================
-   LOGIN CARD
-========================= */
-
 .login-card {
     max-width: 500px;
     margin: auto;
@@ -253,10 +231,6 @@ body {
     color: #7a8997;
     font-size: 14px;
 }
-
-/* =========================
-   FORM
-========================= */
 
 .form-group {
     margin-bottom: 18px;
@@ -300,8 +274,6 @@ input[type="password"]:focus {
     background: white;
 }
 
-/* Password eye button */
-
 .password-toggle {
     position: absolute;
     right: 7px;
@@ -324,10 +296,6 @@ input[type="password"]:focus {
 .password-toggle:hover {
     background: #edf4fa;
 }
-
-/* =========================
-   LOGIN BUTTON
-========================= */
 
 .login-button {
     width: 100%;
@@ -359,10 +327,6 @@ input[type="password"]:focus {
     cursor: not-allowed;
     transform: none;
 }
-
-/* =========================
-   MESSAGE
-========================= */
 
 .message {
     display: none;
@@ -398,10 +362,6 @@ input[type="password"]:focus {
     border: 1px solid #c8e0f7;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
 .footer {
     text-align: center;
     margin-top: 20px;
@@ -412,10 +372,6 @@ input[type="password"]:focus {
 .footer strong {
     color: #315a7d;
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 700px) {
 
@@ -464,8 +420,8 @@ input[type="password"]:focus {
 
 <body>
 
-<!-- Education background -->
 <div class="education-bg">
+
     <div class="edu edu1">📚</div>
     <div class="edu edu2">🎓</div>
     <div class="edu edu3">✏️</div>
@@ -474,19 +430,21 @@ input[type="password"]:focus {
     <div class="edu edu6">📝</div>
     <div class="edu edu7">🏫</div>
     <div class="edu edu8">📐</div>
+
 </div>
 
 
 <div class="main-container">
 
-    <!-- Header -->
     <div class="header">
 
         <div class="header-icon">
             🎓
         </div>
 
-        <h1>Online Examination Portal</h1>
+        <h1>
+            Online Examination Portal
+        </h1>
 
         <p>
             Secure • Simple • Digital Examination System
@@ -495,7 +453,6 @@ input[type="password"]:focus {
     </div>
 
 
-    <!-- LOGIN TYPE SELECTION -->
     <div class="login-selection">
 
         <div
@@ -509,8 +466,15 @@ input[type="password"]:focus {
             </div>
 
             <div>
-                <h3>Student Login</h3>
-                <p>Access question papers, submit answers and view results.</p>
+
+                <h3>
+                    Student Login
+                </h3>
+
+                <p>
+                    Access question papers, submit answers and view results.
+                </p>
+
             </div>
 
         </div>
@@ -527,8 +491,15 @@ input[type="password"]:focus {
             </div>
 
             <div>
-                <h3>Admin Login</h3>
-                <p>Manage students, subjects, papers, submissions and results.</p>
+
+                <h3>
+                    Admin Login
+                </h3>
+
+                <p>
+                    Manage students, subjects, papers, submissions and results.
+                </p>
+
             </div>
 
         </div>
@@ -536,7 +507,6 @@ input[type="password"]:focus {
     </div>
 
 
-    <!-- LOGIN CARD -->
     <div class="login-card">
 
         <div class="login-title">
@@ -552,8 +522,10 @@ input[type="password"]:focus {
         </div>
 
 
-        <!-- LOGIN FORM -->
-        <form id="loginForm" onsubmit="handleLogin(event)">
+        <form
+            id="loginForm"
+            onsubmit="handleLogin(event)"
+        >
 
             <div class="form-group">
 
@@ -623,8 +595,15 @@ input[type="password"]:focus {
 
 
     <div class="footer">
-        <strong>Online Examination Portal</strong><br>
+
+        <strong>
+            Online Examination Portal
+        </strong>
+
+        <br>
+
         Education • Examination • Administration
+
     </div>
 
 </div>
@@ -633,7 +612,7 @@ input[type="password"]:focus {
 <script>
 
 /* =========================================================
-   APPS SCRIPT WEB APP URL
+   APPS SCRIPT API
 ========================================================= */
 
 const API_URL =
@@ -641,19 +620,20 @@ const API_URL =
 
 
 /* =========================================================
-   CURRENT LOGIN TYPE
+   LOGIN TYPE
 ========================================================= */
 
 let loginType = "student";
 
 
 /* =========================================================
-   SELECT STUDENT / ADMIN
+   SELECT LOGIN TYPE
 ========================================================= */
 
 function selectLoginType(type) {
 
     loginType = type;
+
 
     const studentType =
         document.getElementById("studentType");
@@ -673,11 +653,6 @@ function selectLoginType(type) {
     const loginId =
         document.getElementById("loginId");
 
-    const message =
-        document.getElementById("message");
-
-
-    /* Clear old message */
 
     hideMessage();
 
@@ -699,9 +674,6 @@ function selectLoginType(type) {
         loginId.placeholder =
             "Enter Student ID";
 
-        loginId.autocomplete =
-            "username";
-
     } else {
 
         adminType.classList.add("active");
@@ -719,17 +691,16 @@ function selectLoginType(type) {
         loginId.placeholder =
             "Enter Admin ID";
 
-        loginId.autocomplete =
-            "username";
     }
 
 
     loginId.focus();
+
 }
 
 
 /* =========================================================
-   SHOW / HIDE PASSWORD
+   PASSWORD SHOW / HIDE
 ========================================================= */
 
 function togglePassword() {
@@ -741,7 +712,9 @@ function togglePassword() {
         document.getElementById("passwordToggle");
 
 
-    if (password.type === "password") {
+    if (
+        password.type === "password"
+    ) {
 
         password.type = "text";
 
@@ -762,25 +735,36 @@ function togglePassword() {
             "aria-label",
             "Show password"
         );
+
     }
+
 }
 
 
 /* =========================================================
-   MESSAGE FUNCTIONS
+   MESSAGE
 ========================================================= */
 
-function showMessage(text, type) {
+function showMessage(
+    text,
+    type
+) {
 
     const message =
         document.getElementById("message");
 
+
     message.className =
         "message " + type;
 
-    message.textContent = text;
 
-    message.style.display = "block";
+    message.textContent =
+        text;
+
+
+    message.style.display =
+        "block";
+
 }
 
 
@@ -789,30 +773,41 @@ function hideMessage() {
     const message =
         document.getElementById("message");
 
-    message.className = "message";
 
-    message.textContent = "";
+    message.className =
+        "message";
 
-    message.style.display = "none";
+
+    message.textContent =
+        "";
+
+
+    message.style.display =
+        "none";
+
 }
 
 
 /* =========================================================
-   SAFE SERVER RESPONSE
+   READ SERVER RESPONSE
 ========================================================= */
 
-async function readServerResponse(response) {
+async function readServerResponse(
+    response
+) {
 
     const text =
         await response.text();
 
+
     console.log(
-        "Apps Script HTTP status:",
+        "Server HTTP status:",
         response.status
     );
 
+
     console.log(
-        "Apps Script raw response:",
+        "Server response:",
         text
     );
 
@@ -824,43 +819,189 @@ async function readServerResponse(response) {
             response.status +
             ")"
         );
+
     }
 
 
-    if (!text || !text.trim()) {
+    if (
+        !text ||
+        !text.trim()
+    ) {
 
         throw new Error(
             "Empty response from server."
         );
+
     }
-
-
-    let data;
 
 
     try {
 
-        data = JSON.parse(text);
+        return JSON.parse(text);
 
     } catch (error) {
 
         console.error(
-            "JSON parse error:",
-            error
-        );
-
-        console.error(
-            "Raw server response:",
+            "Invalid JSON:",
             text
         );
+
 
         throw new Error(
             "Invalid response from server."
         );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE STUDENT SESSION
+   IMPORTANT FIX
+========================================================= */
+
+function saveStudentSession(
+    studentId,
+    studentName,
+    loginResponse
+) {
+
+    /*
+     * Save standard values in LOCAL STORAGE.
+     *
+     * student.html reads these values.
+     */
+
+    localStorage.setItem(
+        "studentId",
+        String(studentId)
+    );
+
+
+    localStorage.setItem(
+        "studentName",
+        String(studentName || "Student")
+    );
+
+
+    /*
+     * Also save the same values in SESSION STORAGE.
+     * This keeps the session available in the current tab.
+     */
+
+    sessionStorage.setItem(
+        "studentId",
+        String(studentId)
+    );
+
+
+    sessionStorage.setItem(
+        "studentName",
+        String(studentName || "Student")
+    );
+
+
+    sessionStorage.setItem(
+        "examPortalRole",
+        "student"
+    );
+
+
+    /*
+     * Store complete student response if available.
+     */
+
+    try {
+
+        localStorage.setItem(
+            "student",
+            JSON.stringify(
+                loginResponse
+            )
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Could not save student object:",
+            error
+        );
+
     }
 
 
-    return data;
+    try {
+
+        sessionStorage.setItem(
+            "student",
+            JSON.stringify(
+                loginResponse
+            )
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Could not save session student object:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SAVE ADMIN SESSION
+========================================================= */
+
+function saveAdminSession(
+    adminId,
+    loginResponse
+) {
+
+    localStorage.setItem(
+        "adminId",
+        String(adminId)
+    );
+
+
+    localStorage.setItem(
+        "adminID",
+        String(adminId)
+    );
+
+
+    sessionStorage.setItem(
+        "adminId",
+        String(adminId)
+    );
+
+
+    sessionStorage.setItem(
+        "adminID",
+        String(adminId)
+    );
+
+
+    sessionStorage.setItem(
+        "examPortalRole",
+        "admin"
+    );
+
+
+    try {
+
+        localStorage.setItem(
+            "admin",
+            JSON.stringify(
+                loginResponse
+            )
+        );
+
+    } catch (error) {}
+
 }
 
 
@@ -874,16 +1015,21 @@ async function handleLogin(event) {
 
 
     const loginId =
-        document.getElementById("loginId")
-        .value
-        .trim();
+        document.getElementById(
+            "loginId"
+        ).value.trim();
+
 
     const password =
-        document.getElementById("loginPassword")
-        .value;
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
 
     const loginButton =
-        document.getElementById("loginButton");
+        document.getElementById(
+            "loginButton"
+        );
 
 
     if (!loginId) {
@@ -896,6 +1042,7 @@ async function handleLogin(event) {
         );
 
         return;
+
     }
 
 
@@ -907,10 +1054,13 @@ async function handleLogin(event) {
         );
 
         return;
+
     }
 
 
-    loginButton.disabled = true;
+    loginButton.disabled =
+        true;
+
 
     loginButton.textContent =
         "Checking Login...";
@@ -927,157 +1077,173 @@ async function handleLogin(event) {
         let payload;
 
 
-        /* =========================
-           STUDENT LOGIN
-        ========================= */
+        /* -----------------------------------------
+           STUDENT
+        ----------------------------------------- */
 
-        if (loginType === "student") {
+        if (
+            loginType === "student"
+        ) {
 
             payload = {
+
                 action: "studentLogin",
 
                 studentId: loginId,
 
                 password: password
+
             };
 
         }
 
 
-        /* =========================
-           ADMIN LOGIN
-        ========================= */
+        /* -----------------------------------------
+           ADMIN
+        ----------------------------------------- */
 
         else {
 
             payload = {
+
                 action: "adminLogin",
 
                 adminId: loginId,
 
                 password: password
+
             };
 
         }
 
 
         console.log(
-            "Sending login request:",
+            "Login action:",
             payload.action
         );
 
 
         const response =
-            await fetch(API_URL, {
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+                    },
 
-                headers: {
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
-
-                body: JSON.stringify(payload)
-
-            });
+                    body:
+                        JSON.stringify(
+                            payload
+                        )
+                }
+            );
 
 
         const data =
-            await readServerResponse(response);
+            await readServerResponse(
+                response
+            );
 
 
         console.log(
-            "Parsed server response:",
+            "Login response:",
             data
         );
 
 
-        /* =========================
+        /* -----------------------------------------
            LOGIN FAILED
-        ========================= */
+        ----------------------------------------- */
 
-        if (!data.success) {
+        if (
+            !data ||
+            data.success !== true
+        ) {
 
             showMessage(
-                data.message ||
-                "Invalid login details.",
+                (
+                    data &&
+                    data.message
+                )
+                    ? data.message
+                    : "Invalid ID or password.",
                 "error"
             );
 
-            loginButton.disabled = false;
+
+            loginButton.disabled =
+                false;
+
 
             loginButton.textContent =
                 "Login";
 
+
             return;
+
         }
 
 
-        /* =========================
-           ADMIN LOGIN SUCCESS
-        ========================= */
-
-        if (loginType === "admin") {
-
-            sessionStorage.setItem(
-                "examPortalRole",
-                "admin"
-            );
-
-            sessionStorage.setItem(
-                "adminId",
-                data.adminId ||
-                loginId
-            );
-
-
-            showMessage(
-                "Admin login successful. Opening dashboard...",
-                "success"
-            );
-
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "admin.html";
-
-            }, 500);
-
-            return;
-        }
-
-
-        /* =========================
+        /* =================================================
            STUDENT LOGIN SUCCESS
-        ========================= */
+        ================================================= */
 
-        if (loginType === "student") {
+        if (
+            loginType === "student"
+        ) {
 
-            const studentId =
+            /*
+             * Accept different response field names.
+             */
+
+            const returnedStudentId =
                 data.studentId ||
                 data.studentID ||
+                data["Student ID"] ||
+                data.id ||
+                data.ID ||
+                (
+                    data.student &&
+                    (
+                        data.student.studentId ||
+                        data.student.studentID ||
+                        data.student["Student ID"] ||
+                        data.student.id ||
+                        data.student.ID
+                    )
+                ) ||
                 loginId;
 
-            const studentName =
+
+            const returnedStudentName =
                 data.studentName ||
+                data.student_name ||
+                data["Student Name"] ||
                 data.name ||
-                "";
+                data.Name ||
+                (
+                    data.student &&
+                    (
+                        data.student.studentName ||
+                        data.student["Student Name"] ||
+                        data.student.name ||
+                        data.student.Name
+                    )
+                ) ||
+                "Student";
 
 
-            sessionStorage.setItem(
-                "examPortalRole",
-                "student"
-            );
+            /*
+             * THIS IS THE IMPORTANT FIX.
+             */
 
-            sessionStorage.setItem(
-                "studentId",
-                studentId
-            );
-
-            sessionStorage.setItem(
-                "studentName",
-                studentName
+            saveStudentSession(
+                returnedStudentId,
+                returnedStudentName,
+                data
             );
 
 
@@ -1087,14 +1253,76 @@ async function handleLogin(event) {
             );
 
 
-            setTimeout(function() {
+            loginButton.textContent =
+                "Login Successful";
 
-                window.location.href =
-                    "student.html";
 
-            }, 500);
+            /*
+             * Give browser time to save storage
+             * before changing page.
+             */
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "student.html";
+
+                },
+                500
+            );
+
+
+            return;
 
         }
+
+
+        /* =================================================
+           ADMIN LOGIN SUCCESS
+        ================================================= */
+
+        if (
+            loginType === "admin"
+        ) {
+
+            const returnedAdminId =
+                data.adminId ||
+                data.adminID ||
+                data["Admin ID"] ||
+                data.id ||
+                data.ID ||
+                loginId;
+
+
+            saveAdminSession(
+                returnedAdminId,
+                data
+            );
+
+
+            showMessage(
+                "Admin login successful. Opening dashboard...",
+                "success"
+            );
+
+
+            loginButton.textContent =
+                "Login Successful";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "admin.html";
+
+                },
+                500
+            );
+
+        }
+
 
     } catch (error) {
 
@@ -1111,23 +1339,29 @@ async function handleLogin(event) {
         );
 
 
-        loginButton.disabled = false;
+        loginButton.disabled =
+            false;
+
 
         loginButton.textContent =
             "Login";
+
     }
+
 }
 
 
 /* =========================================================
-   ENTER KEY / INITIAL STATE
+   INITIAL PAGE
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        selectLoginType("student");
+        selectLoginType(
+            "student"
+        );
 
     }
 );
