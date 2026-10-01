@@ -943,8 +943,6 @@ input[type="file"]:focus {
       class="hidden">
 
 
-      <!-- SELECTED PAPER -->
-
       <div class="selected-paper-box">
 
         <h3 id="submissionPaperTitle">
@@ -985,8 +983,6 @@ input[type="file"]:focus {
 
       </div>
 
-
-      <!-- STATUS -->
 
       <div
         id="submissionStatusBox"
@@ -1055,8 +1051,6 @@ input[type="file"]:focus {
       </div>
 
 
-      <!-- NEW SUBMISSION -->
-
       <div
         id="newSubmissionArea"
         class="upload-box hidden">
@@ -1101,8 +1095,6 @@ input[type="file"]:focus {
 
       </div>
 
-
-      <!-- EDIT SUBMISSION -->
 
       <div
         id="editSubmissionArea"
@@ -1175,29 +1167,12 @@ input[type="file"]:focus {
 
           <tr>
 
-            <th>
-              Question Paper
-            </th>
-
-            <th>
-              Marks
-            </th>
-
-            <th>
-              Total Marks
-            </th>
-
-            <th>
-              Percentage
-            </th>
-
-            <th>
-              Result
-            </th>
-
-            <th>
-              Remarks
-            </th>
+            <th>Question Paper</th>
+            <th>Marks</th>
+            <th>Total Marks</th>
+            <th>Percentage</th>
+            <th>Result</th>
+            <th>Remarks</th>
 
           </tr>
 
@@ -1588,11 +1563,6 @@ async function loadAssignedSubjects() {
     );
 
 
-  /*
-    Keep ONLY assignments belonging
-    to the logged-in student.
-  */
-
   const myAssignments =
     allAssignments.filter(
       assignment => {
@@ -1619,10 +1589,6 @@ async function loadAssignedSubjects() {
     );
 
 
-  /*
-    Get assigned Subject IDs.
-  */
-
   const assignedSubjectIds =
     myAssignments
       .map(
@@ -1643,10 +1609,6 @@ async function loadAssignedSubjects() {
       )
       .filter(Boolean);
 
-
-  /*
-    ONLY assigned subjects are kept.
-  */
 
   assignedSubjects =
     allSubjects.filter(
@@ -1672,7 +1634,6 @@ async function loadAssignedSubjects() {
 
 /* =========================================================
    SUBJECT TABLE
-   NO STATUS COLUMN
 ========================================================= */
 
 function renderAssignedSubjects() {
@@ -1769,7 +1730,7 @@ function renderAssignedSubjects() {
 
 /* =========================================================
    QUESTION PAPERS
-   ONLY PAPERS FOR ASSIGNED SUBJECTS
+   ASSIGNED SUBJECT ID IS THE AUTHORITATIVE MAPPING
 ========================================================= */
 
 async function loadQuestionPapers() {
@@ -1778,8 +1739,16 @@ async function loadQuestionPapers() {
 
 
   /*
-    Load papers only for subjects
-    assigned to this student.
+    IMPORTANT:
+
+    We loop through assignedSubjects.
+
+    Each paper is permanently linked in the
+    student page to the Subject Management
+    record from which it was loaded.
+
+    Therefore the question paper's own
+    Subject Name cannot overwrite it.
   */
 
   for (
@@ -1787,15 +1756,26 @@ async function loadQuestionPapers() {
   ) {
 
     const subjectId =
-      getSubjectId(
-        subject
-      );
+      String(
+        getSubjectId(subject)
+      ).trim();
 
 
     const subjectCode =
-      getSubjectCode(
-        subject
-      );
+      String(
+        getSubjectCode(subject)
+      ).trim();
+
+
+    const adminSubjectName =
+      String(
+        getSubjectName(subject)
+      ).trim();
+
+
+    if (!subjectId) {
+      continue;
+    }
 
 
     try {
@@ -1832,10 +1812,7 @@ async function loadQuestionPapers() {
       ) {
 
         /*
-          IMPORTANT:
-          Only Published papers are allowed.
-          Draft / Unpublished / blank papers
-          will NOT be shown.
+          Only published papers.
         */
 
         if (
@@ -1858,34 +1835,45 @@ async function loadQuestionPapers() {
         }
 
 
+        /*
+          ==================================================
+          CRITICAL FIX
+          ==================================================
+
+          Store the Subject Management information
+          against THIS paper.
+
+          We do not use the Subject Name returned
+          inside the question paper.
+        */
+
+        paper.__studentSubjectId =
+          subjectId;
+
+        paper.__studentSubjectName =
+          adminSubjectName;
+
+        paper.__studentSubjectCode =
+          subjectCode;
+
+
+        /*
+          Prevent duplicate papers.
+        */
+
         const alreadyExists =
           publishedPapers.some(
             p =>
               String(
                 getPaperId(p)
-              ) ===
+              ).trim() ===
               String(
                 paperId
-              )
+              ).trim()
           );
 
 
         if (!alreadyExists) {
-
-          /*
-            Always use the Subject Name
-            given by Admin.
-          */
-
-          paper.__studentSubjectName =
-            getSubjectName(
-              subject
-            );
-
-
-          paper.__studentSubjectId =
-            subjectId;
-
 
           publishedPapers.push(
             paper
@@ -1914,8 +1902,8 @@ async function loadQuestionPapers() {
 
 /* =========================================================
    PAPER DROPDOWN
-   FORMAT:
-   PAPER CODE - SUBJECT NAME - TITLE
+
+   PAPER CODE - EXACT ADMIN SUBJECT NAME - TITLE
 ========================================================= */
 
 function renderPaperDropdown() {
@@ -1942,7 +1930,7 @@ function renderPaperDropdown() {
     document.getElementById(
       "paperEmpty"
     ).textContent =
-      "No published question papers are available for your assigned subjects.";
+      "No question papers are available for your assigned subjects.";
 
 
     document.getElementById(
@@ -1977,22 +1965,16 @@ function renderPaperDropdown() {
         );
 
 
-      const title =
-        getPaperTitle(
+      const subjectName =
+        getPaperSubjectName(
           paper
         );
 
 
-      /*
-        Subject Name comes directly
-        from Admin's Subject Management.
-      */
-
-      const subject =
-        getPaperSubjectName(
+      const title =
+        getPaperTitle(
           paper
-        ) ||
-        "Subject";
+        );
 
 
       const option =
@@ -2006,14 +1988,60 @@ function renderPaperDropdown() {
 
 
       /*
-        Student sees:
-        Paper Code - Subject Name - Title
+        EXACT FORMAT:
 
-        No status is shown.
+        Paper Code - Admin Subject Name - Title
+
+        No Published/Draft/Unpublished
+        status is displayed.
       */
 
+      const parts = [];
+
+
+      if (
+        paperCode
+      ) {
+
+        parts.push(
+          String(
+            paperCode
+          ).trim()
+        );
+
+      }
+
+
+      if (
+        subjectName
+      ) {
+
+        parts.push(
+          String(
+            subjectName
+          ).trim()
+        );
+
+      }
+
+
+      if (
+        title
+      ) {
+
+        parts.push(
+          String(
+            title
+          ).trim()
+        );
+
+      }
+
+
       option.textContent =
-        `${paperCode || "-"} - ${subject} - ${title}`;
+        parts.join(
+          " - "
+        );
 
 
       select.appendChild(
@@ -2101,11 +2129,6 @@ async function selectQuestionPaper() {
 
   renderSelectedPaper();
 
-
-  /*
-    Answer sheet submission depends
-    completely on selected question paper.
-  */
 
   await loadSelectedPaperSubmission();
 }
@@ -2810,11 +2833,8 @@ function renderSubmissionDetails() {
 
       ${
         editCount < 1
-
         ? "You can edit this submission one time."
-
         : "One-time edit has already been used. No further editing is allowed."
-
       }
 
     </div>
@@ -4380,16 +4400,21 @@ function getPaperTitle(
 }
 
 
+/*
+  IMPORTANT:
+  The assigned Subject ID is preferred.
+*/
+
 function getPaperSubjectId(
   paper
 ) {
 
   return (
 
+    paper?.__studentSubjectId ||
     paper?.["Subject ID"] ||
     paper?.subjectId ||
     paper?.SubjectID ||
-    paper?.__studentSubjectId ||
     ""
 
   );
@@ -4397,9 +4422,15 @@ function getPaperSubjectId(
 
 
 /*
-  IMPORTANT:
-  Subject Name from Admin's Subject Management
-  is preferred.
+  =========================================================
+  IMPORTANT FIX
+  =========================================================
+
+  The name stored by loadQuestionPapers()
+  from Admin Subject Management has highest priority.
+
+  This prevents the question paper's own
+  incorrect Subject Name from being displayed.
 */
 
 function getPaperSubjectName(
@@ -4481,23 +4512,26 @@ function getPaperEnd(
 
 /* =========================================================
    PUBLISHED PAPER CHECK
-   ONLY YES / PUBLISHED PAPERS ARE SHOWN
+
+   BLANK = DRAFT = NOT SHOWN
 ========================================================= */
 
 function isPublishedPaper(
   paper
 ) {
 
+  if (!paper) {
+    return false;
+  }
+
+
   const value =
     paper?.["Published"] ??
-    paper?.published;
+    paper?.published ??
+    paper?.["Status"] ??
+    paper?.status ??
+    "";
 
-
-  /*
-    IMPORTANT:
-    Blank status is NOT published.
-    This prevents Draft papers from appearing.
-  */
 
   if (
     value === undefined ||
