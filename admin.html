@@ -239,6 +239,10 @@ table {
     min-width: 900px;
 }
 
+.submissions-table {
+    min-width: 1250px;
+}
+
 th {
     background: #edf3ff;
     color: #173b7a;
@@ -312,7 +316,7 @@ tr:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    max-width: 260px;
+    max-width: 300px;
 }
 
 .photo-btn {
@@ -526,10 +530,8 @@ tr:hover {
 
     </div>
 
-
     <!-- MESSAGE -->
     <div id="messageBox" class="message"></div>
-
 
     <!-- STUDENT MANAGEMENT -->
     <div class="section">
@@ -585,7 +587,6 @@ tr:hover {
 
     </div>
 
-
     <!-- SUBJECT MANAGEMENT -->
     <div class="section">
 
@@ -635,7 +636,6 @@ tr:hover {
 
     </div>
 
-
     <!-- ASSIGN SUBJECTS -->
     <div class="section">
 
@@ -680,7 +680,6 @@ tr:hover {
         </div>
 
     </div>
-
 
     <!-- QUESTION PAPER MANAGEMENT -->
     <div class="section">
@@ -770,7 +769,6 @@ tr:hover {
 
     </div>
 
-
     <!-- STUDENT SUBMISSIONS -->
     <div class="section">
 
@@ -780,27 +778,24 @@ tr:hover {
 
         <div class="table-container">
 
-            <table>
+            <table class="submissions-table">
 
                 <thead>
                     <tr>
-                        <th>Student Name</th>
                         <th>Paper ID</th>
+                        <th>Student Name</th>
+                        <th>Subject Name</th>
                         <th>Exam Name</th>
-                        <th>Photo URLs</th>
-                        <th>Submitted At</th>
-                        <th>Status</th>
-                        <th>Marks</th>
-                        <th>Remarks</th>
-                        <th>Paper Code</th>
                         <th>Submission Type</th>
+                        <th>Status</th>
                         <th>Photo Count</th>
+                        <th>Photo</th>
                     </tr>
                 </thead>
 
                 <tbody id="submissionsTableBody">
                     <tr>
-                        <td colspan="11" class="empty">Loading...</td>
+                        <td colspan="8" class="empty">Loading...</td>
                     </tr>
                 </tbody>
 
@@ -809,7 +804,6 @@ tr:hover {
         </div>
 
     </div>
-
 
     <!-- RESULT MANAGEMENT -->
     <div class="section">
@@ -936,12 +930,10 @@ tr:hover {
 
 </div>
 
-
 <script>
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
-
 
 let students = [];
 let subjects = [];
@@ -980,19 +972,14 @@ async function api(action, data = {}) {
     try {
         result = JSON.parse(text);
     } catch(error) {
-
         console.error("Invalid JSON:", text);
-
         throw new Error("Invalid response from server.");
-
     }
 
     if (result.success === false) {
-
         throw new Error(
             result.message || "Request failed."
         );
-
     }
 
     return result;
@@ -1005,7 +992,8 @@ async function api(action, data = {}) {
 
 function showMessage(message, type = "success") {
 
-    const box = document.getElementById("messageBox");
+    const box =
+        document.getElementById("messageBox");
 
     box.textContent = message;
 
@@ -1013,9 +1001,7 @@ function showMessage(message, type = "success") {
         "message " + type;
 
     setTimeout(() => {
-
         box.className = "message";
-
     }, 4000);
 
 }
@@ -1039,19 +1025,13 @@ async function loadDashboard() {
         ] = await Promise.all([
 
             api("getStudents"),
-
             api("getSubjects"),
-
             api("getAssignments"),
-
             api("getPapers"),
-
             api("getSubmissions"),
-
             api("getResults")
 
         ]);
-
 
         students =
             studentsData.students || [];
@@ -1071,25 +1051,15 @@ async function loadDashboard() {
         results =
             resultsData.results || [];
 
-
         renderStudents();
-
         renderSubjects();
-
         populateStudentDropdowns();
-
         populatePaperSubjectDropdown();
-
         renderAssignments();
-
         renderPapers();
-
         renderSubmissions();
-
         renderResults();
-
         updateSummary();
-
 
     } catch(error) {
 
@@ -1148,7 +1118,6 @@ function renderStudents() {
 
     }
 
-
     body.innerHTML =
         students.map(student => {
 
@@ -1191,7 +1160,6 @@ async function createStudent() {
     const password =
         document.getElementById("studentPassword").value.trim();
 
-
     if (!studentId || !studentName || !password) {
 
         showMessage(
@@ -1203,32 +1171,23 @@ async function createStudent() {
 
     }
 
-
     try {
 
         await api("createStudent", {
-
             studentId,
             studentName,
             password
-
         });
-
 
         showMessage(
             "Student created successfully."
         );
 
-
         document.getElementById("studentId").value = "";
-
         document.getElementById("studentName").value = "";
-
         document.getElementById("studentPassword").value = "";
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -1251,7 +1210,6 @@ function renderSubjects() {
     const body =
         document.getElementById("subjectsTableBody");
 
-
     if (!subjects.length) {
 
         body.innerHTML =
@@ -1264,7 +1222,6 @@ function renderSubjects() {
         return;
 
     }
-
 
     body.innerHTML =
         subjects.map(subject => {
@@ -1305,7 +1262,6 @@ async function addSubject() {
     const subjectCode =
         document.getElementById("subjectCode").value.trim();
 
-
     if (!subjectName || !subjectCode) {
 
         showMessage(
@@ -1317,29 +1273,21 @@ async function addSubject() {
 
     }
 
-
     try {
 
         await api("addSubject", {
-
             subjectName,
             subjectCode
-
         });
-
 
         showMessage(
             "Subject added successfully."
         );
 
-
         document.getElementById("subjectName").value = "";
-
         document.getElementById("subjectCode").value = "";
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -1387,13 +1335,11 @@ function populateStudentDropdowns() {
     const resultStudent =
         document.getElementById("resultStudent");
 
-
     assignmentStudent.innerHTML =
         `<option value="">Select Student</option>`;
 
     resultStudent.innerHTML =
         `<option value="">Select Student</option>`;
-
 
     students.forEach(student => {
 
@@ -1403,17 +1349,13 @@ function populateStudentDropdowns() {
         const name =
             getStudentName(student);
 
-
-        const optionText =
-            `${name} (${id})`;
-
-
         const option1 =
             document.createElement("option");
 
         option1.value = id;
 
-        option1.textContent = optionText;
+        option1.textContent =
+            `${name} (${id})`;
 
         assignmentStudent.appendChild(option1);
 
@@ -1421,14 +1363,13 @@ function populateStudentDropdowns() {
 
 
     /*
-       RESULT DROPDOWN:
-       Only students who have actually
-       submitted an answer sheet.
+       RESULT STUDENTS:
+       ONLY students who submitted
+       an answer sheet.
     */
 
     const submittedStudentIds =
         getSubmittedStudentIds();
-
 
     submittedStudentIds.forEach(studentId => {
 
@@ -1438,12 +1379,10 @@ function populateStudentDropdowns() {
                 String(studentId).trim()
             );
 
-
         const name =
             student
             ? getStudentName(student)
             : studentId;
-
 
         const option =
             document.createElement("option");
@@ -1466,10 +1405,8 @@ function populatePaperSubjectDropdown() {
     const select =
         document.getElementById("paperSubject");
 
-
     select.innerHTML =
         `<option value="">Select Subject</option>`;
-
 
     subjects.forEach(subject => {
 
@@ -1487,7 +1424,6 @@ function populatePaperSubjectDropdown() {
             subject.subjectCode ??
             subject["Subject Code"] ??
             "";
-
 
         const option =
             document.createElement("option");
@@ -1545,7 +1481,6 @@ function loadStudentAssignments() {
     const container =
         document.getElementById("assignmentSubjects");
 
-
     if (!studentId) {
 
         container.innerHTML =
@@ -1557,19 +1492,16 @@ function loadStudentAssignments() {
 
     }
 
-
     const studentAssignments =
         assignments.filter(item =>
             getStudentIdFromAssignment(item) ===
             String(studentId).trim()
         );
 
-
     const assignedSubjectIds =
         studentAssignments.map(
             getSubjectIdFromAssignment
         );
-
 
     container.innerHTML =
         subjects.map(subject => {
@@ -1581,7 +1513,6 @@ function loadStudentAssignments() {
                     ""
                 ).trim();
 
-
             const subjectName =
                 subject.subjectName ??
                 subject["Subject Name"] ??
@@ -1592,12 +1523,10 @@ function loadStudentAssignments() {
                 subject["Subject Code"] ??
                 "";
 
-
             const checked =
                 assignedSubjectIds.includes(subjectId)
                     ? "checked"
                     : "";
-
 
             return `
                 <div class="subject-check">
@@ -1621,7 +1550,6 @@ function loadStudentAssignments() {
 
         }).join("");
 
-
     setupAssignmentLimit();
 
 }
@@ -1634,7 +1562,6 @@ function setupAssignmentLimit() {
             ".assignment-checkbox"
         );
 
-
     checkboxes.forEach(box => {
 
         box.addEventListener(
@@ -1645,7 +1572,6 @@ function setupAssignmentLimit() {
                     document.querySelectorAll(
                         ".assignment-checkbox:checked"
                     );
-
 
                 if (checked.length > 10) {
 
@@ -1671,7 +1597,6 @@ async function saveAssignments() {
     const studentId =
         document.getElementById("assignmentStudent").value;
 
-
     if (!studentId) {
 
         showMessage(
@@ -1683,7 +1608,6 @@ async function saveAssignments() {
 
     }
 
-
     const selected =
         Array.from(
             document.querySelectorAll(
@@ -1692,7 +1616,6 @@ async function saveAssignments() {
         ).map(
             checkbox => checkbox.value
         );
-
 
     if (selected.length > 10) {
 
@@ -1705,7 +1628,6 @@ async function saveAssignments() {
 
     }
 
-
     try {
 
         const existing =
@@ -1714,12 +1636,10 @@ async function saveAssignments() {
                 String(studentId).trim()
             );
 
-
         for (const item of existing) {
 
             const subjectId =
                 getSubjectIdFromAssignment(item);
-
 
             if (!selected.includes(subjectId)) {
 
@@ -1735,12 +1655,10 @@ async function saveAssignments() {
 
         }
 
-
         const existingIds =
             existing.map(
                 getSubjectIdFromAssignment
             );
-
 
         for (const subjectId of selected) {
 
@@ -1758,22 +1676,17 @@ async function saveAssignments() {
 
         }
 
-
         showMessage(
             "Assignments saved successfully."
         );
 
-
         await refreshData();
-
 
         document.getElementById(
             "assignmentStudent"
         ).value = studentId;
 
-
         loadStudentAssignments();
-
 
     } catch(error) {
 
@@ -1793,20 +1706,13 @@ async function saveAssignments() {
 
 function normalizePaperStatus(paper) {
 
-    /*
-       IMPORTANT:
-       ?? is used so false is not lost.
-    */
-
     const raw =
         paper.published ??
         paper["Published"] ??
         "";
 
-
     const value =
         String(raw).trim().toLowerCase();
-
 
     if (
         raw === true ||
@@ -1820,7 +1726,6 @@ function normalizePaperStatus(paper) {
 
     }
 
-
     if (
         raw === false ||
         value === "false" ||
@@ -1833,13 +1738,11 @@ function normalizePaperStatus(paper) {
 
     }
 
-
     if (value === "draft") {
 
         return "Draft";
 
     }
-
 
     return "Draft";
 
@@ -1914,13 +1817,11 @@ function getSubjectName(subjectId) {
             ) === String(subjectId)
         );
 
-
     if (!subject) {
 
         return "";
 
     }
-
 
     return (
         subject.subjectName ??
@@ -1939,17 +1840,14 @@ function formatDateTime(value) {
 
     }
 
-
     const date =
         new Date(value);
-
 
     if (isNaN(date.getTime())) {
 
         return value;
 
     }
-
 
     return date.toLocaleString(
         "en-IN",
@@ -1967,7 +1865,6 @@ function renderPapers() {
     const body =
         document.getElementById("papersTableBody");
 
-
     if (!papers.length) {
 
         body.innerHTML =
@@ -1981,65 +1878,52 @@ function renderPapers() {
 
     }
 
-
     body.innerHTML =
         papers.map(paper => {
 
             const paperId =
                 getPaperId(paper);
 
-
             const paperCode =
                 getPaperCode(paper);
-
 
             const subjectId =
                 getPaperSubjectId(paper);
 
-
             const subjectName =
                 getSubjectName(subjectId);
-
 
             const title =
                 getPaperTitle(paper);
 
-
             const totalMarks =
                 getPaperTotalMarks(paper);
 
-
             const status =
                 normalizePaperStatus(paper);
-
 
             const examStart =
                 paper.examStart ??
                 paper["Exam Start"] ??
                 "";
 
-
             const examEnd =
                 paper.examEnd ??
                 paper["Exam End"] ??
                 "";
-
 
             const uploaded =
                 paper.uploadedAt ??
                 paper["Uploaded At"] ??
                 "";
 
-
             const fileUrl =
                 paper.fileUrl ??
                 paper["File URL"] ??
                 "";
 
-
             let statusClass =
                 "status-draft";
-
 
             if (status === "Published") {
 
@@ -2053,22 +1937,7 @@ function renderPapers() {
 
             }
 
-
-            /*
-              ACTIONS FOLLOW CURRENT STATUS
-
-              Published:
-              Open | Unpublish | Delete
-
-              Unpublished:
-              Open | Publish | Delete
-
-              Draft:
-              Open | Publish | Delete
-            */
-
             let actions = "";
-
 
             if (fileUrl) {
 
@@ -2082,7 +1951,6 @@ function renderPapers() {
                 `;
 
             }
-
 
             if (status === "Published") {
 
@@ -2108,7 +1976,6 @@ function renderPapers() {
 
             }
 
-
             actions += `
                 <button
                     class="danger-btn"
@@ -2117,7 +1984,6 @@ function renderPapers() {
                     Delete
                 </button>
             `;
-
 
             return `
                 <tr>
@@ -2188,7 +2054,6 @@ function openPaper(paperId) {
             String(paperId)
         );
 
-
     if (!paper) {
 
         showMessage(
@@ -2200,12 +2065,10 @@ function openPaper(paperId) {
 
     }
 
-
     const fileUrl =
         paper.fileUrl ??
         paper["File URL"] ??
         "";
-
 
     if (!fileUrl) {
 
@@ -2217,7 +2080,6 @@ function openPaper(paperId) {
         return;
 
     }
-
 
     window.open(
         fileUrl,
@@ -2237,7 +2099,6 @@ async function publishPaper(paperId) {
 
     }
 
-
     try {
 
         await api(
@@ -2248,14 +2109,11 @@ async function publishPaper(paperId) {
             }
         );
 
-
         showMessage(
             "Question paper published successfully."
         );
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -2279,7 +2137,6 @@ async function unpublishPaper(paperId) {
 
     }
 
-
     try {
 
         await api(
@@ -2290,14 +2147,11 @@ async function unpublishPaper(paperId) {
             }
         );
 
-
         showMessage(
             "Question paper unpublished successfully."
         );
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -2321,7 +2175,6 @@ async function deletePaper(paperId) {
 
     }
 
-
     try {
 
         await api(
@@ -2331,14 +2184,11 @@ async function deletePaper(paperId) {
             }
         );
 
-
         showMessage(
             "Question paper deleted successfully."
         );
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -2379,7 +2229,6 @@ async function uploadPaper() {
     const fileInput =
         document.getElementById("paperFile");
 
-
     if (
         !subjectId ||
         !paperTitle ||
@@ -2398,7 +2247,6 @@ async function uploadPaper() {
 
     }
 
-
     if (
         new Date(examEnd) <=
         new Date(examStart)
@@ -2413,10 +2261,8 @@ async function uploadPaper() {
 
     }
 
-
     const file =
         fileInput.files[0];
-
 
     if (
         file.type !==
@@ -2432,17 +2278,14 @@ async function uploadPaper() {
 
     }
 
-
     try {
 
         showMessage(
             "Uploading question paper..."
         );
 
-
         const base64 =
             await fileToBase64(file);
-
 
         await api(
             "uploadPaper",
@@ -2458,27 +2301,18 @@ async function uploadPaper() {
             }
         );
 
-
         showMessage(
             "Question paper uploaded successfully."
         );
 
-
         document.getElementById("paperCode").value = "";
-
         document.getElementById("paperTitle").value = "";
-
         document.getElementById("totalMarks").value = "";
-
         document.getElementById("examStart").value = "";
-
         document.getElementById("examEnd").value = "";
-
         document.getElementById("paperFile").value = "";
 
-
         await refreshData();
-
 
     } catch(error) {
 
@@ -2502,25 +2336,20 @@ function fileToBase64(file) {
             const reader =
                 new FileReader();
 
-
             reader.onload = () => {
 
                 const result =
                     reader.result;
 
-
                 const base64 =
                     result.split(",")[1];
-
 
                 resolve(base64);
 
             };
 
-
             reader.onerror =
                 reject;
-
 
             reader.readAsDataURL(file);
 
@@ -2531,13 +2360,8 @@ function fileToBase64(file) {
 
 
 /* =========================
-   SUBMISSIONS
+   STUDENT SUBMISSIONS
 ========================= */
-
-/*
-   Convert different possible API
-   photo URL formats into an array.
-*/
 
 function getPhotoUrls(item) {
 
@@ -2548,21 +2372,39 @@ function getPhotoUrls(item) {
         item["Photo URL"] ??
         item.photoUrl ??
         item["Photo Url"] ??
+        item.photos ??
+        item["Photos"] ??
         item.answerSheetUrl ??
         item["Answer Sheet URL"] ??
         item.fileUrl ??
         item["File URL"] ??
         "";
 
-
     if (Array.isArray(value)) {
 
         return value
-            .map(url => String(url).trim())
+            .map(url => {
+
+                if (
+                    typeof url === "object" &&
+                    url !== null
+                ) {
+
+                    return String(
+                        url.url ??
+                        url.photoUrl ??
+                        url["Photo URL"] ??
+                        ""
+                    ).trim();
+
+                }
+
+                return String(url).trim();
+
+            })
             .filter(Boolean);
 
     }
-
 
     if (!value) {
 
@@ -2570,14 +2412,11 @@ function getPhotoUrls(item) {
 
     }
 
-
     const stringValue =
         String(value).trim();
 
-
     /*
-       First try JSON array.
-       Example:
+       JSON array:
        ["url1","url2"]
     */
 
@@ -2591,11 +2430,28 @@ function getPhotoUrls(item) {
             const parsed =
                 JSON.parse(stringValue);
 
-
             if (Array.isArray(parsed)) {
 
                 return parsed
-                    .map(url => String(url).trim())
+                    .map(url => {
+
+                        if (
+                            typeof url === "object" &&
+                            url !== null
+                        ) {
+
+                            return String(
+                                url.url ??
+                                url.photoUrl ??
+                                url["Photo URL"] ??
+                                ""
+                            ).trim();
+
+                        }
+
+                        return String(url).trim();
+
+                    })
                     .filter(Boolean);
 
             }
@@ -2609,7 +2465,6 @@ function getPhotoUrls(item) {
         }
 
     }
-
 
     /*
        Support comma, newline and pipe
@@ -2653,23 +2508,19 @@ function getSubmissionStudentName(item) {
         item["Student Name"] ??
         "";
 
-
     if (directName) {
 
         return directName;
 
     }
 
-
     const studentId =
         getSubmissionStudentId(item);
-
 
     const student =
         students.find(s =>
             getStudentId(s) === studentId
         );
-
 
     return student
         ? getStudentName(student)
@@ -2683,10 +2534,49 @@ function getSubmissionPaper(item) {
     const paperId =
         getSubmissionPaperId(item);
 
-
     return papers.find(p =>
         String(getPaperId(p)) === paperId
     );
+
+}
+
+
+function getSubmissionSubjectName(item) {
+
+    const directName =
+        item.subjectName ??
+        item["Subject Name"] ??
+        "";
+
+    if (directName) {
+
+        return directName;
+
+    }
+
+    const paper =
+        getSubmissionPaper(item);
+
+    if (paper) {
+
+        return getSubjectName(
+            getPaperSubjectId(paper)
+        );
+
+    }
+
+    const subjectId =
+        item.subjectId ??
+        item["Subject ID"] ??
+        "";
+
+    if (subjectId) {
+
+        return getSubjectName(subjectId);
+
+    }
+
+    return "";
 
 }
 
@@ -2698,24 +2588,20 @@ function getSubmissionExamName(item) {
         item["Exam Name"] ??
         "";
 
-
     if (directName) {
 
         return directName;
 
     }
 
-
     const paper =
         getSubmissionPaper(item);
-
 
     if (paper) {
 
         return getPaperTitle(paper);
 
     }
-
 
     return "";
 
@@ -2748,194 +2634,14 @@ function getSubmissionType(item) {
 }
 
 
-function getSubmissionMarks(item) {
-
-    const direct =
-        item.marks ??
-        item["Marks"] ??
-        item.marksObtained ??
-        item["Marks Obtained"];
-
-
-    if (
-        direct !== undefined &&
-        direct !== null &&
-        direct !== ""
-    ) {
-
-        return direct;
-
-    }
-
-
-    const studentId =
-        getSubmissionStudentId(item);
-
-    const paperId =
-        getSubmissionPaperId(item);
-
-
-    const resultItem =
-        results.find(result => {
-
-            const resultStudentId =
-                String(
-                    result.studentId ??
-                    result["Student ID"] ??
-                    ""
-                ).trim();
-
-
-            const resultPaperId =
-                String(
-                    result.paperId ??
-                    result["Paper ID"] ??
-                    ""
-                ).trim();
-
-
-            return (
-                resultStudentId === studentId &&
-                resultPaperId === paperId
-            );
-
-        });
-
-
-    if (!resultItem) {
-
-        return "";
-
-    }
-
-
-    return (
-        resultItem.marksObtained ??
-        resultItem["Marks Obtained"] ??
-        resultItem.marks ??
-        resultItem["Marks"] ??
-        ""
-    );
-
-}
-
-
-function getSubmissionRemarks(item) {
-
-    const direct =
-        item.remarks ??
-        item["Remarks"];
-
-
-    if (
-        direct !== undefined &&
-        direct !== null &&
-        direct !== ""
-    ) {
-
-        return direct;
-
-    }
-
-
-    const studentId =
-        getSubmissionStudentId(item);
-
-    const paperId =
-        getSubmissionPaperId(item);
-
-
-    const resultItem =
-        results.find(result => {
-
-            const resultStudentId =
-                String(
-                    result.studentId ??
-                    result["Student ID"] ??
-                    ""
-                ).trim();
-
-
-            const resultPaperId =
-                String(
-                    result.paperId ??
-                    result["Paper ID"] ??
-                    ""
-                ).trim();
-
-
-            return (
-                resultStudentId === studentId &&
-                resultPaperId === paperId
-            );
-
-        });
-
-
-    if (!resultItem) {
-
-        return "";
-
-    }
-
-
-    return (
-        resultItem.remarks ??
-        resultItem["Remarks"] ??
-        ""
-    );
-
-}
-
-
-function getSubmissionPaperCode(item) {
-
-    const direct =
-        item.paperCode ??
-        item["Paper Code"];
-
-
-    if (direct) {
-
-        return direct;
-
-    }
-
-
-    const paper =
-        getSubmissionPaper(item);
-
-
-    return paper
-        ? getPaperCode(paper)
-        : "";
-
-}
-
-
-function getSubmittedAt(item) {
-
-    return (
-        item.submittedAt ??
-        item["Submitted At"] ??
-        item.timestamp ??
-        item["Timestamp"] ??
-        ""
-    );
-
-}
-
-
 function getSubmittedStudentIds() {
 
     const ids = [];
-
 
     submissions.forEach(item => {
 
         const id =
             getSubmissionStudentId(item);
-
 
         if (
             id &&
@@ -2948,7 +2654,6 @@ function getSubmittedStudentIds() {
 
     });
 
-
     return ids;
 
 }
@@ -2958,7 +2663,6 @@ function getSubmittedPaperIdsForStudent(studentId) {
 
     const ids = [];
 
-
     submissions.forEach(item => {
 
         const itemStudentId =
@@ -2966,7 +2670,6 @@ function getSubmittedPaperIdsForStudent(studentId) {
 
         const paperId =
             getSubmissionPaperId(item);
-
 
         if (
             itemStudentId ===
@@ -2980,7 +2683,6 @@ function getSubmittedPaperIdsForStudent(studentId) {
         }
 
     });
-
 
     return ids;
 
@@ -3000,10 +2702,10 @@ function openPhotoUrl(url) {
 
     }
 
-
     window.open(
         url,
-        "_blank"
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
@@ -3013,10 +2715,13 @@ function renderPhotoButtons(urls) {
 
     if (!urls.length) {
 
-        return "No Photos";
+        return `
+            <span style="color:#64748b;">
+                No Photos
+            </span>
+        `;
 
     }
-
 
     return `
         <div class="photo-buttons">
@@ -3028,7 +2733,7 @@ function renderPhotoButtons(urls) {
                         class="photo-btn"
                         onclick="openPhotoUrl('${escapeJs(url)}')"
                     >
-                        View ${index + 1}
+                        Photo ${index + 1}
                     </button>
                 `;
 
@@ -3047,12 +2752,11 @@ function renderSubmissions() {
             "submissionsTableBody"
         );
 
-
     if (!submissions.length) {
 
         body.innerHTML =
             `<tr>
-                <td colspan="11" class="empty">
+                <td colspan="8" class="empty">
                     No submissions found.
                 </td>
             </tr>`;
@@ -3061,65 +2765,48 @@ function renderSubmissions() {
 
     }
 
-
     body.innerHTML =
         submissions.map(item => {
-
-            const studentName =
-                getSubmissionStudentName(item);
-
 
             const paperId =
                 getSubmissionPaperId(item);
 
+            const studentName =
+                getSubmissionStudentName(item);
+
+            const subjectName =
+                getSubmissionSubjectName(item);
 
             const examName =
                 getSubmissionExamName(item);
 
-
-            const photoUrls =
-                getPhotoUrls(item);
-
-
-            const submittedAt =
-                getSubmittedAt(item);
-
+            const submissionType =
+                getSubmissionType(item);
 
             const status =
                 getSubmissionStatus(item);
 
+            const photoUrls =
+                getPhotoUrls(item);
 
-            const marks =
-                getSubmissionMarks(item);
-
-
-            const remarks =
-                getSubmissionRemarks(item);
-
-
-            const paperCode =
-                getSubmissionPaperCode(item);
-
-
-            const submissionType =
-                getSubmissionType(item);
-
+            const providedPhotoCount =
+                item.photoCount ??
+                item["Photo Count"];
 
             const photoCount =
-                item.photoCount ??
-                item["Photo Count"] ??
-                photoUrls.length;
-
+                providedPhotoCount !== undefined &&
+                providedPhotoCount !== null &&
+                providedPhotoCount !== ""
+                    ? providedPhotoCount
+                    : photoUrls.length;
 
             let statusClass =
                 "status-other";
-
 
             const statusValue =
                 String(status)
                     .trim()
                     .toLowerCase();
-
 
             if (
                 statusValue === "submitted" ||
@@ -3140,58 +2827,51 @@ function renderSubmissions() {
 
             }
 
-
             return `
                 <tr>
 
-                    <td>
-                        ${escapeHtml(studentName)}
-                    </td>
-
+                    <!-- 1. PAPER ID -->
                     <td>
                         ${escapeHtml(paperId)}
                     </td>
 
+                    <!-- 2. STUDENT NAME -->
+                    <td>
+                        ${escapeHtml(studentName)}
+                    </td>
+
+                    <!-- 3. SUBJECT NAME -->
+                    <td>
+                        ${escapeHtml(subjectName)}
+                    </td>
+
+                    <!-- 4. EXAM NAME -->
                     <td>
                         ${escapeHtml(examName)}
                     </td>
 
+                    <!-- 5. SUBMISSION TYPE -->
                     <td>
-                        ${renderPhotoButtons(photoUrls)}
+                        ${escapeHtml(submissionType)}
                     </td>
 
-                    <td>
-                        ${escapeHtml(
-                            formatDateTime(submittedAt)
-                        )}
-                    </td>
-
+                    <!-- 6. STATUS -->
                     <td>
                         <span class="status ${statusClass}">
                             ${escapeHtml(status)}
                         </span>
                     </td>
 
-                    <td>
-                        ${escapeHtml(marks)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(remarks)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(paperCode)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(submissionType)}
-                    </td>
-
+                    <!-- 7. PHOTO COUNT -->
                     <td>
                         <span class="photo-count">
                             ${escapeHtml(photoCount)}
                         </span>
+                    </td>
+
+                    <!-- 8. PHOTO -->
+                    <td>
+                        ${renderPhotoButtons(photoUrls)}
                     </td>
 
                 </tr>
@@ -3213,33 +2893,27 @@ function loadResultPapers() {
             "resultStudent"
         ).value;
 
-
     const select =
         document.getElementById(
             "resultPaper"
         );
-
 
     select.innerHTML =
         `<option value="">
             Select Question Paper
         </option>`;
 
-
     document.getElementById(
         "resultTotalMarks"
     ).value = "";
-
 
     document.getElementById(
         "percentageBox"
     ).textContent = "0.00%";
 
-
     document.getElementById(
         "resultStatus"
     ).value = "";
-
 
     if (!studentId) {
 
@@ -3247,12 +2921,9 @@ function loadResultPapers() {
 
     }
 
-
     /*
-       IMPORTANT:
-       Only question papers for which
-       THIS student submitted an answer
-       sheet are shown.
+       ONLY papers submitted by
+       selected student.
     */
 
     const submittedPaperIds =
@@ -3260,14 +2931,12 @@ function loadResultPapers() {
             studentId
         );
 
-
     const availablePapers =
         papers.filter(paper =>
             submittedPaperIds.includes(
                 String(getPaperId(paper)).trim()
             )
         );
-
 
     if (!availablePapers.length) {
 
@@ -3280,38 +2949,30 @@ function loadResultPapers() {
 
     }
 
-
     availablePapers.forEach(paper => {
 
         const paperId =
             getPaperId(paper);
-
 
         const subjectName =
             getSubjectName(
                 getPaperSubjectId(paper)
             );
 
-
         const title =
             getPaperTitle(paper);
-
 
         const paperCode =
             getPaperCode(paper);
 
-
         const option =
             document.createElement("option");
-
 
         option.value =
             paperId;
 
-
         let displayText =
             `${subjectName} - ${title}`;
-
 
         if (paperCode) {
 
@@ -3320,14 +2981,11 @@ function loadResultPapers() {
 
         }
 
-
         option.textContent =
             displayText;
 
-
         option.dataset.totalMarks =
             getPaperTotalMarks(paper);
-
 
         select.appendChild(option);
 
@@ -3345,16 +3003,13 @@ document.getElementById(
         const option =
             this.options[this.selectedIndex];
 
-
         const totalMarks =
             option?.dataset?.totalMarks || "";
-
 
         document.getElementById(
             "resultTotalMarks"
         ).value =
             totalMarks;
-
 
         calculatePercentage();
 
@@ -3371,7 +3026,6 @@ function calculatePercentage() {
             ).value
         );
 
-
     const total =
         parseFloat(
             document.getElementById(
@@ -3379,18 +3033,15 @@ function calculatePercentage() {
             ).value
         );
 
-
     const percentageBox =
         document.getElementById(
             "percentageBox"
         );
 
-
     const resultStatus =
         document.getElementById(
             "resultStatus"
         );
-
 
     if (
         isNaN(marks) ||
@@ -3408,20 +3059,16 @@ function calculatePercentage() {
 
     }
 
-
     const percentage =
         (marks / total) * 100;
 
-
     percentageBox.textContent =
         percentage.toFixed(2) + "%";
-
 
     const result =
         percentage >= 35
             ? "Pass"
             : "Fail";
-
 
     resultStatus.value =
         result;
@@ -3436,12 +3083,10 @@ async function saveResult() {
             "resultStudent"
         ).value;
 
-
     const paperId =
         document.getElementById(
             "resultPaper"
         ).value;
-
 
     const marksObtained =
         parseFloat(
@@ -3450,7 +3095,6 @@ async function saveResult() {
             ).value
         );
 
-
     const totalMarks =
         parseFloat(
             document.getElementById(
@@ -3458,12 +3102,10 @@ async function saveResult() {
             ).value
         );
 
-
     const remarks =
         document.getElementById(
             "resultRemarks"
         ).value.trim();
-
 
     if (
         !studentId ||
@@ -3481,7 +3123,6 @@ async function saveResult() {
 
     }
 
-
     if (
         marksObtained < 0 ||
         marksObtained > totalMarks
@@ -3496,16 +3137,13 @@ async function saveResult() {
 
     }
 
-
     const percentage =
         (marksObtained / totalMarks) * 100;
-
 
     const result =
         percentage >= 35
             ? "Pass"
             : "Fail";
-
 
     try {
 
@@ -3523,45 +3161,36 @@ async function saveResult() {
             }
         );
 
-
         showMessage(
             "Result saved successfully."
         );
-
 
         document.getElementById(
             "marksObtained"
         ).value = "";
 
-
         document.getElementById(
             "resultRemarks"
         ).value = "";
-
 
         document.getElementById(
             "percentageBox"
         ).textContent =
             "0.00%";
 
-
         document.getElementById(
             "resultStatus"
         ).value =
             "";
 
-
         await refreshData();
-
 
         document.getElementById(
             "resultStudent"
         ).value =
             studentId;
 
-
         loadResultPapers();
-
 
     } catch(error) {
 
@@ -3586,7 +3215,6 @@ function renderResults() {
             "resultsTableBody"
         );
 
-
     if (!results.length) {
 
         body.innerHTML =
@@ -3600,7 +3228,6 @@ function renderResults() {
 
     }
 
-
     body.innerHTML =
         results.map(item => {
 
@@ -3608,7 +3235,6 @@ function renderResults() {
                 item.studentId ??
                 item["Student ID"] ??
                 "";
-
 
             const student =
                 students.find(s =>
@@ -3618,7 +3244,6 @@ function renderResults() {
                         ""
                     ) === String(studentId)
                 );
-
 
             const studentName =
                 student
@@ -3631,12 +3256,10 @@ function renderResults() {
                 :
                 studentId;
 
-
             const paperId =
                 item.paperId ??
                 item["Paper ID"] ??
                 "";
-
 
             const paper =
                 papers.find(p =>
@@ -3645,11 +3268,8 @@ function renderResults() {
                     ) === String(paperId)
                 );
 
-
             let subjectName = "";
-
             let paperTitle = "";
-
 
             if (paper) {
 
@@ -3658,42 +3278,35 @@ function renderResults() {
                         getPaperSubjectId(paper)
                     );
 
-
                 paperTitle =
                     getPaperTitle(paper);
 
             }
-
 
             const marks =
                 item.marksObtained ??
                 item["Marks Obtained"] ??
                 "";
 
-
             const total =
                 item.totalMarks ??
                 item["Total Marks"] ??
                 "";
-
 
             const percentage =
                 item.percentage ??
                 item["Percentage"] ??
                 "";
 
-
             const result =
                 item.result ??
                 item["Result"] ??
                 "";
 
-
             const remarks =
                 item.remarks ??
                 item["Remarks"] ??
                 "";
-
 
             const updated =
                 item.updatedAt ??
@@ -3701,7 +3314,6 @@ function renderResults() {
                 item.timestamp ??
                 item["Timestamp"] ??
                 "";
-
 
             return `
                 <tr>
@@ -3777,19 +3389,13 @@ async function refreshData() {
     ] = await Promise.all([
 
         api("getStudents"),
-
         api("getSubjects"),
-
         api("getAssignments"),
-
         api("getPapers"),
-
         api("getSubmissions"),
-
         api("getResults")
 
     ]);
-
 
     students =
         studentsData.students || [];
@@ -3809,23 +3415,14 @@ async function refreshData() {
     results =
         resultsData.results || [];
 
-
     renderStudents();
-
     renderSubjects();
-
     populateStudentDropdowns();
-
     populatePaperSubjectDropdown();
-
     renderAssignments();
-
     renderPapers();
-
     renderSubmissions();
-
     renderResults();
-
     updateSummary();
 
 }
@@ -3837,12 +3434,14 @@ async function refreshData() {
 
 function escapeHtml(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
     }
-
 
     return String(value)
         .replace(/&/g, "&amp;")
@@ -3856,12 +3455,14 @@ function escapeHtml(value) {
 
 function escapeJs(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
     }
-
 
     return String(value)
         .replace(/\\/g, "\\\\")
