@@ -628,9 +628,7 @@ tr:nth-child(even) {
 
 <section class="welcome-card">
 
-    <h2 id="welcomeName">
-        Welcome
-    </h2>
+    <h2 id="welcomeName">Welcome</h2>
 
     <p>
         <strong>Student ID:</strong>
@@ -647,57 +645,31 @@ tr:nth-child(even) {
 <section class="summary-grid">
 
     <div class="summary-card">
-        <div class="summary-title">
-            Assigned Subjects
-        </div>
-
-        <div class="summary-value" id="subjectCount">
-            0
-        </div>
+        <div class="summary-title">Assigned Subjects</div>
+        <div class="summary-value" id="subjectCount">0</div>
     </div>
 
     <div class="summary-card">
-        <div class="summary-title">
-            Published Question Papers
-        </div>
-
-        <div class="summary-value" id="paperCount">
-            0
-        </div>
+        <div class="summary-title">Published Question Papers</div>
+        <div class="summary-value" id="paperCount">0</div>
     </div>
 
     <div class="summary-card">
-        <div class="summary-title">
-            Submissions
-        </div>
-
-        <div class="summary-value" id="submissionCount">
-            0
-        </div>
+        <div class="summary-title">Submissions</div>
+        <div class="summary-value" id="submissionCount">0</div>
     </div>
 
     <div class="summary-card">
-        <div class="summary-title">
-            Results
-        </div>
-
-        <div class="summary-value" id="resultCount">
-            0
-        </div>
+        <div class="summary-title">Results</div>
+        <div class="summary-value" id="resultCount">0</div>
     </div>
 
 </section>
 
 
-<!-- ======================================================
-     SUBJECTS
-     ====================================================== -->
-
 <section class="section">
 
-    <h3>
-        My Assigned Subjects
-    </h3>
+    <h3>My Assigned Subjects</h3>
 
     <div id="subjectsLoading" class="loading">
         Loading assigned subjects...
@@ -708,103 +680,47 @@ tr:nth-child(even) {
 </section>
 
 
-<!-- ======================================================
-     QUESTION PAPERS
-     ====================================================== -->
-
 <section class="section">
 
-    <h3>
-        Published Question Papers
-    </h3>
+    <h3>Published Question Papers</h3>
 
     <label for="paperSelect">
         <strong>Select Question Paper</strong>
     </label>
 
-    <select
-        id="paperSelect"
-        onchange="showSelectedPaper()">
-
-        <option value="">
-            -- Select Question Paper --
-        </option>
-
+    <select id="paperSelect" onchange="showSelectedPaper()">
+        <option value="">-- Select Question Paper --</option>
     </select>
 
 
     <div id="paperInfo" class="paper-info">
 
-        <div
-            id="paperTitleDisplay"
-            class="paper-title-display">
-        </div>
-
+        <div id="paperTitleDisplay" class="paper-title-display"></div>
 
         <div class="paper-info-row">
-
-            <div class="paper-info-label">
-                Subject
-            </div>
-
-            <div id="paperInfoSubject">
-                -
-            </div>
-
+            <div class="paper-info-label">Subject</div>
+            <div id="paperInfoSubject">-</div>
         </div>
-
 
         <div class="paper-info-row">
-
-            <div class="paper-info-label">
-                Paper Code
-            </div>
-
-            <div id="paperInfoCode">
-                -
-            </div>
-
+            <div class="paper-info-label">Paper Code</div>
+            <div id="paperInfoCode">-</div>
         </div>
-
 
         <div class="paper-info-row">
-
-            <div class="paper-info-label">
-                Exam Date
-            </div>
-
-            <div id="paperInfoDate">
-                -
-            </div>
-
+            <div class="paper-info-label">Exam Date</div>
+            <div id="paperInfoDate">-</div>
         </div>
-
 
         <div class="paper-info-row">
-
-            <div class="paper-info-label">
-                Start Time
-            </div>
-
-            <div id="paperInfoStart">
-                -
-            </div>
-
+            <div class="paper-info-label">Start Time</div>
+            <div id="paperInfoStart">-</div>
         </div>
-
 
         <div class="paper-info-row">
-
-            <div class="paper-info-label">
-                End Time
-            </div>
-
-            <div id="paperInfoEnd">
-                -
-            </div>
-
+            <div class="paper-info-label">End Time</div>
+            <div id="paperInfoEnd">-</div>
         </div>
-
 
         <div class="action-row">
 
@@ -812,19 +728,14 @@ tr:nth-child(even) {
                 id="viewPdfBtn"
                 class="primary-btn"
                 onclick="viewSelectedPaper()">
-
                 View Question Paper
-
             </button>
-
 
             <button
                 id="downloadPdfBtn"
                 class="secondary-btn"
                 onclick="downloadSelectedPaper()">
-
                 Download Question Paper
-
             </button>
 
         </div>
@@ -834,18 +745,9 @@ tr:nth-child(even) {
 </section>
 
 
-<!-- ======================================================
-     ANSWER SHEET SUBMISSION
-     ====================================================== -->
+<section id="submissionSection" class="section hidden">
 
-<section
-    id="submissionSection"
-    class="section hidden">
-
-    <h3>
-        Answer Sheet Submission
-    </h3>
-
+    <h3>Answer Sheet Submission</h3>
 
     <div class="status-box status-edit">
 
@@ -853,84 +755,50 @@ tr:nth-child(even) {
             Selected Question Paper
         </div>
 
-        <div
-            id="submissionPaperName"
-            class="status-value">
+        <div id="submissionPaperName" class="status-value">
             -
         </div>
 
     </div>
 
 
-    <div
-        id="submissionStatusBox"
-        class="status-box status-pending">
+    <div id="submissionStatusBox" class="status-box status-pending">
 
         <div class="status-label">
             Submission Status
         </div>
 
-        <div
-            id="submissionStatusText"
-            class="status-value">
-
+        <div id="submissionStatusText" class="status-value">
             Checking submission status...
-
         </div>
 
     </div>
 
 
-    <!-- IMPORTANT:
-         EDIT BUTTON IS OUTSIDE submissionArea.
-         Therefore it remains visible after submission.
-    -->
-
-    <div
-        id="editActionArea"
-        class="edit-action-area">
+    <div id="editActionArea" class="edit-action-area">
 
         <button
             id="editBtn"
             class="warning-btn hidden"
             onclick="startEditMode()">
-
             ✏️ Edit Submission
-
         </button>
 
     </div>
 
 
-    <div
-        id="submissionMessage"
-        class="message">
-    </div>
+    <div id="submissionMessage" class="message"></div>
 
 
-    <!-- ==================================================
-         CAMERA / FILE AREA
-         ================================================== -->
-
-    <div
-        id="submissionArea"
-        class="hidden">
+    <div id="submissionArea" class="hidden">
 
         <div class="file-area">
 
-            <strong>
-                Answer Sheet
-            </strong>
-
+            <strong>Answer Sheet</strong>
 
             <div class="upload-options">
 
-
-                <!-- CAMERA -->
-
-                <label
-                    class="upload-option"
-                    for="cameraInput">
+                <label class="upload-option" for="cameraInput">
 
                     <div class="upload-option-icon">
                         📷
@@ -947,11 +815,7 @@ tr:nth-child(even) {
                 </label>
 
 
-                <!-- FILE -->
-
-                <label
-                    class="upload-option"
-                    for="fileInput">
+                <label class="upload-option" for="fileInput">
 
                     <div class="upload-option-icon">
                         📁
@@ -990,8 +854,7 @@ tr:nth-child(even) {
 
             <div class="file-help">
 
-                You can use the camera or choose
-                answer-sheet photos.
+                You can use the camera or choose answer-sheet photos.
 
                 <br>
 
@@ -1003,86 +866,52 @@ tr:nth-child(even) {
 
                 <br>
 
-                Minimum number of photos is checked
-                by the server.
+                Minimum number of photos is checked by the server.
 
             </div>
 
         </div>
 
 
-        <!-- PHOTO PREVIEW -->
-
-        <div
-            id="previewGrid"
-            class="preview-grid">
-        </div>
+        <div id="previewGrid" class="preview-grid"></div>
 
 
-        <!-- PROGRESS -->
-
-        <div
-            id="progressContainer"
-            class="progress-container">
+        <div id="progressContainer" class="progress-container">
 
             <div class="progress-bar-background">
 
-                <div
-                    id="progressBar"
-                    class="progress-bar">
-                </div>
+                <div id="progressBar" class="progress-bar"></div>
 
             </div>
 
-            <div
-                id="progressText"
-                class="progress-text">
-
+            <div id="progressText" class="progress-text">
                 Preparing submission...
-
             </div>
 
         </div>
 
 
-        <!-- BUTTONS -->
-
         <div class="action-row">
-
-
-            <!-- NORMAL SUBMIT -->
 
             <button
                 id="submitBtn"
                 class="success-btn"
                 onclick="submitAnswerSheet()">
-
                 Submit Answer Sheet
-
             </button>
-
-
-            <!-- UPDATE DURING EDIT -->
 
             <button
                 id="editSubmitBtn"
                 class="warning-btn hidden"
                 onclick="editAnswerSheet()">
-
                 Update Answer Sheet
-
             </button>
-
-
-            <!-- CANCEL EDIT -->
 
             <button
                 id="cancelEditBtn"
                 class="secondary-btn hidden"
                 onclick="cancelEditMode()">
-
                 Cancel Edit
-
             </button>
 
         </div>
@@ -1092,64 +921,28 @@ tr:nth-child(even) {
 </section>
 
 
-<!-- ======================================================
-     RESULTS
-     ====================================================== -->
-
 <section class="section">
 
-    <h3>
-        My Results
-    </h3>
+    <h3>My Results</h3>
 
-
-    <div
-        id="resultsLoading"
-        class="loading">
-
+    <div id="resultsLoading" class="loading">
         Loading results...
-
     </div>
-
 
     <div class="table-wrap">
 
-        <table
-            id="resultsTable"
-            style="display:none;">
+        <table id="resultsTable" style="display:none;">
 
             <thead>
 
                 <tr>
-
-                    <th>
-                        Sr. No.
-                    </th>
-
-                    <th>
-                        Subject
-                    </th>
-
-                    <th>
-                        Paper Code
-                    </th>
-
-                    <th>
-                        Marks
-                    </th>
-
-                    <th>
-                        Percentage
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th>
-                        Date
-                    </th>
-
+                    <th>Sr. No.</th>
+                    <th>Subject</th>
+                    <th>Paper Code</th>
+                    <th>Marks</th>
+                    <th>Percentage</th>
+                    <th>Status</th>
+                    <th>Date</th>
                 </tr>
 
             </thead>
@@ -1165,32 +958,18 @@ tr:nth-child(even) {
 </main>
 
 
-<!-- ======================================================
-     PDF MODAL
-     ====================================================== -->
-
-<div
-    id="pdfModal"
-    class="pdf-modal">
+<div id="pdfModal" class="pdf-modal">
 
     <div class="pdf-modal-content">
 
         <div class="pdf-modal-header">
 
-            <div
-                id="pdfModalTitle"
-                class="pdf-modal-title">
-
+            <div id="pdfModalTitle" class="pdf-modal-title">
                 Question Paper
-
             </div>
 
-            <button
-                class="pdf-close"
-                onclick="closePdfModal()">
-
+            <button class="pdf-close" onclick="closePdfModal()">
                 ×
-
             </button>
 
         </div>
@@ -1207,10 +986,6 @@ tr:nth-child(even) {
 
 
 <script>
-
-/* =========================================================
-   API
-   ========================================================= */
 
 const API_URL =
     "https://script.google.com/macros/s/AKfycbxdzpQvRDFD8aoVanwPostU_19pTIjy_ruHwsLZ8slCjox831OxRNWfH94oXSsV_5ctUA/exec";
@@ -1236,35 +1011,21 @@ async function api(action, data = {}) {
     let result;
 
     try {
-
         result = JSON.parse(text);
-
     } catch (error) {
-
-        console.error(
-            "Server response:",
-            text
-        );
-
-        throw new Error(
-            "Invalid server response."
-        );
+        console.error("Server response:", text);
+        throw new Error("Invalid server response.");
     }
 
     if (!result) {
-        throw new Error(
-            "Empty server response."
-        );
+        throw new Error("Empty server response.");
     }
 
     if (
         result.success === false &&
         result.message
     ) {
-
-        throw new Error(
-            result.message
-        );
+        throw new Error(result.message);
     }
 
     return result;
@@ -1300,9 +1061,7 @@ let existingSubmission = null;
 document.addEventListener(
     "DOMContentLoaded",
     function() {
-
         loadSession();
-
     }
 );
 
@@ -1318,18 +1077,14 @@ function loadSession() {
     try {
 
         const stored =
-            sessionStorage.getItem(
-                "studentSession"
-            );
+            sessionStorage.getItem("studentSession");
 
         if (stored) {
             session = JSON.parse(stored);
         }
 
     } catch (error) {
-
         session = null;
-
     }
 
 
@@ -1338,18 +1093,14 @@ function loadSession() {
         try {
 
             const stored =
-                localStorage.getItem(
-                    "studentSession"
-                );
+                localStorage.getItem("studentSession");
 
             if (stored) {
                 session = JSON.parse(stored);
             }
 
         } catch (error) {
-
             session = null;
-
         }
 
     }
@@ -1375,18 +1126,10 @@ function loadSession() {
     if (!studentId) {
 
         studentId =
-            sessionStorage.getItem(
-                "studentId"
-            ) ||
-            sessionStorage.getItem(
-                "studentID"
-            ) ||
-            localStorage.getItem(
-                "studentId"
-            ) ||
-            localStorage.getItem(
-                "studentID"
-            ) ||
+            sessionStorage.getItem("studentId") ||
+            sessionStorage.getItem("studentID") ||
+            localStorage.getItem("studentId") ||
+            localStorage.getItem("studentID") ||
             "";
 
     }
@@ -1395,12 +1138,8 @@ function loadSession() {
     if (!studentName) {
 
         studentName =
-            sessionStorage.getItem(
-                "studentName"
-            ) ||
-            localStorage.getItem(
-                "studentName"
-            ) ||
+            sessionStorage.getItem("studentName") ||
+            localStorage.getItem("studentName") ||
             "";
 
     }
@@ -1415,10 +1154,7 @@ function loadSession() {
 
         setTimeout(
             function() {
-
-                window.location.href =
-                    "login.html";
-
+                window.location.href = "login.html";
             },
             1500
         );
@@ -1429,14 +1165,12 @@ function loadSession() {
 
     document.getElementById(
         "studentIdDisplay"
-    ).textContent =
-        studentId;
+    ).textContent = studentId;
 
 
     document.getElementById(
         "studentNameDisplay"
-    ).textContent =
-        studentName || "-";
+    ).textContent = studentName || "-";
 
 
     document.getElementById(
@@ -1459,21 +1193,14 @@ async function loadDashboard() {
     try {
 
         await loadAssignments();
-
         await loadSubjects();
-
         await loadPapers();
-
         await loadResults();
-
         await updateSubmissionCount();
 
     } catch (error) {
 
-        console.error(
-            "Dashboard:",
-            error
-        );
+        console.error("Dashboard:", error);
 
         showGlobalMessage(
             error.message ||
@@ -1497,8 +1224,7 @@ async function loadAssignments() {
             await api(
                 "getAssignments",
                 {
-                    studentId:
-                        studentId
+                    studentId: studentId
                 }
             );
 
@@ -1532,6 +1258,7 @@ async function loadAssignments() {
                             ]
                         );
 
+
                     return normalize(
                         assignedStudentId
                     ) ===
@@ -1548,7 +1275,6 @@ async function loadAssignments() {
             assignments
         );
 
-
     } catch (error) {
 
         console.error(
@@ -1561,7 +1287,6 @@ async function loadAssignments() {
         throw new Error(
             "Unable to load your assigned subjects."
         );
-
     }
 }
 
@@ -1578,9 +1303,7 @@ async function loadSubjects() {
         );
 
 
-    loading.style.display =
-        "block";
-
+    loading.style.display = "block";
 
     loading.textContent =
         "Loading assigned subjects...";
@@ -1592,8 +1315,7 @@ async function loadSubjects() {
             await api(
                 "getSubjects",
                 {
-                    studentId:
-                        studentId
+                    studentId: studentId
                 }
             );
 
@@ -1626,17 +1348,14 @@ async function loadSubjects() {
 
         renderSubjects();
 
-
     } catch (error) {
 
         subjects = [];
-
         allSubjectsForLookup = [];
 
         document.getElementById(
             "subjectCount"
-        ).textContent =
-            "0";
+        ).textContent = "0";
 
 
         loading.textContent =
@@ -1651,25 +1370,20 @@ async function loadSubjects() {
 
 
 /* =========================================================
-   FILTER ASSIGNED SUBJECTS
+   FILTER SUBJECTS
    ========================================================= */
 
-function filterAssignedSubjects(
-    serverSubjects
-) {
+function filterAssignedSubjects(serverSubjects) {
 
     if (
         !Array.isArray(serverSubjects) ||
         !Array.isArray(assignments)
     ) {
-
         return [];
-
     }
 
 
-    const assignedSubjectIds =
-        new Set();
+    const assignedSubjectIds = new Set();
 
 
     assignments.forEach(
@@ -1692,9 +1406,7 @@ function filterAssignedSubjects(
             if (subjectId) {
 
                 assignedSubjectIds.add(
-                    normalize(
-                        subjectId
-                    )
+                    normalize(subjectId)
                 );
 
             }
@@ -1707,17 +1419,13 @@ function filterAssignedSubjects(
         function(subject) {
 
             const subjectId =
-                getSubjectId(
-                    subject
-                );
+                getSubjectId(subject);
 
 
             return (
                 subjectId &&
                 assignedSubjectIds.has(
-                    normalize(
-                        subjectId
-                    )
+                    normalize(subjectId)
                 )
             );
 
@@ -1751,8 +1459,7 @@ function renderSubjects() {
         subjects.length === 0
     ) {
 
-        loading.style.display =
-            "block";
+        loading.style.display = "block";
 
         loading.textContent =
             "No subjects assigned to you.";
@@ -1761,29 +1468,21 @@ function renderSubjects() {
     }
 
 
-    loading.style.display =
-        "none";
+    loading.style.display = "none";
 
 
     subjects.forEach(
         function(subject) {
 
             const subjectName =
-                getSubjectName(
-                    subject
-                );
-
+                getSubjectName(subject);
 
             const subjectCode =
-                getSubjectCode(
-                    subject
-                );
+                getSubjectCode(subject);
 
 
             const card =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             card.className =
@@ -1793,16 +1492,14 @@ function renderSubjects() {
             card.innerHTML =
                 "<div class='subject-card-title'>" +
                 escapeHtml(
-                    subjectName ||
-                    "Subject"
+                    subjectName || "Subject"
                 ) +
                 "</div>" +
 
                 "<div class='subject-card-code'>" +
                 "<strong>Subject Code:</strong> " +
                 escapeHtml(
-                    subjectCode ||
-                    "-"
+                    subjectCode || "-"
                 ) +
                 "</div>";
 
@@ -1826,8 +1523,7 @@ async function loadPapers() {
             await api(
                 "getPapers",
                 {
-                    studentId:
-                        studentId
+                    studentId: studentId
                 }
             );
 
@@ -1871,7 +1567,6 @@ async function loadPapers() {
 
         renderPaperSelect();
 
-
     } catch (error) {
 
         console.error(
@@ -1881,15 +1576,12 @@ async function loadPapers() {
 
         papers = [];
 
-
         document.getElementById(
             "paperCount"
-        ).textContent =
-            "0";
+        ).textContent = "0";
 
 
         renderPaperSelect();
-
 
         throw new Error(
             "Unable to load question papers."
@@ -1933,9 +1625,7 @@ function isPaperPublished(paper) {
     if (publicationValue !== "") {
 
         const value =
-            normalize(
-                publicationValue
-            );
+            normalize(publicationValue);
 
 
         return (
@@ -1968,13 +1658,6 @@ function isPaperPublished(paper) {
     }
 
 
-    /*
-     * If Code.gs already sends the paper
-     * to the student through getPapers,
-     * allow it when no publication field
-     * is present.
-     */
-
     return true;
 }
 
@@ -1983,22 +1666,12 @@ function isPaperPublished(paper) {
    FILTER PAPERS
    ========================================================= */
 
-function filterAssignedPapers(
-    paperList
-) {
+function filterAssignedPapers(paperList) {
 
-    if (
-        !Array.isArray(paperList)
-    ) {
-
+    if (!Array.isArray(paperList)) {
         return [];
-
     }
 
-
-    /*
-     * Build assigned subject IDs.
-     */
 
     const assignedSubjectIds =
         new Set();
@@ -2035,19 +1708,13 @@ function filterAssignedPapers(
 
 
                 if (
-                    normalize(
-                        assignedStudent
-                    ) ===
-                    normalize(
-                        studentId
-                    ) &&
+                    normalize(assignedStudent) ===
+                    normalize(studentId) &&
                     subjectId
                 ) {
 
                     assignedSubjectIds.add(
-                        normalize(
-                            subjectId
-                        )
+                        normalize(subjectId)
                     );
 
                 }
@@ -2058,14 +1725,6 @@ function filterAssignedPapers(
     }
 
 
-    /*
-     * If assignment subject IDs exist,
-     * filter using them.
-     *
-     * If the paper has no subject ID,
-     * do not throw the paper away.
-     */
-
     return paperList.filter(
         function(paper) {
 
@@ -2075,9 +1734,7 @@ function filterAssignedPapers(
 
 
             const paperSubjectId =
-                getPaperSubjectId(
-                    paper
-                );
+                getPaperSubjectId(paper);
 
 
             if (
@@ -2087,14 +1744,11 @@ function filterAssignedPapers(
 
                 if (
                     !assignedSubjectIds.has(
-                        normalize(
-                            paperSubjectId
-                        )
+                        normalize(paperSubjectId)
                     )
                 ) {
 
                     return false;
-
                 }
 
             }
@@ -2129,23 +1783,16 @@ function renderPaperSelect() {
     ) {
 
         const option =
-            document.createElement(
-                "option"
-            );
+            document.createElement("option");
 
 
-        option.disabled =
-            true;
-
+        option.disabled = true;
 
         option.textContent =
             "No published question papers available";
 
 
-        select.appendChild(
-            option
-        );
-
+        select.appendChild(option);
 
         return;
     }
@@ -2155,9 +1802,7 @@ function renderPaperSelect() {
         function(paper) {
 
             const paperId =
-                getPaperId(
-                    paper
-                );
+                getPaperId(paper);
 
 
             if (!paperId) {
@@ -2166,21 +1811,15 @@ function renderPaperSelect() {
 
 
             const subjectName =
-                getPaperSubjectName(
-                    paper
-                );
+                getPaperSubjectName(paper);
 
 
             const title =
-                getPaperTitle(
-                    paper
-                );
+                getPaperTitle(paper);
 
 
             const option =
-                document.createElement(
-                    "option"
-                );
+                document.createElement("option");
 
 
             option.value =
@@ -2199,9 +1838,7 @@ function renderPaperSelect() {
                 );
 
 
-            select.appendChild(
-                option
-            );
+            select.appendChild(option);
 
         }
     );
@@ -2240,8 +1877,7 @@ function showSelectedPaper() {
 
         selectedPaper = null;
 
-        info.style.display =
-            "none";
+        info.style.display = "none";
 
         submissionSection.classList.add(
             "hidden"
@@ -2258,13 +1894,9 @@ function showSelectedPaper() {
             function(paper) {
 
                 return normalize(
-                    getPaperId(
-                        paper
-                    )
+                    getPaperId(paper)
                 ) ===
-                normalize(
-                    paperId
-                );
+                normalize(paperId);
 
             }
         );
@@ -2274,8 +1906,7 @@ function showSelectedPaper() {
 
         selectedPaper = null;
 
-        info.style.display =
-            "none";
+        info.style.display = "none";
 
         submissionSection.classList.add(
             "hidden"
@@ -2292,8 +1923,32 @@ function showSelectedPaper() {
 
 
     /*
-     * Read every field using flexible
-     * field names.
+     * IMPORTANT:
+     * Find the assignment connected to
+     * this question paper.
+     */
+
+    const matchingAssignment =
+        findMatchingAssignment(
+            selectedPaper
+        );
+
+
+    console.log(
+        "MATCHING ASSIGNMENT:",
+        matchingAssignment
+    );
+
+
+    /*
+     * Get paper information.
+     *
+     * These functions now search:
+     *
+     * 1. Paper
+     * 2. Assignment
+     * 3. Subject
+     * 4. Nested objects
      */
 
     const title =
@@ -2315,67 +1970,38 @@ function showSelectedPaper() {
 
 
     const examDate =
-        getFlexiblePaperValue(
-            selectedPaper,
-            [
-                "examDate",
-                "Exam Date",
-                "ExamDate",
-                "exam_date",
-                "exam-date",
-                "exam date",
-                "date",
-                "Date",
-                "exam_date_time",
-                "Exam Date Time"
-            ]
+        getPaperExamDate(
+            selectedPaper
         );
 
 
     const startTime =
-        getFlexiblePaperValue(
-            selectedPaper,
-            [
-                "startTime",
-                "Start Time",
-                "StartTime",
-                "start_time",
-                "start-time",
-                "start time",
-                "examStartTime",
-                "Exam Start Time",
-                "ExamStartTime",
-                "exam_start_time",
-                "exam-start-time",
-                "exam start time",
-                "start"
-            ]
+        getPaperStartTime(
+            selectedPaper
         );
 
 
     const endTime =
-        getFlexiblePaperValue(
-            selectedPaper,
-            [
-                "endTime",
-                "End Time",
-                "EndTime",
-                "end_time",
-                "end-time",
-                "end time",
-                "examEndTime",
-                "Exam End Time",
-                "ExamEndTime",
-                "exam_end_time",
-                "exam-end-time",
-                "exam end time",
-                "end"
-            ]
+        getPaperEndTime(
+            selectedPaper
         );
 
 
+    console.log(
+        "PAPER INFORMATION:",
+        {
+            subject: subjectName,
+            paperCode: paperCode,
+            examDate: examDate,
+            startTime: startTime,
+            endTime: endTime,
+            assignment: matchingAssignment
+        }
+    );
+
+
     /*
-     * Display fields.
+     * DISPLAY
      */
 
     document.getElementById(
@@ -2402,29 +2028,22 @@ function showSelectedPaper() {
     document.getElementById(
         "paperInfoDate"
     ).textContent =
-        formatDate(
-            examDate
-        );
+        formatDate(examDate);
 
 
     document.getElementById(
         "paperInfoStart"
     ).textContent =
-        formatTime(
-            startTime
-        );
+        formatTime(startTime);
 
 
     document.getElementById(
         "paperInfoEnd"
     ).textContent =
-        formatTime(
-            endTime
-        );
+        formatTime(endTime);
 
 
-    info.style.display =
-        "block";
+    info.style.display = "block";
 
 
     submissionSection.classList.remove(
@@ -2448,8 +2067,360 @@ function showSelectedPaper() {
 
     resetSubmissionUI();
 
-
     loadSubmissionStatus();
+}
+
+
+/* =========================================================
+   FIND MATCHING ASSIGNMENT
+   ========================================================= */
+
+function findMatchingAssignment(paper) {
+
+    if (
+        !paper ||
+        !Array.isArray(assignments)
+    ) {
+        return null;
+    }
+
+
+    const paperId =
+        getPaperId(paper);
+
+
+    const subjectId =
+        getPaperSubjectId(paper);
+
+
+    /*
+     * First try Paper ID.
+     */
+
+    if (paperId) {
+
+        const byPaperId =
+            assignments.find(
+                function(assignment) {
+
+                    const assignmentPaperId =
+                        getValue(
+                            assignment,
+                            [
+                                "paperId",
+                                "paperID",
+                                "Paper ID",
+                                "PaperID",
+                                "paper_id",
+                                "questionPaperId",
+                                "Question Paper ID"
+                            ]
+                        );
+
+
+                    return (
+                        assignmentPaperId &&
+                        normalize(assignmentPaperId) ===
+                        normalize(paperId)
+                    );
+
+                }
+            );
+
+
+        if (byPaperId) {
+            return byPaperId;
+        }
+
+    }
+
+
+    /*
+     * Then try Subject ID.
+     */
+
+    if (subjectId) {
+
+        const bySubjectId =
+            assignments.find(
+                function(assignment) {
+
+                    const assignmentSubjectId =
+                        getValue(
+                            assignment,
+                            [
+                                "subjectId",
+                                "subjectID",
+                                "Subject ID",
+                                "SubjectID",
+                                "subject_id",
+                                "subject"
+                            ]
+                        );
+
+
+                    return (
+                        assignmentSubjectId &&
+                        normalize(assignmentSubjectId) ===
+                        normalize(subjectId)
+                    );
+
+                }
+            );
+
+
+        if (bySubjectId) {
+            return bySubjectId;
+        }
+
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   FIND MATCHING SUBJECT
+   ========================================================= */
+
+function findMatchingSubject(paper) {
+
+    if (!paper) {
+        return null;
+    }
+
+
+    const subjectId =
+        getPaperSubjectId(paper);
+
+
+    if (!subjectId) {
+        return null;
+    }
+
+
+    const source =
+        Array.isArray(allSubjectsForLookup)
+            ? allSubjectsForLookup
+            : [];
+
+
+    const found =
+        source.find(
+            function(subject) {
+
+                return normalize(
+                    getSubjectId(subject)
+                ) ===
+                normalize(subjectId);
+
+            }
+        );
+
+
+    if (found) {
+        return found;
+    }
+
+
+    if (Array.isArray(subjects)) {
+
+        const foundAssigned =
+            subjects.find(
+                function(subject) {
+
+                    return normalize(
+                        getSubjectId(subject)
+                    ) ===
+                    normalize(subjectId);
+
+                }
+            );
+
+
+        if (foundAssigned) {
+            return foundAssigned;
+        }
+
+    }
+
+
+    return null;
+}
+
+
+/* =========================================================
+   GET PAPER METADATA
+   ========================================================= */
+
+function getPaperMetadataValue(
+    paper,
+    keys
+) {
+
+    /*
+     * 1. Direct paper
+     */
+
+    let value =
+        getDeepFlexibleValue(
+            paper,
+            keys
+        );
+
+
+    if (value !== "") {
+        return value;
+    }
+
+
+    /*
+     * 2. Matching assignment
+     */
+
+    const assignment =
+        findMatchingAssignment(
+            paper
+        );
+
+
+    if (assignment) {
+
+        value =
+            getDeepFlexibleValue(
+                assignment,
+                keys
+            );
+
+
+        if (value !== "") {
+            return value;
+        }
+
+    }
+
+
+    /*
+     * 3. Matching subject
+     */
+
+    const subject =
+        findMatchingSubject(
+            paper
+        );
+
+
+    if (subject) {
+
+        value =
+            getDeepFlexibleValue(
+                subject,
+                keys
+            );
+
+
+        if (value !== "") {
+            return value;
+        }
+
+    }
+
+
+    return "";
+}
+
+
+/* =========================================================
+   PAPER EXAM DATE
+   ========================================================= */
+
+function getPaperExamDate(paper) {
+
+    return getPaperMetadataValue(
+        paper,
+        [
+            "examDate",
+            "Exam Date",
+            "ExamDate",
+            "exam_date",
+            "exam-date",
+            "exam date",
+            "date",
+            "Date",
+            "examDateTime",
+            "Exam Date Time",
+            "ExamDateTime",
+            "exam_date_time",
+            "exam-date-time",
+            "exam date time",
+            "exam"
+        ]
+    );
+}
+
+
+/* =========================================================
+   PAPER START TIME
+   ========================================================= */
+
+function getPaperStartTime(paper) {
+
+    return getPaperMetadataValue(
+        paper,
+        [
+            "startTime",
+            "Start Time",
+            "StartTime",
+            "start_time",
+            "start-time",
+            "start time",
+            "examStartTime",
+            "Exam Start Time",
+            "ExamStartTime",
+            "exam_start_time",
+            "exam-start-time",
+            "exam start time",
+            "start",
+            "Start",
+            "fromTime",
+            "From Time",
+            "from_time",
+            "from"
+        ]
+    );
+}
+
+
+/* =========================================================
+   PAPER END TIME
+   ========================================================= */
+
+function getPaperEndTime(paper) {
+
+    return getPaperMetadataValue(
+        paper,
+        [
+            "endTime",
+            "End Time",
+            "EndTime",
+            "end_time",
+            "end-time",
+            "end time",
+            "examEndTime",
+            "Exam End Time",
+            "ExamEndTime",
+            "exam_end_time",
+            "exam-end-time",
+            "exam end time",
+            "end",
+            "End",
+            "toTime",
+            "To Time",
+            "to_time",
+            "to"
+        ]
+    );
 }
 
 
@@ -2564,8 +2535,7 @@ function closePdfModal() {
 
     document.getElementById(
         "pdfFrame"
-    ).src =
-        "";
+    ).src = "";
 }
 
 
@@ -2579,12 +2549,8 @@ window.addEventListener(
             );
 
 
-        if (
-            event.target === modal
-        ) {
-
+        if (event.target === modal) {
             closePdfModal();
-
         }
 
     }
@@ -2639,11 +2605,6 @@ async function loadSubmissionStatus() {
     existingSubmission = null;
 
 
-    /*
-     * Always hide upload area while
-     * checking status.
-     */
-
     submissionArea.classList.add(
         "hidden"
     );
@@ -2694,10 +2655,6 @@ async function loadSubmissionStatus() {
             !!submission;
 
 
-        /*
-         * NOT SUBMITTED
-         */
-
         if (!hasSubmission) {
 
             existingSubmission = null;
@@ -2714,18 +2671,10 @@ async function loadSubmissionStatus() {
                 "</span>";
 
 
-            /*
-             * Show upload area.
-             */
-
             submissionArea.classList.remove(
                 "hidden"
             );
 
-
-            /*
-             * Normal Submit visible.
-             */
 
             document.getElementById(
                 "submitBtn"
@@ -2733,10 +2682,6 @@ async function loadSubmissionStatus() {
                 "hidden"
             );
 
-
-            /*
-             * Edit controls hidden.
-             */
 
             editButton.classList.add(
                 "hidden"
@@ -2761,10 +2706,6 @@ async function loadSubmissionStatus() {
         }
 
 
-        /*
-         * SUBMITTED
-         */
-
         existingSubmission =
             submission ||
             response;
@@ -2783,9 +2724,7 @@ async function loadSubmissionStatus() {
 
 
         const editCount =
-            Number(
-                editCountRaw
-            ) || 0;
+            Number(editCountRaw) || 0;
 
 
         const status =
@@ -2801,10 +2740,6 @@ async function loadSubmissionStatus() {
         statusBox.className =
             "status-box status-submitted";
 
-
-        /*
-         * Hide upload area initially.
-         */
 
         submissionArea.classList.add(
             "hidden"
@@ -2832,19 +2767,13 @@ async function loadSubmissionStatus() {
         );
 
 
-        /*
-         * EDIT STILL AVAILABLE
-         */
-
         if (editCount < 1) {
 
             statusText.innerHTML =
                 "<strong>Submitted</strong><br>" +
-
                 "<span class='small-text'>" +
                 "Your answer sheet has been submitted successfully." +
                 "</span><br>" +
-
                 "<span class='small-text'>" +
                 "<strong>Edit: 1 time left</strong>" +
                 "</span>";
@@ -2855,41 +2784,23 @@ async function loadSubmissionStatus() {
                 statusText.innerHTML +=
                     "<br><span class='small-text'>" +
                     "Status: " +
-                    escapeHtml(
-                        status
-                    ) +
+                    escapeHtml(status) +
                     "</span>";
 
             }
 
 
-            /*
-             * THIS BUTTON IS OUTSIDE
-             * submissionArea.
-             *
-             * Therefore it remains visible.
-             */
-
             editButton.classList.remove(
                 "hidden"
             );
 
-        }
-
-
-        /*
-         * EDIT ALREADY USED
-         */
-
-        else {
+        } else {
 
             statusText.innerHTML =
                 "<strong>Submitted</strong><br>" +
-
                 "<span class='small-text'>" +
                 "Your answer sheet has been submitted." +
                 "</span><br>" +
-
                 "<span class='small-text'>" +
                 "<strong>Edit: 0 times left</strong>" +
                 "</span>";
@@ -2900,9 +2811,7 @@ async function loadSubmissionStatus() {
                 statusText.innerHTML +=
                     "<br><span class='small-text'>" +
                     "Status: " +
-                    escapeHtml(
-                        status
-                    ) +
+                    escapeHtml(status) +
                     "</span>";
 
             }
@@ -2913,7 +2822,6 @@ async function loadSubmissionStatus() {
             );
 
         }
-
 
     } catch (error) {
 
@@ -2945,9 +2853,7 @@ async function loadSubmissionStatus() {
 function resetSubmissionUI() {
 
     editingSubmission = false;
-
     existingSubmission = null;
-
     selectedFiles = [];
 
 
@@ -2975,20 +2881,17 @@ function resetSubmissionUI() {
 
     document.getElementById(
         "previewGrid"
-    ).innerHTML =
-        "";
+    ).innerHTML = "";
 
 
     document.getElementById(
         "progressContainer"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 
     document.getElementById(
         "progressBar"
-    ).style.width =
-        "0%";
+    ).style.width = "0%";
 
 
     document.getElementById(
@@ -2996,12 +2899,6 @@ function resetSubmissionUI() {
     ).textContent =
         "Preparing submission...";
 
-
-    /*
-     * Do NOT automatically show submissionArea here.
-     * loadSubmissionStatus() decides whether it
-     * should be shown.
-     */
 
     document.getElementById(
         "submissionArea"
@@ -3058,23 +2955,14 @@ function handleCameraFiles() {
         !input.files ||
         input.files.length === 0
     ) {
-
         return;
-
     }
 
 
     addSelectedFiles(
-        Array.from(
-            input.files
-        )
+        Array.from(input.files)
     );
 
-
-    /*
-     * Clear input so the camera can
-     * be opened again.
-     */
 
     input.value = "";
 }
@@ -3096,16 +2984,12 @@ function handleFileFiles() {
         !input.files ||
         input.files.length === 0
     ) {
-
         return;
-
     }
 
 
     addSelectedFiles(
-        Array.from(
-            input.files
-        )
+        Array.from(input.files)
     );
 
 
@@ -3117,16 +3001,10 @@ function handleFileFiles() {
    ADD FILES
    ========================================================= */
 
-function addSelectedFiles(
-    newFiles
-) {
+function addSelectedFiles(newFiles) {
 
-    if (
-        !Array.isArray(newFiles)
-    ) {
-
+    if (!Array.isArray(newFiles)) {
         return;
-
     }
 
 
@@ -3135,9 +3013,7 @@ function addSelectedFiles(
 
             if (
                 !file.type ||
-                !file.type.startsWith(
-                    "image/"
-                )
+                !file.type.startsWith("image/")
             ) {
 
                 showSubmissionMessage(
@@ -3146,22 +3022,17 @@ function addSelectedFiles(
                 );
 
                 return;
-
             }
 
 
             if (
                 selectedFiles.length >= 20
             ) {
-
                 return;
-
             }
 
 
-            selectedFiles.push(
-                file
-            );
+            selectedFiles.push(file);
 
         }
     );
@@ -3195,8 +3066,7 @@ function previewSelectedFiles() {
         );
 
 
-    preview.innerHTML =
-        "";
+    preview.innerHTML = "";
 
 
     selectedFiles.forEach(
@@ -3210,9 +3080,7 @@ function previewSelectedFiles() {
                 function(event) {
 
                     const item =
-                        document.createElement(
-                            "div"
-                        );
+                        document.createElement("div");
 
 
                     item.className =
@@ -3220,9 +3088,7 @@ function previewSelectedFiles() {
 
 
                     const img =
-                        document.createElement(
-                            "img"
-                        );
+                        document.createElement("img");
 
 
                     img.src =
@@ -3231,15 +3097,11 @@ function previewSelectedFiles() {
 
                     img.alt =
                         "Answer page " +
-                        (
-                            index + 1
-                        );
+                        (index + 1);
 
 
                     const number =
-                        document.createElement(
-                            "div"
-                        );
+                        document.createElement("div");
 
 
                     number.className =
@@ -3248,31 +3110,19 @@ function previewSelectedFiles() {
 
                     number.textContent =
                         "Page " +
-                        (
-                            index + 1
-                        );
+                        (index + 1);
 
 
-                    item.appendChild(
-                        img
-                    );
+                    item.appendChild(img);
 
+                    item.appendChild(number);
 
-                    item.appendChild(
-                        number
-                    );
-
-
-                    preview.appendChild(
-                        item
-                    );
+                    preview.appendChild(item);
 
                 };
 
 
-            reader.readAsDataURL(
-                file
-            );
+            reader.readAsDataURL(file);
 
         }
     );
@@ -3310,9 +3160,7 @@ async function submitAnswerSheet() {
     }
 
 
-    if (
-        selectedFiles.length > 20
-    ) {
+    if (selectedFiles.length > 20) {
 
         showSubmissionMessage(
             "Maximum 20 photos are allowed.",
@@ -3329,14 +3177,12 @@ async function submitAnswerSheet() {
         );
 
 
-    submitButton.disabled =
-        true;
+    submitButton.disabled = true;
 
 
     document.getElementById(
         "progressContainer"
-    ).style.display =
-        "block";
+    ).style.display = "block";
 
 
     clearSubmissionMessage();
@@ -3355,16 +3201,10 @@ async function submitAnswerSheet() {
 
             updateProgress(
                 Math.round(
-                    (
-                        i /
-                        selectedFiles.length
-                    ) *
-                    80
+                    (i / selectedFiles.length) * 80
                 ),
                 "Preparing photo " +
-                (
-                    i + 1
-                ) +
+                (i + 1) +
                 " of " +
                 selectedFiles.length +
                 "..."
@@ -3376,14 +3216,8 @@ async function submitAnswerSheet() {
 
 
             const base64 =
-                await fileToBase64(
-                    file
-                );
+                await fileToBase64(file);
 
-
-            /*
-             * Code.gs expects fileBase64.
-             */
 
             photos.push({
 
@@ -3433,9 +3267,7 @@ async function submitAnswerSheet() {
             );
 
 
-        if (
-            response.success === false
-        ) {
+        if (response.success === false) {
 
             throw new Error(
                 response.message ||
@@ -3463,8 +3295,7 @@ async function submitAnswerSheet() {
 
         document.getElementById(
             "previewGrid"
-        ).innerHTML =
-            "";
+        ).innerHTML = "";
 
 
         await loadSubmissionStatus();
@@ -3498,8 +3329,7 @@ async function submitAnswerSheet() {
 
     } finally {
 
-        submitButton.disabled =
-            false;
+        submitButton.disabled = false;
 
     }
 }
@@ -3547,9 +3377,7 @@ function startEditMode() {
         ) || 0;
 
 
-    if (
-        editCount >= 1
-    ) {
+    if (editCount >= 1) {
 
         showSubmissionMessage(
             "Edit opportunity already used. No more edits are allowed.",
@@ -3560,13 +3388,7 @@ function startEditMode() {
     }
 
 
-    /*
-     * START EDIT
-     */
-
-    editingSubmission =
-        true;
-
+    editingSubmission = true;
 
     selectedFiles = [];
 
@@ -3595,15 +3417,13 @@ function startEditMode() {
 
     document.getElementById(
         "previewGrid"
-    ).innerHTML =
-        "";
+    ).innerHTML = "";
 
 
     /*
-     * THIS IS THE IMPORTANT FIX.
-     *
-     * Show the complete camera/file
-     * submission area again.
+     * IMPORTANT:
+     * Camera + Choose File are shown
+     * again during Edit.
      */
 
     document.getElementById(
@@ -3613,20 +3433,12 @@ function startEditMode() {
     );
 
 
-    /*
-     * Normal submit hidden.
-     */
-
     document.getElementById(
         "submitBtn"
     ).classList.add(
         "hidden"
     );
 
-
-    /*
-     * Edit button hidden while editing.
-     */
 
     document.getElementById(
         "editBtn"
@@ -3635,20 +3447,12 @@ function startEditMode() {
     );
 
 
-    /*
-     * Update button shown.
-     */
-
     document.getElementById(
         "editSubmitBtn"
     ).classList.remove(
         "hidden"
     );
 
-
-    /*
-     * Cancel button shown.
-     */
 
     document.getElementById(
         "cancelEditBtn"
@@ -3659,8 +3463,7 @@ function startEditMode() {
 
     document.getElementById(
         "progressContainer"
-    ).style.display =
-        "none";
+    ).style.display = "none";
 
 
     showSubmissionMessage(
@@ -3669,10 +3472,6 @@ function startEditMode() {
     );
 
 
-    /*
-     * Scroll to camera/file section.
-     */
-
     setTimeout(
         function() {
 
@@ -3680,11 +3479,8 @@ function startEditMode() {
                 "submissionArea"
             ).scrollIntoView(
                 {
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "start"
+                    behavior: "smooth",
+                    block: "start"
                 }
             );
 
@@ -3700,9 +3496,7 @@ function startEditMode() {
 
 function cancelEditMode() {
 
-    editingSubmission =
-        false;
-
+    editingSubmission = false;
 
     selectedFiles = [];
 
@@ -3731,8 +3525,7 @@ function cancelEditMode() {
 
     document.getElementById(
         "previewGrid"
-    ).innerHTML =
-        "";
+    ).innerHTML = "";
 
 
     document.getElementById(
@@ -3757,7 +3550,6 @@ function cancelEditMode() {
 
 
     clearSubmissionMessage();
-
 
     loadSubmissionStatus();
 }
@@ -3816,17 +3608,14 @@ async function editAnswerSheet() {
         ) || 0;
 
 
-    if (
-        currentEditCount >= 1
-    ) {
+    if (currentEditCount >= 1) {
 
         showSubmissionMessage(
             "Edit opportunity already used. No more edits are allowed.",
             "error"
         );
 
-        editingSubmission =
-            false;
+        editingSubmission = false;
 
         return;
     }
@@ -3846,9 +3635,7 @@ async function editAnswerSheet() {
     }
 
 
-    if (
-        selectedFiles.length > 20
-    ) {
+    if (selectedFiles.length > 20) {
 
         showSubmissionMessage(
             "Maximum 20 photos are allowed.",
@@ -3865,14 +3652,12 @@ async function editAnswerSheet() {
         );
 
 
-    editButton.disabled =
-        true;
+    editButton.disabled = true;
 
 
     document.getElementById(
         "progressContainer"
-    ).style.display =
-        "block";
+    ).style.display = "block";
 
 
     clearSubmissionMessage();
@@ -3891,16 +3676,10 @@ async function editAnswerSheet() {
 
             updateProgress(
                 Math.round(
-                    (
-                        i /
-                        selectedFiles.length
-                    ) *
-                    80
+                    (i / selectedFiles.length) * 80
                 ),
                 "Preparing photo " +
-                (
-                    i + 1
-                ) +
+                (i + 1) +
                 " of " +
                 selectedFiles.length +
                 "..."
@@ -3912,16 +3691,8 @@ async function editAnswerSheet() {
 
 
             const base64 =
-                await fileToBase64(
-                    file
-                );
+                await fileToBase64(file);
 
-
-            /*
-             * IMPORTANT:
-             * Same fileBase64 format as
-             * normal submission.
-             */
 
             photos.push({
 
@@ -3971,9 +3742,7 @@ async function editAnswerSheet() {
             );
 
 
-        if (
-            response.success === false
-        ) {
+        if (response.success === false) {
 
             throw new Error(
                 response.message ||
@@ -3998,14 +3767,12 @@ async function editAnswerSheet() {
 
         selectedFiles = [];
 
-        editingSubmission =
-            false;
+        editingSubmission = false;
 
 
         document.getElementById(
             "previewGrid"
-        ).innerHTML =
-            "";
+        ).innerHTML = "";
 
 
         document.getElementById(
@@ -4044,11 +3811,9 @@ async function editAnswerSheet() {
             "error"
         );
 
-
     } finally {
 
-        editButton.disabled =
-            false;
+        editButton.disabled = false;
 
     }
 }
@@ -4077,14 +3842,10 @@ function fileToBase64(file) {
 
 
                     const commaIndex =
-                        result.indexOf(
-                            ","
-                        );
+                        result.indexOf(",");
 
 
-                    if (
-                        commaIndex !== -1
-                    ) {
+                    if (commaIndex !== -1) {
 
                         result =
                             result.substring(
@@ -4094,9 +3855,7 @@ function fileToBase64(file) {
                     }
 
 
-                    resolve(
-                        result
-                    );
+                    resolve(result);
 
                 };
 
@@ -4114,9 +3873,7 @@ function fileToBase64(file) {
                 };
 
 
-            reader.readAsDataURL(
-                file
-            );
+            reader.readAsDataURL(file);
 
         }
     );
@@ -4127,10 +3884,7 @@ function fileToBase64(file) {
    PROGRESS
    ========================================================= */
 
-function updateProgress(
-    percent,
-    text
-) {
+function updateProgress(percent, text) {
 
     document.getElementById(
         "progressBar"
@@ -4141,8 +3895,7 @@ function updateProgress(
                 100,
                 percent
             )
-        ) +
-        "%";
+        ) + "%";
 
 
     document.getElementById(
@@ -4233,7 +3986,6 @@ async function loadResults() {
 
         renderResults();
 
-
     } catch (error) {
 
         console.warn(
@@ -4247,8 +3999,7 @@ async function loadResults() {
 
         document.getElementById(
             "resultCount"
-        ).textContent =
-            "0";
+        ).textContent = "0";
 
 
         loading.textContent =
@@ -4285,8 +4036,7 @@ function renderResults() {
         );
 
 
-    body.innerHTML =
-        "";
+    body.innerHTML = "";
 
 
     if (
@@ -4294,37 +4044,27 @@ function renderResults() {
         results.length === 0
     ) {
 
-        loading.style.display =
-            "block";
-
+        loading.style.display = "block";
 
         loading.textContent =
             "No results available.";
 
-
-        table.style.display =
-            "none";
-
+        table.style.display = "none";
 
         return;
     }
 
 
-    loading.style.display =
-        "none";
+    loading.style.display = "none";
 
-
-    table.style.display =
-        "table";
+    table.style.display = "table";
 
 
     results.forEach(
         function(result, index) {
 
             const row =
-                document.createElement(
-                    "tr"
-                );
+                document.createElement("tr");
 
 
             let subjectName =
@@ -4340,9 +4080,7 @@ function renderResults() {
 
 
             let paperCode =
-                getPaperCode(
-                    result
-                );
+                getPaperCode(result);
 
 
             const paperId =
@@ -4358,10 +4096,7 @@ function renderResults() {
 
 
             if (
-                (
-                    !subjectName ||
-                    !paperCode
-                ) &&
+                (!subjectName || !paperCode) &&
                 paperId
             ) {
 
@@ -4370,13 +4105,9 @@ function renderResults() {
                         function(paper) {
 
                             return normalize(
-                                getPaperId(
-                                    paper
-                                )
+                                getPaperId(paper)
                             ) ===
-                            normalize(
-                                paperId
-                            );
+                            normalize(paperId);
 
                         }
                     );
@@ -4460,57 +4191,45 @@ function renderResults() {
             row.innerHTML =
 
                 "<td>" +
-                (
-                    index + 1
+                (index + 1) +
+                "</td>" +
+
+                "<td>" +
+                escapeHtml(
+                    subjectName || "-"
                 ) +
                 "</td>" +
 
                 "<td>" +
                 escapeHtml(
-                    subjectName ||
-                    "-"
+                    paperCode || "-"
                 ) +
                 "</td>" +
 
                 "<td>" +
                 escapeHtml(
-                    paperCode ||
-                    "-"
+                    marks || "-"
                 ) +
                 "</td>" +
 
                 "<td>" +
                 escapeHtml(
-                    marks ||
-                    "-"
+                    percentage || "-"
                 ) +
+                "</td>" +
+
+                "<td>" +
+                getStatusBadge(status) +
                 "</td>" +
 
                 "<td>" +
                 escapeHtml(
-                    percentage ||
-                    "-"
-                ) +
-                "</td>" +
-
-                "<td>" +
-                getStatusBadge(
-                    status
-                ) +
-                "</td>" +
-
-                "<td>" +
-                escapeHtml(
-                    formatDate(
-                        date
-                    )
+                    formatDate(date)
                 ) +
                 "</td>";
 
 
-            body.appendChild(
-                row
-            );
+            body.appendChild(row);
 
         }
     );
@@ -4533,8 +4252,7 @@ async function updateSubmissionCount() {
 
         document.getElementById(
             "submissionCount"
-        ).textContent =
-            "0";
+        ).textContent = "0";
 
         return;
     }
@@ -4547,9 +4265,7 @@ async function updateSubmissionCount() {
                 async function(paper) {
 
                     const paperId =
-                        getPaperId(
-                            paper
-                        );
+                        getPaperId(paper);
 
 
                     if (!paperId) {
@@ -4594,17 +4310,13 @@ async function updateSubmissionCount() {
 
 
         const values =
-            await Promise.all(
-                checks
-            );
+            await Promise.all(checks);
 
 
         count =
             values.filter(
                 function(value) {
-
                     return value;
-
                 }
             ).length;
 
@@ -4627,14 +4339,11 @@ async function updateSubmissionCount() {
    STATUS BADGE
    ========================================================= */
 
-function getStatusBadge(
-    status
-) {
+function getStatusBadge(status) {
 
     const value =
         String(
-            status ||
-            "-"
+            status || "-"
         );
 
 
@@ -4679,9 +4388,7 @@ function getStatusBadge(
         "<span class='badge " +
         className +
         "'>" +
-        escapeHtml(
-            value
-        ) +
+        escapeHtml(value) +
         "</span>"
     );
 }
@@ -4691,9 +4398,7 @@ function getStatusBadge(
    SUBJECT HELPERS
    ========================================================= */
 
-function getSubjectId(
-    subject
-) {
+function getSubjectId(subject) {
 
     return getValue(
         subject,
@@ -4710,33 +4415,46 @@ function getSubjectId(
 }
 
 
-function getSubjectName(
-    subject
-) {
+function getSubjectName(subject) {
 
-    return getFlexiblePaperValue(
-        subject,
-        [
-            "subjectName",
-            "Subject Name",
-            "SubjectName",
-            "subject_name",
-            "subject",
-            "Subject",
-            "name",
-            "Name",
-            "title",
-            "Title"
-        ]
-    );
+    const value =
+        getDeepFlexibleValue(
+            subject,
+            [
+                "subjectName",
+                "Subject Name",
+                "SubjectName",
+                "subject_name",
+                "subject",
+                "Subject",
+                "name",
+                "Name",
+                "title",
+                "Title"
+            ]
+        );
+
+
+    /*
+     * Small display correction only.
+     */
+
+    if (
+        normalize(value) ===
+        "buisness studies"
+    ) {
+
+        return "Business Studies";
+    }
+
+
+    return value;
 }
 
 
-function getSubjectCode(
-    subject
-) {
+function getSubjectCode(subject) {
 
-    return getFlexiblePaperValue(
+    return getDeepFlexibleValue(
         subject,
         [
             "subjectCode",
@@ -4754,9 +4472,7 @@ function getSubjectCode(
    PAPER ID
    ========================================================= */
 
-function getPaperId(
-    paper
-) {
+function getPaperId(paper) {
 
     return getValue(
         paper,
@@ -4777,18 +4493,45 @@ function getPaperId(
    PAPER SUBJECT ID
    ========================================================= */
 
-function getPaperSubjectId(
-    paper
-) {
+function getPaperSubjectId(paper) {
 
-    return getValue(
+    let value =
+        getFlexiblePaperValue(
+            paper,
+            [
+                "subjectId",
+                "subjectID",
+                "Subject ID",
+                "SubjectID",
+                "subject_id"
+            ]
+        );
+
+
+    if (value) {
+        return value;
+    }
+
+
+    /*
+     * Sometimes subject is an object.
+     */
+
+    if (
+        paper &&
+        typeof paper.subject === "object"
+    ) {
+
+        return getSubjectId(
+            paper.subject
+        );
+
+    }
+
+
+    return getFlexiblePaperValue(
         paper,
         [
-            "subjectId",
-            "subjectID",
-            "Subject ID",
-            "SubjectID",
-            "subject_id",
             "subject"
         ]
     );
@@ -4799,82 +4542,128 @@ function getPaperSubjectId(
    PAPER SUBJECT NAME
    ========================================================= */
 
-function getPaperSubjectName(
-    paper
-) {
+function getPaperSubjectName(paper) {
 
     if (
         !paper ||
         typeof paper !== "object"
     ) {
-
         return "";
-
     }
 
 
     /*
-     * First try direct subject name.
+     * Direct paper.
      */
 
-    const directName =
-        getFlexiblePaperValue(
+    let directName =
+        getDeepFlexibleValue(
             paper,
             [
                 "subjectName",
                 "Subject Name",
                 "SubjectName",
                 "subject_name",
-                "subject",
-                "Subject",
                 "subjectTitle",
-                "Subject Title"
+                "Subject Title",
+                "subject_title"
             ]
         );
 
 
     if (directName) {
+
+        if (
+            normalize(directName) ===
+            "buisness studies"
+        ) {
+            return "Business Studies";
+        }
+
         return directName;
     }
 
 
     /*
-     * Find subject using subject ID.
+     * Subject may itself be an object.
      */
 
-    const paperSubjectId =
-        getPaperSubjectId(
+    if (
+        paper.subject &&
+        typeof paper.subject === "object"
+    ) {
+
+        const nestedName =
+            getSubjectName(
+                paper.subject
+            );
+
+
+        if (nestedName) {
+            return nestedName;
+        }
+
+    }
+
+
+    /*
+     * Matching assignment.
+     */
+
+    const assignment =
+        findMatchingAssignment(
             paper
         );
 
 
-    if (
-        paperSubjectId &&
-        Array.isArray(subjects)
-    ) {
+    if (assignment) {
 
-        const subject =
-            subjects.find(
-                function(item) {
-
-                    return normalize(
-                        getSubjectId(
-                            item
-                        )
-                    ) ===
-                    normalize(
-                        paperSubjectId
-                    );
-
-                }
+        const assignmentName =
+            getDeepFlexibleValue(
+                assignment,
+                [
+                    "subjectName",
+                    "Subject Name",
+                    "SubjectName",
+                    "subject_name",
+                    "subjectTitle",
+                    "Subject Title",
+                    "subject",
+                    "Subject"
+                ]
             );
 
 
-        if (subject) {
+        if (
+            assignmentName &&
+            typeof assignmentName !== "object"
+        ) {
 
-            return getSubjectName(
-                subject
-            );
+            if (
+                normalize(assignmentName) ===
+                "buisness studies"
+            ) {
+                return "Business Studies";
+            }
+
+            return assignmentName;
+        }
+
+
+        if (
+            assignment.subject &&
+            typeof assignment.subject === "object"
+        ) {
+
+            const name =
+                getSubjectName(
+                    assignment.subject
+                );
+
+
+            if (name) {
+                return name;
+            }
 
         }
 
@@ -4882,40 +4671,20 @@ function getPaperSubjectName(
 
 
     /*
-     * Search all subjects.
+     * Matching subject from Subjects sheet.
      */
 
-    if (
-        paperSubjectId &&
-        Array.isArray(
-            allSubjectsForLookup
-        )
-    ) {
-
-        const subject =
-            allSubjectsForLookup.find(
-                function(item) {
-
-                    return normalize(
-                        getSubjectId(
-                            item
-                        )
-                    ) ===
-                    normalize(
-                        paperSubjectId
-                    );
-
-                }
-            );
+    const subject =
+        findMatchingSubject(
+            paper
+        );
 
 
-        if (subject) {
+    if (subject) {
 
-            return getSubjectName(
-                subject
-            );
-
-        }
+        return getSubjectName(
+            subject
+        );
 
     }
 
@@ -4928,11 +4697,15 @@ function getPaperSubjectName(
    PAPER CODE
    ========================================================= */
 
-function getPaperCode(
-    paper
-) {
+function getPaperCode(paper) {
 
-    return getFlexiblePaperValue(
+    /*
+     * Search the paper first,
+     * then assignment,
+     * then subject.
+     */
+
+    return getPaperMetadataValue(
         paper,
         [
             "paperCode",
@@ -4944,8 +4717,21 @@ function getPaperCode(
             "questionPaperCode",
             "Question Paper Code",
             "QuestionPaperCode",
+            "question_paper_code",
+            "question-paper-code",
             "code",
-            "Code"
+            "Code",
+            "examCode",
+            "Exam Code",
+            "ExamCode",
+            "exam_code",
+            "paperNumber",
+            "Paper Number",
+            "paperNo",
+            "Paper No",
+            "paperNumber",
+            "Question Paper No",
+            "Question Paper Number"
         ]
     );
 }
@@ -4955,11 +4741,9 @@ function getPaperCode(
    PAPER TITLE
    ========================================================= */
 
-function getPaperTitle(
-    paper
-) {
+function getPaperTitle(paper) {
 
-    return getFlexiblePaperValue(
+    return getDeepFlexibleValue(
         paper,
         [
             "title",
@@ -4980,11 +4764,9 @@ function getPaperTitle(
    PDF URL
    ========================================================= */
 
-function getPaperPdfUrl(
-    paper
-) {
+function getPaperPdfUrl(paper) {
 
-    return getFlexiblePaperValue(
+    return getDeepFlexibleValue(
         paper,
         [
             "pdfUrl",
@@ -5006,6 +4788,117 @@ function getPaperPdfUrl(
 
 
 /* =========================================================
+   DEEP FLEXIBLE VALUE
+   ========================================================= */
+
+function getDeepFlexibleValue(
+    object,
+    keys
+) {
+
+    if (
+        !object ||
+        typeof object !== "object"
+    ) {
+        return "";
+    }
+
+
+    /*
+     * First search the object itself.
+     */
+
+    const direct =
+        getFlexiblePaperValue(
+            object,
+            keys
+        );
+
+
+    if (direct) {
+
+        /*
+         * Do not return [object Object].
+         */
+
+        if (
+            typeof direct === "string" &&
+            direct !== "[object Object]"
+        ) {
+
+            return direct;
+
+        }
+
+    }
+
+
+    /*
+     * Search common nested objects.
+     */
+
+    const nestedKeys = [
+        "subject",
+        "Subject",
+        "exam",
+        "Exam",
+        "schedule",
+        "Schedule",
+        "details",
+        "Details",
+        "metadata",
+        "Metadata",
+        "paper",
+        "Paper",
+        "questionPaper",
+        "Question Paper"
+    ];
+
+
+    for (
+        let i = 0;
+        i < nestedKeys.length;
+        i++
+    ) {
+
+        const nested =
+            object[
+                nestedKeys[i]
+            ];
+
+
+        if (
+            nested &&
+            typeof nested === "object" &&
+            !Array.isArray(nested)
+        ) {
+
+            const value =
+                getFlexiblePaperValue(
+                    nested,
+                    keys
+                );
+
+
+            if (
+                value &&
+                value !== "[object Object]"
+            ) {
+
+                return value;
+
+            }
+
+        }
+
+    }
+
+
+    return "";
+}
+
+
+/* =========================================================
    FLEXIBLE VALUE
    ========================================================= */
 
@@ -5018,9 +4911,7 @@ function getFlexiblePaperValue(
         !object ||
         typeof object !== "object"
     ) {
-
         return "";
-
     }
 
 
@@ -5052,12 +4943,11 @@ function getFlexiblePaperValue(
             if (
                 value !== null &&
                 value !== undefined &&
+                typeof value !== "object" &&
                 String(value).trim() !== ""
             ) {
 
-                return String(
-                    value
-                ).trim();
+                return String(value).trim();
 
             }
 
@@ -5070,27 +4960,23 @@ function getFlexiblePaperValue(
      * Normalized key.
      */
 
-    function cleanKey(
-        value
-    ) {
+    const cleanKey =
+        function(value) {
 
-        return String(
-            value ||
-            ""
-        )
-        .toLowerCase()
-        .replace(
-            /[\s_\-]/g,
-            ""
-        );
+            return String(
+                value || ""
+            )
+            .toLowerCase()
+            .replace(
+                /[\s_\-]/g,
+                ""
+            );
 
-    }
+        };
 
 
     const objectKeys =
-        Object.keys(
-            object
-        );
+        Object.keys(object);
 
 
     for (
@@ -5100,9 +4986,7 @@ function getFlexiblePaperValue(
     ) {
 
         const wantedKey =
-            cleanKey(
-                keys[i]
-            );
+            cleanKey(keys[i]);
 
 
         for (
@@ -5116,21 +5000,18 @@ function getFlexiblePaperValue(
 
 
             if (
-                cleanKey(
-                    actualKey
-                ) ===
+                cleanKey(actualKey) ===
                 wantedKey
             ) {
 
                 const value =
-                    object[
-                        actualKey
-                    ];
+                    object[actualKey];
 
 
                 if (
                     value !== null &&
                     value !== undefined &&
+                    typeof value !== "object" &&
                     String(value).trim() !== ""
                 ) {
 
@@ -5164,15 +5045,9 @@ function getValue(
         !object ||
         typeof object !== "object"
     ) {
-
         return "";
-
     }
 
-
-    /*
-     * Exact keys.
-     */
 
     for (
         let i = 0;
@@ -5198,13 +5073,11 @@ function getValue(
             if (
                 value !== null &&
                 value !== undefined &&
+                typeof value !== "object" &&
                 String(value).trim() !== ""
             ) {
 
-                return String(
-                    value
-                );
-
+                return String(value);
             }
 
         }
@@ -5212,31 +5085,23 @@ function getValue(
     }
 
 
-    /*
-     * Normalized keys.
-     */
+    const cleanKey =
+        function(value) {
 
-    function cleanKey(
-        value
-    ) {
+            return String(
+                value || ""
+            )
+            .toLowerCase()
+            .replace(
+                /[\s_\-]/g,
+                ""
+            );
 
-        return String(
-            value ||
-            ""
-        )
-        .toLowerCase()
-        .replace(
-            /[\s_\-]/g,
-            ""
-        );
-
-    }
+        };
 
 
     const objectKeys =
-        Object.keys(
-            object
-        );
+        Object.keys(object);
 
 
     for (
@@ -5246,9 +5111,7 @@ function getValue(
     ) {
 
         const wanted =
-            cleanKey(
-                keys[i]
-            );
+            cleanKey(keys[i]);
 
 
         for (
@@ -5273,13 +5136,11 @@ function getValue(
                 if (
                     value !== null &&
                     value !== undefined &&
+                    typeof value !== "object" &&
                     String(value).trim() !== ""
                 ) {
 
-                    return String(
-                        value
-                    );
-
+                    return String(value);
                 }
 
             }
@@ -5297,13 +5158,10 @@ function getValue(
    NORMALIZE
    ========================================================= */
 
-function normalize(
-    value
-) {
+function normalize(value) {
 
     return String(
-        value ||
-        ""
+        value || ""
     )
     .trim()
     .toLowerCase();
@@ -5314,57 +5172,94 @@ function normalize(
    DATE
    ========================================================= */
 
-function formatDate(
-    value
-) {
+function formatDate(value) {
 
     if (
         value === null ||
         value === undefined ||
         value === ""
     ) {
-
         return "-";
+    }
+
+
+    const text =
+        String(value).trim();
+
+
+    /*
+     * IMPORTANT:
+     * Date-only value such as
+     * 2026-09-15 should not shift
+     * to the previous day because of
+     * timezone conversion.
+     */
+
+    const dateOnlyMatch =
+        text.match(
+            /^(\d{4})-(\d{2})-(\d{2})$/
+        );
+
+
+    if (dateOnlyMatch) {
+
+        return (
+            dateOnlyMatch[3] +
+            "/" +
+            dateOnlyMatch[2] +
+            "/" +
+            dateOnlyMatch[1]
+        );
 
     }
 
 
     /*
-     * Handle Google Sheets date strings.
+     * dd/mm/yyyy
      */
 
-    const date =
-        new Date(
-            value
+    const indianDateMatch =
+        text.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
         );
 
 
-    if (
-        !isNaN(
-            date.getTime()
-        )
-    ) {
+    if (indianDateMatch) {
+
+        return (
+            String(
+                indianDateMatch[1]
+            ).padStart(2, "0") +
+            "/" +
+            String(
+                indianDateMatch[2]
+            ).padStart(2, "0") +
+            "/" +
+            indianDateMatch[3]
+        );
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (!isNaN(date.getTime())) {
 
         return date.toLocaleDateString(
             "en-IN",
             {
-                day:
-                    "2-digit",
-
-                month:
-                    "2-digit",
-
-                year:
-                    "numeric"
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
             }
         );
 
     }
 
 
-    return String(
-        value
-    );
+    return text;
 }
 
 
@@ -5372,25 +5267,19 @@ function formatDate(
    TIME
    ========================================================= */
 
-function formatTime(
-    value
-) {
+function formatTime(value) {
 
     if (
         value === null ||
         value === undefined ||
         value === ""
     ) {
-
         return "-";
-
     }
 
 
     const text =
-        String(
-            value
-        ).trim();
+        String(value).trim();
 
 
     if (!text) {
@@ -5399,73 +5288,44 @@ function formatTime(
 
 
     /*
-     * If already formatted as time,
-     * display it directly.
+     * Already formatted.
      */
 
     if (
-        /am|pm/i.test(
-            text
-        )
+        /am|pm/i.test(text)
     ) {
-
         return text;
-
     }
 
 
     /*
-     * Handle Google Sheets / Date
-     * time values.
+     * Simple HH:mm
      */
 
-    const date =
-        new Date(
-            value
+    const simpleTime =
+        text.match(
+            /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/
         );
 
 
-    if (
-        !isNaN(
-            date.getTime()
-        ) &&
-        (
-            text.includes("T") ||
-            text.includes("/") ||
-            text.includes("-") ||
-            text.includes(":")
-        )
-    ) {
+    if (simpleTime) {
 
-        const hours =
-            date.getHours();
+        let hours =
+            Number(
+                simpleTime[1]
+            );
 
 
         const minutes =
-            date.getMinutes();
+            String(
+                simpleTime[2]
+            ).padStart(2, "0");
 
 
         if (
-            hours !== 0 ||
-            minutes !== 0
+            hours >= 0 &&
+            hours <= 23
         ) {
-
-            let h =
-                hours % 12;
-
-            if (h === 0) {
-                h = 12;
-            }
-
-
-            const m =
-                String(
-                    minutes
-                ).padStart(
-                    2,
-                    "0"
-                );
-
 
             const suffix =
                 hours >= 12
@@ -5473,15 +5333,70 @@ function formatTime(
                     : "AM";
 
 
+            let displayHour =
+                hours % 12;
+
+
+            if (displayHour === 0) {
+                displayHour = 12;
+            }
+
+
             return (
-                h +
+                displayHour +
                 ":" +
-                m +
+                minutes +
                 " " +
                 suffix
             );
 
         }
+
+    }
+
+
+    /*
+     * Date / ISO time.
+     */
+
+    const date =
+        new Date(value);
+
+
+    if (!isNaN(date.getTime())) {
+
+        let hours =
+            date.getHours();
+
+
+        const minutes =
+            String(
+                date.getMinutes()
+            ).padStart(2, "0");
+
+
+        let displayHour =
+            hours % 12;
+
+
+        if (displayHour === 0) {
+            displayHour = 12;
+        }
+
+
+        const suffix =
+            hours >= 12
+                ? "PM"
+                : "AM";
+
+
+        return (
+            displayHour +
+            ":" +
+            minutes +
+            " " +
+            suffix
+        );
 
     }
 
@@ -5494,9 +5409,7 @@ function formatTime(
    ESCAPE HTML
    ========================================================= */
 
-function escapeHtml(
-    value
-) {
+function escapeHtml(value) {
 
     return String(
         value === null ||
@@ -5504,26 +5417,11 @@ function escapeHtml(
             ? ""
             : value
     )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 
@@ -5543,8 +5441,7 @@ function showGlobalMessage(
 
 
     box.textContent =
-        message ||
-        "";
+        message || "";
 
 
     box.className =
@@ -5572,8 +5469,7 @@ function showSubmissionMessage(
 
 
     box.textContent =
-        message ||
-        "";
+        message || "";
 
 
     box.className =
@@ -5593,12 +5489,9 @@ function clearSubmissionMessage() {
         );
 
 
-    box.textContent =
-        "";
+    box.textContent = "";
 
-
-    box.className =
-        "message";
+    box.className = "message";
 }
 
 
