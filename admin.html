@@ -799,21 +799,12 @@ tr:hover td {
 
                     <label>Result</label>
 
-                    <select id="resultStatus">
-
-                        <option value="">
-                            Select Result
-                        </option>
-
-                        <option value="Pass">
-                            Pass
-                        </option>
-
-                        <option value="Fail">
-                            Fail
-                        </option>
-
-                    </select>
+                    <input
+                        type="text"
+                        id="resultStatus"
+                        placeholder="Auto calculated at 33%"
+                        readonly
+                    >
 
                 </div>
 
@@ -3644,22 +3635,44 @@ function calculatePercentage() {
         );
 
 
+    const resultInput =
+        document.getElementById(
+            "resultStatus"
+        );
+
+
     if (
         !isNaN(marks) &&
         !isNaN(total) &&
         total > 0
     ) {
 
+        const percentage =
+            (marks / total) * 100;
+
+
         percentageInput.value =
-            (
-                (marks / total) *
-                100
-            ).toFixed(2) +
+            percentage.toFixed(2) +
             "%";
+
+
+        /*
+         * PASS / FAIL RULE
+         *
+         * 33% or above = PASS
+         * Below 33% = FAIL
+         */
+
+        resultInput.value =
+            percentage >= 33
+            ? "Pass"
+            : "Fail";
 
     } else {
 
         percentageInput.value = "";
+
+        resultInput.value = "";
 
     }
 }
@@ -3695,22 +3708,24 @@ async function saveResult() {
         ).value;
 
 
-    const percentage =
-        document.getElementById(
-            "resultPercentage"
-        ).value;
-
-
-    const result =
-        document.getElementById(
-            "resultStatus"
-        ).value;
-
-
     const remarks =
         document.getElementById(
             "resultRemarks"
         ).value.trim();
+
+
+    /*
+     * Calculate percentage and result
+     * again here so the saved result
+     * cannot be changed manually.
+     */
+
+    const marksNumber =
+        parseFloat(marks);
+
+
+    const totalNumber =
+        parseFloat(total);
 
 
     if (
@@ -3718,7 +3733,9 @@ async function saveResult() {
         !paperId ||
         marks === "" ||
         total === "" ||
-        !result
+        isNaN(marksNumber) ||
+        isNaN(totalNumber) ||
+        totalNumber <= 0
     ) {
 
         showMessage(
@@ -3728,6 +3745,36 @@ async function saveResult() {
 
         return;
     }
+
+
+    const calculatedPercentage =
+        (marksNumber / totalNumber) * 100;
+
+
+    const percentage =
+        calculatedPercentage.toFixed(2) +
+        "%";
+
+
+    const result =
+        calculatedPercentage >= 33
+        ? "Pass"
+        : "Fail";
+
+
+    /*
+     * Show the calculated values
+     * before saving.
+     */
+
+    document.getElementById(
+        "resultPercentage"
+    ).value = percentage;
+
+
+    document.getElementById(
+        "resultStatus"
+    ).value = result;
 
 
     /*
@@ -4250,7 +4297,7 @@ function logout() {
     ) {
 
         window.location.href =
-            "admin-login.html";
+            "index.html";
 
     }
 }
