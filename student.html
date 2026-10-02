@@ -119,10 +119,6 @@ body {
     padding-bottom: 10px;
 }
 
-/* =========================================================
-   SUBJECT CARDS
-   ========================================================= */
-
 .subject-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -332,10 +328,6 @@ button:disabled {
     color: #1e40af;
 }
 
-/* =========================================================
-   UPLOAD
-   ========================================================= */
-
 .file-area {
     border: 2px dashed #94a3b8;
     border-radius: 10px;
@@ -449,10 +441,6 @@ button:disabled {
     color: #475569;
 }
 
-/* =========================================================
-   RESULTS
-   ========================================================= */
-
 .table-wrap {
     width: 100%;
     overflow-x: auto;
@@ -513,10 +501,6 @@ tr:nth-child(even) {
     background: #fee2e2;
     color: #991b1b;
 }
-
-/* =========================================================
-   PDF MODAL
-   ========================================================= */
 
 .pdf-modal {
     display: none;
@@ -582,10 +566,6 @@ tr:nth-child(even) {
 .center {
     text-align: center;
 }
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 
 @media (max-width: 900px) {
 
@@ -685,10 +665,7 @@ tr:nth-child(even) {
 
 <main class="container">
 
-    <div
-        id="globalMessage"
-        class="message">
-    </div>
+    <div id="globalMessage" class="message"></div>
 
 
     <!-- WELCOME -->
@@ -721,48 +698,37 @@ tr:nth-child(even) {
                 Assigned Subjects
             </div>
 
-            <div
-                class="summary-value"
-                id="subjectCount">
+            <div class="summary-value" id="subjectCount">
                 0
             </div>
         </div>
-
 
         <div class="summary-card">
             <div class="summary-title">
-                Question Papers
+                Published Question Papers
             </div>
 
-            <div
-                class="summary-value"
-                id="paperCount">
+            <div class="summary-value" id="paperCount">
                 0
             </div>
         </div>
-
 
         <div class="summary-card">
             <div class="summary-title">
                 Submissions
             </div>
 
-            <div
-                class="summary-value"
-                id="submissionCount">
+            <div class="summary-value" id="submissionCount">
                 0
             </div>
         </div>
-
 
         <div class="summary-card">
             <div class="summary-title">
                 Results
             </div>
 
-            <div
-                class="summary-value"
-                id="resultCount">
+            <div class="summary-value" id="resultCount">
                 0
             </div>
         </div>
@@ -770,9 +736,7 @@ tr:nth-child(even) {
     </section>
 
 
-    <!-- =====================================================
-         ASSIGNED SUBJECTS
-         ===================================================== -->
+    <!-- ASSIGNED SUBJECTS -->
 
     <section class="section">
 
@@ -780,28 +744,21 @@ tr:nth-child(even) {
             My Assigned Subjects
         </h3>
 
-        <div
-            id="subjectsLoading"
-            class="loading">
+        <div id="subjectsLoading" class="loading">
             Loading assigned subjects...
         </div>
 
-        <div
-            id="subjectsGrid"
-            class="subject-grid">
-        </div>
+        <div id="subjectsGrid" class="subject-grid"></div>
 
     </section>
 
 
-    <!-- =====================================================
-         QUESTION PAPERS
-         ===================================================== -->
+    <!-- QUESTION PAPERS -->
 
     <section class="section">
 
         <h3>
-            Question Papers
+            Published Question Papers
         </h3>
 
         <label for="paperSelect">
@@ -819,9 +776,7 @@ tr:nth-child(even) {
         </select>
 
 
-        <div
-            id="paperInfo"
-            class="paper-info">
+        <div id="paperInfo" class="paper-info">
 
             <div
                 id="paperTitleDisplay"
@@ -922,9 +877,7 @@ tr:nth-child(even) {
     </section>
 
 
-    <!-- =====================================================
-         ANSWER SHEET SUBMISSION
-         ===================================================== -->
+    <!-- ANSWER SHEET SUBMISSION -->
 
     <section
         id="submissionSection"
@@ -977,8 +930,6 @@ tr:nth-child(even) {
         </div>
 
 
-        <!-- UPLOAD AREA -->
-
         <div
             id="submissionArea"
             class="hidden">
@@ -991,8 +942,6 @@ tr:nth-child(even) {
 
 
                 <div class="upload-options">
-
-                    <!-- CAMERA -->
 
                     <label
                         class="upload-option"
@@ -1012,8 +961,6 @@ tr:nth-child(even) {
 
                     </label>
 
-
-                    <!-- FILE -->
 
                     <label
                         class="upload-option"
@@ -1153,9 +1100,7 @@ tr:nth-child(even) {
     </section>
 
 
-    <!-- =====================================================
-         RESULTS
-         ===================================================== -->
+    <!-- RESULTS -->
 
     <section class="section">
 
@@ -1184,17 +1129,11 @@ tr:nth-child(even) {
                     <tr>
 
                         <th>Sr. No.</th>
-
                         <th>Subject</th>
-
                         <th>Paper Code</th>
-
                         <th>Marks</th>
-
                         <th>Percentage</th>
-
                         <th>Status</th>
-
                         <th>Date</th>
 
                     </tr>
@@ -1202,9 +1141,7 @@ tr:nth-child(even) {
                 </thead>
 
 
-                <tbody
-                    id="resultsBody">
-                </tbody>
+                <tbody id="resultsBody"></tbody>
 
             </table>
 
@@ -1273,29 +1210,42 @@ async function api(action, data = {}) {
         ...data
     };
 
-    const response = await fetch(
-        API_URL,
-        {
-            method: "POST",
-            body: JSON.stringify(payload)
-        }
-    );
 
-    const text = await response.text();
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method: "POST",
+                body: JSON.stringify(payload)
+            }
+        );
+
+
+    const text =
+        await response.text();
+
 
     let result;
 
+
     try {
 
-        result = JSON.parse(text);
+        result =
+            JSON.parse(text);
 
     } catch (error) {
+
+        console.error(
+            "Server response:",
+            text
+        );
 
         throw new Error(
             "Invalid server response."
         );
 
     }
+
 
     if (!result) {
 
@@ -1304,6 +1254,7 @@ async function api(action, data = {}) {
         );
 
     }
+
 
     if (
         result.success === false &&
@@ -1316,7 +1267,9 @@ async function api(action, data = {}) {
 
     }
 
+
     return result;
+
 }
 
 
@@ -1334,7 +1287,6 @@ let papers = [];
 let results = [];
 
 let selectedPaper = null;
-
 let selectedFiles = [];
 
 let editingSubmission = false;
@@ -1362,6 +1314,7 @@ document.addEventListener(
 function loadSession() {
 
     let session = null;
+
 
     try {
 
@@ -1455,6 +1408,7 @@ function loadSession() {
             "error"
         );
 
+
         setTimeout(
             function () {
 
@@ -1464,6 +1418,7 @@ function loadSession() {
             },
             1500
         );
+
 
         return;
 
@@ -1498,22 +1453,12 @@ function loadSession() {
 
 
 /* =========================================================
-   DASHBOARD LOAD
+   DASHBOARD
    ========================================================= */
 
 async function loadDashboard() {
 
     try {
-
-        /*
-         * VERY IMPORTANT:
-         *
-         * 1. Get Admin assignments first.
-         * 2. Get subjects.
-         * 3. Filter subjects using assignment subjectId.
-         * 4. Get papers.
-         * 5. Filter papers using assigned subjectId.
-         */
 
         await loadAssignments();
 
@@ -1531,6 +1476,7 @@ async function loadDashboard() {
             "Dashboard:",
             error
         );
+
 
         showGlobalMessage(
             error.message ||
@@ -1576,18 +1522,6 @@ async function loadAssignments() {
         }
 
 
-        /*
-         * IMPORTANT:
-         *
-         * Admin assignment structure:
-         *
-         * studentId
-         * subjectId
-         *
-         * Only assignments belonging to
-         * this student are used.
-         */
-
         assignments =
             assignments.filter(
                 function (assignment) {
@@ -1603,6 +1537,7 @@ async function loadAssignments() {
                             ]
                         );
 
+
                     return (
                         normalize(
                             assignedStudentId
@@ -1617,10 +1552,9 @@ async function loadAssignments() {
 
 
         console.log(
-            "Filtered student assignments:",
+            "Student assignments:",
             assignments
         );
-
 
     } catch (error) {
 
@@ -1632,10 +1566,6 @@ async function loadAssignments() {
 
         assignments = [];
 
-        /*
-         * Do NOT show all subjects if
-         * assignments fail.
-         */
 
         throw new Error(
             "Unable to load your assigned subjects."
@@ -1685,18 +1615,10 @@ async function loadSubjects() {
             [];
 
 
-        if (!Array.isArray(serverSubjects)) {
-
-            subjects = [];
-
-        } else {
-
-            subjects =
-                filterAssignedSubjects(
-                    serverSubjects
-                );
-
-        }
+        subjects =
+            Array.isArray(serverSubjects)
+                ? filterAssignedSubjects(serverSubjects)
+                : [];
 
 
         document.getElementById(
@@ -1707,10 +1629,10 @@ async function loadSubjects() {
 
         renderSubjects();
 
-
     } catch (error) {
 
         subjects = [];
+
 
         document.getElementById(
             "subjectCount"
@@ -1733,12 +1655,10 @@ async function loadSubjects() {
 
 
 /* =========================================================
-   FILTER SUBJECTS USING ADMIN ASSIGNMENTS
+   FILTER ASSIGNED SUBJECTS
    ========================================================= */
 
-function filterAssignedSubjects(
-    serverSubjects
-) {
+function filterAssignedSubjects(serverSubjects) {
 
     if (
         !Array.isArray(serverSubjects) ||
@@ -1749,12 +1669,6 @@ function filterAssignedSubjects(
 
     }
 
-
-    /*
-     * Admin uses subjectId.
-     *
-     * This is the PRIMARY matching method.
-     */
 
     const assignedSubjectIds =
         new Set();
@@ -1796,24 +1710,12 @@ function filterAssignedSubjects(
     );
 
 
-    /*
-     * ONLY return subjects whose subjectId
-     * exists in Admin assignment list.
-     */
-
     return serverSubjects.filter(
         function (subject) {
 
             const subjectId =
-                getValue(
-                    subject,
-                    [
-                        "subjectId",
-                        "subjectID",
-                        "Subject ID",
-                        "SubjectID",
-                        "subject_id"
-                    ]
+                getSubjectId(
+                    subject
                 );
 
 
@@ -1949,6 +1851,7 @@ async function loadPapers() {
             response.papers ||
             response.records ||
             response.data ||
+            response.results ||
             [];
 
 
@@ -1958,10 +1861,6 @@ async function loadPapers() {
 
         }
 
-
-        /*
-         * Filter using ASSIGNED SUBJECT IDS.
-         */
 
         papers =
             filterAssignedPapers(
@@ -1977,7 +1876,6 @@ async function loadPapers() {
 
         renderPaperSelect();
 
-
     } catch (error) {
 
         console.error(
@@ -1987,6 +1885,7 @@ async function loadPapers() {
 
 
         papers = [];
+
 
         document.getElementById(
             "paperCount"
@@ -2007,16 +1906,108 @@ async function loadPapers() {
 
 
 /* =========================================================
+   PUBLISHED CHECK
+   ========================================================= */
+
+function isPaperPublished(paper) {
+
+    if (!paper) {
+
+        return false;
+
+    }
+
+
+    /*
+     * Check common published fields.
+     */
+
+    const publishedValue =
+        getValue(
+            paper,
+            [
+                "published",
+                "Published",
+                "isPublished",
+                "Is Published",
+                "is_published",
+                "publish",
+                "Publish",
+                "publishedStatus",
+                "Published Status"
+            ]
+        );
+
+
+    if (
+        publishedValue !== ""
+    ) {
+
+        const value =
+            normalize(
+                publishedValue
+            );
+
+
+        return (
+            value === "true" ||
+            value === "published" ||
+            value === "publish" ||
+            value === "yes" ||
+            value === "1"
+        );
+
+    }
+
+
+    /*
+     * Some paper systems use Status.
+     */
+
+    const status =
+        getValue(
+            paper,
+            [
+                "status",
+                "Status"
+            ]
+        );
+
+
+    if (status) {
+
+        return (
+            normalize(status) ===
+            "published"
+        );
+
+    }
+
+
+    /*
+     * IMPORTANT:
+     *
+     * If no published field exists,
+     * do NOT show the paper.
+     *
+     * This prevents unpublished papers
+     * from appearing to students.
+     */
+
+    return false;
+
+}
+
+
+/* =========================================================
    FILTER PAPERS
    ========================================================= */
 
-function filterAssignedPapers(
-    paperList
-) {
+function filterAssignedPapers(paperList) {
 
     if (
         !Array.isArray(paperList) ||
-        !Array.isArray(subjects)
+        !Array.isArray(assignments)
     ) {
 
         return [];
@@ -2025,23 +2016,48 @@ function filterAssignedPapers(
 
 
     /*
-     * Build assigned subject ID set.
+     * Use Admin assignments directly.
+     *
+     * Assignment = studentId + subjectId
      */
 
     const assignedSubjectIds =
         new Set();
 
 
-    subjects.forEach(
-        function (subject) {
+    assignments.forEach(
+        function (assignment) {
 
-            const subjectId =
-                getSubjectId(
-                    subject
+            const assignedStudent =
+                getValue(
+                    assignment,
+                    [
+                        "studentId",
+                        "studentID",
+                        "Student ID",
+                        "StudentID"
+                    ]
                 );
 
 
-            if (subjectId) {
+            const subjectId =
+                getValue(
+                    assignment,
+                    [
+                        "subjectId",
+                        "subjectID",
+                        "Subject ID",
+                        "SubjectID",
+                        "subject_id"
+                    ]
+                );
+
+
+            if (
+                normalize(assignedStudent) ===
+                normalize(studentId) &&
+                subjectId
+            ) {
 
                 assignedSubjectIds.add(
                     normalize(subjectId)
@@ -2053,10 +2069,13 @@ function filterAssignedPapers(
     );
 
 
-    /*
-     * Only papers whose subjectId belongs
-     * to the student's assigned subjects.
-     */
+    console.log(
+        "Paper filter assigned subjects:",
+        Array.from(
+            assignedSubjectIds
+        )
+    );
+
 
     return paperList.filter(
         function (paper) {
@@ -2074,11 +2093,41 @@ function filterAssignedPapers(
             }
 
 
-            return assignedSubjectIds.has(
-                normalize(
-                    paperSubjectId
+            /*
+             * FIRST:
+             * Paper must belong to assigned subject.
+             */
+
+            if (
+                !assignedSubjectIds.has(
+                    normalize(
+                        paperSubjectId
+                    )
                 )
-            );
+            ) {
+
+                return false;
+
+            }
+
+
+            /*
+             * SECOND:
+             * Paper MUST be published.
+             */
+
+            if (
+                !isPaperPublished(
+                    paper
+                )
+            ) {
+
+                return false;
+
+            }
+
+
+            return true;
 
         }
     );
@@ -2118,7 +2167,7 @@ function renderPaperSelect() {
 
 
         option.textContent =
-            "No question papers available for your assigned subjects";
+            "No published question papers available";
 
 
         select.appendChild(
@@ -2138,6 +2187,13 @@ function renderPaperSelect() {
                 getPaperId(
                     paper
                 );
+
+
+            if (!paperId) {
+
+                return;
+
+            }
 
 
             const subjectName =
@@ -2163,11 +2219,11 @@ function renderPaperSelect() {
 
 
             /*
-             * STUDENT SEES:
+             * Student sees ONLY:
              *
-             * Subject Name - Paper Title
+             * Subject - Title
              *
-             * Paper ID is NOT displayed.
+             * No Paper ID.
              */
 
             option.textContent =
@@ -2237,6 +2293,7 @@ function showSelectedPaper() {
 
         resetSubmissionUI();
 
+
         return;
 
     }
@@ -2246,13 +2303,15 @@ function showSelectedPaper() {
         papers.find(
             function (paper) {
 
-                return normalize(
-                    getPaperId(
-                        paper
+                return (
+                    normalize(
+                        getPaperId(
+                            paper
+                        )
+                    ) ===
+                    normalize(
+                        paperId
                     )
-                ) ===
-                normalize(
-                    paperId
                 );
 
             }
@@ -2303,6 +2362,7 @@ function showSelectedPaper() {
             [
                 "examDate",
                 "Exam Date",
+                "exam_date",
                 "date",
                 "Date"
             ]
@@ -2315,8 +2375,10 @@ function showSelectedPaper() {
             [
                 "startTime",
                 "Start Time",
+                "start_time",
                 "examStartTime",
-                "Exam Start Time"
+                "Exam Start Time",
+                "exam_start_time"
             ]
         );
 
@@ -2327,8 +2389,10 @@ function showSelectedPaper() {
             [
                 "endTime",
                 "End Time",
+                "end_time",
                 "examEndTime",
-                "Exam End Time"
+                "Exam End Time",
+                "exam_end_time"
             ]
         );
 
@@ -2380,13 +2444,6 @@ function showSelectedPaper() {
         "block";
 
 
-    /*
-     * IMPORTANT:
-     *
-     * Selecting a paper immediately
-     * opens the submission section.
-     */
-
     submissionSection.classList.remove(
         "hidden"
     );
@@ -2415,7 +2472,7 @@ function showSelectedPaper() {
 
 
 /* =========================================================
-   PAPER PDF
+   PDF URL
    ========================================================= */
 
 function getPaperPdfUrl(paper) {
@@ -2438,6 +2495,10 @@ function getPaperPdfUrl(paper) {
 
 }
 
+
+/* =========================================================
+   VIEW PAPER
+   ========================================================= */
 
 function viewSelectedPaper() {
 
@@ -2494,6 +2555,10 @@ function viewSelectedPaper() {
 }
 
 
+/* =========================================================
+   DOWNLOAD PAPER
+   ========================================================= */
+
 function downloadSelectedPaper() {
 
     if (!selectedPaper) {
@@ -2533,6 +2598,10 @@ function downloadSelectedPaper() {
 
 }
 
+
+/* =========================================================
+   CLOSE PDF
+   ========================================================= */
 
 function closePdfModal() {
 
@@ -2653,10 +2722,6 @@ async function loadSubmissionStatus() {
             !!submission;
 
 
-        /* =================================================
-           NOT SUBMITTED
-           ================================================= */
-
         if (!hasSubmission) {
 
             existingSubmission =
@@ -2712,10 +2777,6 @@ async function loadSubmissionStatus() {
 
         }
 
-
-        /* =================================================
-           SUBMITTED
-           ================================================= */
 
         existingSubmission =
             submission ||
@@ -2809,7 +2870,6 @@ async function loadSubmissionStatus() {
                 "hidden"
             );
 
-
         } else {
 
             statusText.innerHTML =
@@ -2821,10 +2881,6 @@ async function loadSubmissionStatus() {
                 "<br>" +
                 "<span class='small-text'>" +
                 "<strong>Edit: 0 times left</strong>" +
-                "</span>" +
-                "<br>" +
-                "<span class='small-text'>" +
-                "Your one edit opportunity has already been used." +
                 "</span>";
 
 
@@ -2849,7 +2905,6 @@ async function loadSubmissionStatus() {
             );
 
         }
-
 
     } catch (error) {
 
@@ -2876,7 +2931,7 @@ async function loadSubmissionStatus() {
 
 
 /* =========================================================
-   RESET SUBMISSION UI
+   RESET SUBMISSION
    ========================================================= */
 
 function resetSubmissionUI() {
@@ -3007,11 +3062,6 @@ function handleCameraFiles() {
     );
 
 
-    /*
-     * Clear input so camera can be opened
-     * again for another answer page.
-     */
-
     input.value =
         "";
 
@@ -3054,16 +3104,12 @@ function handleFileFiles() {
 
 
 /* =========================================================
-   ADD SELECTED FILES
+   ADD FILES
    ========================================================= */
 
-function addSelectedFiles(
-    newFiles
-) {
+function addSelectedFiles(newFiles) {
 
-    if (
-        !Array.isArray(newFiles)
-    ) {
+    if (!Array.isArray(newFiles)) {
 
         return;
 
@@ -3075,9 +3121,7 @@ function addSelectedFiles(
 
             if (
                 !file.type ||
-                !file.type.startsWith(
-                    "image/"
-                )
+                !file.type.startsWith("image/")
             ) {
 
                 showSubmissionMessage(
@@ -3160,21 +3204,48 @@ function previewSelectedFiles() {
                         "preview-item";
 
 
-                    item.innerHTML =
-                        "<img src='" +
-                        event.target.result +
-                        "' alt='Answer page " +
+                    const img =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    img.src =
+                        event.target.result;
+
+
+                    img.alt =
+                        "Answer page " +
                         (
                             index + 1
-                        ) +
-                        "'>" +
+                        );
 
-                        "<div class='preview-number'>" +
+
+                    const number =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    number.className =
+                        "preview-number";
+
+
+                    number.textContent =
                         "Page " +
                         (
                             index + 1
-                        ) +
-                        "</div>";
+                        );
+
+
+                    item.appendChild(
+                        img
+                    );
+
+
+                    item.appendChild(
+                        number
+                    );
 
 
                     preview.appendChild(
@@ -3195,7 +3266,7 @@ function previewSelectedFiles() {
 
 
 /* =========================================================
-   SUBMIT
+   SUBMIT ANSWER SHEET
    ========================================================= */
 
 async function submitAnswerSheet() {
@@ -3299,16 +3370,28 @@ async function submitAnswerSheet() {
                 );
 
 
+            /*
+             * VERY IMPORTANT:
+             *
+             * Code.gs expects:
+             *
+             * photo.base64
+             *
+             * NOT:
+             * photo.fileBase64
+             */
+
             photos.push({
 
                 fileName:
                     file.name,
 
-                fileBase64:
+                base64:
                     base64,
 
                 mimeType:
-                    file.type
+                    file.type ||
+                    "image/jpeg"
 
             });
 
@@ -3326,16 +3409,6 @@ async function submitAnswerSheet() {
                 selectedPaper
             );
 
-
-        /*
-         * IMPORTANT:
-         *
-         * Code.gs DOES NOT use
-         * uploadAnswerPhoto as an API action.
-         *
-         * saveSubmission internally handles
-         * uploadAnswerPhotos().
-         */
 
         const response =
             await api(
@@ -3393,7 +3466,6 @@ async function submitAnswerSheet() {
 
         await loadSubmissionStatus();
 
-
         await updateSubmissionCount();
 
 
@@ -3419,7 +3491,6 @@ async function submitAnswerSheet() {
             0,
             "Submission failed."
         );
-
 
     } finally {
 
@@ -3742,16 +3813,23 @@ async function editAnswerSheet() {
                 );
 
 
+            /*
+             * IMPORTANT:
+             * editSubmission must receive
+             * the same photo structure.
+             */
+
             photos.push({
 
                 fileName:
                     file.name,
 
-                fileBase64:
+                base64:
                     base64,
 
                 mimeType:
-                    file.type
+                    file.type ||
+                    "image/jpeg"
 
             });
 
@@ -3844,7 +3922,6 @@ async function editAnswerSheet() {
 
         await loadSubmissionStatus();
 
-
         await updateSubmissionCount();
 
 
@@ -3864,7 +3941,6 @@ async function editAnswerSheet() {
             ),
             "error"
         );
-
 
     } finally {
 
@@ -3903,6 +3979,15 @@ function fileToBase64(file) {
                             ","
                         );
 
+
+                    /*
+                     * Code.gs uses:
+                     *
+                     * Utilities.base64Decode(base64)
+                     *
+                     * Therefore send ONLY
+                     * the Base64 content.
+                     */
 
                     if (
                         commaIndex !== -1
@@ -4005,6 +4090,7 @@ async function loadResults() {
             response.results ||
             response.records ||
             response.data ||
+            response.resultsData ||
             [];
 
 
@@ -4016,10 +4102,8 @@ async function loadResults() {
 
 
         /*
-         * EXTRA FRONTEND SECURITY:
-         *
-         * Only show results belonging to
-         * the currently logged-in student.
+         * Extra frontend filtering:
+         * Student can see only their own results.
          */
 
         results =
@@ -4038,11 +4122,6 @@ async function loadResults() {
                         );
 
 
-                    /*
-                     * If backend returns studentId,
-                     * it MUST match the logged-in student.
-                     */
-
                     if (
                         resultStudentId
                     ) {
@@ -4059,12 +4138,6 @@ async function loadResults() {
                     }
 
 
-                    /*
-                     * If backend already filtered
-                     * by studentId and doesn't include
-                     * the field, keep the result.
-                     */
-
                     return true;
 
                 }
@@ -4078,7 +4151,6 @@ async function loadResults() {
 
 
         renderResults();
-
 
     } catch (error) {
 
@@ -4175,7 +4247,7 @@ function renderResults() {
                 );
 
 
-            const subjectName =
+            let subjectName =
                 getValue(
                     result,
                     [
@@ -4186,7 +4258,7 @@ function renderResults() {
                 );
 
 
-            const paperCode =
+            let paperCode =
                 getValue(
                     result,
                     [
@@ -4195,6 +4267,74 @@ function renderResults() {
                         "PaperCode"
                     ]
                 );
+
+
+            const paperId =
+                getValue(
+                    result,
+                    [
+                        "paperId",
+                        "paperID",
+                        "Paper ID",
+                        "PaperID"
+                    ]
+                );
+
+
+            /*
+             * If result does not contain
+             * subject/paper information,
+             * use local paper data.
+             */
+
+            if (
+                (!subjectName || !paperCode) &&
+                paperId
+            ) {
+
+                const resultPaper =
+                    allPapers.find(
+                        function (paper) {
+
+                            return (
+                                normalize(
+                                    getPaperId(
+                                        paper
+                                    )
+                                ) ===
+                                normalize(
+                                    paperId
+                                )
+                            );
+
+                        }
+                    );
+
+
+                if (resultPaper) {
+
+                    if (!subjectName) {
+
+                        subjectName =
+                            getPaperSubjectName(
+                                resultPaper
+                            );
+
+                    }
+
+
+                    if (!paperCode) {
+
+                        paperCode =
+                            getPaperCode(
+                                resultPaper
+                            );
+
+                    }
+
+                }
+
+            }
 
 
             const marks =
@@ -4374,7 +4514,6 @@ async function updateSubmissionCount() {
                                 response.result
                             )
                         );
-
 
                     } catch (error) {
 
@@ -4574,10 +4713,6 @@ function getPaperSubjectId(paper) {
 
 function getPaperSubjectName(paper) {
 
-    /*
-     * First try the paper's own subject name.
-     */
-
     const directName =
         getValue(
             paper,
@@ -4597,12 +4732,6 @@ function getPaperSubjectName(paper) {
     }
 
 
-    /*
-     * If paper only contains subjectId,
-     * find the subject from the student's
-     * assigned subject list.
-     */
-
     const paperSubjectId =
         getPaperSubjectId(
             paper
@@ -4618,13 +4747,15 @@ function getPaperSubjectName(paper) {
             subjects.find(
                 function (item) {
 
-                    return normalize(
-                        getSubjectId(
-                            item
+                    return (
+                        normalize(
+                            getSubjectId(
+                                item
+                            )
+                        ) ===
+                        normalize(
+                            paperSubjectId
                         )
-                    ) ===
-                    normalize(
-                        paperSubjectId
                     );
 
                 }
@@ -4685,7 +4816,7 @@ function getPaperTitle(paper) {
 
 
 /* =========================================================
-   GENERAL VALUE HELPER
+   GENERAL VALUE
    ========================================================= */
 
 function getValue(
@@ -4963,11 +5094,6 @@ function logout() {
 
     } catch (error) {}
 
-
-    /*
-     * REQUIRED:
-     * Logout goes to index.html.
-     */
 
     window.location.href =
         "index.html";
