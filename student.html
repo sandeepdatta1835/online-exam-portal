@@ -453,6 +453,7 @@ button:disabled {
 }
 
 @media (max-width: 800px) {
+
     .summary-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -464,6 +465,7 @@ button:disabled {
 }
 
 @media (max-width: 500px) {
+
     .header-inner {
         align-items: flex-start;
     }
@@ -494,151 +496,328 @@ button:disabled {
 <body>
 
 <header class="header">
+
     <div class="header-inner">
+
         <div>
-            <h1>Online Examination Portal</h1>
-            <p>Student Dashboard</p>
+
+            <h1>
+                Online Examination Portal
+            </h1>
+
+            <p>
+                Student Dashboard
+            </p>
+
         </div>
 
-        <button class="logout-btn" onclick="logout()">Logout</button>
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
     </div>
+
 </header>
+
 
 <div class="container">
 
+    <!-- WELCOME -->
+
     <div class="welcome">
-        <h2>Welcome, <span id="studentName">Student</span></h2>
-        <p>Student ID: <strong id="studentId">-</strong></p>
+
+        <h2>
+            Welcome,
+            <span id="studentName">
+                Student
+            </span>
+        </h2>
+
+        <p>
+            Student ID:
+            <strong id="studentId">
+                -
+            </strong>
+        </p>
+
     </div>
 
+
     <!-- SUMMARY -->
+
     <div class="section">
-        <h3>Dashboard Summary</h3>
+
+        <h3>
+            Dashboard Summary
+        </h3>
 
         <div class="summary-grid">
 
             <div class="summary-card">
-                <div class="number" id="totalSubjects">0</div>
-                <div class="label">Assigned Subjects</div>
+
+                <div
+                    class="number"
+                    id="totalSubjects">
+                    0
+                </div>
+
+                <div class="label">
+                    Assigned Subjects
+                </div>
+
             </div>
 
-            <div class="summary-card">
-                <div class="number" id="totalPapers">0</div>
-                <div class="label">Question Papers</div>
-            </div>
 
             <div class="summary-card">
-                <div class="number" id="totalSubmissions">0</div>
-                <div class="label">Submissions</div>
+
+                <div
+                    class="number"
+                    id="totalPapers">
+                    0
+                </div>
+
+                <div class="label">
+                    Question Papers
+                </div>
+
             </div>
 
+
             <div class="summary-card">
-                <div class="number" id="totalResults">0</div>
-                <div class="label">Results</div>
+
+                <div
+                    class="number"
+                    id="totalSubmissions">
+                    0
+                </div>
+
+                <div class="label">
+                    Submissions
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div
+                    class="number"
+                    id="totalResults">
+                    0
+                </div>
+
+                <div class="label">
+                    Results
+                </div>
+
             </div>
 
         </div>
+
     </div>
+
 
     <!-- ASSIGNED SUBJECTS -->
-    <div class="section">
-        <h3>Assigned Subjects</h3>
 
-        <div id="subjectsContainer" class="subject-list">
-            <div class="loading">Loading subjects...</div>
+    <div class="section">
+
+        <h3>
+            Assigned Subjects
+        </h3>
+
+        <div
+            id="subjectsContainer"
+            class="subject-list">
+
+            <div class="loading">
+                Loading subjects...
+            </div>
+
         </div>
+
     </div>
+
 
     <!-- QUESTION PAPERS -->
-    <div class="section">
-        <h3>Published Question Papers</h3>
 
-        <div id="papersContainer" class="paper-list">
-            <div class="loading">Loading question papers...</div>
+    <div class="section">
+
+        <h3>
+            Published Question Papers
+        </h3>
+
+        <div
+            id="papersContainer"
+            class="paper-list">
+
+            <div class="loading">
+                Loading question papers...
+            </div>
+
         </div>
+
     </div>
 
+
     <!-- ANSWER SHEET -->
+
     <div class="section">
 
-        <h3>Answer Sheet Submission</h3>
+        <h3>
+            Answer Sheet Submission
+        </h3>
 
-        <select id="paperSelect"
-                class="select-box"
-                onchange="showSelectedPaper()">
-            <option value="">Select Question Paper</option>
+
+        <select
+            id="paperSelect"
+            class="select-box"
+            onchange="showSelectedPaper()">
+
+            <option value="">
+                Select Question Paper
+            </option>
+
         </select>
 
+
         <!-- PAPER INFORMATION -->
-        <div id="paperInfo" class="paper-info" style="display:none;">
+
+        <div
+            id="paperInfo"
+            class="paper-info"
+            style="display:none;">
 
             <div class="paper-info-row">
-                <div class="paper-info-label">Subject</div>
-                <div class="paper-info-value" id="paperInfoSubject">-</div>
+
+                <div class="paper-info-label">
+                    Subject
+                </div>
+
+                <div
+                    class="paper-info-value"
+                    id="paperInfoSubject">
+                    -
+                </div>
+
             </div>
 
-            <!-- PAPER CODE REPLACED BY TITLE -->
+
             <div class="paper-info-row">
-                <div class="paper-info-label">Title</div>
-                <div class="paper-info-value" id="paperInfoTitle">-</div>
+
+                <div class="paper-info-label">
+                    Title
+                </div>
+
+                <div
+                    class="paper-info-value"
+                    id="paperInfoTitle">
+                    -
+                </div>
+
             </div>
 
-            <!-- START TIME REPLACED -->
+
             <div class="paper-info-row">
-                <div class="paper-info-label">Exam Start Date & Time</div>
-                <div class="paper-info-value" id="paperInfoStart">-</div>
+
+                <div class="paper-info-label">
+                    Exam Start Date & Time
+                </div>
+
+                <div
+                    class="paper-info-value"
+                    id="paperInfoStart">
+                    -
+                </div>
+
             </div>
 
-            <!-- END TIME REPLACED -->
+
             <div class="paper-info-row">
-                <div class="paper-info-label">Exam End Date & Time</div>
-                <div class="paper-info-value" id="paperInfoEnd">-</div>
+
+                <div class="paper-info-label">
+                    Exam End Date & Time
+                </div>
+
+                <div
+                    class="paper-info-value"
+                    id="paperInfoEnd">
+                    -
+                </div>
+
             </div>
 
         </div>
 
-        <div id="paperButtons"
-             class="button-row"
-             style="display:none;">
 
-            <button class="secondary-btn"
-                    onclick="viewSelectedPaper()">
+        <!-- PAPER BUTTONS -->
+
+        <div
+            id="paperButtons"
+            class="button-row"
+            style="display:none;">
+
+            <button
+                class="secondary-btn"
+                onclick="viewSelectedPaper()">
+
                 View Question Paper
+
             </button>
 
-            <button class="primary-btn"
-                    onclick="downloadSelectedPaper()">
+
+            <button
+                class="primary-btn"
+                onclick="downloadSelectedPaper()">
+
                 Download Question Paper
+
             </button>
 
         </div>
+
 
         <!-- SUBMISSION AREA -->
+
         <div id="submissionArea">
 
             <div class="upload-box">
 
-                <p><strong>Upload Answer Photos</strong></p>
+                <p>
+                    <strong>
+                        Upload Answer Photos
+                    </strong>
+                </p>
 
                 <p class="muted">
                     You can upload up to 20 answer-sheet photos.
                 </p>
 
+
                 <div class="upload-buttons">
 
-                    <button class="primary-btn"
-                            type="button"
-                            onclick="document.getElementById('cameraInput').click()">
+                    <button
+                        class="primary-btn"
+                        type="button"
+                        onclick="document.getElementById('cameraInput').click()">
+
                         📷 Take Photos
+
                     </button>
 
-                    <button class="secondary-btn"
-                            type="button"
-                            onclick="document.getElementById('fileInput').click()">
+
+                    <button
+                        class="secondary-btn"
+                        type="button"
+                        onclick="document.getElementById('fileInput').click()">
+
                         📁 Choose Files
+
                     </button>
 
                 </div>
+
 
                 <input
                     type="file"
@@ -648,6 +827,7 @@ button:disabled {
                     capture="environment"
                     onchange="handleCameraFiles()"
                 >
+
 
                 <input
                     type="file"
@@ -660,98 +840,141 @@ button:disabled {
 
             </div>
 
-            <div id="photoList"
-                 class="photo-list"
-                 style="display:none;">
+
+            <div
+                id="photoList"
+                class="photo-list"
+                style="display:none;">
             </div>
 
-            <div id="progressContainer"
-                 class="progress-container">
+
+            <div
+                id="progressContainer"
+                class="progress-container">
 
                 <div class="progress-bar">
-                    <div id="progressFill"
-                         class="progress-fill">
+
+                    <div
+                        id="progressFill"
+                        class="progress-fill">
                     </div>
+
                 </div>
 
-                <div id="progressText"
-                     class="progress-text">
+                <div
+                    id="progressText"
+                    class="progress-text">
                     Preparing photos...
                 </div>
 
             </div>
 
+
             <div class="button-row">
 
-                <button id="submitButton"
-                        class="success-btn"
-                        type="button"
-                        onclick="submitAnswerSheet()">
+                <button
+                    id="submitButton"
+                    class="success-btn"
+                    type="button"
+                    onclick="submitAnswerSheet()">
+
                     Submit Answer Sheet
+
                 </button>
 
-                <button id="editSubmitButton"
-                        class="warning-btn"
-                        type="button"
-                        onclick="editAnswerSheet()"
-                        style="display:none;">
+
+                <button
+                    id="editSubmitButton"
+                    class="warning-btn"
+                    type="button"
+                    onclick="editAnswerSheet()"
+                    style="display:none;">
+
                     Submit Edited Answer Sheet
+
                 </button>
 
-                <button id="cancelEditButton"
-                        class="secondary-btn"
-                        type="button"
-                        onclick="cancelEditMode()"
-                        style="display:none;">
+
+                <button
+                    id="cancelEditButton"
+                    class="secondary-btn"
+                    type="button"
+                    onclick="cancelEditMode()"
+                    style="display:none;">
+
                     Cancel Edit
+
                 </button>
 
             </div>
 
         </div>
 
-        <div id="submissionStatus"
-             class="submission-status"
-             style="display:none;">
+
+        <div
+            id="submissionStatus"
+            class="submission-status"
+            style="display:none;">
         </div>
 
-        <div id="submissionMessage"
-             class="message">
+
+        <div
+            id="submissionMessage"
+            class="message">
         </div>
 
     </div>
 
+
     <!-- RESULTS -->
+
     <div class="section">
 
-        <h3>Results</h3>
+        <h3>
+            Results
+        </h3>
 
         <div id="resultsContainer">
-            <div class="loading">Loading results...</div>
+
+            <div class="loading">
+                Loading results...
+            </div>
+
         </div>
 
     </div>
 
 </div>
 
+
 <!-- PDF MODAL -->
-<div id="pdfModal" class="modal">
+
+<div
+    id="pdfModal"
+    class="modal">
 
     <div class="modal-content">
 
         <div class="modal-header">
 
-            <h3>Question Paper</h3>
+            <h3>
+                Question Paper
+            </h3>
 
-            <button class="close-btn"
-                    onclick="closePdfModal()">
+            <button
+                class="close-btn"
+                onclick="closePdfModal()">
+
                 Close
+
             </button>
 
         </div>
 
-        <iframe id="pdfFrame"
-                class="pdf-frame">
+
+        <iframe
+            id="pdfFrame"
+            class="pdf-frame">
         </iframe>
 
     </div>
@@ -776,28 +999,69 @@ async function api(action, data = {}) {
         ...data
     };
 
-    const response = await fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(payload)
-    });
 
-    const text = await response.text();
+    console.log(
+        "API request:",
+        action
+    );
+
+
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(
+                        payload
+                    )
+            }
+        );
+
+
+    const text =
+        await response.text();
+
+
+    console.log(
+        "API response:",
+        text
+    );
+
 
     let result;
 
+
     try {
-        result = JSON.parse(text);
-    } catch (e) {
-        throw new Error("Invalid server response");
+
+        result =
+            JSON.parse(text);
+
+    } catch (error) {
+
+        throw new Error(
+            "Invalid server response"
+        );
+
     }
 
+
     if (!result.success) {
+
         throw new Error(
             result.message ||
             result.error ||
             "Server error"
         );
+
     }
+
 
     return result;
 }
@@ -808,9 +1072,13 @@ async function api(action, data = {}) {
 ========================================================= */
 
 let currentStudent = null;
+
 let assignedSubjects = [];
+
 let assignedPapers = [];
+
 let resultsData = [];
+
 let selectedPaper = null;
 
 let selectedFiles = [];
@@ -822,50 +1090,238 @@ let editMode = false;
    PAGE LOAD
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
-    loadSession();
-});
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadSession();
+
+    }
+);
 
 
 /* =========================================================
    SESSION
+   FIXED FOR YOUR index.html
 ========================================================= */
 
 function loadSession() {
 
-    const sessionRaw =
-        localStorage.getItem("studentSession");
+    let sessionRaw =
+        localStorage.getItem(
+            "studentSession"
+        );
+
+
+    /*
+     * YOUR index.html currently saves:
+     *
+     * studentId
+     * studentName
+     * student
+     *
+     * Therefore we support both formats.
+     */
+
 
     if (!sessionRaw) {
-        window.location.href = "login.html";
-        return;
+
+        const studentId =
+            localStorage.getItem(
+                "studentId"
+            );
+
+
+        const studentName =
+            localStorage.getItem(
+                "studentName"
+            );
+
+
+        const studentRaw =
+            localStorage.getItem(
+                "student"
+            );
+
+
+        if (
+            studentId
+        ) {
+
+            currentStudent = {
+
+                studentId:
+                    studentId,
+
+                studentName:
+                    studentName ||
+                    "Student"
+
+            };
+
+
+            /*
+             * If complete student response
+             * exists, merge it.
+             */
+
+            if (studentRaw) {
+
+                try {
+
+                    const savedStudent =
+                        JSON.parse(
+                            studentRaw
+                        );
+
+
+                    currentStudent = {
+
+                        ...savedStudent,
+
+                        studentId:
+                            studentId,
+
+                        studentName:
+                            studentName ||
+                            savedStudent.studentName ||
+                            savedStudent.name ||
+                            "Student"
+
+                    };
+
+                } catch (error) {
+
+                    console.warn(
+                        "Could not read saved student object."
+                    );
+
+                }
+
+            }
+
+        } else {
+
+            /*
+             * No student session.
+             * Your actual login page is index.html.
+             */
+
+            window.location.href =
+                "index.html";
+
+            return;
+        }
+
+    } else {
+
+        /*
+         * Support old studentSession
+         * if it already exists.
+         */
+
+        try {
+
+            currentStudent =
+                JSON.parse(
+                    sessionRaw
+                );
+
+        } catch (error) {
+
+            localStorage.removeItem(
+                "studentSession"
+            );
+
+
+            const studentId =
+                localStorage.getItem(
+                    "studentId"
+                );
+
+
+            const studentName =
+                localStorage.getItem(
+                    "studentName"
+                );
+
+
+            if (studentId) {
+
+                currentStudent = {
+
+                    studentId:
+                        studentId,
+
+                    studentName:
+                        studentName ||
+                        "Student"
+
+                };
+
+            } else {
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+        }
+
     }
 
-    try {
 
-        currentStudent =
-            JSON.parse(sessionRaw);
+    /*
+     * Display student information.
+     */
 
-    } catch (e) {
+    const finalStudentId =
+        currentStudent.studentId ||
+        currentStudent.studentID ||
+        currentStudent["Student ID"] ||
+        currentStudent.id ||
+        currentStudent.ID ||
+        localStorage.getItem(
+            "studentId"
+        );
 
-        localStorage.removeItem("studentSession");
 
-        window.location.href = "login.html";
-
-        return;
-    }
-
-    document.getElementById("studentName").textContent =
+    const finalStudentName =
         currentStudent.studentName ||
+        currentStudent.student_name ||
+        currentStudent["Student Name"] ||
         currentStudent.name ||
+        currentStudent.Name ||
+        localStorage.getItem(
+            "studentName"
+        ) ||
         "Student";
 
-    document.getElementById("studentId").textContent =
-        currentStudent.studentId ||
-        currentStudent.id ||
-        "-";
+
+    currentStudent.studentId =
+        finalStudentId;
+
+
+    currentStudent.studentName =
+        finalStudentName;
+
+
+    document.getElementById(
+        "studentName"
+    ).textContent =
+        finalStudentName;
+
+
+    document.getElementById(
+        "studentId"
+    ).textContent =
+        finalStudentId || "-";
+
 
     loadDashboard();
+
 }
 
 
@@ -878,17 +1334,27 @@ async function loadDashboard() {
     try {
 
         await Promise.all([
+
             loadAssignments(),
+
             loadSubjects(),
+
             loadPapers(),
-            loadResults()
+
+            loadResults(),
+
+            updateSubmissionCount()
+
         ]);
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            error
+        );
 
     }
+
 }
 
 
@@ -904,15 +1370,22 @@ async function loadAssignments() {
             currentStudent.studentId ||
             currentStudent.id;
 
+
         const result =
-            await api("getStudentAssignments", {
-                studentId: studentId
-            });
+            await api(
+                "getStudentAssignments",
+                {
+                    studentId:
+                        studentId
+                }
+            );
+
 
         assignedSubjects =
             result.assignments ||
             result.data ||
             [];
+
 
         filterAssignedSubjects();
 
@@ -923,10 +1396,14 @@ async function loadAssignments() {
             error
         );
 
+
         assignedSubjects = [];
 
+
         filterAssignedSubjects();
+
     }
+
 }
 
 
@@ -939,20 +1416,28 @@ async function loadSubjects() {
     try {
 
         const result =
-            await api("getSubjects");
+            await api(
+                "getSubjects"
+            );
+
 
         const subjects =
             result.subjects ||
             result.data ||
             [];
 
-        if (subjects.length) {
+
+        if (
+            subjects.length
+        ) {
 
             assignedSubjects =
                 assignedSubjects.length
                     ? assignedSubjects
                     : subjects;
+
         }
+
 
         filterAssignedSubjects();
 
@@ -963,78 +1448,112 @@ async function loadSubjects() {
             error
         );
 
+
         filterAssignedSubjects();
+
     }
+
 }
 
 
 function filterAssignedSubjects() {
 
-    renderSubjects(assignedSubjects);
+    renderSubjects(
+        assignedSubjects
+    );
 
-    document.getElementById("totalSubjects")
-        .textContent =
+
+    document.getElementById(
+        "totalSubjects"
+    ).textContent =
         assignedSubjects.length;
+
 }
 
 
-function renderSubjects(subjects) {
+function renderSubjects(
+    subjects
+) {
 
     const container =
         document.getElementById(
             "subjectsContainer"
         );
 
-    if (!subjects ||
-        subjects.length === 0) {
+
+    if (
+        !subjects ||
+        subjects.length === 0
+    ) {
 
         container.innerHTML =
             '<div class="empty">No subjects assigned.</div>';
 
         return;
+
     }
 
-    container.innerHTML =
-        subjects.map(function(subject) {
 
-            const name =
-                correctBusinessStudies(
+    container.innerHTML =
+        subjects.map(
+            function(subject) {
+
+                const name =
+                    correctBusinessStudies(
+                        getDeepFlexibleValue(
+                            subject,
+                            [
+                                "subjectName",
+                                "Subject Name",
+                                "subject",
+                                "Subject",
+                                "name",
+                                "Name"
+                            ]
+                        )
+                    );
+
+
+                const code =
                     getDeepFlexibleValue(
                         subject,
                         [
-                            "subjectName",
-                            "Subject Name",
-                            "subject",
-                            "Subject",
-                            "name",
-                            "Name"
+                            "subjectCode",
+                            "Subject Code",
+                            "code",
+                            "Code"
                         ]
-                    )
-                );
+                    );
 
-            const code =
-                getDeepFlexibleValue(
-                    subject,
-                    [
-                        "subjectCode",
-                        "Subject Code",
-                        "code",
-                        "Code"
-                    ]
-                );
 
-            return `
-                <div class="subject-item">
-                    <strong>${escapeHtml(name || "-")}</strong>
-                    ${
-                        code
-                        ? `<div class="muted">Code: ${escapeHtml(code)}</div>`
-                        : ""
-                    }
-                </div>
-            `;
+                return `
 
-        }).join("");
+                    <div class="subject-item">
+
+                        <strong>
+                            ${escapeHtml(
+                                name || "-"
+                            )}
+                        </strong>
+
+                        ${
+                            code
+                                ? `
+                                    <div class="muted">
+                                        Code:
+                                        ${escapeHtml(code)}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                `;
+
+            }
+        ).join("");
+
 }
 
 
@@ -1047,13 +1566,17 @@ async function loadPapers() {
     try {
 
         const result =
-            await api("getQuestionPapers");
+            await api(
+                "getQuestionPapers"
+            );
+
 
         assignedPapers =
             result.papers ||
             result.questionPapers ||
             result.data ||
             [];
+
 
         filterAssignedPapers();
 
@@ -1064,14 +1587,20 @@ async function loadPapers() {
             error
         );
 
+
         assignedPapers = [];
 
+
         filterAssignedPapers();
+
     }
+
 }
 
 
-function isPaperPublished(paper) {
+function isPaperPublished(
+    paper
+) {
 
     const published =
         getDeepFlexibleValue(
@@ -1086,17 +1615,25 @@ function isPaperPublished(paper) {
             ]
         );
 
-    if (published === undefined ||
+
+    if (
+        published === undefined ||
         published === null ||
-        published === "") {
+        published === ""
+    ) {
 
         return true;
+
     }
 
+
     const value =
-        String(published)
-            .toLowerCase()
-            .trim();
+        String(
+            published
+        )
+        .toLowerCase()
+        .trim();
+
 
     return ![
         "false",
@@ -1104,7 +1641,10 @@ function isPaperPublished(paper) {
         "0",
         "draft",
         "unpublished"
-    ].includes(value);
+    ].includes(
+        value
+    );
+
 }
 
 
@@ -1115,135 +1655,204 @@ function filterAssignedPapers() {
             isPaperPublished
         );
 
+
     renderPaperSelect(
         publishedPapers
     );
+
 
     renderPaperList(
         publishedPapers
     );
 
+
     document.getElementById(
         "totalPapers"
     ).textContent =
         publishedPapers.length;
+
 }
 
 
-function renderPaperList(papers) {
+function renderPaperList(
+    papers
+) {
 
     const container =
         document.getElementById(
             "papersContainer"
         );
 
-    if (!papers ||
-        papers.length === 0) {
+
+    if (
+        !papers ||
+        papers.length === 0
+    ) {
 
         container.innerHTML =
             '<div class="empty">No published question papers.</div>';
 
         return;
+
     }
 
+
     container.innerHTML =
-        papers.map(function(paper) {
+        papers.map(
+            function(paper) {
 
-            const title =
-                correctBusinessStudies(
-                    getPaperTitle(paper)
-                );
+                const title =
+                    correctBusinessStudies(
+                        getPaperTitle(
+                            paper
+                        )
+                    );
 
-            const subject =
-                correctBusinessStudies(
-                    getPaperSubjectName(paper)
-                );
 
-            const start =
-                formatDateTime(
-                    getPaperStartTime(paper)
-                );
+                const subject =
+                    correctBusinessStudies(
+                        getPaperSubjectName(
+                            paper
+                        )
+                    );
 
-            const end =
-                formatDateTime(
-                    getPaperEndTime(paper)
-                );
 
-            return `
-                <div class="paper-item">
+                const start =
+                    formatDateTime(
+                        getPaperStartTime(
+                            paper
+                        )
+                    );
 
-                    <strong>
-                        ${escapeHtml(title || "Question Paper")}
-                    </strong>
 
-                    <div class="muted">
-                        Subject:
-                        ${escapeHtml(subject || "-")}
+                const end =
+                    formatDateTime(
+                        getPaperEndTime(
+                            paper
+                        )
+                    );
+
+
+                return `
+
+                    <div class="paper-item">
+
+                        <strong>
+                            ${escapeHtml(
+                                title ||
+                                "Question Paper"
+                            )}
+                        </strong>
+
+
+                        <div class="muted">
+
+                            Subject:
+                            ${escapeHtml(
+                                subject || "-"
+                            )}
+
+                        </div>
+
+
+                        ${
+                            start !== "-"
+                                ? `
+                                    <div class="muted">
+                                        Start:
+                                        ${escapeHtml(start)}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+
+                        ${
+                            end !== "-"
+                                ? `
+                                    <div class="muted">
+                                        End:
+                                        ${escapeHtml(end)}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
                     </div>
 
-                    ${
-                        start
-                        ? `<div class="muted">
-                            Start:
-                            ${escapeHtml(start)}
-                           </div>`
-                        : ""
-                    }
+                `;
 
-                    ${
-                        end
-                        ? `<div class="muted">
-                            End:
-                            ${escapeHtml(end)}
-                           </div>`
-                        : ""
-                    }
+            }
+        ).join("");
 
-                </div>
-            `;
-
-        }).join("");
 }
 
 
-function renderPaperSelect(papers) {
+function renderPaperSelect(
+    papers
+) {
 
     const select =
         document.getElementById(
             "paperSelect"
         );
 
+
     select.innerHTML =
         '<option value="">Select Question Paper</option>';
 
-    papers.forEach(function(paper, index) {
 
-        const id =
-            getPaperId(paper) ||
-            String(index);
+    papers.forEach(
+        function(paper, index) {
 
-        const title =
-            correctBusinessStudies(
-                getPaperTitle(paper)
+            const id =
+                getPaperId(
+                    paper
+                ) ||
+                String(index);
+
+
+            const title =
+                correctBusinessStudies(
+                    getPaperTitle(
+                        paper
+                    )
+                );
+
+
+            const subject =
+                correctBusinessStudies(
+                    getPaperSubjectName(
+                        paper
+                    )
+                );
+
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                id;
+
+
+            option.textContent =
+                title
+                    ? `${title}${subject ? " - " + subject : ""}`
+                    : "Question Paper " + (
+                        index + 1
+                    );
+
+
+            select.appendChild(
+                option
             );
 
-        const subject =
-            correctBusinessStudies(
-                getPaperSubjectName(paper)
-            );
+        }
+    );
 
-        const option =
-            document.createElement("option");
-
-        option.value = id;
-
-        option.textContent =
-            title
-                ? `${title}${subject ? " - " + subject : ""}`
-                : "Question Paper " + (index + 1);
-
-        select.appendChild(option);
-    });
 }
 
 
@@ -1258,53 +1867,83 @@ function showSelectedPaper() {
             "paperSelect"
         );
 
+
     const value =
         select.value;
+
 
     if (!value) {
 
         selectedPaper = null;
 
+
         document.getElementById(
             "paperInfo"
-        ).style.display = "none";
+        ).style.display =
+            "none";
+
 
         document.getElementById(
             "paperButtons"
-        ).style.display = "none";
+        ).style.display =
+            "none";
+
 
         return;
+
     }
+
+
+    const publishedPapers =
+        assignedPapers.filter(
+            isPaperPublished
+        );
+
 
     selectedPaper =
-        assignedPapers.find(function(paper, index) {
+        publishedPapers.find(
+            function(paper, index) {
 
-            return String(
-                getPaperId(paper) || index
-            ) === String(value);
+                return String(
+                    getPaperId(
+                        paper
+                    ) ||
+                    index
+                ) === String(
+                    value
+                );
 
-        });
+            }
+        );
+
 
     if (!selectedPaper) {
-
-        const publishedPapers =
-            assignedPapers.filter(
-                isPaperPublished
-            );
 
         selectedPaper =
-            publishedPapers.find(
+            assignedPapers.find(
                 function(paper, index) {
 
-                    return String(index) ===
-                           String(value);
+                    return String(
+                        getPaperId(
+                            paper
+                        ) ||
+                        index
+                    ) === String(
+                        value
+                    );
+
                 }
             );
+
     }
 
+
     if (!selectedPaper) {
+
         return;
+
     }
+
 
     const subject =
         correctBusinessStudies(
@@ -1313,6 +1952,7 @@ function showSelectedPaper() {
             )
         );
 
+
     const title =
         correctBusinessStudies(
             getPaperTitle(
@@ -1320,111 +1960,67 @@ function showSelectedPaper() {
             )
         );
 
+
     const start =
         getPaperStartTime(
             selectedPaper
         );
+
 
     const end =
         getPaperEndTime(
             selectedPaper
         );
 
+
     document.getElementById(
         "paperInfoSubject"
     ).textContent =
         subject || "-";
+
 
     document.getElementById(
         "paperInfoTitle"
     ).textContent =
         title || "-";
 
+
     document.getElementById(
         "paperInfoStart"
     ).textContent =
-        formatDateTime(start);
+        formatDateTime(
+            start
+        );
+
 
     document.getElementById(
         "paperInfoEnd"
     ).textContent =
-        formatDateTime(end);
+        formatDateTime(
+            end
+        );
+
 
     document.getElementById(
         "paperInfo"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     document.getElementById(
         "paperButtons"
-    ).style.display = "flex";
+    ).style.display =
+        "flex";
+
 
     loadSubmissionStatus();
+
 }
 
 
 /* =========================================================
    PAPER HELPERS
 ========================================================= */
-
-function findMatchingAssignment(paper) {
-
-    const subjectId =
-        getPaperSubjectId(paper);
-
-    return assignedSubjects.find(
-        function(item) {
-
-            const itemId =
-                getDeepFlexibleValue(
-                    item,
-                    [
-                        "subjectId",
-                        "Subject ID",
-                        "id",
-                        "ID"
-                    ]
-                );
-
-            return subjectId &&
-                   itemId &&
-                   String(subjectId) ===
-                   String(itemId);
-        }
-    );
-}
-
-
-function findMatchingSubject(paper) {
-
-    const subjectId =
-        getPaperSubjectId(paper);
-
-    return assignedSubjects.find(
-        function(item) {
-
-            const itemId =
-                getDeepFlexibleValue(
-                    item,
-                    [
-                        "subjectId",
-                        "Subject ID",
-                        "id",
-                        "ID",
-                        "subjectCode",
-                        "Subject Code",
-                        "code",
-                        "Code"
-                    ]
-                );
-
-            return subjectId &&
-                   itemId &&
-                   String(subjectId) ===
-                   String(itemId);
-        }
-    );
-}
-
 
 function getPaperMetadataValue(
     paper,
@@ -1435,105 +2031,247 @@ function getPaperMetadataValue(
         paper,
         keys
     );
+
 }
 
 
-function getPaperStartTime(paper) {
+function getPaperStartTime(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
+
             "examStart",
+
             "Exam Start",
+
             "exam_start",
+
             "ExamStart",
+
             "examStartTime",
+
             "Exam Start Time",
+
             "startTime",
+
             "Start Time",
+
             "startDateTime",
+
             "Start Date Time",
+
             "examStartDateTime",
+
             "Exam Start Date Time",
+
             "examDateStart",
-            "Exam Date Start"
+
+            "Exam Date Start",
+
+            "examStartDate",
+
+            "Exam Start Date",
+
+            "startDate",
+
+            "Start Date"
+
         ]
     );
+
 }
 
 
-function getPaperEndTime(paper) {
+function getPaperEndTime(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
+
             "examEnd",
+
             "Exam End",
+
             "exam_end",
+
             "ExamEnd",
+
             "examEndTime",
+
             "Exam End Time",
+
             "endTime",
+
             "End Time",
+
             "endDateTime",
+
             "End Date Time",
+
             "examEndDateTime",
+
             "Exam End Date Time",
+
             "examDateEnd",
-            "Exam Date End"
+
+            "Exam Date End",
+
+            "examEndDate",
+
+            "Exam End Date",
+
+            "endDate",
+
+            "End Date"
+
         ]
     );
+
 }
 
 
-function getPaperId(paper) {
+function getPaperId(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
+
             "paperId",
+
             "Paper ID",
+
             "paperID",
+
             "id",
+
             "ID",
+
             "questionPaperId",
+
             "Question Paper ID",
+
+            "paperCode",
+
+            "Paper Code",
+
             "code",
+
             "Code"
+
         ]
     );
+
 }
 
 
-function getPaperSubjectId(paper) {
+function getPaperSubjectId(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
+
             "subjectId",
+
             "Subject ID",
+
             "subjectID",
+
             "subjectCode",
+
             "Subject Code",
+
             "code",
+
             "Code"
+
         ]
     );
+
 }
 
 
-function getPaperSubjectName(paper) {
+function findMatchingSubject(
+    paper
+) {
+
+    const subjectId =
+        getPaperSubjectId(
+            paper
+        );
+
+
+    return assignedSubjects.find(
+        function(item) {
+
+            const itemId =
+                getDeepFlexibleValue(
+                    item,
+                    [
+
+                        "subjectId",
+
+                        "Subject ID",
+
+                        "id",
+
+                        "ID",
+
+                        "subjectCode",
+
+                        "Subject Code",
+
+                        "code",
+
+                        "Code"
+
+                    ]
+                );
+
+
+            return subjectId &&
+                   itemId &&
+                   String(
+                       subjectId
+                   ) ===
+                   String(
+                       itemId
+                   );
+
+        }
+    );
+
+}
+
+
+function getPaperSubjectName(
+    paper
+) {
 
     let subject =
         getPaperMetadataValue(
             paper,
             [
+
                 "subjectName",
+
                 "Subject Name",
+
                 "subject",
+
                 "Subject"
+
             ]
         );
+
 
     if (!subject) {
 
@@ -1542,82 +2280,114 @@ function getPaperSubjectName(paper) {
                 paper
             );
 
+
         if (matched) {
 
             subject =
                 getDeepFlexibleValue(
                     matched,
                     [
+
                         "subjectName",
+
                         "Subject Name",
+
                         "subject",
+
                         "Subject",
+
                         "name",
+
                         "Name"
+
                     ]
                 );
+
         }
+
     }
 
+
     return subject || "";
+
 }
 
 
-function getPaperCode(paper) {
+function getPaperTitle(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
-            "paperCode",
-            "Paper Code",
-            "paper_code",
-            "code",
-            "Code"
-        ]
-    );
-}
 
-
-function getPaperTitle(paper) {
-
-    return getPaperMetadataValue(
-        paper,
-        [
             "title",
+
             "Title",
-            "paper",
-            "Paper",
+
             "paperTitle",
+
             "Paper Title",
+
             "questionPaperTitle",
+
             "Question Paper Title",
+
+            "paperName",
+
+            "Paper Name",
+
             "name",
-            "Name"
+
+            "Name",
+
+            "paper",
+
+            "Paper"
+
         ]
     );
+
 }
 
 
-function getPaperPdfUrl(paper) {
+function getPaperPdfUrl(
+    paper
+) {
 
     return getPaperMetadataValue(
         paper,
         [
+
             "pdfUrl",
+
             "PDF URL",
+
             "pdfURL",
+
             "pdf",
+
             "PDF",
+
             "fileUrl",
+
             "File URL",
+
             "questionPaperUrl",
+
             "Question Paper URL",
+
             "url",
+
             "URL",
+
             "link",
+
             "Link"
+
         ]
     );
+
 }
 
 
@@ -1628,17 +2398,22 @@ function getPaperPdfUrl(paper) {
 function viewSelectedPaper() {
 
     if (!selectedPaper) {
+
         showSubmissionMessage(
             "Please select a question paper first.",
             "error"
         );
+
         return;
+
     }
+
 
     const url =
         getPaperPdfUrl(
             selectedPaper
         );
+
 
     if (!url) {
 
@@ -1648,32 +2423,43 @@ function viewSelectedPaper() {
         );
 
         return;
+
     }
+
 
     document.getElementById(
         "pdfFrame"
-    ).src = url;
+    ).src =
+        url;
+
 
     document.getElementById(
         "pdfModal"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 }
 
 
 function downloadSelectedPaper() {
 
     if (!selectedPaper) {
+
         showSubmissionMessage(
             "Please select a question paper first.",
             "error"
         );
+
         return;
+
     }
+
 
     const url =
         getPaperPdfUrl(
             selectedPaper
         );
+
 
     if (!url) {
 
@@ -1683,12 +2469,15 @@ function downloadSelectedPaper() {
         );
 
         return;
+
     }
+
 
     window.open(
         url,
         "_blank"
     );
+
 }
 
 
@@ -1696,11 +2485,15 @@ function closePdfModal() {
 
     document.getElementById(
         "pdfModal"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "pdfFrame"
-    ).src = "";
+    ).src =
+        "";
+
 }
 
 
@@ -1713,9 +2506,15 @@ window.addEventListener(
                 "pdfModal"
             );
 
-        if (event.target === modal) {
+
+        if (
+            event.target === modal
+        ) {
+
             closePdfModal();
+
         }
+
     }
 );
 
@@ -1727,19 +2526,32 @@ window.addEventListener(
 async function loadSubmissionStatus() {
 
     if (!selectedPaper) {
+
         return;
+
     }
+
 
     const studentId =
         currentStudent.studentId ||
         currentStudent.id;
 
-    const paperId =
-        getPaperId(selectedPaper);
 
-    if (!studentId || !paperId) {
+    const paperId =
+        getPaperId(
+            selectedPaper
+        );
+
+
+    if (
+        !studentId ||
+        !paperId
+    ) {
+
         return;
+
     }
+
 
     try {
 
@@ -1747,33 +2559,47 @@ async function loadSubmissionStatus() {
             await api(
                 "getSubmissionStatus",
                 {
-                    studentId: studentId,
-                    paperId: paperId
+
+                    studentId:
+                        studentId,
+
+                    paperId:
+                        paperId
+
                 }
             );
+
 
         const submission =
             result.submission ||
             result.data ||
             result;
 
-        if (submission &&
+
+        if (
+            submission &&
             (
                 submission.status ||
                 submission.submitted ||
                 submission.SubmissionStatus
-            )) {
+            )
+        ) {
 
             const status =
                 String(
+
                     submission.status ||
+
                     submission.SubmissionStatus ||
+
                     (
                         submission.submitted
-                        ? "Submitted"
-                        : "Pending"
+                            ? "Submitted"
+                            : "Pending"
                     )
+
                 );
+
 
             if (
                 status.toLowerCase() ===
@@ -1787,11 +2613,13 @@ async function loadSubmissionStatus() {
             } else {
 
                 resetSubmissionUI();
+
             }
 
         } else {
 
             resetSubmissionUI();
+
         }
 
     } catch (error) {
@@ -1801,8 +2629,11 @@ async function loadSubmissionStatus() {
             error
         );
 
+
         resetSubmissionUI();
+
     }
+
 }
 
 
@@ -1815,34 +2646,74 @@ function showSubmittedStatus(
             "submissionStatus"
         );
 
-    area.style.display = "block";
+
+    area.style.display =
+        "block";
+
 
     area.innerHTML = `
-        <strong>Submission Status</strong>
+
+        <strong>
+            Submission Status
+        </strong>
+
+
         <div style="margin-top:8px;">
-            <span class="status-badge status-submitted">
+
+            <span
+                class="status-badge status-submitted">
+
                 Submitted
+
             </span>
+
         </div>
 
+
         <p style="margin-bottom:0;">
+
             Your answer sheet has been submitted successfully.
+
         </p>
 
+
         <p>
+
             <strong>Edit:</strong>
             1 time left
+
         </p>
 
+
         <p>
+
             <strong>Status:</strong>
             Submitted
+
         </p>
+
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="warning-btn"
+                onclick="startEditMode()">
+
+                Edit Answer Sheet
+
+            </button>
+
+        </div>
+
     `;
+
 
     document.getElementById(
         "submissionArea"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 }
 
 
@@ -1850,25 +2721,37 @@ function resetSubmissionUI() {
 
     document.getElementById(
         "submissionStatus"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "submissionArea"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     document.getElementById(
         "submitButton"
-    ).style.display = "inline-block";
+    ).style.display =
+        "inline-block";
+
 
     document.getElementById(
         "editSubmitButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "cancelEditButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
-    editMode = false;
+
+    editMode =
+        false;
+
 }
 
 
@@ -1883,15 +2766,24 @@ function handleCameraFiles() {
             "cameraInput"
         );
 
-    if (input.files &&
-        input.files.length) {
+
+    if (
+        input.files &&
+        input.files.length
+    ) {
 
         addSelectedFiles(
-            Array.from(input.files)
+            Array.from(
+                input.files
+            )
         );
+
     }
 
-    input.value = "";
+
+    input.value =
+        "";
+
 }
 
 
@@ -1902,33 +2794,61 @@ function handleFileFiles() {
             "fileInput"
         );
 
-    if (input.files &&
-        input.files.length) {
+
+    if (
+        input.files &&
+        input.files.length
+    ) {
 
         addSelectedFiles(
-            Array.from(input.files)
+            Array.from(
+                input.files
+            )
         );
+
     }
 
-    input.value = "";
+
+    input.value =
+        "";
+
 }
 
 
-function addSelectedFiles(files) {
+function addSelectedFiles(
+    files
+) {
 
-    if (!files || !files.length) {
+    if (
+        !files ||
+        !files.length
+    ) {
+
         return;
+
     }
 
-    for (const file of files) {
 
-        if (!file.type ||
-            !file.type.startsWith("image/")) {
+    for (
+        const file of files
+    ) {
+
+        if (
+            !file.type ||
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
 
             continue;
+
         }
 
-        if (selectedFiles.length >= 20) {
+
+        if (
+            selectedFiles.length >=
+            20
+        ) {
 
             showSubmissionMessage(
                 "Maximum 20 photos are allowed.",
@@ -1936,12 +2856,19 @@ function addSelectedFiles(files) {
             );
 
             break;
+
         }
 
-        selectedFiles.push(file);
+
+        selectedFiles.push(
+            file
+        );
+
     }
 
+
     previewSelectedFiles();
+
 }
 
 
@@ -1952,24 +2879,41 @@ function previewSelectedFiles() {
             "photoList"
         );
 
-    if (!selectedFiles.length) {
 
-        container.style.display = "none";
+    if (
+        !selectedFiles.length
+    ) {
 
-        container.innerHTML = "";
+        container.style.display =
+            "none";
+
+
+        container.innerHTML =
+            "";
+
 
         return;
+
     }
 
-    container.style.display = "block";
+
+    container.style.display =
+        "block";
+
 
     container.innerHTML = `
+
         <p>
+
             <strong>
-                Selected Photos: ${selectedFiles.length}/20
+                Selected Photos:
+                ${selectedFiles.length}/20
             </strong>
+
         </p>
+
     `;
+
 
     selectedFiles.forEach(
         function(file, index) {
@@ -1979,53 +2923,75 @@ function previewSelectedFiles() {
                     "div"
                 );
 
+
             item.className =
                 "photo-item";
 
+
             item.innerHTML = `
+
                 <div class="photo-name">
+
                     ${index + 1}.
                     ${escapeHtml(
                         file.name ||
                         "Answer Page " +
                         (index + 1)
                     )}
+
                 </div>
+
 
                 <button
                     type="button"
                     class="remove-photo"
                     onclick="removeSelectedFile(${index})">
+
                     Remove
+
                 </button>
+
             `;
 
-            container.appendChild(item);
+
+            container.appendChild(
+                item
+            );
+
         }
     );
+
 }
 
 
-function removeSelectedFile(index) {
+function removeSelectedFile(
+    index
+) {
 
     selectedFiles.splice(
         index,
         1
     );
 
+
     previewSelectedFiles();
+
 }
 
 
 /* =========================================================
    PREPARE PHOTOS
    IMPORTANT:
-   Backend expects "base64", NOT "fileBase64"
+   Backend expects:
+   base64
+   mimeType
+   fileName
 ========================================================= */
 
 async function preparePhotos() {
 
     const photos = [];
+
 
     for (
         let i = 0;
@@ -2036,14 +3002,30 @@ async function preparePhotos() {
         const file =
             selectedFiles[i];
 
+
+        updateProgress(
+            i,
+            selectedFiles.length
+        );
+
+
         const base64 =
             await fileToBase64(
                 file
             );
 
-        if (!base64) {
+
+        if (
+            !base64 ||
+            !String(
+                base64
+            ).trim()
+        ) {
+
             continue;
+
         }
+
 
         photos.push({
 
@@ -2051,25 +3033,39 @@ async function preparePhotos() {
                 file.name ||
                 (
                     "answer-page-" +
-                    (i + 1) +
+                    (
+                        i + 1
+                    ) +
                     ".jpg"
                 ),
 
-            /* IMPORTANT */
-            base64: base64,
+            /*
+             * IMPORTANT:
+             * backend expects base64
+             */
+
+            base64:
+                String(
+                    base64
+                ).trim(),
 
             mimeType:
                 file.type ||
                 "image/jpeg"
+
         });
+
 
         updateProgress(
             i + 1,
             selectedFiles.length
         );
+
     }
 
+
     return photos;
+
 }
 
 
@@ -2087,7 +3083,9 @@ async function submitAnswerSheet() {
         );
 
         return;
+
     }
+
 
     if (!selectedFiles.length) {
 
@@ -2097,89 +3095,158 @@ async function submitAnswerSheet() {
         );
 
         return;
+
     }
+
 
     const submitButton =
         document.getElementById(
             "submitButton"
         );
 
-    submitButton.disabled = true;
+
+    submitButton.disabled =
+        true;
+
+
+    document.getElementById(
+        "progressContainer"
+    ).style.display =
+        "block";
+
 
     showSubmissionMessage(
         "Preparing answer-sheet photos...",
         "info"
     );
 
-    document.getElementById(
-        "progressContainer"
-    ).style.display = "block";
 
     try {
 
         const photos =
             await preparePhotos();
 
+
         /*
-         * IMPORTANT FIX:
-         * Validate "base64", because Code.gs
-         * expects photo.base64.
+         * IMPORTANT:
+         * Check base64.
          */
 
         const validPhotos =
             photos.filter(
                 function(photo) {
 
-                    return photo &&
-                           photo.base64 &&
-                           String(
-                               photo.base64
-                           ).trim() !== "";
+                    return (
+                        photo &&
+                        photo.base64 &&
+                        String(
+                            photo.base64
+                        ).trim() !== ""
+                    );
+
                 }
             );
 
-        if (!validPhotos.length) {
+
+        if (
+            !validPhotos.length
+        ) {
 
             throw new Error(
                 "No valid photos were prepared."
             );
+
         }
+
 
         const studentId =
             currentStudent.studentId ||
-            currentStudent.id;
+            currentStudent.studentID ||
+            currentStudent.id ||
+            localStorage.getItem(
+                "studentId"
+            );
+
 
         const studentName =
             currentStudent.studentName ||
             currentStudent.name ||
+            localStorage.getItem(
+                "studentName"
+            ) ||
             "";
+
 
         const paperId =
             getPaperId(
                 selectedPaper
             );
 
+
         if (!studentId) {
+
             throw new Error(
                 "Student ID is missing."
             );
+
         }
 
+
         if (!paperId) {
+
             throw new Error(
                 "Paper ID is missing."
             );
+
         }
+
+
+        /*
+         * Show useful information in console.
+         * Do NOT print the actual base64.
+         */
+
+        console.log(
+            "Submitting:",
+            {
+                studentId:
+                    studentId,
+
+                studentName:
+                    studentName,
+
+                paperId:
+                    paperId,
+
+                photoCount:
+                    validPhotos.length,
+
+                firstPhoto:
+                    {
+                        fileName:
+                            validPhotos[0].fileName,
+
+                        mimeType:
+                            validPhotos[0].mimeType,
+
+                        base64Length:
+                            validPhotos[0].base64.length
+                    }
+            }
+        );
+
 
         showSubmissionMessage(
             "Uploading answer sheet...",
             "info"
         );
 
+
         const result =
             await api(
                 "saveSubmission",
                 {
+
                     studentId:
                         studentId,
 
@@ -2191,28 +3258,37 @@ async function submitAnswerSheet() {
 
                     photos:
                         validPhotos
+
                 }
             );
+
 
         console.log(
             "Submission response:",
             result
         );
 
+
         showSubmissionMessage(
             "Your answer sheet has been submitted successfully.",
             "success"
         );
 
+
         selectedFiles = [];
+
 
         previewSelectedFiles();
 
+
         document.getElementById(
             "progressContainer"
-        ).style.display = "none";
+        ).style.display =
+            "none";
+
 
         await loadSubmissionStatus();
+
 
         updateSubmissionCount();
 
@@ -2223,6 +3299,7 @@ async function submitAnswerSheet() {
             error
         );
 
+
         showSubmissionMessage(
             "Submission failed: " +
             (
@@ -2232,14 +3309,19 @@ async function submitAnswerSheet() {
             "error"
         );
 
+
         document.getElementById(
             "progressContainer"
-        ).style.display = "none";
+        ).style.display =
+            "none";
 
     } finally {
 
-        submitButton.disabled = false;
+        submitButton.disabled =
+            false;
+
     }
+
 }
 
 
@@ -2249,73 +3331,104 @@ async function submitAnswerSheet() {
 
 function startEditMode() {
 
-    editMode = true;
+    editMode =
+        true;
+
 
     selectedFiles = [];
 
+
     previewSelectedFiles();
+
 
     document.getElementById(
         "submissionStatus"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "submissionArea"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     /*
-     * Camera and file upload remain visible
-     * during edit mode.
+     * CAMERA AND FILE BUTTONS
+     * REMAIN VISIBLE IN EDIT MODE.
      */
+
 
     document.getElementById(
         "submitButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "editSubmitButton"
-    ).style.display = "inline-block";
+    ).style.display =
+        "inline-block";
+
 
     document.getElementById(
         "cancelEditButton"
-    ).style.display = "inline-block";
+    ).style.display =
+        "inline-block";
+
 
     showSubmissionMessage(
         "Edit mode enabled. Upload your new answer-sheet photos.",
         "info"
     );
+
 }
 
 
 function cancelEditMode() {
 
-    editMode = false;
+    editMode =
+        false;
+
 
     selectedFiles = [];
 
+
     previewSelectedFiles();
+
 
     document.getElementById(
         "submissionArea"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "editSubmitButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "cancelEditButton"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "submitButton"
-    ).style.display = "inline-block";
+    ).style.display =
+        "inline-block";
+
 
     document.getElementById(
         "submissionStatus"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     clearSubmissionMessage();
+
 }
 
 
@@ -2333,7 +3446,9 @@ async function editAnswerSheet() {
         );
 
         return;
+
     }
+
 
     if (!selectedFiles.length) {
 
@@ -2343,88 +3458,145 @@ async function editAnswerSheet() {
         );
 
         return;
+
     }
+
 
     const button =
         document.getElementById(
             "editSubmitButton"
         );
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
+
 
     document.getElementById(
         "progressContainer"
-    ).style.display = "block";
+    ).style.display =
+        "block";
+
 
     showSubmissionMessage(
         "Preparing edited answer-sheet photos...",
         "info"
     );
 
+
     try {
 
         const photos =
             await preparePhotos();
 
-        /*
-         * IMPORTANT FIX:
-         * Validate "base64", not "fileBase64".
-         */
 
         const validPhotos =
             photos.filter(
                 function(photo) {
 
-                    return photo &&
-                           photo.base64 &&
-                           String(
-                               photo.base64
-                           ).trim() !== "";
+                    return (
+                        photo &&
+                        photo.base64 &&
+                        String(
+                            photo.base64
+                        ).trim() !== ""
+                    );
+
                 }
             );
 
-        if (!validPhotos.length) {
+
+        if (
+            !validPhotos.length
+        ) {
 
             throw new Error(
                 "No valid photos were prepared."
             );
+
         }
+
 
         const studentId =
             currentStudent.studentId ||
-            currentStudent.id;
+            currentStudent.studentID ||
+            currentStudent.id ||
+            localStorage.getItem(
+                "studentId"
+            );
+
 
         const studentName =
             currentStudent.studentName ||
             currentStudent.name ||
+            localStorage.getItem(
+                "studentName"
+            ) ||
             "";
+
 
         const paperId =
             getPaperId(
                 selectedPaper
             );
 
+
         if (!studentId) {
+
             throw new Error(
                 "Student ID is missing."
             );
+
         }
 
+
         if (!paperId) {
+
             throw new Error(
                 "Paper ID is missing."
             );
+
         }
+
+
+        console.log(
+            "Editing submission:",
+            {
+                studentId:
+                    studentId,
+
+                paperId:
+                    paperId,
+
+                photoCount:
+                    validPhotos.length,
+
+                firstPhoto:
+                    {
+                        fileName:
+                            validPhotos[0].fileName,
+
+                        mimeType:
+                            validPhotos[0].mimeType,
+
+                        base64Length:
+                            validPhotos[0].base64.length
+                    }
+            }
+        );
+
 
         showSubmissionMessage(
             "Uploading edited answer sheet...",
             "info"
         );
 
+
         const result =
             await api(
                 "editSubmission",
                 {
+
                     studentId:
                         studentId,
 
@@ -2436,30 +3608,41 @@ async function editAnswerSheet() {
 
                     photos:
                         validPhotos
+
                 }
             );
+
 
         console.log(
             "Edit submission response:",
             result
         );
 
+
         showSubmissionMessage(
             "Your answer sheet has been updated successfully.",
             "success"
         );
 
+
         selectedFiles = [];
+
 
         previewSelectedFiles();
 
+
         document.getElementById(
             "progressContainer"
-        ).style.display = "none";
+        ).style.display =
+            "none";
 
-        editMode = false;
+
+        editMode =
+            false;
+
 
         await loadSubmissionStatus();
+
 
         updateSubmissionCount();
 
@@ -2470,6 +3653,7 @@ async function editAnswerSheet() {
             error
         );
 
+
         showSubmissionMessage(
             "Submission failed: " +
             (
@@ -2479,14 +3663,19 @@ async function editAnswerSheet() {
             "error"
         );
 
+
         document.getElementById(
             "progressContainer"
-        ).style.display = "none";
+        ).style.display =
+            "none";
 
     } finally {
 
-        button.disabled = false;
+        button.disabled =
+            false;
+
     }
+
 }
 
 
@@ -2494,13 +3683,16 @@ async function editAnswerSheet() {
    FILE TO BASE64
 ========================================================= */
 
-function fileToBase64(file) {
+function fileToBase64(
+    file
+) {
 
     return new Promise(
         function(resolve, reject) {
 
             const reader =
                 new FileReader();
+
 
             reader.onload =
                 function() {
@@ -2510,24 +3702,34 @@ function fileToBase64(file) {
                         const result =
                             reader.result;
 
+
                         if (!result) {
+
                             resolve("");
+
                             return;
+
                         }
 
+
                         const commaIndex =
-                            result.indexOf(",");
+                            result.indexOf(
+                                ","
+                            );
+
 
                         if (
                             commaIndex >= 0
                         ) {
 
                             resolve(
+
                                 result
                                     .substring(
                                         commaIndex + 1
                                     )
                                     .trim()
+
                             );
 
                         } else {
@@ -2537,13 +3739,19 @@ function fileToBase64(file) {
                                     result
                                 ).trim()
                             );
+
                         }
 
                     } catch (error) {
 
-                        reject(error);
+                        reject(
+                            error
+                        );
+
                     }
+
                 };
+
 
             reader.onerror =
                 function() {
@@ -2553,11 +3761,17 @@ function fileToBase64(file) {
                             "Unable to read image file."
                         )
                     );
+
                 };
 
-            reader.readAsDataURL(file);
+
+            reader.readAsDataURL(
+                file
+            );
+
         }
     );
+
 }
 
 
@@ -2573,19 +3787,27 @@ function updateProgress(
     const percentage =
         total
             ? Math.round(
-                (current / total) * 100
-              )
+                (
+                    current /
+                    total
+                ) *
+                100
+            )
             : 0;
+
 
     document.getElementById(
         "progressFill"
     ).style.width =
-        percentage + "%";
+        percentage +
+        "%";
+
 
     document.getElementById(
         "progressText"
     ).textContent =
         `Preparing photo ${current} of ${total}...`;
+
 }
 
 
@@ -2601,6 +3823,7 @@ async function loadResults() {
             currentStudent.studentId ||
             currentStudent.id;
 
+
         const result =
             await api(
                 "getStudentResults",
@@ -2610,14 +3833,17 @@ async function loadResults() {
                 }
             );
 
+
         resultsData =
             result.results ||
             result.data ||
             [];
 
+
         renderResults(
             resultsData
         );
+
 
         document.getElementById(
             "totalResults"
@@ -2631,45 +3857,73 @@ async function loadResults() {
             error
         );
 
+
         resultsData = [];
+
 
         renderResults(
             resultsData
         );
+
     }
+
 }
 
 
-function renderResults(results) {
+function renderResults(
+    results
+) {
 
     const container =
         document.getElementById(
             "resultsContainer"
         );
 
-    if (!results ||
-        results.length === 0) {
+
+    if (
+        !results ||
+        results.length === 0
+    ) {
 
         container.innerHTML =
             '<div class="empty">No results available.</div>';
 
         return;
+
     }
 
+
     let html = `
+
         <div style="overflow-x:auto;">
+
         <table class="result-table">
 
             <thead>
+
                 <tr>
-                    <th>Subject</th>
-                    <th>Marks</th>
-                    <th>Status</th>
+
+                    <th>
+                        Subject
+                    </th>
+
+                    <th>
+                        Marks
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
                 </tr>
+
             </thead>
 
+
             <tbody>
+
     `;
+
 
     results.forEach(
         function(result) {
@@ -2687,6 +3941,7 @@ function renderResults(results) {
                     )
                 );
 
+
             const marks =
                 getDeepFlexibleValue(
                     result,
@@ -2700,6 +3955,7 @@ function renderResults(results) {
                     ]
                 );
 
+
             const status =
                 getDeepFlexibleValue(
                     result,
@@ -2707,9 +3963,12 @@ function renderResults(results) {
                         "status",
                         "Status"
                     ]
-                ) || "Available";
+                ) ||
+                "Available";
+
 
             html += `
+
                 <tr>
 
                     <td>
@@ -2718,34 +3977,53 @@ function renderResults(results) {
                         )}
                     </td>
 
-                    <td>
-                        ${escapeHtml(
-                            marks === undefined ||
-                            marks === null
-                            ? "-"
-                            : String(marks)
-                        )}
-                    </td>
 
                     <td>
                         ${escapeHtml(
-                            String(status)
+
+                            marks === undefined ||
+                            marks === null
+
+                                ? "-"
+
+                                : String(
+                                    marks
+                                )
+
+                        )}
+                    </td>
+
+
+                    <td>
+                        ${escapeHtml(
+                            String(
+                                status
+                            )
                         )}
                     </td>
 
                 </tr>
+
             `;
+
         }
     );
 
+
     html += `
+
             </tbody>
+
         </table>
+
         </div>
+
     `;
+
 
     container.innerHTML =
         html;
+
 }
 
 
@@ -2761,6 +4039,14 @@ async function updateSubmissionCount() {
             currentStudent.studentId ||
             currentStudent.id;
 
+
+        if (!studentId) {
+
+            return;
+
+        }
+
+
         const result =
             await api(
                 "getStudentSubmissions",
@@ -2770,10 +4056,12 @@ async function updateSubmissionCount() {
                 }
             );
 
+
         const submissions =
             result.submissions ||
             result.data ||
             [];
+
 
         document.getElementById(
             "totalSubmissions"
@@ -2786,7 +4074,9 @@ async function updateSubmissionCount() {
             "Submission count error:",
             error
         );
+
     }
+
 }
 
 
@@ -2794,55 +4084,92 @@ async function updateSubmissionCount() {
    STATUS BADGE
 ========================================================= */
 
-function getStatusBadge(status) {
+function getStatusBadge(
+    status
+) {
 
     const value =
         String(
             status || ""
         ).toLowerCase();
 
-    if (value === "submitted") {
+
+    if (
+        value === "submitted"
+    ) {
 
         return `
-            <span class="status-badge status-submitted">
+
+            <span
+                class="status-badge status-submitted">
+
                 Submitted
+
             </span>
+
         `;
+
     }
 
-    if (value === "pending") {
+
+    if (
+        value === "pending"
+    ) {
 
         return `
-            <span class="status-badge status-pending">
+
+            <span
+                class="status-badge status-pending">
+
                 Pending
+
             </span>
+
         `;
+
     }
+
 
     return `
-        <span class="status-badge status-none">
+
+        <span
+            class="status-badge status-none">
+
             ${escapeHtml(
-                status || "Not Submitted"
+                status ||
+                "Not Submitted"
             )}
+
         </span>
+
     `;
+
 }
 
 
 /* =========================================================
-   SUBJECT HELPERS
+   BUSINESS STUDIES FIX
 ========================================================= */
 
-function correctBusinessStudies(value) {
+function correctBusinessStudies(
+    value
+) {
 
-    if (value === undefined ||
-        value === null) {
+    if (
+        value === undefined ||
+        value === null
+    ) {
 
         return value;
+
     }
 
+
     const text =
-        String(value);
+        String(
+            value
+        );
+
 
     if (
         text.toLowerCase().trim() ===
@@ -2850,9 +4177,12 @@ function correctBusinessStudies(value) {
     ) {
 
         return "Business Studies";
+
     }
 
+
     return text;
+
 }
 
 
@@ -2866,10 +4196,15 @@ function getDeepFlexibleValue(
 ) {
 
     if (!obj) {
+
         return undefined;
+
     }
 
-    for (const key of keys) {
+
+    for (
+        const key of keys
+    ) {
 
         const value =
             getFlexibleValue(
@@ -2877,17 +4212,24 @@ function getDeepFlexibleValue(
                 key
             );
 
+
         if (
             value !== undefined &&
             value !== null &&
-            String(value).trim() !== ""
+            String(
+                value
+            ).trim() !== ""
         ) {
 
             return value;
+
         }
+
     }
 
+
     return undefined;
+
 }
 
 
@@ -2896,11 +4238,15 @@ function getFlexibleValue(
     key
 ) {
 
-    if (!obj ||
-        typeof obj !== "object") {
+    if (
+        !obj ||
+        typeof obj !== "object"
+    ) {
 
         return undefined;
+
     }
+
 
     if (
         Object.prototype.hasOwnProperty.call(
@@ -2910,10 +4256,15 @@ function getFlexibleValue(
     ) {
 
         return obj[key];
+
     }
 
+
     const target =
-        normalize(key);
+        normalize(
+            key
+        );
+
 
     for (
         const existingKey of
@@ -2921,15 +4272,23 @@ function getFlexibleValue(
     ) {
 
         if (
-            normalize(existingKey) ===
+            normalize(
+                existingKey
+            ) ===
             target
         ) {
 
-            return obj[existingKey];
+            return obj[
+                existingKey
+            ];
+
         }
+
     }
 
+
     return undefined;
+
 }
 
 
@@ -2942,181 +4301,221 @@ function getValue(
         obj,
         keys
     );
+
 }
 
 
-function normalize(value) {
+function normalize(
+    value
+) {
 
-    return String(value || "")
-        .toLowerCase()
-        .replace(
-            /[^a-z0-9]/g,
-            ""
-        );
+    return String(
+        value || ""
+    )
+    .toLowerCase()
+    .replace(
+        /[^a-z0-9]/g,
+        ""
+    );
+
 }
 
 
 /* =========================================================
-   DATE / TIME FORMAT
+   DATE / TIME
 ========================================================= */
 
-function formatDate(value) {
+function formatDate(
+    value
+) {
 
     if (!value) {
+
         return "-";
+
     }
+
 
     const date =
-        new Date(value);
+        new Date(
+            value
+        );
 
-    if (isNaN(date.getTime())) {
-        return String(value);
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(
+            value
+        );
+
     }
+
 
     const day =
         String(
             date.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const month =
         String(
             date.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const year =
         date.getFullYear();
 
+
     return `${day}/${month}/${year}`;
+
 }
 
 
 /*
- * NEW:
- * Shows complete date + time.
+ * COMPLETE DATE + TIME
  */
 
-function formatDateTime(value) {
+function formatDateTime(
+    value
+) {
 
     if (
         value === undefined ||
         value === null ||
-        String(value).trim() === ""
+        String(
+            value
+        ).trim() === ""
     ) {
 
         return "-";
+
     }
+
 
     let date;
 
-    /*
-     * Handle normal JavaScript dates
-     */
+
     if (
         value instanceof Date
     ) {
 
-        date = value;
+        date =
+            value;
 
     } else {
 
         const text =
-            String(value).trim();
+            String(
+                value
+            ).trim();
 
-        /*
-         * Handle Google Sheets style dates
-         */
+
         date =
-            new Date(text);
+            new Date(
+                text
+            );
+
 
         /*
-         * Handle numeric timestamp
+         * Numeric timestamp
          */
+
         if (
-            isNaN(date.getTime()) &&
-            !isNaN(Number(text))
+            isNaN(
+                date.getTime()
+            ) &&
+            !isNaN(
+                Number(
+                    text
+                )
+            )
         ) {
 
             date =
                 new Date(
-                    Number(text)
+                    Number(
+                        text
+                    )
                 );
+
         }
+
     }
+
 
     if (
         !date ||
-        isNaN(date.getTime())
+        isNaN(
+            date.getTime()
+        )
     ) {
 
-        return String(value);
+        return String(
+            value
+        );
+
     }
+
 
     const day =
         String(
             date.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const month =
         String(
             date.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const year =
         date.getFullYear();
 
+
     let hours =
         date.getHours();
+
 
     const minutes =
         String(
             date.getMinutes()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
-    hours =
-        hours % 12 || 12;
-
-    return `
-        ${day}/${month}/${year}
-        ${hours}:${minutes} ${ampm}
-    `.replace(/\s+/g, " ").trim();
-}
-
-
-function formatTime(value) {
-
-    if (!value) {
-        return "-";
-    }
-
-    const date =
-        new Date(value);
-
-    if (isNaN(date.getTime())) {
-        return String(value);
-    }
-
-    let hours =
-        date.getHours();
-
-    const minutes =
-        String(
-            date.getMinutes()
-        ).padStart(2, "0");
-
-    const ampm =
-        hours >= 12
-            ? "PM"
-            : "AM";
 
     hours =
-        hours % 12 || 12;
+        hours % 12 ||
+        12;
 
-    return `${hours}:${minutes} ${ampm}`;
+
+    return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+
 }
 
 
@@ -3124,13 +4523,19 @@ function formatTime(value) {
    HTML ESCAPE
 ========================================================= */
 
-function escapeHtml(value) {
+function escapeHtml(
+    value
+) {
 
     return String(
+
         value === undefined ||
         value === null
+
             ? ""
+
             : value
+
     )
     .replace(
         /&/g,
@@ -3152,6 +4557,7 @@ function escapeHtml(value) {
         /'/g,
         "&#039;"
     );
+
 }
 
 
@@ -3169,8 +4575,10 @@ function showSubmissionMessage(
             "submissionMessage"
         );
 
+
     element.textContent =
         message;
+
 
     element.className =
         "message " +
@@ -3179,8 +4587,10 @@ function showSubmissionMessage(
             "info"
         );
 
+
     element.style.display =
         "block";
+
 }
 
 
@@ -3191,10 +4601,14 @@ function clearSubmissionMessage() {
             "submissionMessage"
         );
 
-    element.textContent = "";
+
+    element.textContent =
+        "";
+
 
     element.style.display =
         "none";
+
 }
 
 
@@ -3204,12 +4618,52 @@ function clearSubmissionMessage() {
 
 function logout() {
 
+    /*
+     * Clear ALL student login data
+     * created by your index.html.
+     */
+
     localStorage.removeItem(
         "studentSession"
     );
 
+    localStorage.removeItem(
+        "studentId"
+    );
+
+    localStorage.removeItem(
+        "studentName"
+    );
+
+    localStorage.removeItem(
+        "student"
+    );
+
+
+    sessionStorage.removeItem(
+        "studentId"
+    );
+
+    sessionStorage.removeItem(
+        "studentName"
+    );
+
+    sessionStorage.removeItem(
+        "student"
+    );
+
+    sessionStorage.removeItem(
+        "examPortalRole"
+    );
+
+
+    /*
+     * Your actual login page is index.html.
+     */
+
     window.location.href =
         "index.html";
+
 }
 
 </script>
