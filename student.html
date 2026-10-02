@@ -1918,10 +1918,6 @@ function isPaperPublished(paper) {
     }
 
 
-    /*
-     * Check common published fields.
-     */
-
     const publishedValue =
         getValue(
             paper,
@@ -1960,10 +1956,6 @@ function isPaperPublished(paper) {
     }
 
 
-    /*
-     * Some paper systems use Status.
-     */
-
     const status =
         getValue(
             paper,
@@ -1983,16 +1975,6 @@ function isPaperPublished(paper) {
 
     }
 
-
-    /*
-     * IMPORTANT:
-     *
-     * If no published field exists,
-     * do NOT show the paper.
-     *
-     * This prevents unpublished papers
-     * from appearing to students.
-     */
 
     return false;
 
@@ -2014,12 +1996,6 @@ function filterAssignedPapers(paperList) {
 
     }
 
-
-    /*
-     * Use Admin assignments directly.
-     *
-     * Assignment = studentId + subjectId
-     */
 
     const assignedSubjectIds =
         new Set();
@@ -2069,14 +2045,6 @@ function filterAssignedPapers(paperList) {
     );
 
 
-    console.log(
-        "Paper filter assigned subjects:",
-        Array.from(
-            assignedSubjectIds
-        )
-    );
-
-
     return paperList.filter(
         function (paper) {
 
@@ -2093,11 +2061,6 @@ function filterAssignedPapers(paperList) {
             }
 
 
-            /*
-             * FIRST:
-             * Paper must belong to assigned subject.
-             */
-
             if (
                 !assignedSubjectIds.has(
                     normalize(
@@ -2110,11 +2073,6 @@ function filterAssignedPapers(paperList) {
 
             }
 
-
-            /*
-             * SECOND:
-             * Paper MUST be published.
-             */
 
             if (
                 !isPaperPublished(
@@ -2217,14 +2175,6 @@ function renderPaperSelect() {
             option.value =
                 paperId;
 
-
-            /*
-             * Student sees ONLY:
-             *
-             * Subject - Title
-             *
-             * No Paper ID.
-             */
 
             option.textContent =
                 (
@@ -2344,9 +2294,28 @@ function showSelectedPaper() {
         );
 
 
+    /*
+     * FIXED PAPER INFORMATION
+     *
+     * These functions now accept many
+     * possible Google Sheet column names.
+     */
+
     const paperCode =
-        getPaperCode(
-            selectedPaper
+        getFlexiblePaperValue(
+            selectedPaper,
+            [
+                "paperCode",
+                "Paper Code",
+                "PaperCode",
+                "paper_code",
+                "paper-code",
+                "paper code",
+                "Paper Code",
+                "paper code",
+                "code",
+                "Code"
+            ]
         );
 
 
@@ -2357,12 +2326,15 @@ function showSelectedPaper() {
 
 
     const examDate =
-        getValue(
+        getFlexiblePaperValue(
             selectedPaper,
             [
                 "examDate",
                 "Exam Date",
+                "ExamDate",
                 "exam_date",
+                "exam-date",
+                "exam date",
                 "date",
                 "Date"
             ]
@@ -2370,31 +2342,69 @@ function showSelectedPaper() {
 
 
     const startTime =
-        getValue(
+        getFlexiblePaperValue(
             selectedPaper,
             [
                 "startTime",
                 "Start Time",
+                "StartTime",
                 "start_time",
+                "start-time",
+                "start time",
                 "examStartTime",
                 "Exam Start Time",
-                "exam_start_time"
+                "ExamStartTime",
+                "exam_start_time",
+                "exam-start-time",
+                "exam start time"
             ]
         );
 
 
     const endTime =
-        getValue(
+        getFlexiblePaperValue(
             selectedPaper,
             [
                 "endTime",
                 "End Time",
+                "EndTime",
                 "end_time",
+                "end-time",
+                "end time",
                 "examEndTime",
                 "Exam End Time",
-                "exam_end_time"
+                "ExamEndTime",
+                "exam_end_time",
+                "exam-end-time",
+                "exam end time"
             ]
         );
+
+
+    console.log(
+        "Selected paper:",
+        selectedPaper
+    );
+
+    console.log(
+        "Paper Code:",
+        paperCode
+    );
+
+    console.log(
+        "Exam Date:",
+        examDate
+    );
+
+    console.log(
+        "Start Time:",
+        startTime
+    );
+
+    console.log(
+        "End Time:",
+        endTime
+    );
 
 
     document.getElementById(
@@ -2467,6 +2477,154 @@ function showSelectedPaper() {
 
 
     loadSubmissionStatus();
+
+}
+
+
+/* =========================================================
+   FLEXIBLE PAPER VALUE
+   ========================================================= */
+
+function getFlexiblePaperValue(object, keys) {
+
+    if (
+        !object ||
+        typeof object !== "object"
+    ) {
+
+        return "";
+
+    }
+
+
+    /*
+     * First check exact names.
+     */
+
+    for (
+        let i = 0;
+        i < keys.length;
+        i++
+    ) {
+
+        const key =
+            keys[i];
+
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                object,
+                key
+            )
+        ) {
+
+            const value =
+                object[key];
+
+
+            if (
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+            ) {
+
+                return String(
+                    value
+                ).trim();
+
+            }
+
+        }
+
+    }
+
+
+    /*
+     * Then compare normalized names.
+     *
+     * This allows:
+     *
+     * Paper Code
+     * PaperCode
+     * paper_code
+     * paper-code
+     *
+     * to be treated as the same field.
+     */
+
+    function cleanKey(value) {
+
+        return String(
+            value || ""
+        )
+        .toLowerCase()
+        .replace(
+            /[\s_\-]/g,
+            ""
+        );
+
+    }
+
+
+    const objectKeys =
+        Object.keys(
+            object
+        );
+
+
+    for (
+        let i = 0;
+        i < keys.length;
+        i++
+    ) {
+
+        const wantedKey =
+            cleanKey(
+                keys[i]
+            );
+
+
+        for (
+            let j = 0;
+            j < objectKeys.length;
+            j++
+        ) {
+
+            const actualKey =
+                objectKeys[j];
+
+
+            if (
+                cleanKey(
+                    actualKey
+                ) ===
+                wantedKey
+            ) {
+
+                const value =
+                    object[actualKey];
+
+
+                if (
+                    value !== null &&
+                    value !== undefined &&
+                    String(value).trim() !== ""
+                ) {
+
+                    return String(
+                        value
+                    ).trim();
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    return "";
 
 }
 
@@ -3370,17 +3528,6 @@ async function submitAnswerSheet() {
                 );
 
 
-            /*
-             * VERY IMPORTANT:
-             *
-             * Code.gs expects:
-             *
-             * photo.base64
-             *
-             * NOT:
-             * photo.fileBase64
-             */
-
             photos.push({
 
                 fileName:
@@ -3813,12 +3960,6 @@ async function editAnswerSheet() {
                 );
 
 
-            /*
-             * IMPORTANT:
-             * editSubmission must receive
-             * the same photo structure.
-             */
-
             photos.push({
 
                 fileName:
@@ -3980,15 +4121,6 @@ function fileToBase64(file) {
                         );
 
 
-                    /*
-                     * Code.gs uses:
-                     *
-                     * Utilities.base64Decode(base64)
-                     *
-                     * Therefore send ONLY
-                     * the Base64 content.
-                     */
-
                     if (
                         commaIndex !== -1
                     ) {
@@ -4100,11 +4232,6 @@ async function loadResults() {
 
         }
 
-
-        /*
-         * Extra frontend filtering:
-         * Student can see only their own results.
-         */
 
         results =
             results.filter(
@@ -4259,12 +4386,17 @@ function renderResults() {
 
 
             let paperCode =
-                getValue(
+                getFlexiblePaperValue(
                     result,
                     [
                         "paperCode",
                         "Paper Code",
-                        "PaperCode"
+                        "PaperCode",
+                        "paper_code",
+                        "paper-code",
+                        "paper code",
+                        "code",
+                        "Code"
                     ]
                 );
 
@@ -4280,12 +4412,6 @@ function renderResults() {
                     ]
                 );
 
-
-            /*
-             * If result does not contain
-             * subject/paper information,
-             * use local paper data.
-             */
 
             if (
                 (!subjectName || !paperCode) &&
@@ -4778,15 +4904,24 @@ function getPaperSubjectName(paper) {
 }
 
 
+/*
+ * Paper Code helper
+ *
+ * Kept separately because Results also
+ * uses this helper.
+ */
+
 function getPaperCode(paper) {
 
-    return getValue(
+    return getFlexiblePaperValue(
         paper,
         [
             "paperCode",
             "Paper Code",
             "PaperCode",
             "paper_code",
+            "paper-code",
+            "paper code",
             "code",
             "Code"
         ]
