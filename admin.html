@@ -12,10 +12,14 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f4f7fb;
     color: #222;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 .header {
     background: linear-gradient(135deg, #1565c0, #42a5f5);
@@ -26,6 +30,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.15);
 }
 
 .header h1 {
@@ -38,11 +43,19 @@ body {
     opacity: .9;
 }
 
+/* =========================
+   CONTAINER
+========================= */
+
 .container {
     max-width: 1400px;
     margin: auto;
     padding: 20px;
 }
+
+/* =========================
+   SUMMARY
+========================= */
 
 .summary {
     display: grid;
@@ -70,6 +83,10 @@ body {
     color: #1565c0;
 }
 
+/* =========================
+   SECTION
+========================= */
+
 .section {
     background: white;
     border-radius: 14px;
@@ -84,6 +101,10 @@ body {
     border-bottom: 2px solid #e7eef8;
     padding-bottom: 12px;
 }
+
+/* =========================
+   FORM
+========================= */
 
 .form-grid {
     display: grid;
@@ -122,6 +143,10 @@ textarea:focus {
     outline: none;
     border-color: #1976d2;
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 button {
     border: none;
@@ -175,6 +200,10 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* =========================
+   MESSAGE
+========================= */
+
 .message {
     padding: 12px 15px;
     border-radius: 8px;
@@ -201,6 +230,10 @@ button:disabled {
     color: #1565c0;
 }
 
+/* =========================
+   TABLE
+========================= */
+
 .table-wrapper {
     overflow-x: auto;
     margin-top: 15px;
@@ -218,6 +251,7 @@ th {
     padding: 12px;
     text-align: left;
     font-size: 13px;
+    white-space: nowrap;
 }
 
 td {
@@ -241,6 +275,10 @@ tr:hover td {
     padding: 7px 10px;
     font-size: 12px;
 }
+
+/* =========================
+   BADGES
+========================= */
 
 .badge {
     display: inline-block;
@@ -274,6 +312,10 @@ tr:hover td {
     background: #fff3e0;
     color: #ef6c00;
 }
+
+/* =========================
+   ASSIGNMENT
+========================= */
 
 .checkbox-list {
     border: 1px solid #ccd6e0;
@@ -355,7 +397,122 @@ tr:hover td {
     font-size: 12px;
 }
 
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+.photo-modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(0,0,0,.88);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.photo-modal.show {
+    display: flex;
+}
+
+.photo-modal-content {
+    width: min(1100px, 96vw);
+    height: min(90vh, 800px);
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 50px rgba(0,0,0,.5);
+}
+
+.photo-modal-header {
+    background: #1565c0;
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.photo-modal-title {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.photo-close {
+    background: #c62828;
+    color: white;
+    padding: 7px 12px;
+}
+
+.photo-modal-body {
+    flex: 1;
+    min-height: 0;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.photo-modal-body img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.photo-modal-footer {
+    background: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.photo-counter {
+    font-weight: bold;
+    color: #555;
+    min-width: 100px;
+    text-align: center;
+}
+
+.photo-nav {
+    padding: 8px 15px;
+}
+
+.photo-all-button {
+    background: #607d8b;
+    color: white;
+}
+
+/* =========================
+   RESULT FILTER INFO
+========================= */
+
+.result-declared-note {
+    margin-top: 8px;
+    color: #2e7d32;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.result-paper-option-declared {
+    color: #999;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media (max-width: 900px) {
+
     .summary {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -370,6 +527,7 @@ tr:hover td {
 }
 
 @media (max-width: 600px) {
+
     .summary {
         grid-template-columns: 1fr 1fr;
     }
@@ -389,6 +547,15 @@ tr:hover td {
     .header h1 {
         font-size: 20px;
     }
+
+    .photo-modal {
+        padding: 5px;
+    }
+
+    .photo-modal-content {
+        width: 100%;
+        height: 95vh;
+    }
 }
 </style>
 </head>
@@ -396,17 +563,27 @@ tr:hover td {
 <body>
 
 <div class="header">
+
     <div>
         <h1>Online Exam Portal</h1>
         <p>Administrator Dashboard</p>
     </div>
 
-    <button class="btn-light" onclick="logout()">Logout</button>
+    <button class="btn-light" onclick="logout()">
+        Logout
+    </button>
+
 </div>
+
 
 <div class="container">
 
+    <!-- =========================
+         SUMMARY
+    ========================== -->
+
     <div class="summary">
+
         <div class="summary-card">
             <h3>Students</h3>
             <div class="number" id="studentCount">0</div>
@@ -426,44 +603,85 @@ tr:hover td {
             <h3>Submissions</h3>
             <div class="number" id="submissionCount">0</div>
         </div>
+
     </div>
+
 
     <div id="message" class="message"></div>
 
 
-    <!-- STUDENT MANAGEMENT -->
+    <!-- =========================
+         STUDENT MANAGEMENT
+    ========================== -->
 
     <div class="section">
+
         <h2>Student Management</h2>
 
         <div class="form-grid">
 
             <div class="form-group">
+
                 <label>Student ID</label>
-                <input type="text" id="studentId" placeholder="Enter student ID">
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter student ID"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Student Name</label>
-                <input type="text" id="studentName" placeholder="Enter student name">
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                >
+
             </div>
+
 
             <div class="form-group">
+
                 <label>Password</label>
-                <input type="text" id="studentPassword" placeholder="Enter password">
+
+                <input
+                    type="text"
+                    id="studentPassword"
+                    placeholder="Enter password"
+                >
+
             </div>
 
-            <div class="form-group" style="justify-content:end;">
-                <button class="btn-primary" onclick="createStudent()">
+
+            <div
+                class="form-group"
+                style="justify-content:end;"
+            >
+
+                <button
+                    class="btn-primary"
+                    onclick="createStudent()"
+                >
                     Create Student
                 </button>
+
             </div>
 
         </div>
 
+
         <div class="table-wrapper">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>#</th>
                         <th>Student ID</th>
@@ -471,137 +689,244 @@ tr:hover td {
                         <th>Password</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
 
                 <tbody id="studentTableBody"></tbody>
+
             </table>
+
         </div>
+
     </div>
 
 
-    <!-- SUBJECT MANAGEMENT -->
+    <!-- =========================
+         SUBJECT MANAGEMENT
+    ========================== -->
 
     <div class="section">
+
         <h2>Subject Management</h2>
 
         <div class="form-grid">
 
             <div class="form-group">
+
                 <label>Subject Name</label>
-                <input type="text" id="subjectName" placeholder="Enter subject name">
+
+                <input
+                    type="text"
+                    id="subjectName"
+                    placeholder="Enter subject name"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Subject Code</label>
-                <input type="text" id="subjectCode" placeholder="Example: 216">
+
+                <input
+                    type="text"
+                    id="subjectCode"
+                    placeholder="Example: 216"
+                >
+
             </div>
 
+
             <div class="form-group">
-                <button class="btn-primary" onclick="createSubject()">
+
+                <button
+                    class="btn-primary"
+                    onclick="createSubject()"
+                >
                     Add Subject
                 </button>
+
             </div>
 
         </div>
 
+
         <div class="table-wrapper">
+
             <table>
+
                 <thead>
+
                     <tr>
                         <th>#</th>
                         <th>Subject ID</th>
                         <th>Subject Name</th>
                         <th>Subject Code</th>
                     </tr>
+
                 </thead>
 
                 <tbody id="subjectTableBody"></tbody>
+
             </table>
+
         </div>
+
     </div>
 
 
-    <!-- ASSIGN SUBJECTS -->
+    <!-- =========================
+         ASSIGN SUBJECTS
+    ========================== -->
 
     <div class="section">
+
         <h2>Assign Subjects to Student</h2>
 
         <div class="form-group">
+
             <label>Select Student</label>
 
-            <select id="assignmentStudent" onchange="loadStudentAssignments()">
-                <option value="">Select Student</option>
+            <select
+                id="assignmentStudent"
+                onchange="loadStudentAssignments()"
+            >
+
+                <option value="">
+                    Select Student
+                </option>
+
             </select>
+
         </div>
 
+
         <br>
+
 
         <label>Select Subjects</label>
 
-        <div class="checkbox-list" id="assignmentSubjects">
-            <div class="empty">Select a student first.</div>
+        <div
+            class="checkbox-list"
+            id="assignmentSubjects"
+        >
+
+            <div class="empty">
+                Select a student first.
+            </div>
+
         </div>
 
-        <div class="selected-count" id="selectedSubjectCount">
+
+        <div
+            class="selected-count"
+            id="selectedSubjectCount"
+        >
             Selected: 0 / 10
         </div>
 
+
         <br>
 
-        <button class="btn-primary" onclick="saveAssignments()">
+
+        <button
+            class="btn-primary"
+            onclick="saveAssignments()"
+        >
             Save Assigned Subjects
         </button>
+
     </div>
 
 
-    <!-- QUESTION PAPER MANAGEMENT -->
+    <!-- =========================
+         QUESTION PAPER MANAGEMENT
+    ========================== -->
 
     <div class="section">
+
         <h2>Question Paper Management</h2>
 
         <div class="form-grid">
 
             <div class="form-group">
+
                 <label>Paper Code</label>
-                <input type="text" id="paperCode" placeholder="Example: HS216-01">
+
+                <input
+                    type="text"
+                    id="paperCode"
+                    placeholder="Example: HS216-01"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Subject</label>
 
                 <select id="paperSubject">
-                    <option value="">Select Subject</option>
+
+                    <option value="">
+                        Select Subject
+                    </option>
+
                 </select>
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Paper Title</label>
+
                 <input
                     type="text"
                     id="paperTitle"
                     placeholder="Enter question paper title"
                 >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Total Marks</label>
+
                 <input
                     type="number"
                     id="totalMarks"
                     placeholder="Example: 20"
                     min="1"
                 >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Exam Start</label>
-                <input type="datetime-local" id="examStart">
+
+                <input
+                    type="datetime-local"
+                    id="examStart"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label>Exam End</label>
-                <input type="datetime-local" id="examEnd">
+
+                <input
+                    type="datetime-local"
+                    id="examEnd"
+                >
+
             </div>
+
 
             <div class="form-group full">
 
@@ -618,6 +943,7 @@ tr:hover td {
                 </div>
 
             </div>
+
 
             <div class="form-group">
 
@@ -663,7 +989,9 @@ tr:hover td {
     </div>
 
 
-    <!-- STUDENT SUBMISSIONS -->
+    <!-- =========================
+         STUDENT SUBMISSIONS
+    ========================== -->
 
     <div class="section">
 
@@ -697,7 +1025,9 @@ tr:hover td {
     </div>
 
 
-    <!-- RESULT MANAGEMENT -->
+    <!-- =========================
+         RESULT MANAGEMENT
+    ========================== -->
 
     <div class="section">
 
@@ -715,9 +1045,11 @@ tr:hover td {
                         id="resultStudent"
                         onchange="loadResultPapersForStudent()"
                     >
+
                         <option value="">
                             Select Student
                         </option>
+
                     </select>
 
                 </div>
@@ -731,10 +1063,17 @@ tr:hover td {
                         id="resultPaper"
                         onchange="loadSelectedResultPaper()"
                     >
+
                         <option value="">
                             Select Question Paper
                         </option>
+
                     </select>
+
+                    <div
+                        id="resultDeclaredNote"
+                        class="result-declared-note"
+                    ></div>
 
                 </div>
 
@@ -823,7 +1162,9 @@ tr:hover td {
 
             </div>
 
+
             <br>
+
 
             <button
                 class="btn-primary"
@@ -866,6 +1207,90 @@ tr:hover td {
 </div>
 
 
+<!-- =========================
+     PHOTO VIEWER MODAL
+========================== -->
+
+<div
+    id="photoModal"
+    class="photo-modal"
+    onclick="handlePhotoModalClick(event)"
+>
+
+    <div class="photo-modal-content">
+
+        <div class="photo-modal-header">
+
+            <div
+                id="photoModalTitle"
+                class="photo-modal-title"
+            >
+                Student Answer Sheet
+            </div>
+
+            <button
+                class="photo-close"
+                onclick="closePhotoModal()"
+            >
+                ✕ Close
+            </button>
+
+        </div>
+
+
+        <div class="photo-modal-body">
+
+            <img
+                id="photoModalImage"
+                src=""
+                alt="Student Answer Sheet"
+            >
+
+        </div>
+
+
+        <div class="photo-modal-footer">
+
+            <button
+                id="photoPrevButton"
+                class="btn-secondary photo-nav"
+                onclick="previousPhoto()"
+            >
+                ◀ Previous
+            </button>
+
+
+            <div
+                id="photoCounter"
+                class="photo-counter"
+            >
+                1 / 1
+            </div>
+
+
+            <button
+                id="photoNextButton"
+                class="btn-primary photo-nav"
+                onclick="nextPhoto()"
+            >
+                Next ▶
+            </button>
+
+
+            <button
+                class="photo-all-button photo-nav"
+                onclick="openCurrentPhotoInNewTab()"
+            >
+                Open in New Tab
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
 const API_URL =
@@ -880,9 +1305,17 @@ let submissions = [];
 let results = [];
 
 
-// =====================================================
-// API
-// =====================================================
+/* =========================
+   PHOTO VIEWER VARIABLES
+========================= */
+
+let currentPhotoUrls = [];
+let currentPhotoIndex = 0;
+
+
+/* =====================================================
+   API
+===================================================== */
 
 async function api(action, data = {}) {
 
@@ -931,9 +1364,9 @@ async function api(action, data = {}) {
 }
 
 
-// =====================================================
-// MESSAGE
-// =====================================================
+/* =====================================================
+   MESSAGE
+===================================================== */
 
 function showMessage(message, type = "success") {
 
@@ -958,9 +1391,9 @@ function showMessage(message, type = "success") {
 }
 
 
-// =====================================================
-// INITIAL LOAD
-// =====================================================
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
 
 window.addEventListener(
     "load",
@@ -972,9 +1405,9 @@ window.addEventListener(
 );
 
 
-// =====================================================
-// REFRESH DATA
-// =====================================================
+/* =====================================================
+   REFRESH DATA
+===================================================== */
 
 async function refreshData() {
 
@@ -1061,9 +1494,9 @@ async function refreshData() {
 }
 
 
-// =====================================================
-// RENDER ALL
-// =====================================================
+/* =====================================================
+   RENDER ALL
+===================================================== */
 
 function renderAll() {
 
@@ -1110,9 +1543,9 @@ function renderAll() {
 }
 
 
-// =====================================================
-// GENERIC VALUE HELPER
-// =====================================================
+/* =====================================================
+   GENERIC VALUE HELPER
+===================================================== */
 
 function value(obj, keys) {
 
@@ -1135,9 +1568,9 @@ function value(obj, keys) {
 }
 
 
-// =====================================================
-// STUDENT HELPERS
-// =====================================================
+/* =====================================================
+   STUDENT HELPERS
+===================================================== */
 
 function getStudentId(student) {
 
@@ -1163,9 +1596,9 @@ function getStudentName(student) {
 }
 
 
-// =====================================================
-// SUBJECT HELPERS
-// =====================================================
+/* =====================================================
+   SUBJECT HELPERS
+===================================================== */
 
 function getSubjectId(subject) {
 
@@ -1203,9 +1636,9 @@ function getSubjectCode(subject) {
 }
 
 
-// =====================================================
-// PAPER HELPERS
-// =====================================================
+/* =====================================================
+   PAPER HELPERS
+===================================================== */
 
 function getPaperId(paper) {
 
@@ -1273,9 +1706,9 @@ function getFileUrl(paper) {
 }
 
 
-// =====================================================
-// SUBMISSION HELPERS
-// =====================================================
+/* =====================================================
+   SUBMISSION HELPERS
+===================================================== */
 
 function getSubmissionStudentId(item) {
 
@@ -1374,9 +1807,44 @@ function findSubmission(studentId, paperId) {
 }
 
 
-// =====================================================
-// DATE
-// =====================================================
+/* =====================================================
+   RESULT CHECK
+   IMPORTANT:
+   Checks whether result is already declared
+   for THIS STUDENT + THIS PAPER.
+===================================================== */
+
+function hasDeclaredResult(studentId, paperId) {
+
+    return results.some(item => {
+
+        const resultStudentId =
+            value(item, [
+                "studentId",
+                "Student ID",
+                "StudentId"
+            ]);
+
+        const resultPaperId =
+            value(item, [
+                "paperId",
+                "Paper ID",
+                "PaperId"
+            ]);
+
+        return (
+            String(resultStudentId) === String(studentId) &&
+            String(resultPaperId) === String(paperId)
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
 
 function formatDateTime(dateValue) {
 
@@ -1401,9 +1869,9 @@ function formatDateTime(dateValue) {
 }
 
 
-// =====================================================
-// STUDENTS
-// =====================================================
+/* =====================================================
+   STUDENTS
+===================================================== */
 
 function renderStudents() {
 
@@ -1594,9 +2062,9 @@ async function deleteStudent(studentId) {
 }
 
 
-// =====================================================
-// SUBJECTS
-// =====================================================
+/* =====================================================
+   SUBJECTS
+===================================================== */
 
 function renderSubjects() {
 
@@ -1719,9 +2187,9 @@ async function createSubject() {
 }
 
 
-// =====================================================
-// STUDENT DROPDOWNS
-// =====================================================
+/* =====================================================
+   STUDENT DROPDOWNS
+===================================================== */
 
 function populateStudentDropdowns() {
 
@@ -1779,8 +2247,10 @@ function populateStudentDropdowns() {
 
 
     if (currentAssignment) {
+
         assignmentSelect.value =
             currentAssignment;
+
     }
 
 
@@ -1792,12 +2262,13 @@ function populateStudentDropdowns() {
         loadResultPapersForStudent();
 
     }
+
 }
 
 
-// =====================================================
-// ASSIGNMENTS
-// =====================================================
+/* =====================================================
+   ASSIGNMENTS
+===================================================== */
 
 function getAssignedSubjects(studentId) {
 
@@ -2106,9 +2577,9 @@ async function saveAssignments() {
 }
 
 
-// =====================================================
-// PAPER SUBJECT
-// =====================================================
+/* =====================================================
+   PAPER SUBJECT
+===================================================== */
 
 function populatePaperSubject() {
 
@@ -2166,9 +2637,9 @@ function populatePaperSubject() {
 }
 
 
-// =====================================================
-// RESULT PAPER DROPDOWN
-// =====================================================
+/* =====================================================
+   RESULT PAPER DROPDOWN
+===================================================== */
 
 function populatePaperDropdown() {
 
@@ -2180,12 +2651,17 @@ function populatePaperDropdown() {
 
     select.innerHTML =
         '<option value="">Select a student first</option>';
+
 }
 
 
-// =====================================================
-// RESULT PAPERS LINKED TO SUBMISSIONS
-// =====================================================
+/* =====================================================
+   RESULT PAPERS LINKED TO SUBMISSIONS
+
+   IMPORTANT CHANGE:
+   Papers already having a result for the
+   selected student are NOT shown again.
+===================================================== */
 
 function loadResultPapersForStudent() {
 
@@ -2207,11 +2683,19 @@ function loadResultPapersForStudent() {
         );
 
 
+    const note =
+        document.getElementById(
+            "resultDeclaredNote"
+        );
+
+
     select.innerHTML =
         '<option value="">Select Question Paper</option>';
 
 
     subjectInput.value = "";
+
+    note.textContent = "";
 
 
     if (!studentId) {
@@ -2243,6 +2727,8 @@ function loadResultPapersForStudent() {
 
     const usedPaperIds = [];
 
+    let declaredCount = 0;
+
 
     studentSubmissions.forEach(
         submission => {
@@ -2265,11 +2751,35 @@ function loadResultPapersForStudent() {
                         String(paperId)
                 )
             ) {
+
                 return;
+
             }
 
 
             usedPaperIds.push(paperId);
+
+
+            /*
+             * NEW:
+             *
+             * If result already exists for
+             * this student + paper, do not
+             * put it into the selection.
+             */
+
+            if (
+                hasDeclaredResult(
+                    studentId,
+                    paperId
+                )
+            ) {
+
+                declaredCount++;
+
+                return;
+
+            }
 
 
             const paper =
@@ -2293,10 +2803,21 @@ function loadResultPapersForStudent() {
 
             if (paper) {
 
-                option.textContent =
-                    getPaperCode(paper) +
-                    " - " +
+                const code =
+                    getPaperCode(paper);
+
+                const title =
                     getPaperTitle(paper);
+
+                option.textContent =
+                    (
+                        code
+                        ?
+                        code + " - "
+                        :
+                        ""
+                    ) +
+                    title;
 
             } else {
 
@@ -2314,14 +2835,27 @@ function loadResultPapersForStudent() {
     );
 
 
+    /*
+     * If all submitted papers already
+     * have declared results.
+     */
+
     if (
         select.options.length === 1
     ) {
 
         select.innerHTML =
-            '<option value="">No question paper found</option>';
+            '<option value="">All submitted papers have declared results</option>';
 
-        return;
+    }
+
+
+    if (declaredCount > 0) {
+
+        note.textContent =
+            declaredCount +
+            " paper result already declared and hidden from selection.";
+
     }
 
 
@@ -2329,9 +2863,9 @@ function loadResultPapersForStudent() {
 }
 
 
-// =====================================================
-// SELECTED RESULT PAPER
-// =====================================================
+/* =====================================================
+   SELECTED RESULT PAPER
+===================================================== */
 
 function loadSelectedResultPaper() {
 
@@ -2480,9 +3014,9 @@ function loadSelectedResultPaper() {
 }
 
 
-// =====================================================
-// PAPER STATUS
-// =====================================================
+/* =====================================================
+   PAPER STATUS
+===================================================== */
 
 function normalizePaperStatus(paper) {
 
@@ -2541,9 +3075,9 @@ function normalizePaperStatus(paper) {
 }
 
 
-// =====================================================
-// RENDER PAPERS
-// =====================================================
+/* =====================================================
+   RENDER PAPERS
+===================================================== */
 
 function renderPapers() {
 
@@ -2775,9 +3309,9 @@ function renderPapers() {
 }
 
 
-// =====================================================
-// OPEN PAPER
-// =====================================================
+/* =====================================================
+   OPEN PAPER
+===================================================== */
 
 function openPaper(paperId) {
 
@@ -2823,9 +3357,9 @@ function openPaper(paperId) {
 }
 
 
-// =====================================================
-// PUBLISH PAPER
-// =====================================================
+/* =====================================================
+   PUBLISH PAPER
+===================================================== */
 
 async function publishPaper(paperId) {
 
@@ -2867,9 +3401,9 @@ async function publishPaper(paperId) {
 }
 
 
-// =====================================================
-// UNPUBLISH PAPER
-// =====================================================
+/* =====================================================
+   UNPUBLISH PAPER
+===================================================== */
 
 async function unpublishPaper(paperId) {
 
@@ -2911,9 +3445,9 @@ async function unpublishPaper(paperId) {
 }
 
 
-// =====================================================
-// DELETE PAPER
-// =====================================================
+/* =====================================================
+   DELETE PAPER
+===================================================== */
 
 async function deletePaper(paperId) {
 
@@ -2954,9 +3488,9 @@ async function deletePaper(paperId) {
 }
 
 
-// =====================================================
-// FILE TO BASE64
-// =====================================================
+/* =====================================================
+   FILE TO BASE64
+===================================================== */
 
 function fileToBase64(file) {
 
@@ -2992,12 +3526,13 @@ function fileToBase64(file) {
 
         }
     );
+
 }
 
 
-// =====================================================
-// UPLOAD QUESTION PAPER
-// =====================================================
+/* =====================================================
+   UPLOAD QUESTION PAPER
+===================================================== */
 
 async function uploadPaper() {
 
@@ -3121,22 +3656,6 @@ async function uploadPaper() {
             );
 
 
-        /*
-         * IMPORTANT
-         *
-         * Code.gs expects:
-         *
-         * data.fileBase64
-         *
-         * Therefore this HTML sends:
-         *
-         * fileBase64: base64
-         *
-         * Every upload creates a separate
-         * upload request.
-         */
-
-
         await api(
             "uploadPaper",
             {
@@ -3172,12 +3691,6 @@ async function uploadPaper() {
         );
 
 
-        /*
-         * Clear the complete form.
-         * This allows another different
-         * question paper to be uploaded.
-         */
-
         document.getElementById(
             "paperCode"
         ).value = "";
@@ -3208,17 +3721,8 @@ async function uploadPaper() {
         ).value = "";
 
 
-        /*
-         * Reset file input completely.
-         */
-
         fileInput.value = "";
 
-
-        /*
-         * Reload all papers so the
-         * newly uploaded paper appears.
-         */
 
         await refreshData();
 
@@ -3248,9 +3752,9 @@ async function uploadPaper() {
 }
 
 
-// =====================================================
-// SUBMISSIONS
-// =====================================================
+/* =====================================================
+   SUBMISSIONS
+===================================================== */
 
 function renderSubmissions() {
 
@@ -3346,11 +3850,6 @@ function renderSubmissions() {
                 }
 
 
-                /*
-                 * If subject is still empty,
-                 * get it from the paper.
-                 */
-
                 if (!subjectName) {
 
                     const paper =
@@ -3444,8 +3943,7 @@ function renderSubmissions() {
                     );
 
 
-                let photoButton =
-                    "";
+                let photoButton = "";
 
 
                 if (
@@ -3455,22 +3953,12 @@ function renderSubmissions() {
                     photoButton = `
                         <div class="photo-buttons">
 
-                            ${
-                                photoUrls.map(
-                                    (url, index) => {
-
-                                        return `
-                                            <button
-                                                class="btn-light"
-                                                onclick="openPhoto('${escapeAttr(url)}')"
-                                            >
-                                                View ${index + 1}
-                                            </button>
-                                        `;
-
-                                    }
-                                ).join("")
-                            }
+                            <button
+                                class="btn-primary"
+                                onclick='openPhotoViewer(${JSON.stringify(photoUrls)})'
+                            >
+                                View Photos (${photoUrls.length})
+                            </button>
 
                         </div>
                     `;
@@ -3567,16 +4055,29 @@ function renderSubmissions() {
 }
 
 
-// =====================================================
-// OPEN SUBMISSION PHOTO
-// =====================================================
+/* =====================================================
+   PHOTO VIEWER
+===================================================== */
 
-function openPhoto(url) {
+function openPhotoViewer(urls) {
 
-    if (!url) {
+    if (!Array.isArray(urls)) {
+
+        urls = [urls];
+
+    }
+
+
+    currentPhotoUrls =
+        urls
+            .filter(Boolean)
+            .map(String);
+
+
+    if (!currentPhotoUrls.length) {
 
         showMessage(
-            "Photo URL is not available.",
+            "No student submission photos found.",
             "error"
         );
 
@@ -3584,16 +4085,258 @@ function openPhoto(url) {
     }
 
 
-    window.open(
-        url,
-        "_blank"
-    );
+    currentPhotoIndex = 0;
+
+
+    updatePhotoViewer();
+
+
+    document
+        .getElementById("photoModal")
+        .classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
 }
 
 
-// =====================================================
-// RESULTS
-// =====================================================
+function updatePhotoViewer() {
+
+    const image =
+        document.getElementById(
+            "photoModalImage"
+        );
+
+
+    const counter =
+        document.getElementById(
+            "photoCounter"
+        );
+
+
+    const previous =
+        document.getElementById(
+            "photoPrevButton"
+        );
+
+
+    const next =
+        document.getElementById(
+            "photoNextButton"
+        );
+
+
+    const title =
+        document.getElementById(
+            "photoModalTitle"
+        );
+
+
+    if (!currentPhotoUrls.length) {
+
+        return;
+    }
+
+
+    image.src =
+        currentPhotoUrls[
+            currentPhotoIndex
+        ];
+
+
+    counter.textContent =
+        (
+            currentPhotoIndex + 1
+        ) +
+        " / " +
+        currentPhotoUrls.length;
+
+
+    title.textContent =
+        "Student Answer Sheet - Photo " +
+        (
+            currentPhotoIndex + 1
+        );
+
+
+    previous.disabled =
+        currentPhotoUrls.length <= 1;
+
+
+    next.disabled =
+        currentPhotoUrls.length <= 1;
+
+}
+
+
+function previousPhoto() {
+
+    if (
+        currentPhotoUrls.length <= 1
+    ) {
+        return;
+    }
+
+
+    currentPhotoIndex--;
+
+
+    if (
+        currentPhotoIndex < 0
+    ) {
+
+        currentPhotoIndex =
+            currentPhotoUrls.length - 1;
+
+    }
+
+
+    updatePhotoViewer();
+
+}
+
+
+function nextPhoto() {
+
+    if (
+        currentPhotoUrls.length <= 1
+    ) {
+        return;
+    }
+
+
+    currentPhotoIndex++;
+
+
+    if (
+        currentPhotoIndex >=
+        currentPhotoUrls.length
+    ) {
+
+        currentPhotoIndex = 0;
+
+    }
+
+
+    updatePhotoViewer();
+
+}
+
+
+function openCurrentPhotoInNewTab() {
+
+    if (
+        !currentPhotoUrls.length
+    ) {
+        return;
+    }
+
+
+    window.open(
+        currentPhotoUrls[
+            currentPhotoIndex
+        ],
+        "_blank"
+    );
+
+}
+
+
+function closePhotoModal() {
+
+    document
+        .getElementById("photoModal")
+        .classList.remove("show");
+
+
+    document
+        .getElementById("photoModalImage")
+        .src = "";
+
+
+    document.body.style.overflow =
+        "";
+
+
+    currentPhotoUrls = [];
+
+    currentPhotoIndex = 0;
+
+}
+
+
+function handlePhotoModalClick(event) {
+
+    if (
+        event.target.id ===
+        "photoModal"
+    ) {
+
+        closePhotoModal();
+
+    }
+
+}
+
+
+/* =====================================================
+   KEYBOARD PHOTO NAVIGATION
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "photoModal"
+            );
+
+
+        if (
+            !modal.classList.contains(
+                "show"
+            )
+        ) {
+            return;
+        }
+
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closePhotoModal();
+
+        }
+
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+
+            previousPhoto();
+
+        }
+
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+
+            nextPhoto();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   RESULTS
+===================================================== */
 
 document.getElementById(
     "resultMarks"
@@ -3656,13 +4399,6 @@ function calculatePercentage() {
             "%";
 
 
-        /*
-         * PASS / FAIL RULE
-         *
-         * 33% or above = PASS
-         * Below 33% = FAIL
-         */
-
         resultInput.value =
             percentage >= 33
             ? "Pass"
@@ -3675,12 +4411,13 @@ function calculatePercentage() {
         resultInput.value = "";
 
     }
+
 }
 
 
-// =====================================================
-// SAVE RESULT
-// =====================================================
+/* =====================================================
+   SAVE RESULT
+===================================================== */
 
 async function saveResult() {
 
@@ -3713,12 +4450,6 @@ async function saveResult() {
             "resultRemarks"
         ).value.trim();
 
-
-    /*
-     * Calculate percentage and result
-     * again here so the saved result
-     * cannot be changed manually.
-     */
 
     const marksNumber =
         parseFloat(marks);
@@ -3762,11 +4493,6 @@ async function saveResult() {
         : "Fail";
 
 
-    /*
-     * Show the calculated values
-     * before saving.
-     */
-
     document.getElementById(
         "resultPercentage"
     ).value = percentage;
@@ -3776,17 +4502,6 @@ async function saveResult() {
         "resultStatus"
     ).value = result;
 
-
-    /*
-     * IMPORTANT:
-     *
-     * Result must be connected to
-     * Student + Question Paper.
-     *
-     * The selected question paper is
-     * already restricted to papers for
-     * which this student has submitted.
-     */
 
     const submission =
         findSubmission(
@@ -3874,9 +4589,9 @@ async function saveResult() {
 }
 
 
-// =====================================================
-// RENDER RESULTS
-// =====================================================
+/* =====================================================
+   RENDER RESULTS
+===================================================== */
 
 function renderResults() {
 
@@ -3941,11 +4656,6 @@ function renderResults() {
                     );
 
 
-                /*
-                 * Find the exact submission
-                 * for this result.
-                 */
-
                 const submission =
                     findSubmission(
                         studentId,
@@ -3972,16 +4682,6 @@ function renderResults() {
                     :
                     paperId;
 
-
-                /*
-                 * SUBJECT:
-                 *
-                 * First take it from the
-                 * submission.
-                 *
-                 * If unavailable, get it
-                 * from the question paper.
-                 */
 
                 let subjectName = "";
 
@@ -4232,9 +4932,9 @@ function renderResults() {
 }
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value) {
 
@@ -4274,6 +4974,7 @@ function escapeHtml(value) {
             /'/g,
             "&#039;"
         );
+
 }
 
 
@@ -4284,9 +4985,9 @@ function escapeAttr(value) {
 }
 
 
-// =====================================================
-// LOGOUT
-// =====================================================
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 function logout() {
 
@@ -4296,10 +4997,13 @@ function logout() {
         )
     ) {
 
+        closePhotoModal();
+
         window.location.href =
             "index.html";
 
     }
+
 }
 
 </script>
